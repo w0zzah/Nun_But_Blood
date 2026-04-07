@@ -21,4 +21,6 @@ Last Edited 0359 02/04/26 @author cwi184 - "Defined Enemy structure"
             + applyCurse(): boolean
 */
 public class Demon {
+
+    private String name;
 }
