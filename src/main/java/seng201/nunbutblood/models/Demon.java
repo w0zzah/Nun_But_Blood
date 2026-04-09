@@ -49,6 +49,13 @@ public class Demon {
         return "This Demon is " + name + ". It has a difficulty rating of " + difficultyRating +
                 " and a weakness to " + weakness;}
 
-    public boolean applyCurse() {}
+    public boolean applyCurse() {
+        if (Math.random() * difficultyRating < curseChance){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
 }
