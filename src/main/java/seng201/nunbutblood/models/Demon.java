@@ -4,7 +4,7 @@ package seng201.nunbutblood.models;
 Last Edited 0359 02/04/26 @author cwi184 - "Defined Enemy structure"
 
         Demon Class ---
-        TODO:
+     //   TODO:
           Attributes:
             - name: String
             - dificultyRating: int
@@ -46,16 +46,23 @@ public class Demon {
     public double getCurseChance() { return curseChance; }
 
     public String getDescription() {
-        return "This Demon is " + name + ". It has a difficulty rating of " + difficultyRating +
-                " and a weakness to " + weakness;}
+        return String.format(
+                "%s | Difficulty %d | Weak to %s | Reward: %d Faith | Curse chance: %.0f%%",
+                name, difficultyRating, weakness, faithReward, curseChance * 100
+        );
+    }
 
     public boolean applyCurse() {
-        if (Math.random() * difficultyRating < curseChance){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return Math.random() < curseChance;
     }
 
 }
+/**
+ * Creates a Demon with the given combat attributes.
+ *
+ * @param name             display name of the demon
+ * @param difficultyRating combat difficulty, scales curse roll
+ * @param weakness         stat type this demon is weak to ("STR", "WIS", "DEX")
+ * @param faithReward      faith awarded on defeat
+ * @param curseChance      probability of curse triggering (0.0 to 1.0)
+ */
