@@ -2,52 +2,47 @@ package seng201.nunbutblood.models;
 
 import seng201.nunbutblood.characters.Apostles;
 
-/*
+/**
+ * Represents a purchasable item that can be applied to an apostle.
+ * Items are either consumed on use (UPGRADE, SKILL_TOME) or
+ * persist while equipped (EQUIPMENT).
+ *
+ * @author pgi33
+ */
 
-Last Edited 1645 12/04/26 @author pgi33 - "Item Class implementation"
-
-        Item Class --- Implements Purchasable
-  //      TODO:
-          Attributes:
-            + ItemType: enum
-            - itemName: string
-            - type: ItemType
-            - statAffected: String
-            - bonusValue: int
-            - cost: int
-            - itemDescription: String
-          Methods:
-            + applyEffect(Apostle apostle)
-            + getItemName(): ItemType
-            + getStatAffected(): String
-            + getBonusValue(): int
-            + getCost(): int <<purchasble>>
-            + getDecription: String <<purchasable>>
-*/
 public class Item implements Purchasable {
 
+    /**
+     * Defines the functional category of an item.
+     * Determines how applyEffect() behaves.
+     */
     public enum ItemType {
-        UPGRADE,    // one-time stat boost, consumed on use
-        EQUIPMENT,  // equippable, provides stat bonus while held
-        SKILL_TOME  // grants a special ability
+        /** One-time permanent stat boost, consumed on use. */
+        UPGRADE,
+        /** Equippable item that boosts stats while held. */
+        EQUIPMENT,
+        /** Grants the apostle a named special ability, consumed on use. */
+        SKILL_TOME
     }
     /** Display name of item. */
-    private String itemName;
+    private final String itemName;
 
     /** Functional category that determines how the item behaves. */
-    private ItemType type;
+    private final ItemType type;
 
     /** The stat this item affects — one of "STR", "WIS", "DEX", "STA", "PER". */
-    private String statAffected;
+    private final String statAffected;
 
     /** The amount added to the affected stat. */
-    private int bonusValue;
+    private final int bonusValue;
 
     /** Faith cost to purchase from the market. */
-    private int cost;
+    private final int cost;
 
     /** Description shown in the market and inventory screens. */
-    private String itemDescription;
+    private final String itemDescription;
+
+    // ── Constructor ───────────────────────────────────────────────────────────
 
     /**
      * Creates an Item with the given attributes.
@@ -67,8 +62,6 @@ public class Item implements Purchasable {
         this.cost = cost;
         this.itemDescription = itemDescription;
     }
-
-    // ── Constructor ───────────────────────────────────────────────────────────
 
     /**
      * Applies this item's effect to the given apostle.
