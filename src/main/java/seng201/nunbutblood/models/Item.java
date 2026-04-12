@@ -4,7 +4,7 @@ import seng201.nunbutblood.characters.Apostles;
 
 /*
 
-Last Edited 0405 02/04/26 @author cwi184 - "Item Class implementation"
+Last Edited 1645 12/04/26 @author pgi33 - "Item Class implementation"
 
         Item Class --- Implements Purchasable
   //      TODO:
@@ -120,7 +120,6 @@ public class Item implements Purchasable {
 
     /**
      * Returns the faith cost to purchase this item.
-     *
      * @return cost in faith
      */
     @Override
@@ -128,7 +127,6 @@ public class Item implements Purchasable {
 
     /**
      * Returns a formatted description for market and inventory display.
-     *
      * @return description string
      */
     @Override
