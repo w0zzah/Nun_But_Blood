@@ -1,71 +1,57 @@
 package seng201.nunbutblood.models;
 
 import seng201.nunbutblood.characters.Apostles;
-import seng201.nunbutblood.models.Item;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/*
-
-Last Edited 1521 12/04/26 @author pgi33 - "Covenant Class --- Main hub to serve as Players 'home-base'"
-
-        Covenant Class --- Management of Party and Resources
-//        TODO:
-          Attributes:
-            ~ name (String) : Name of the players covenant
-            ~ faith (int) : Currency (Gold equivalent)
-            ~ totalCrusades (int) : Progress tracker
-            ~ currentCrusade (int) : Goal (5-15)
-            ~ activeParty (ArrayList) : Max 5
-            ~ reserves (ArrayList) : Max 5
-            ~ inventory (ArrayList) : Items/Objects
-            - totalFaithEarned : int
-            - score: int
-          Methods:
-            GETTERS
-            + getName(): String
-            + getFaith(): int
-            +getTotalCrusades(): int
-            + getCurrentCrusade(): int
-            + getRemainingCrusades(): int
-            + getActiveParty(): LIst
-            + getReserves(): LIst
-            + getInventory(): List
-            + getTotalFaithEarned(): int
-            + getScore(): int
-            FUNCTIONS
-            + addApostle(): bool
-            + benchApostle(): bool
-            + activateApostle(): bool
-            + retireApostle(): bool
-            + addFaith(): int
-            + spendFaith(): int
-            + payActiveParty(): int
-            + addItem(Item item):
-            + removeItem(Item item): bool
-            + addScore(int points):
-            + advanceCrusade():
-            + isGameComplete(): bool
-            + hasLost(): bool
-
+/**
+ * Represents the player's covenant — the central hub for game state.
+ * Manages the active party, reserves, inventory, faith currency,
+ * crusade progression, and win/loss conditions.
+ *
+ * @author pgi33
  */
 public class Covenant {
 
+    /** The covenant's name, set once at game setup. */
     private final String name;
+
+    /** Current faith balance, used as currency. */
     private int faith;
+
+    /** Total number of crusades chosen at game setup (5–15). */
     private final int totalCrusades;
+
+    /** Number of crusades completed so far. */
     private int currentCrusade;
+
+    /** Running total of all faith ever received, unaffected by spending. */
     private int totalFaithEarned;
+
+    /** Current score accumulated through crusades. */
     private int score;
 
+    /** Active party of apostles going on the next crusade. Max 5. */
     private final ArrayList<Apostles> activeParty;
+
+    /** Reserve apostles not used in the upcoming crusade. Max 5. */
     private final ArrayList<Apostles> reserves;
+
+    /** Items and equipment held by the covenant. */
     private final ArrayList<Item> inventory;
 
     // ── Constructor ──────────────────────────────────────────────────────────
 
+    /**
+     * Creates a new Covenant at game start.
+     *
+     * @param name           player-chosen covenant name (3–15 chars)
+     * @param totalCrusades  number of crusades chosen (5–15)
+     * @param startingFaith  starting faith based on difficulty
+     * @param startingParty  the three apostles chosen at setup
+     */
     public Covenant(String name, int totalCrusades, int startingFaith, List<Apostles> startingParty) {
         this.name             = name;
         this.totalCrusades    = totalCrusades;
@@ -80,26 +66,56 @@ public class Covenant {
 
     // ── Getters ──────────────────────────────────────────────────────────────
 
-    public String getName()           { return name; }
-    public int getFaith()             { return faith; }
-    public int getTotalCrusades()     { return totalCrusades; }
-    public int getCurrentCrusade()    { return currentCrusade; }
-    public int getRemainingCrusades() { return totalCrusades - currentCrusade; }
-    public int getTotalFaithEarned()  { return totalFaithEarned; }
-    public int getScore()             { return score; }
+    /** @return the covenant's name */
+    public String getName() { return name; }
 
+    /** @return current faith balance */
+    public int getFaith() { return faith; }
+
+    /** @return total number of crusades chosen at game setup */
+    public int getTotalCrusades() { return totalCrusades; }
+
+    /** @return number of crusades completed so far */
+    public int getCurrentCrusade() { return currentCrusade; }
+
+    /** @return number of crusades still to complete */
+    public int getRemainingCrusades() { return totalCrusades - currentCrusade; }
+
+    /** @return total faith ever received, not affected by spending */
+    public int getTotalFaithEarned() { return totalFaithEarned; }
+
+    /** @return current score */
+    public int getScore() { return score; }
+
+    /** @return unmodifiable view of the active party */
     public List<Apostles> getActiveParty() { return Collections.unmodifiableList(activeParty); }
-    public List<Apostles> getReserves()    { return Collections.unmodifiableList(reserves); }
-    public List<Item> getInventory()       { return Collections.unmodifiableList(inventory); }
+
+    /** @return unmodifiable view of the reserves */
+    public List<Apostles> getReserves() { return Collections.unmodifiableList(reserves); }
+
+    /** @return unmodifiable view of the inventory */
+    public List<Item> getInventory() { return Collections.unmodifiableList(inventory); }
 
     // ── Party Management ─────────────────────────────────────────────────────
 
+    /**
+     * Adds a newly hired apostle to the reserves.
+     *
+     * @param apostle the apostle to add
+     * @return true if added, false if reserves are full (max 5)
+     */
     public boolean addApostle(Apostles apostle) {
         if (reserves.size() >= 5) return false;
         reserves.add(apostle);
         return true;
     }
 
+    /**
+     * Moves an apostle from reserves to the active party.
+     *
+     * @param apostle the apostle to activate
+     * @return true if successful, false if party is full or apostle not in reserves
+     */
     public boolean activateApostle(Apostles apostle) {
         if (activeParty.size() >= 5) return false;
         if (!reserves.contains(apostle)) return false;
@@ -108,6 +124,13 @@ public class Covenant {
         return true;
     }
 
+    /**
+     * Moves an apostle from the active party to reserves.
+     * The active party must always retain at least one member.
+     *
+     * @param apostle the apostle to bench
+     * @return true if successful, false if party would be empty or reserves are full
+     */
     public boolean benchApostle(Apostles apostle) {
         if (activeParty.size() <= 1) return false;
         if (reserves.size() >= 5)    return false;
@@ -117,6 +140,13 @@ public class Covenant {
         return true;
     }
 
+    /**
+     * Permanently removes an apostle from the guild.
+     * Cannot retire the last remaining apostle across both party and reserves.
+     *
+     * @param apostle the apostle to retire
+     * @return true if retired, false if they are the last apostle or not found
+     */
     public boolean retireApostle(Apostles apostle) {
         int total = activeParty.size() + reserves.size();
         if (total <= 1) return false;
@@ -127,6 +157,13 @@ public class Covenant {
 
     // ── Faith (Currency) ─────────────────────────────────────────────────────
 
+    /**
+     * Adds faith to the balance and running total.
+     * Negative amounts are ignored.
+     *
+     * @param amount positive amount of faith to add
+     * @return new faith balance
+     */
     public int addFaith(int amount) {
         if (amount < 0) return faith;
         faith += amount;
@@ -134,12 +171,24 @@ public class Covenant {
         return faith;
     }
 
+    /**
+     * Deducts faith from the balance if funds are sufficient.
+     *
+     * @param amount positive amount to spend
+     * @return true if successful, false if insufficient funds
+     */
     public boolean spendFaith(int amount) {
         if (amount > faith) return false;
         faith -= amount;
         return true;
     }
 
+    /**
+     * Deducts upkeep pay for every apostle in the active party.
+     * Called at the start of each crusade. Balance may go negative.
+     *
+     * @return total faith paid out
+     */
     public int payActiveParty() {
         int total = activeParty.stream()
                 .mapToInt(Apostles::getUpKeep)
@@ -150,13 +199,34 @@ public class Covenant {
 
     // ── Items ─────────────────────────────────────────────────────────────────
 
-    public void addItem(Item item)       { inventory.add(item); }
+    /**
+     * Adds an item to the covenant's inventory.
+     *
+     * @param item the item to add
+     */
+    public void addItem(Item item) { inventory.add(item); }
+
+    /**
+     * Removes an item from the covenant's inventory.
+     *
+     * @param item the item to remove
+     * @return true if the item was found and removed, false otherwise
+     */
     public boolean removeItem(Item item) { return inventory.remove(item); }
 
     // ── Score & Progression ───────────────────────────────────────────────────
 
+    /**
+     * Adds points to the covenant's score.
+     *
+     * @param points points to add
+     */
     public void addScore(int points) { score += points; }
 
+    /**
+     * Advances to the next crusade and increments each active party
+     * member's crusade count.
+     */
     public void advanceCrusade() {
         currentCrusade++;
         activeParty.forEach(Apostles::incrementCrusadeCount);
@@ -164,10 +234,21 @@ public class Covenant {
 
     // ── Game State ────────────────────────────────────────────────────────────
 
+    /**
+     * Checks whether all crusades have been completed.
+     *
+     * @return true if the game is won
+     */
     public boolean isGameComplete() {
         return currentCrusade >= totalCrusades;
     }
 
+    /**
+     * Checks whether the player has lost.
+     * Loss occurs when there are no apostles and faith is zero or negative.
+     *
+     * @return true if the player has lost
+     */
     public boolean hasLost() {
         boolean noApostles = activeParty.isEmpty() && reserves.isEmpty();
         return noApostles && faith <= 0;
