@@ -5,7 +5,7 @@ package seng201.nunbutblood.models;
  * Each demon has a stat weakness that apostles can exploit for a bonus roll,
  * and a curse chance that can negatively affect the party after combat.
  *
- * @author cwi184
+ * @author pgi33
  */
 public class Demon {
 
