@@ -1,5 +1,4 @@
 /*  Last Update 01/04/26 15:49 ~ "Current css will need to be updated, this was just a test to see the difference between standard css and javafx."
-    
     Link to standalone css on git, much better than docs for basics -> https://gist.github.com/maxd/63691840fc372f22f470
      Link to relevant documentation for java21 - > https://openjfx.io/javadoc/21/javafx.graphics/javafx/scene/doc-files/cssref.html
 
@@ -27,11 +26,11 @@
 */
 .root {
     -fx-background-color: radial-gradient(
-        center 50% 50%, radius 120%,
-        #000000 0%,
-        #1a0000 40%,
-        #3b0000 70%,
-        #000000 100%
+            center 50% 50%, radius 120%,
+            #000000 0%,
+            #1a0000 40%,
+            #3b0000 70%,
+            #000000 100%
     );
 }
 
