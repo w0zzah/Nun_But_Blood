@@ -11,12 +11,12 @@ base {
 group = 'seng201.team0'
 
 def mainAppClass = 'seng201.nunbutblood.App'
-def javaVersion = '21.0.2'
-def javafxVersion = '21.0.2'
+def javaVersion = '25.0.2'
+def javafxVersion = '25.0.2'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
