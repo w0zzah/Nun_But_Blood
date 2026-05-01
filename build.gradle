@@ -10,7 +10,7 @@ base {
 }
 group = 'seng201.team0'
 
-def mainAppClass = 'seng201.team0.App'
+def mainAppClass = 'seng201.nunbutblood.App'
 def javaVersion = '21.0.2'
 def javafxVersion = '21.0.2'
 
