@@ -19,7 +19,7 @@ import seng201.nunbutblood.services.CounterService;
 */
 
 /**
- * Controller for the main.fxml window
+ * Controller for the SetupInterface.fxml window
  * @author seng201 teaching team
  */
 public class MainController {

@@ -43,7 +43,7 @@ package seng201.nunbutblood.models;
 
 */
 
-public abstract class Apostles implements Purchasable {
+public abstract class Saints implements Purchasable {
 
     /*
         The Apostle class serve's as a base for our hero's.
@@ -103,8 +103,8 @@ public abstract class Apostles implements Purchasable {
      * @param upKeep         Cost per expedition for apostle, (-240 to 240) -> calculation is (each stat - 10 / 2) * 12
      * @param portraitKey       Portrait of the Apostle generated in market
      */
-    public Apostles(String name, String portraitKey, int strength, int wisdom, int dexterity,
-                    int stamina, int perception, int hireCost, int upKeep ) {
+    public Saints(String name, String portraitKey, int strength, int wisdom, int dexterity,
+                  int stamina, int perception, int hireCost, int upKeep ) {
         this.portraitKey = portraitKey;
         this.name        = name;
         this.strength    = Math.clamp(strength, 0, 20);

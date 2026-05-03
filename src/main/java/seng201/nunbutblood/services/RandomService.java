@@ -11,4 +11,9 @@ package seng201.nunbutblood.services;
         + triggerEvents(Covenant): List<string>
 */
 public class RandomService {
+    private String difficulty;
+
+    public RandomService(String difficulty) {
+        this.difficulty = difficulty;
+    }
 }

@@ -19,14 +19,14 @@ package seng201.nunbutblood.services;
         + buildItemPool(): List<Item>
 
  */
-import seng201.nunbutblood.models.Apostles;
+import seng201.nunbutblood.models.Saints;
 
 /**
  * Market service manage's Item sold in the matkey
  */
 public class MarketService {
 
-    public Apostles generateApostle() {
+    public Saints generateApostle() {
         return null;
     }
 }

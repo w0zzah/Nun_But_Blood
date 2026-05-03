@@ -10,7 +10,7 @@ package seng201.nunbutblood.models;
  *
  * Constructor to be called in market area for further random stat's
  */
-public class Executioner extends Apostles {
+public class Executioner extends Saints {
 
     public Executioner(String name) {
         this(name, getPortraitID(name), 8, 5, 5);

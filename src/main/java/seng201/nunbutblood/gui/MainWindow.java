@@ -1,45 +1,34 @@
 package seng201.nunbutblood.gui;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /**
- * Class starts the javaFX application window
- * @author seng201 teaching team
+ * Entry point for the JavaFX application.
+ * Delegates all scene management to {@link ScreenNavigator}.
+ *
+ * @author seng201 teaching team (modified by team-10)
  */
 public class MainWindow extends Application {
 
     /**
-     * Opens the gui with the fxml content specified in resources/fxml/main.fxml
-     * @param primaryStage The current fxml stage, handled by javaFX Application class
-     * @throws IOException if there is an issue loading fxml file
+     * Initialises the primary stage and launches the setup screen.
+     *
+     * @param primaryStage the JavaFX-managed primary stage
      */
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        FXMLLoader baseLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
-        Parent root = baseLoader.load();
-
-        MainController baseController = baseLoader.getController();
-        baseController.init(primaryStage);
-
-        primaryStage.setTitle("SENG201 Example App");
-        Scene scene = new Scene(root, 1920, 1080);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public void start(Stage primaryStage) {
+        ScreenNavigator navigator = new ScreenNavigator(primaryStage);
+        navigator.goToSetup();
+        primaryStage.setFullScreen(true);
     }
 
     /**
-     * Launches the FXML application, this must be called from another class (in this cass App.java) otherwise JavaFX
-     * errors out and does not run
-     * @param args command line arguments
+     * Launches the JavaFX application. Must be called from a non-JavaFX class.
+     *
+     * @param args command-line arguments
      */
-    public static void launchWrapper(String [] args) {
+    public static void launchWrapper(String[] args) {
         launch(args);
     }
-
 }

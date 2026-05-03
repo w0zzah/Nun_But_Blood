@@ -3,11 +3,11 @@ package seng201.nunbutblood.models;
     TODO:
       Attributes:
         + ENTRY: record (name, portraittKey, type, str, wis, dex)
-        - allApostles: List <Entry>
+        - allSaints: List <Entry>
       Methods:
-        + getAllApostles() : List<Entry> {static}
+        + getAllSaints() : List<Entry> {static}
         + pickRandom(int, Random): List<Entry> {static}
-        + create(entry): Apostles {static}
+        + create(entry): Saints {static}
         + buldRoster(): ArrayList<Entry>
  */
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.Random;
 
 
 /**
- * To serve as a List containing all information for the group of Apostles.
+ * To serve as a List containing all information for the group of Saints.
  *
  * Every Apostle has their own strength, wisdom and dex, which when summed, display the rarity @Rarity
  *
@@ -28,7 +28,7 @@ import java.util.Random;
  *
  *
  */
-public class ApostleRoster {
+public class SaintsRoster {
 
     /**
      * record documentation for reference see <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Record.html">here</a>
@@ -48,12 +48,12 @@ public class ApostleRoster {
 
 
     /** The complete named Apostle catalogue.
-     * List called 'allApostles' containing all Apostles from @buildRoster function
+     * List called 'allSaints' containing all Saints from @buildRoster function
      *
      * Take's the Entry element type and creates a list with immutable size (prevent memory leaks) and mutable elements.
      *
      */
-    private static final List<Entry> allApostles = buildRoster();
+    private static final List<Entry> allSaints = buildRoster();
 
     /**
      * Returns a shuffled subset of {@code count} roster entries, drawn without
@@ -64,8 +64,8 @@ public class ApostleRoster {
      * @return shuffled list of roster entries
      */
     public static List<Entry> pickRandom(int count, Random random) {
-        // Set's List 'shuffled' = to a temporary ArrayList that contains all Apostles
-        List<Entry> shuffled = new ArrayList<>(allApostles);
+        // Set's List 'shuffled' = to a temporary ArrayList that contains all Saints
+        List<Entry> shuffled = new ArrayList<>(allSaints);
         // Collections.shuffle shuffles element's in an ArrayList (Element, Method)
         Collections.shuffle(shuffled, random);
         // Returns the new list with the target count or whatever is available
@@ -78,9 +78,9 @@ public class ApostleRoster {
      *
      * @return unmodifiable view of the full roster
      */
-    public static List<Entry> getAllApostles() {
+    public static List<Entry> getAllSaints() {
 
-        return Collections.unmodifiableList(allApostles);
+        return Collections.unmodifiableList(allSaints);
     }
 
     /**
@@ -89,7 +89,7 @@ public class ApostleRoster {
      * @param entry the roster entry to instantiate
      * @return a new Apostle object of the appropriate subclass
      */
-    public static Apostles create(Entry entry) {
+    public static Saints create(Entry entry) {
         // Return switch.
         //     Take's a list at index type and return's a
         return switch (entry.type()) {

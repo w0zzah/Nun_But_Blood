@@ -10,7 +10,7 @@ package seng201.nunbutblood.models;
  *
  * Constructor to be called in market area for further random stat's
  */
-public class Oracle extends Apostles {
+public class Oracle extends Saints {
 
     public Oracle(String name) {
         this(name, getPortraitID(name), 8, 5, 5);

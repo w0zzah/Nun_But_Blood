@@ -13,31 +13,49 @@ import java.util.List;
  */
 public class Covenant {
 
-    /** The covenant's name, set once at game setup. */
+    /**
+     * The covenant's name, set once at game setup.
+     */
     private final String name;
 
-    /** Current faith balance, used as currency. */
+    /**
+     * Current faith balance, used as currency.
+     */
     private int faith;
 
-    /** Total number of crusades chosen at game setup (5–15). */
+    /**
+     * Total number of crusades chosen at game setup (5–15).
+     */
     private final int totalCrusades;
 
-    /** Number of crusades completed so far. */
+    /**
+     * Number of crusades completed so far.
+     */
     private int currentCrusade;
 
-    /** Running total of all faith ever received, unaffected by spending. */
+    /**
+     * Running total of all faith ever received, unaffected by spending.
+     */
     private int totalFaithEarned;
 
-    /** Current score accumulated through crusades. */
+    /**
+     * Current score accumulated through crusades.
+     */
     private int score;
 
-    /** Active party of apostles going on the next crusade. Max 5. */
-    private final ArrayList<Apostles> activeParty;
+    /**
+     * Active party of apostles going on the next crusade. Max 5.
+     */
+    private final ArrayList<Saints> activeParty;
 
-    /** Reserve apostles not used in the upcoming crusade. Max 5. */
-    private final ArrayList<Apostles> reserves;
+    /**
+     * Reserve apostles not used in the upcoming crusade. Max 5.
+     */
+    private final ArrayList<Saints> reserves;
 
-    /** Items and equipment held by the covenant. */
+    /**
+     * Items and equipment held by the covenant.
+     */
     private final ArrayList<Item> inventory;
 
     // ── Constructor ──────────────────────────────────────────────────────────
@@ -45,54 +63,92 @@ public class Covenant {
     /**
      * Creates a new Covenant at game start.
      *
-     * @param name           player-chosen covenant name (3–15 chars)
-     * @param totalCrusades  number of crusades chosen (5–15)
-     * @param startingFaith  starting faith based on difficulty
-     * @param startingParty  the three apostles chosen at setup
+     * @param name          player-chosen covenant name (3–15 chars)
+     * @param totalCrusades number of crusades chosen (5–15)
      */
-    public Covenant(String name, int totalCrusades, int startingFaith, List<Apostles> startingParty) {
-        this.name             = name;
-        this.totalCrusades    = totalCrusades;
-        this.faith            = startingFaith;
-        this.currentCrusade   = 0;
-        this.totalFaithEarned = startingFaith;
-        this.score            = 0;
-        this.activeParty      = new ArrayList<>(startingParty);
-        this.reserves         = new ArrayList<>();
-        this.inventory        = new ArrayList<>();
+    public Covenant(String name, int totalCrusades, String difficulty) {
+        this.name = name;
+        this.totalCrusades = totalCrusades;
+        this.currentCrusade = 1;
+        this.activeParty = new ArrayList<>();
+        this.reserves = new ArrayList<>();
+        this.inventory = new ArrayList<>();
+        this.totalFaithEarned = 0;
+        this.score = 0;
+        this.faith = difficulty.equals("Inquisitor") ? 100 : 300;
     }
 
     // ── Getters ──────────────────────────────────────────────────────────────
 
-    /** @return the covenant's name */
-    public String getName() { return name; }
+    /**
+     * @return the covenant's name
+     */
+    public String getName() {
+        return name;
+    }
 
-    /** @return current faith balance */
-    public int getFaith() { return faith; }
+    /**
+     * @return current faith balance
+     */
+    public int getFaith() {
+        return faith;
+    }
 
-    /** @return total number of crusades chosen at game setup */
-    public int getTotalCrusades() { return totalCrusades; }
+    /**
+     * @return total number of crusades chosen at game setup
+     */
+    public int getTotalCrusades() {
+        return totalCrusades;
+    }
 
-    /** @return number of crusades completed so far */
-    public int getCurrentCrusade() { return currentCrusade; }
+    /**
+     * @return number of crusades completed so far
+     */
+    public int getCurrentCrusade() {
+        return currentCrusade;
+    }
 
-    /** @return number of crusades still to complete */
-    public int getRemainingCrusades() { return totalCrusades - currentCrusade; }
+    /**
+     * @return number of crusades still to complete
+     */
+    public int getRemainingCrusades() {
+        return totalCrusades - currentCrusade;
+    }
 
-    /** @return total faith ever received, not affected by spending */
-    public int getTotalFaithEarned() { return totalFaithEarned; }
+    /**
+     * @return total faith ever received, not affected by spending
+     */
+    public int getTotalFaithEarned() {
+        return totalFaithEarned;
+    }
 
-    /** @return current score */
-    public int getScore() { return score; }
+    /**
+     * @return current score
+     */
+    public int getScore() {
+        return score;
+    }
 
-    /** @return unmodifiable view of the active party */
-    public List<Apostles> getActiveParty() { return Collections.unmodifiableList(activeParty); }
+    /**
+     * @return unmodifiable view of the active party
+     */
+    public List<Saints> getActiveParty() {
+        return Collections.unmodifiableList(activeParty);
+    }
 
-    /** @return unmodifiable view of the reserves */
-    public List<Apostles> getReserves() { return Collections.unmodifiableList(reserves); }
+    /**
+     * @return unmodifiable view of the reserves
+     */
+    public List<Saints> getReserves() {
+        return Collections.unmodifiableList(reserves);
+    }
 
-    /** @return unmodifiable view of the inventory */
-    public List<Item> getInventory() { return Collections.unmodifiableList(inventory); }
+    /**
+     * @return unmodifiable view of the inventory
+     */
+    public List<Item> getInventory() {
+        return Collections.unmodifiableList(inventory);
+    }
 
     // ── Party Management ─────────────────────────────────────────────────────
 
@@ -102,7 +158,7 @@ public class Covenant {
      * @param apostle the apostle to add
      * @return true if added, false if reserves are full (max 5)
      */
-    public boolean addApostle(Apostles apostle) {
+    public boolean addApostle(Saints apostle) {
         if (reserves.size() >= 5) return false;
         reserves.add(apostle);
         return true;
@@ -114,7 +170,7 @@ public class Covenant {
      * @param apostle the apostle to activate
      * @return true if successful, false if party is full or apostle not in reserves
      */
-    public boolean activateApostle(Apostles apostle) {
+    public boolean activateApostle(Saints apostle) {
         if (activeParty.size() >= 5) return false;
         if (!reserves.contains(apostle)) return false;
         reserves.remove(apostle);
@@ -129,9 +185,9 @@ public class Covenant {
      * @param apostle the apostle to bench
      * @return true if successful, false if party would be empty or reserves are full
      */
-    public boolean benchApostle(Apostles apostle) {
+    public boolean benchApostle(Saints apostle) {
         if (activeParty.size() <= 1) return false;
-        if (reserves.size() >= 5)    return false;
+        if (reserves.size() >= 5) return false;
         if (!activeParty.contains(apostle)) return false;
         activeParty.remove(apostle);
         reserves.add(apostle);
@@ -145,11 +201,11 @@ public class Covenant {
      * @param apostle the apostle to retire
      * @return true if retired, false if they are the last apostle or not found
      */
-    public boolean retireApostle(Apostles apostle) {
+    public boolean retireApostle(Saints apostle) {
         int total = activeParty.size() + reserves.size();
         if (total <= 1) return false;
         if (activeParty.remove(apostle)) return true;
-        if (reserves.remove(apostle))    return true;
+        if (reserves.remove(apostle)) return true;
         return false;
     }
 
@@ -189,7 +245,7 @@ public class Covenant {
      */
     public int payActiveParty() {
         int total = activeParty.stream()
-                .mapToInt(Apostles::getUpKeep)
+                .mapToInt(Saints::getUpKeep)
                 .sum();
         faith -= total;
         return total;
@@ -202,7 +258,9 @@ public class Covenant {
      *
      * @param item the item to add
      */
-    public void addItem(Item item) { inventory.add(item); }
+    public void addItem(Item item) {
+        inventory.add(item);
+    }
 
     /**
      * Removes an item from the covenant's inventory.
@@ -210,7 +268,9 @@ public class Covenant {
      * @param item the item to remove
      * @return true if the item was found and removed, false otherwise
      */
-    public boolean removeItem(Item item) { return inventory.remove(item); }
+    public boolean removeItem(Item item) {
+        return inventory.remove(item);
+    }
 
     // ── Score & Progression ───────────────────────────────────────────────────
 
@@ -219,7 +279,9 @@ public class Covenant {
      *
      * @param points points to add
      */
-    public void addScore(int points) { score += points; }
+    public void addScore(int points) {
+        score += points;
+    }
 
     /**
      * Advances to the next crusade and increments each active party
@@ -227,7 +289,7 @@ public class Covenant {
      */
     public void advanceCrusade() {
         currentCrusade++;
-        activeParty.forEach(Apostles::incrementCrusadeCount);
+        activeParty.forEach(Saints::incrementCrusadeCount);
     }
 
     // ── Game State ────────────────────────────────────────────────────────────
@@ -250,5 +312,10 @@ public class Covenant {
     public boolean hasLost() {
         boolean noApostles = activeParty.isEmpty() && reserves.isEmpty();
         return noApostles && faith <= 0;
+    }
+
+    public void addSaints(Saints saints) {
+        if (reserves.size() >= 5) return;
+        reserves.add(saints);
     }
 }

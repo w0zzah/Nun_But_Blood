@@ -1,113 +1,282 @@
-/*  Last Update 01/04/26 15:49 ~ "Current css will need to be updated, this was just a test to see the difference between standard css and javafx."
-    Link to standalone css on git, much better than docs for basics -> https://gist.github.com/maxd/63691840fc372f22f470
-     Link to relevant documentation for java21 - > https://openjfx.io/javadoc/21/javafx.graphics/javafx/scene/doc-files/cssref.html
-
-        Key differences I have found so far:
-
-        1. '-fx' -> prefix with -fx,  see example -> background-color: value; (css) -> -fx-background-color: value; (fxcss)
-        2. HSV not HSL -> make sure when setting colours to use HSV as HSL format  will result in darker colors (see here to check colours) --> https://www.google.com/search?q=color+picker
+/*
+    JavaFX CSS reference: https://openjfx.io/javadoc/21/javafx.graphics/javafx/scene/doc-files/cssref.html
+    Key difference from web CSS: all properties prefixed with -fx-
+    Colors use HSV not HSL — use a picker to verify: https://www.google.com/search?q=color+picker
 */
 
-/*
-        BASIC'S OF CSS: (Yes it's that obvious, background-color does change the background color)
-            Colors = [ rgba(red, green, blue, transparency) or #ffffff80 <-last 2.f change transparency ] I like both and use coolors for some and others I just copy and paste from other palets i have saved
-            Sizing = [ px or % ] 12px <-- probably current size of your font, great for basic sizing that wont resize (like all of the text in runescape) 12% <-- probably size of your hand, better for text that maybe resized (like all the high quality animations in runescape, oh wait!)
-            Rule of Thumb = "Is it taking up more than 30% or is it moving? -> %,  else px"
-            Honestly css is borderline bullet-proof so just make a back-up and start playing with random values then run to see what it did.
- */
-
-
-/*
-    .root {} --> The base pallet that all other elemnts will pick from
-
-        This will be the base we build on, currently only holding background but will look to contain fonts styles,
-        border-styles, div-styles and any other key themes relevant throughout the game.
-
-*/
 .root {
     -fx-background-color: radial-gradient(
             center 50% 50%, radius 120%,
             #000000 0%,
-            #1a0000 30%,
-            #3b0000 60%,
+            #1a0000 40%,
+            #3b0000 70%,
             #000000 100%
     );
-    -fx-alignment: center;
+    /* Need font installed to work */
+    -fx-font-family: "Angel Wish";
+    -fx-font-size: 20px;
 }
 
-/*
-    .title-lable {}  --> Styles the title-lable, see fxml for more info
-
-        This will serves as key indicators consistent throughout.
-        These may include 'Chose Church Name, Recuirt Apostles, Market place, etc'
-
-*/
+.title-bar {
+    -fx-background-color: linear-gradient(to bottom, #1a0000, #000000);
+    -fx-padding: 18 40 14 40;
+    -fx-border-color: #5a0000;
+    -fx-border-width: 0 0 1 0;
+}
 
 .title-label {
-    -fx-text-fill: linear-gradient(to bottom, #ffffff, #8b0000);
-    -fx-font-family: "Cinzel Decorative", "Times New Roman", serif;
-    -fx-font-size: 20px;
-    -fx-letter-spacing: 5px;
-    -fx-effect: dropshadow(gaussian, rgba(195, 3, 3, 0.8), 20, 0.6, 0, 0);
-}
-
-/*
-    .label {} --> Styles basic's (like almost all common text will go with this)
-
-        Currently serving as click counter number and Nun'But Blood
-
-        Will serve for all basic text styling like names, stats, etc
-*/
-
-.Vbox {
-    -fx-padding: var(25px);
-}
-.label {
-    -fx-text-fill: #dddddd;
-    -fx-font-size: 30px;
-}
-
-/*
-    .glow-button {} --> Styles the passive glow on button
-
-        Currently red for 'Aura' but can look to move this similar theme of a drop shadow to player's items etc
-        might be useful later -> https://openjfx.io/javadoc/26/javafx.graphics/javafx/scene/doc-files/cssref.html#typeeffect
- */
-
-.glow-button {
-    -fx-background-color: #5a0000;
-    -fx-text-fill: white;
+    -fx-text-fill: linear-gradient(to bottom, #ffffff, #cc2200);
+    -fx-font-size: 45px;
     -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(195, 3, 3, 0.85), 22, 0.65, 0, 0);
+}
+
+.subtitle-label {
+    -fx-text-fill: #aa6655;
+    -fx-font-style: italic;
+}
+
+.stat-pill {
+    -fx-text-fill: #ffddcc;
+    -fx-background-color: rgba(90, 0, 0, 0.5);
+    -fx-padding: 4 14 4 14;
+    -fx-background-radius: 12;
+    -fx-border-color: #5a0000;
+    -fx-border-radius: 12;
+}
+
+.section-label {
+    -fx-text-fill: #cc3300;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 2;
+}
+
+.hint-label {
+    -fx-text-fill: #997766;
+    -fx-font-style: italic;
+    -fx-alignment: CENTER;
+}
+.form-section {
+    -fx-background-color: rgba(30, 0, 0, 0.6);
+    -fx-padding: 14 16 14 16;
+    -fx-background-radius: 6;
+    -fx-border-color: #3a0000;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+}
+
+.input-field {
+    -fx-background-color: #1a0000;
+    -fx-text-fill: #ffe0cc;
+    -fx-border-color: #5a0000;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 8 12 8 12;
+    -fx-prompt-text-fill: #664444;
+}
+.input-field:focused {
+    -fx-border-color: #cc2200;
+    -fx-effect: dropshadow(gaussian, rgba(200,30,0,0.4), 8, 0.4, 0, 0);
+}
+
+.error-label {
+    -fx-text-fill: #ff4444;
+}
+
+.stat-value {
+    -fx-text-fill: #ffaa88;
+    -fx-font-weight: bold;
+}
+
+.slider .track {
+    -fx-background-color: #3a0000;
+}
+.slider .thumb {
+    -fx-background-color: #cc2200;
+}
+.slider .tick-mark {
+    -fx-fill: #664444;
+}
+.slider .tick-label {
+    -fx-fill: #aa6655;
+}
+
+.diff-btn {
+    -fx-background-color: #1a0000;
+    -fx-text-fill: #cc8866;
+    -fx-padding: 12 16 12 16;
+    -fx-background-radius: 6;
+    -fx-border-color: #440000;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER;
+}
+.diff-btn:selected {
+    -fx-background-color: #5a0000;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #cc2200;
+    -fx-effect: dropshadow(gaussian, rgba(200,30,0,0.5), 10, 0.5, 0, 0);
+}
+.diff-btn:hover:!selected {
+    -fx-background-color: #2a0000;
+    -fx-border-color: #660000;
+}
+.apostle-card {
+    -fx-background-color: #140000;
+    -fx-padding: 12 14 12 14;
+    -fx-background-radius: 6;
+    -fx-border-color: #3a0000;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+}
+.apostle-card-selected {
+    -fx-border-color: #cc2200;
+    -fx-background-color: #2a0000;
+    -fx-effect: dropshadow(gaussian, rgba(200,30,0,0.6), 12, 0.5, 0, 0);
+}
+.card-name {
+    -fx-text-fill: #ffeecc;
     -fx-font-size: 14px;
-    -fx-padding: 12px 24px;
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
-    -fx-border-color: #aa0000;
-    -fx-effect: dropshadow(gaussian, rgba(195,0,0,0.5), 10, 0.5, 0, 0);
-    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
 }
-/*
-       .glow-button:hover --> .glow-button after mouse has hover over it
+.card-type {
+    -fx-text-fill: #cc6633;
+    -fx-font-size: 11px;
+    -fx-font-style: italic;
+}
+.card-stats {
+    -fx-text-fill: #aaaaaa;
+    -fx-font-size: 11px;
+    -fx-wrap-text: true;
+}
+.card-btn {
+    -fx-background-color: #330000;
+    -fx-text-fill: #cc8866;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 4;
+    -fx-border-color: #5a0000;
+    -fx-border-radius: 4;
+    -fx-cursor: hand;
+    -fx-padding: 6 10 6 10;
+}
+.card-btn:hover {
+    -fx-background-color: #5a0000;
+    -fx-text-fill: #ffffff;
+}
 
-       This will be super useful later to create a more 'interactive' interface. However idk if they reallyy want us doing it this way lmao TODO: comment that out
-       Current just showing the on hover effect for the button but will be used for almost every button -> (button1 -> button1:hover)
- */
+.apostle-list {
+    -fx-background-color: #0d0000;
+    -fx-border-color: #3a0000;
+    -fx-border-width: 1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-control-inner-background: #0d0000;
+}
+.apostle-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ccbbaa;
+    -fx-font-size: 12px;
+    -fx-padding: 6 10 6 10;
+    -fx-border-color: transparent transparent #1a0000 transparent;
+    -fx-border-width: 1;
+}
+.apostle-list .list-cell:selected {
+    -fx-background-color: #3a0000;
+    -fx-text-fill: #ffffff;
+}
+.apostle-list .list-cell:hover:!selected {
+    -fx-background-color: #200000;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+.glow-button {
+    -fx-background-color: #3a0000;
+    -fx-text-fill: #ffddcc;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 11 22 11 22;
+    -fx-background-radius: 6;
+    -fx-border-color: #880000;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(180,0,0,0.4), 8, 0.4, 0, 0);
+}
 .glow-button:hover {
-    -fx-background-color: #8b0000;
-    -fx-effect: dropshadow(gaussian, rgba(255,0,0,0.9), 25, 0.7, 0, 0);
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
+    -fx-background-color: #5a0000;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(255,0,0,0.75), 18, 0.6, 0, 0);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+.glow-button:pressed {
+    -fx-background-color: #880000;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
 }
 
-/*
-       .glow-button:pressed -> .glow-button after click
+.action-btn {
+    -fx-background-color: #1a0000;
+    -fx-text-fill: #cc8866;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 14 8 14;
+    -fx-background-radius: 4;
+    -fx-border-color: #440000;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+}
 
-       This will also add to the 'interactiveness' but should be a lower priority than hover as will be heavily backed by java
-       Didn't get the exact feel I wanted but can comeback to it https://docs.oracle.com/javase/8/javafx/api/javafx/css/PseudoClass.html
- */
-.glow-button:pressed {
-    -fx-background-color: #c30303;
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
-    -fx-effect: dropshadow(gaussian, rgba(255,0,0,1), 35, 0.9, 0, 0);
+.apostle-portrait {
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+    -fx-border-color: #333333;
+    -fx-min-height: 80;
+    -fx-pref-height: 80;
+    /* Default: dark silhouette placeholder */
+    -fx-background-color: linear-gradient(to bottom, #1a0a00, #0a0000);
+}
+.stat-bars {
+    -fx-padding: 4 0 2 0;
+}
+.stat-track {
+    -fx-background-color: #1a1a1a;
+    -fx-background-radius: 4;
+    -fx-min-height: 8;
+    -fx-max-height: 8;
+    -fx-pref-height: 8;
+}
+.stat-label {
+    -fx-text-fill: #888888;
+    -fx-font-size: 10px;
+    -fx-font-family: "Courier New";
+}
+.stat-label-primary {
+    -fx-text-fill: #ffddcc;
+    -fx-font-size: 10px;
+    -fx-font-family: "Courier New";
+    -fx-font-weight: bold;
+}
+.stat-value-small {
+    -fx-text-fill: #aaaaaa;
+    -fx-font-size: 10px;
+    -fx-font-family: "Courier New";
+    -fx-alignment: CENTER_RIGHT;
+}
+.card-cost {
+    -fx-text-fill: #887755;
+    -fx-font-size: 10px;
+    -fx-font-style: italic;
 }

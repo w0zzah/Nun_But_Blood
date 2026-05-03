@@ -68,7 +68,7 @@ public class Item implements Purchasable {
      *
      * @param apostle the apostle to apply the effect to
      */
-    public void applyEffect(Apostles apostle) {
+    public void applyEffect(Saints apostle) {
         switch (type) {
             case UPGRADE, EQUIPMENT -> {
                 switch (statAffected) {
