@@ -1,7 +1,5 @@
 package seng201.nunbutblood.models;
 
-import seng201.nunbutblood.characters.Apostles;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

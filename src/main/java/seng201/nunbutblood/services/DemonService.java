@@ -7,5 +7,5 @@ package seng201.nunbutblood.services;
         + buildAssasin(int scale): Demon
         + generateCrusadeOptions(int crusadeNumber): List<Demon>
 */
-public class DemonFactory {
+public class DemonService {
 }

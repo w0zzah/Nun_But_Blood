@@ -19,7 +19,7 @@ package seng201.nunbutblood.services;
         + buildItemPool(): List<Item>
 
  */
-import seng201.nunbutblood.characters.Apostles;
+import seng201.nunbutblood.models.Apostles;
 
 /**
  * Market service manage's Item sold in the matkey

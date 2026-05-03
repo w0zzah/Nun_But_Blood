@@ -1,5 +1,4 @@
-package seng201.nunbutblood.characters;
-import seng201.nunbutblood.models.Purchasable;
+package seng201.nunbutblood.models;
 
 /*
 

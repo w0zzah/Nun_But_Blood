@@ -1,7 +1,5 @@
 package seng201.nunbutblood.models;
 
-import seng201.nunbutblood.characters.Apostles;
-
 /**
  * Represents a purchasable item that can be applied to an apostle.
  * Items are either consumed on use (UPGRADE, SKILL_TOME) or

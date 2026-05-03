@@ -2,11 +2,10 @@ package characters;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seng201.nunbutblood.characters.Apostles;
-import seng201.nunbutblood.characters.Executioner;
-import seng201.nunbutblood.characters.Oracle;
-import seng201.nunbutblood.characters.Inquisitor;
-import seng201.nunbutblood.characters.Rarity;
+import seng201.nunbutblood.models.Executioner;
+import seng201.nunbutblood.models.Oracle;
+import seng201.nunbutblood.models.Inquisitor;
+import seng201.nunbutblood.models.Rarity;
 
 import static org.junit.jupiter.api.Assertions.*;
 

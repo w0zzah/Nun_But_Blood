@@ -10,5 +10,5 @@ package seng201.nunbutblood.services;
       Methods
         + triggerEvents(Covenant): List<string>
 */
-public class RandomEvent {
+public class RandomService {
 }

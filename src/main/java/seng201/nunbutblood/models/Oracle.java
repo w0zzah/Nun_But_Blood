@@ -1,7 +1,7 @@
-package seng201.nunbutblood.characters;
+package seng201.nunbutblood.models;
 
 /**
- * Inquisitor — Extend's Apostle's, Primary stat is Strength
+ * Oracle — Extend's Apostle's, Primary stat is Strength
  *
  * When Constructor is called :
  * @strength has a bonus of +5 clamped at 20 for balance, Math.min(20, strength + 5)
@@ -10,13 +10,13 @@ package seng201.nunbutblood.characters;
  *
  * Constructor to be called in market area for further random stat's
  */
-public class Inquisitor extends Apostles {
+public class Oracle extends Apostles {
 
-    public Inquisitor(String name) {
+    public Oracle(String name) {
         this(name, getPortraitID(name), 8, 5, 5);
     }
 
-    public Inquisitor(String name, String portraitID, int strength, int wisdom, int dexterity){
+    public Oracle(String name, String portraitID, int strength, int wisdom, int dexterity){
         super(name, portraitID,
                 Math.min(20, strength + 5),
                 wisdom,
@@ -29,17 +29,16 @@ public class Inquisitor extends Apostles {
 
     // APOSTLES CLASS
 
-
     // PURCHASABLE INTERFACE
 
     @Override
     public int getStatBonus() {
-        return getDexterity();
+        return getWisdom();
     }
 
     @Override
     public String getStatType() {
-        return "DEX";
+        return "WIS";
     }
 
 

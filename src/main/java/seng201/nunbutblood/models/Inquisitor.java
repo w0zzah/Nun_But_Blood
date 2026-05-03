@@ -1,7 +1,7 @@
-package seng201.nunbutblood.characters;
+package seng201.nunbutblood.models;
 
 /**
- * Executioner — Extend's Apostle's, Primary stat is Strength
+ * Inquisitor — Extend's Apostle's, Primary stat is Strength
  *
  * When Constructor is called :
  * @strength has a bonus of +5 clamped at 20 for balance, Math.min(20, strength + 5)
@@ -10,13 +10,13 @@ package seng201.nunbutblood.characters;
  *
  * Constructor to be called in market area for further random stat's
  */
-public class Executioner extends Apostles {
+public class Inquisitor extends Apostles {
 
-    public Executioner(String name) {
+    public Inquisitor(String name) {
         this(name, getPortraitID(name), 8, 5, 5);
     }
 
-    public Executioner(String name, String portraitID, int strength, int wisdom, int dexterity){
+    public Inquisitor(String name, String portraitID, int strength, int wisdom, int dexterity){
         super(name, portraitID,
                 Math.min(20, strength + 5),
                 wisdom,
@@ -34,12 +34,12 @@ public class Executioner extends Apostles {
 
     @Override
     public int getStatBonus() {
-        return getStrength();
+        return getDexterity();
     }
 
     @Override
     public String getStatType() {
-        return "STR";
+        return "DEX";
     }
 
 
@@ -69,5 +69,3 @@ public class Executioner extends Apostles {
         return 15 + (strength + wisdom + dexterity) / 5;
     }
 }
-
-

@@ -28,10 +28,11 @@
     -fx-background-color: radial-gradient(
             center 50% 50%, radius 120%,
             #000000 0%,
-            #1a0000 40%,
-            #3b0000 70%,
+            #1a0000 30%,
+            #3b0000 60%,
             #000000 100%
     );
+    -fx-alignment: center;
 }
 
 /*
@@ -58,9 +59,12 @@
         Will serve for all basic text styling like names, stats, etc
 */
 
+.Vbox {
+    -fx-padding: var(25px);
+}
 .label {
     -fx-text-fill: #dddddd;
-    -fx-font-size: 80px;
+    -fx-font-size: 30px;
 }
 
 /*
@@ -80,6 +84,7 @@
     -fx-border-radius: 10px;
     -fx-border-color: #aa0000;
     -fx-effect: dropshadow(gaussian, rgba(195,0,0,0.5), 10, 0.5, 0, 0);
+    -fx-alignment: center;
 }
 /*
        .glow-button:hover --> .glow-button after mouse has hover over it

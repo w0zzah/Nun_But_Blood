@@ -1,4 +1,4 @@
-package seng201.nunbutblood.characters;
+package seng201.nunbutblood.models;
 /*
     TODO:
       Attributes:

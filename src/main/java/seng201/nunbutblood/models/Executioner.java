@@ -1,7 +1,7 @@
-package seng201.nunbutblood.characters;
+package seng201.nunbutblood.models;
 
 /**
- * Oracle — Extend's Apostle's, Primary stat is Strength
+ * Executioner — Extend's Apostle's, Primary stat is Strength
  *
  * When Constructor is called :
  * @strength has a bonus of +5 clamped at 20 for balance, Math.min(20, strength + 5)
@@ -10,13 +10,13 @@ package seng201.nunbutblood.characters;
  *
  * Constructor to be called in market area for further random stat's
  */
-public class Oracle extends Apostles {
+public class Executioner extends Apostles {
 
-    public Oracle(String name) {
+    public Executioner(String name) {
         this(name, getPortraitID(name), 8, 5, 5);
     }
 
-    public Oracle(String name, String portraitID, int strength, int wisdom, int dexterity){
+    public Executioner(String name, String portraitID, int strength, int wisdom, int dexterity){
         super(name, portraitID,
                 Math.min(20, strength + 5),
                 wisdom,
@@ -29,16 +29,17 @@ public class Oracle extends Apostles {
 
     // APOSTLES CLASS
 
+
     // PURCHASABLE INTERFACE
 
     @Override
     public int getStatBonus() {
-        return getWisdom();
+        return getStrength();
     }
 
     @Override
     public String getStatType() {
-        return "WIS";
+        return "STR";
     }
 
 
@@ -68,3 +69,5 @@ public class Oracle extends Apostles {
         return 15 + (strength + wisdom + dexterity) / 5;
     }
 }
+
+

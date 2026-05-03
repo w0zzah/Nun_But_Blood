@@ -34,5 +34,5 @@ Last Edited 0429 02/04/26 @author cwi184 - "Expedition engine logic"
             - weaknessMatch: bool
             - narrative: String
 */
-public class CrusadeManager {
+public class CrusadeService {
 }

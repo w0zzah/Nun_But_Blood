@@ -1,4 +1,4 @@
-package seng201.nunbutblood.characters;
+package seng201.nunbutblood.models;
 
 /**
  * Represents the rarity tier of an Apostle based on sum of stat's
