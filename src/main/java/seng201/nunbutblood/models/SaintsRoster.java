@@ -103,8 +103,6 @@ public class SaintsRoster {
         };
     }
 
-    // ── Roster definition ──────────────────────────────────────────────────────
-
     /**
      * Builds the complete named Apostle catalogue.
      * Stat totals shown are BEFORE the +5 class bonus is applied.
@@ -113,10 +111,12 @@ public class SaintsRoster {
      */
     private static List<Entry> buildRoster() {
         List<Entry> r = new ArrayList<>();
-
-        // ── COMMON tier (post-bonus total ~14–29) ──────────────────────────────
-        // base totals 9–24 → after +5 class bonus: 14–29
-        r.add(new Entry("Sister Beatrice",  "sister-beatrice",  "EXE",  8,  5,  5));  // total 23
+        r.add(new Entry("Saint Winifred",  "Winifred.png",  "EXE",  8,  5,  5));
+        r.add(new Entry("Saint Hilda",  "Hilda.png",  "EXE",  8,  5,  5));
+        r.add(new Entry("Saint Anastasius",  "Anastasius.png",  "ORA",  5,  8,  5));
+        r.add(new Entry("Saint Chrysostomi",  "Chrysostomi.png",  "ORA",  5,  8,  5));
+        r.add(new Entry("Saint Germain",  "Germain.png",  "INQ",  5,  5,  8));
+        r.add(new Entry("Saint Arsenia",  "Arsenia.png",  "INQ",  5,  5,  8));
         return r;
     }
 }

@@ -3,6 +3,9 @@ package seng201.nunbutblood.gui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
@@ -11,12 +14,16 @@ import seng201.nunbutblood.models.SaintsRoster;
 import seng201.nunbutblood.services.MarketService;
 import seng201.nunbutblood.services.RandomService;
 
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Controller for the SetupInterface.fxml window
- * @author seng201 teaching team
+ *
+ * Javadocs:
+ * Image: https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/image/Image.html
+ *
  */
 public class SetupController {
 
@@ -53,6 +60,7 @@ public class SetupController {
         setupDifficultyToggle();
         setupSlider();
         buildSaintsList();
+        createSaintCards();
     }
 
     private void setupDifficultyToggle() {
@@ -100,7 +108,7 @@ public class SetupController {
             // set that saint to a new vbox with built-in stats
             VBox card = buildSaintsCard(currentSaint);
             // Goes through and adds the Saints each by their index into a 3x2 grid
-            saintsGrid.add(card, i % 3, i/ 3);
+            saintsGrid.add(card, i, 0);
         }
     }
 
@@ -108,15 +116,26 @@ public class SetupController {
         // create a new Vbox under name card with a 5px spacing vertically between children
         VBox card = new VBox(5);
         // adds CSS class saints-card & rarity to the node via the CSS with respect to its rarity
-        card.getStyleClass().addAll("Saints-card", "rarity-" + a.getRarity().name().toLowerCase());
+        card.getStyleClass().addAll("saint-card", "rarity-" + a.getRarity().name().toLowerCase());
         // set width to 220 px
         card.setPrefWidth(220);
 
         // Portrait ID
         StackPane portrait = new StackPane();
-        portrait.getStyleClass().addAll("Saint-portrait", "portrait-" + a.getPortraitKey());
-        portrait.setPrefHeight(80);
+        portrait.getStyleClass().add("Saint-portrait");
+        portrait.setPrefHeight(120);
+        try {
+            String imagePath = "/images/good/" + a.getPortraitKey();
+            Image img = new Image(getClass().getResourceAsStream(imagePath), 200, 0, true, true);
+            ImageView portraitView = new ImageView(img);
 
+            portraitView.setFitHeight(110);
+            portraitView.setPreserveRatio(true);
+
+            portrait.getChildren().add(portraitView);
+        } catch (Exception e) {
+            System.err.println("Could not find image at: " + a.getPortraitKey());
+        }
         // Rarity colors
         Label rarityBadge = new Label(a.getRarity().getLabel().toUpperCase());
         rarityBadge.getStyleClass().addAll("rarity-badge", "rarity-badge-" + a.getRarity().name().toLowerCase());
@@ -130,9 +149,7 @@ public class SetupController {
         
         // Stats 
         VBox statBars = buildStatBars(a);
-        /**
-         * Come here boi
-         */
+
         // How much the cost each
         Label costLabel = new Label(String.format("Cost: Free | Pay: %d faith/round", a.getUpKeep()));
         costLabel.getStyleClass().add("card-cost");
@@ -151,9 +168,9 @@ public class SetupController {
         VBox bars = new VBox(3);
         bars.getStyleClass().add("stat-bars");
         bars.getChildren().addAll(
-            buildStatRow("STR", a.getStrength(), a.getStatType().equals("STR"), "red"),
-            buildStatRow("WIS", a.getWisdom(), a.getStatType().equals("WIS"), "red"),
-            buildStatRow("DEX", a.getDexterity(), a.getStatType().equals("DEX"), "red")
+            buildStatRow("STR", a.getStrength(), a.getStatType().equals("STR"), "#AF4130"),
+            buildStatRow("WIS", a.getWisdom(), a.getStatType().equals("WIS"), "#346687"),
+            buildStatRow("DEX", a.getDexterity(), a.getStatType().equals("DEX"), "#609953")
         );
         return bars;
     }
@@ -172,7 +189,7 @@ public class SetupController {
         track.setPrefHeight(8);
         track.setMaxHeight(Double.MAX_VALUE);
         /**
-         * Come back here and fix
+         * Come back here and fix <--- What is this guy on?
          */
         // Fill in the bg
         double fillPct = value / 20.0;
@@ -195,32 +212,58 @@ public class SetupController {
         
     }
 
-    private void toggleSaintSelection(Saints a, VBox card, Button btn) {
-        if (selectedSaints.contains(a)) {
-            selectedSaints.remove(a);
-            card.getStyleClass().remove("apostle-card-selected");
+    /**
+     * Toggle's through saint dispositions during assignation (ass)
+     *
+     * @param clickedSaint
+     * @param card
+     * @param btn
+     */
+    private void toggleSaintSelection(Saints clickedSaint, VBox card, Button btn) {
+
+        // Check if the current selected list of saints contains clickedSaint
+        if (selectedSaints.contains(clickedSaint)) {
+
+            // if so remove it from the list of selected saints and reset the style
+            selectedSaints.remove(clickedSaint);
+            card.getStyleClass().remove("saint-card-selected");
             btn.setText("SELECT");
+
+            // If clickedSaint is not in the selectedSaints list
         } else {
+            // If SelectedSaints is greater than 3 throw error message and return
             if (selectedSaints.size() >= 3) {
                 statusLabel.setText("You can only choose 3 starting Saints.");
                 return;
             }
-            selectedSaints.add(a);
-            card.getStyleClass().add("apostle-card-selected");
+
+            // Else, assign clickedSaint to selectedSaints
+            selectedSaints.add(clickedSaint);
+            card.getStyleClass().add("saint-card-selected");
             btn.setText("✓ CHOSEN");
         }
+        // update selectedSaints UX
         saintSelectLabel.setText(selectedSaints.size() + " / 3 selected");
         statusLabel.setText(" ");
     }
 
+    /**
+     * Checks all relevant info before the start of the game.
+     * - Checks if name is between 3-15, and only letters numbers or spaces
+     * - Checks if 3 starting saints have been selected
+     * - Checks between 5-15 expeditions have been selected
+     * - Checks difficulty
+     *
+     */
     @FXML
     private void handleStart() {
+
         String name = nameField.getText().trim();
         if (name.length() < 3 || name.length() > 15) {
             nameError.setText("Name must be 3-15 characters");
             return;
         }
-        if (!name.matches("^[a-zA-Z0-9] + $")) {
+        if (!name.matches("^[a-zA-Z0-9 ]+$")) {
             nameError.setText("Only letters, numbers and spaces allowed");
             return;
         }

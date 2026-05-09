@@ -93,8 +93,6 @@ public class Demon {
         );
     }
 
-    // ── Behaviour ─────────────────────────────────────────────────────────────
-
     /**
      * Rolls against the curse chance to determine if this demon curses the party.
      * Called after combat resolves, regardless of win or loss.

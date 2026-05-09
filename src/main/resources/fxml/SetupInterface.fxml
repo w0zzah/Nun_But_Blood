@@ -11,33 +11,36 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+
 <VBox alignment="TOP_CENTER" spacing="0" styleClass="root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.SetupController">
 
-   <!-- Title Bar -->
+         <!-- Title Bar -->
    <VBox alignment="CENTER" spacing="6" styleClass="title-bar">
       <Label styleClass="title-label" text="NUN'BUT BLOOD" />
       <Label styleClass="subtitle-label" text="— Establish Your Covenant —" />
    </VBox>
 
-   <ScrollPane fitToWidth="true" style="-fx-background:transparent; -fx-background-color:transparent;" VBox.vgrow="ALWAYS">
+         <ScrollPane fitToWidth="true" style="-fx-background:transparent; -fx-background-color:transparent;" VBox.vgrow="ALWAYS">
       <VBox alignment="TOP_CENTER" spacing="20">
-         <padding><Insets bottom="24" left="60" right="60" top="24" /></padding>
+         <padding>
+            <Insets bottom="24" left="60" right="60" top="24" />
+         </padding>
 
-         <!-- Covenant Name -->
+               <!-- Covenant Name -->
          <VBox spacing="6" styleClass="form-section">
             <Label styleClass="section-label" text="COVENANT NAME" />
             <TextField fx:id="nameField" promptText="3–15 characters, letters and numbers only" styleClass="input-field" />
             <Label fx:id="nameError" styleClass="error-label" text=" " />
          </VBox>
 
-         <!-- Expeditions -->
+               <!-- Expeditions -->
          <VBox alignment="CENTER" spacing="6" styleClass="form-section">
             <Label styleClass="section-label" text="NUMBER OF CRUSADES" />
             <Slider fx:id="expeditionSlider" blockIncrement="1" majorTickUnit="5" max="15" min="5" minorTickCount="4" snapToTicks="true" value="10" />
             <Label fx:id="expeditionValue" alignment="CENTER" contentDisplay="CENTER" minWidth="30" styleClass="stat-value" text="10" />
          </VBox>
 
-         <!-- Difficulty -->
+               <!-- Difficulty -->
          <VBox spacing="6" styleClass="form-section">
             <Label styleClass="section-label" text="DIFFICULTY" />
             <HBox spacing="16">
@@ -46,17 +49,19 @@
             </HBox>
          </VBox>
 
-         <!-- Starting Apostles -->
+               <!-- Starting Apostles -->
          <VBox spacing="8" styleClass="form-section">
             <Label styleClass="section-label" text="CHOOSE 3 STARTING APOSTLES" />
             <Label fx:id="saintSelectLabel" styleClass="hint-label" text="0 / 3 selected" />
-            <GridPane fx:id="saintsGrid" hgap="10" vgap="10" />
+            <GridPane fx:id="saintsGrid" alignment="CENTER" hgap="10" styleClass="apostle-card" vgap="10" />
          </VBox>
 
-         <!-- Status and Start -->
+               <!-- Status and Start -->
          <Label fx:id="statusLabel" styleClass="error-label" text=" " wrapText="true" />
-         <Button fx:id="startBtn" maxWidth="Infinity" onAction="#handleStart" styleClass="glow-button" text="BEGIN THE CRUSADE" />
-         <VBox.margin><Insets bottom="20" /></VBox.margin>
+         <Button fx:id="startButton" maxWidth="Infinity" onAction="#handleStart" styleClass="glow-button" text="BEGIN THE CRUSADE" />
+         <VBox.margin>
+            <Insets bottom="20" />
+         </VBox.margin>
       </VBox>
    </ScrollPane>
 </VBox>

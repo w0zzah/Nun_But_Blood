@@ -40,8 +40,6 @@ public class Item implements Purchasable {
     /** Description shown in the market and inventory screens. */
     private final String itemDescription;
 
-    // ── Constructor ───────────────────────────────────────────────────────────
-
     /**
      * Creates an Item with the given attributes.
      *
@@ -72,11 +70,11 @@ public class Item implements Purchasable {
         switch (type) {
             case UPGRADE, EQUIPMENT -> {
                 switch (statAffected) {
-                    case "STR" -> apostle.increaseStrength(bonusValue);
-                    case "WIS" -> apostle.increaseWisdom(bonusValue);
-                    case "DEX" -> apostle.increaseDexterity(bonusValue);
-                    case "STA" -> apostle.increaseMaxStamina(bonusValue);
-                    case "PER" -> apostle.increasePerception(bonusValue);
+                    case "STR" -> apostle.changeStrength(bonusValue);
+                    case "WIS" -> apostle.changeWisdom(bonusValue);
+                    case "DEX" -> apostle.changeDexterity(bonusValue);
+                    case "STA" -> apostle.changeMaxStamina(bonusValue);
+                    case "PER" -> apostle.changePerception(bonusValue);
                 }
             }
             case SKILL_TOME -> apostle.setSpecialAbility(itemDescription);

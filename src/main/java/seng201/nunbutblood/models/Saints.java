@@ -30,13 +30,13 @@ package seng201.nunbutblood.models;
             ~ getStatBonus() :
             ~ getStatType() :
             ~ refreshRarity() :
-            ~ increaseStrength() :
-            ~ increaseWisom() :
-            ~ increaseDexterity() :
+            ~ changeStrength() :
+            ~ changeWisom() :
+            ~ changeDexterity() :
             ~ consumeStamina() : consume after attack 2 for nat 1
             ~ restoreStamina() : upon return, restore all stamina
-            ~ increaseMaxStamina() :
-            ~ increasePerception() :
+            ~ changeMaxStamina() :
+            ~ changePerception() :
             ~ setSpecialAbility() :
             ~ incrementCrusadeCount() :
             ~ resetCrusadeCount():
@@ -212,34 +212,34 @@ public abstract class Saints implements Purchasable {
     }
 
     /**
-     * Increase the strength of Apostle (Max 20)
+     * change the strength of Apostle (Max 20)
      * Refresh rarity to adjust for stat change
      *
-     *  @param amount stat increase
+     *  @param amount stat change
      */
-    public void increaseStrength(int amount) {
+    public void changeStrength(int amount) {
         this.strength = Math.clamp(this.strength + amount, 0, 20); // Math.clamp(Value, min, max)
         refreshRarity();
     }
 
     /**
-     * Increase the wisdom of Apostle (Max 20)
+     * change the wisdom of Apostle (Max 20)
      * Refresh rarity to adjust for stat change
      *
-     *  @param amount stat increase
+     *  @param amount stat change
      */
-    public void increaseWisdom(int amount) {
+    public void changeWisdom(int amount) {
         this.wisdom = Math.clamp(this.wisdom + amount, 0, 20);
         refreshRarity();
     }
 
     /**
-     * Increase the dexterity of Apostle (Max 20)
+     * change the dexterity of Apostle (Max 20)
      * Refresh rarity to adjust for stat change
      *
-     *  @param amount stat increase
+     *  @param amount stat change
      */
-    public void increaseDexterity(int amount) {
+    public void changeDexterity(int amount) {
         this.dexterity = Math.clamp(this.dexterity + amount, 0, 20);
         refreshRarity();
     }
@@ -262,21 +262,21 @@ public abstract class Saints implements Purchasable {
     }
 
     /**
-     * Permanently increases maximum stamina, through Item's
+     * Permanently changes maximum stamina, through Item's
      *
-     * @param amount positive stamina increase
+     * @param amount stamina change
      */
-    public void increaseMaxStamina(int amount) {
+    public void changeMaxStamina(int amount) {
         this.maxStamina += amount;
         this.currentStamina = Math.min(this.currentStamina + amount, this.maxStamina);
     }
 
     /**
-     * Permanently increases perception, through Item's or after crusade's
+     * Permanently changes perception, through Item's or after crusade's
      *
      * @param amount amount to add
      */
-    public void increasePerception(int amount) {
+    public void changePerception(int amount) {
         this.perception += amount;
     }
 
