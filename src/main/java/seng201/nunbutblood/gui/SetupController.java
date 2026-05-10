@@ -118,18 +118,18 @@ public class SetupController {
         // adds CSS class saints-card & rarity to the node via the CSS with respect to its rarity
         card.getStyleClass().addAll("saint-card", "rarity-" + a.getRarity().name().toLowerCase());
         // set width to 220 px
-        card.setPrefWidth(220);
+        card.setPrefWidth(300);
 
         // Portrait ID
         StackPane portrait = new StackPane();
         portrait.getStyleClass().add("Saint-portrait");
-        portrait.setPrefHeight(120);
+        portrait.setPrefHeight(200);
         try {
             String imagePath = "/images/good/" + a.getPortraitKey();
-            Image img = new Image(getClass().getResourceAsStream(imagePath), 200, 0, true, true);
+            Image img = new Image(getClass().getResourceAsStream(imagePath), 300, 0, true, true);
             ImageView portraitView = new ImageView(img);
 
-            portraitView.setFitHeight(110);
+            portraitView.setFitHeight(180);
             portraitView.setPreserveRatio(true);
 
             portrait.getChildren().add(portraitView);
@@ -138,8 +138,7 @@ public class SetupController {
         }
         // Rarity colors
         Label rarityBadge = new Label(a.getRarity().getLabel().toUpperCase());
-        rarityBadge.getStyleClass().addAll("rarity-badge", "rarity-badge-" + a.getRarity().name().toLowerCase());
-        
+        rarityBadge.getStyleClass().add("rarity-" + a.getRarity().getLabel().toLowerCase());
         // Name and class 
         Label name = new Label(a.getName());
         name.getStyleClass().add("card-name");

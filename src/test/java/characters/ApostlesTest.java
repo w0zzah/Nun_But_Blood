@@ -115,7 +115,7 @@ class ApostlesTest {
     void rarity_updatesAfterStatIncrease() {
         // Start COMMON (total 23), increase STR by 10 → total 33 → RARE
         assertEquals(Rarity.COMMON, executioner.getRarity());
-        executioner.increaseStrength(10);
+        executioner.changeStrength(10);
         assertEquals(Rarity.RARE, executioner.getRarity());
     }
 
@@ -130,7 +130,7 @@ class ApostlesTest {
 
     @Test
     void increaseStrength_cappedAt20() {
-        executioner.increaseStrength(999);
+        executioner.changeStrength(999);
         assertEquals(20, executioner.getStrength());
     }
 

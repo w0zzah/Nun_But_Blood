@@ -14,23 +14,22 @@ package seng201.nunbutblood.models;
 public enum Rarity {
 
     /** stat total 1–30 (Green) */
-    COMMON("Common", "#4CBB17", "#317a0f"),
+    COMMON("Common", "#4CBB17"),
 
     /** stat total 31–40 (Blue) */
-    RARE("Rare", "#079bdb", "#0047AB"),
+    RARE("Rare", "#079bdb"),
 
     /** stat total 41–50 (Purple) */
-    EPIC("Epic", "#9A5BD4", "#5305a6"),
+    EPIC("Epic", "#9A5BD4"),
 
     /** stat total 51–60 (Pink) */
-    LEGENDARY("Legendary", "#ff00a2", "#e85ff5");
+    LEGENDARY("Legendary", "#ff00a2");
 
     /** Rarity String */
     private final String label;
     /** Border and text Colour */
     private final String colour;
-    /** Background fill hex for the rarity badge TODO: Set as picture with enough time  */
-    private final String badgeBackground;
+    /** Background fill hex for the rarity badge*/
 
     /**
      * Constructor for Rarity.
@@ -40,12 +39,10 @@ public enum Rarity {
      *
      * @param label
      * @param colour
-     * @param badgeBackground
      */
-    Rarity(String label, String colour, String badgeBackground) {
+    Rarity(String label, String colour) {
         this.label           = label;
         this.colour          = colour;
-        this.badgeBackground = badgeBackground;
     }
 
     /**
@@ -74,10 +71,4 @@ public enum Rarity {
     public String getColour() {
         return colour;
     }
-
-    /** @return badge background hex string, (Green, Blue, Purple, Pink) */
-    public String getBadgeBackground() {
-        return badgeBackground;
-    }
-
 }

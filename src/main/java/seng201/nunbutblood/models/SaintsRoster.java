@@ -111,12 +111,12 @@ public class SaintsRoster {
      */
     private static List<Entry> buildRoster() {
         List<Entry> r = new ArrayList<>();
-        r.add(new Entry("Saint Winifred",  "Winifred.png",  "EXE",  8,  5,  5));
-        r.add(new Entry("Saint Hilda",  "Hilda.png",  "EXE",  8,  5,  5));
-        r.add(new Entry("Saint Anastasius",  "Anastasius.png",  "ORA",  5,  8,  5));
-        r.add(new Entry("Saint Chrysostomi",  "Chrysostomi.png",  "ORA",  5,  8,  5));
         r.add(new Entry("Saint Germain",  "Germain.png",  "INQ",  5,  5,  8));
         r.add(new Entry("Saint Arsenia",  "Arsenia.png",  "INQ",  5,  5,  8));
+        r.add(new Entry("Saint Winifred",  "Winifred.png",  "EXE",  8,  8,  8));
+        r.add(new Entry("Saint Hilda",  "Hilda.png",  "EXE",  10,  15,  5));
+        r.add(new Entry("Saint Anastasius",  "Anastasius.png",  "ORA",  15,  15,  15));
+        r.add(new Entry("Saint Chrysostomi",  "Chrysostomi.png",  "ORA",  20,  20,  20));
         return r;
     }
 }
