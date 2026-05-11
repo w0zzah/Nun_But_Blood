@@ -75,7 +75,7 @@ public class Covenant {
         this.inventory = new ArrayList<>();
         this.totalFaithEarned = 0;
         this.score = 0;
-        this.faith = difficulty.equals("Inquisitor") ? 100 : 300;
+        this.faith = difficulty.equals("Hard") ? 100 : 300;
     }
 
     // ── Getters ──────────────────────────────────────────────────────────────
@@ -155,12 +155,12 @@ public class Covenant {
     /**
      * Adds a newly hired apostle to the reserves.
      *
-     * @param apostle the apostle to add
+     * @param saint the apostle to add
      * @return true if added, false if reserves are full (max 5)
      */
-    public boolean addApostle(Saints apostle) {
+    public boolean addSaint(Saints saint) {
         if (reserves.size() >= 5) return false;
-        reserves.add(apostle);
+        reserves.add(saint);
         return true;
     }
 
@@ -201,7 +201,7 @@ public class Covenant {
      * @param apostle the apostle to retire
      * @return true if retired, false if they are the last apostle or not found
      */
-    public boolean retireApostle(Saints apostle) {
+    public boolean retireSaint(Saints apostle) {
         int total = activeParty.size() + reserves.size();
         if (total <= 1) return false;
         if (activeParty.remove(apostle)) return true;

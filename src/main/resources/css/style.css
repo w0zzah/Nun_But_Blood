@@ -16,13 +16,13 @@
 .title-bar {
     -fx-background-color: linear-gradient(to top, #979797, #353535);
     -fx-padding: 18 40 14 40;
-    -fx-border-color: #292929;
-    -fx-border-width: 0 0 1 0;
+    -fx-border-color: -chrome;
+    -fx-border-width: 0 0 3 0;
 }
 
 .title-label {
     -fx-text-fill: -crimson;
-    -fx-font-size: 60px;
+    -fx-font-size: 45px;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0), 25, 0.6, 0, 0);
 }
@@ -39,7 +39,6 @@
     -fx-padding: 4 14 4 14;
     -fx-background-radius: 12;
     -fx-border-color: #5a0000;
-    -fx-border-radius: 12;
 }
 
 .section-label {
@@ -47,6 +46,9 @@
     -fx-letter-spacing: 2;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.85), 10, 0.2, 0, 0);
     -fx-text-fill: -chrome;
+    -fx-alignment: CENTER;
+    -fx-padding: 0 40;
+    -fx-font-size: 35;
 }
 
 .hint-label {
@@ -58,21 +60,22 @@
 .form-section {
     -fx-background-color: rgba(30, 30, 30, 0.87);
     -fx-padding: 14 16 14 16;
-    -fx-background-radius: 6;
-    -fx-border-color: #c1c1c1;
-    -fx-border-radius: 6;
-    -fx-border-width: 1;
+    -fx-border-color: -chrome;
+    -fx-border-radius: 0;
+    -fx-border-width: 3;
+}
+.form-section-part {
+    -fx-padding: 0 5;
 }
 
 .input-field {
-    -fx-background-color: rgba(12, 12, 12, 0.78);
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);
     -fx-text-fill: -crimson;
-    -fx-border-color: #c1c1c1;
-    -fx-border-width: 1;
-    -fx-border-radius: 4;
+    -fx-border-color: -chrome;
+    -fx-border-width: 2;
     -fx-background-radius: 4;
     -fx-padding: 8 12 8 12;
-    -fx-prompt-text-fill: #c1c1c1;
+    -fx-prompt-text-fill: -chrome;
 }
 .input-field:focused {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 8, 0.4, 0, 0);
@@ -91,7 +94,8 @@
 }
 
 .slider .track {
-    -fx-background-color: #323232;
+    -fx-background-color: rgba(0,0,0,0);
+
 }
 .slider .thumb {
     -fx-background-image: url("/images/background/cross.png");
@@ -107,19 +111,15 @@
 }
 
 .diff-btn {
-    -fx-background-color: #2e2e2e;
-    -fx-padding: 12 16 12 16;
-    -fx-background-radius: 6;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);
     -fx-border-color: -chrome;
-    -fx-border-radius: 6;
     -fx-border-width: 2;
     -fx-cursor: hand;
     -fx-alignment: CENTER;
     -fx-text-fill: -chrome;
 }
 .diff-btn:selected {
-    -fx-background-color: linear-gradient(to bottom, rgba(207, 207, 207, 0.21) 0%, rgba(255, 255, 255, 0.37) 20%, rgba(161, 161, 161, 0.3) 50%, rgba(255, 255, 255, 0.18) 80%, #cfcfcf 100%);
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: -crimson;
     -fx-border-color: #e1e1e1;
     -fx-effect: dropshadow(gaussian, rgba(28, 28, 28, 0.5), 10, 0.5, 0, 0);
 }
@@ -128,8 +128,7 @@
     -fx-border-color: #660000;
 }
 .saint-card {
-    -fx-background-image: url("/images/background/1.png");
-    -fx-padding: 20px;
+    -fx-padding: 5px;
     -fx-cursor: hand;
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
@@ -137,13 +136,11 @@
     -fx-text-fill: -chrome;
 }
 .saint-card-selected {
-    -fx-border-color: -chrome;
-    -fx-background-color: rgba(0,0,0,0.5);
-    -fx-effect: dropshadow(gaussian, -chrome, 12, 0.5, 0, 0);
+    -fx-background-color: linear-gradient(to top, rgba(67, 67, 67, 0.1) 20%, rgba(0,0,0,0));
 }
 .card-name {
-    -fx-text-fill: -chrome;
-    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-wrap-text: true;
 }
@@ -158,29 +155,26 @@
     -fx-wrap-text: true;
 }
 .card-btn {
-    -fx-background-color: #2e2e2e;
-    -fx-border-color: -chrome;
-    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);
     -fx-cursor: hand;
     -fx-alignment: CENTER;
     -fx-text-fill: -chrome;
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-background-radius: 4;
-    -fx-border-radius: 4;
-    -fx-padding: 6 10 6 10;
+    -fx-pref-width: 100%;
+}
+.card-btn-com {
+    -fx-font-size: 11px;
+    -fx-pref-width: 50%;
 }
 .card-btn:hover {
-    -fx-background-color: #2c2c2c;
-    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, -crimson, 10, 0.5, 0, 0);
 }
 
 .saint-list {
     -fx-background-color: #0d0000;
     -fx-border-color: #3a0000;
     -fx-border-width: 1;
-    -fx-border-radius: 4;
-    -fx-background-radius: 4;
     -fx-control-inner-background: #0d0000;
 }
 .saint-list .list-cell {
@@ -206,7 +200,7 @@
     -fx-background-color: transparent;
 }
 .scroll-bar {
-    -fx-background-color: transparent;
+    -fx-background-color: -chrome;
 }
 
 .scroll-bar .thumb {
@@ -218,23 +212,19 @@
     -fx-background-color: transparent;
 }
 .glow-button {
-    -fx-background-color: #2e2d2d;
-    -fx-text-fill: -chrome;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);    -fx-text-fill: -chrome;
     -fx-font-size: 25px;
     -fx-font-weight: bold;
     -fx-padding: 11 22 11 22;
-    -fx-background-radius: 6;
     -fx-border-color: #f3f3f3;
-    -fx-border-radius: 6;
-    -fx-border-width: 1;
+    -fx-border-width: 3;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(37, 37, 37, 0.4), 8, 0.4, 0, 0);
+
 }
 .glow-button:hover {
     -fx-text-fill: linear-gradient(to bottom, #c30000, #6c0000);
-    -fx-effect: dropshadow(gaussian, rgba(32, 32, 32, 0.75), 18, 0.6, 0, 0);
-    -fx-scale-x: 1.02;
-    -fx-scale-y: 1.02;
+    -fx-effect: dropshadow(gaussian, rgb(0, 0, 0), 18, 0.6, 0, 0);
 }
 .glow-button:pressed {
     -fx-scale-x: 0.98;
@@ -249,14 +239,12 @@
     -fx-padding: 8 14 8 14;
     -fx-background-radius: 4;
     -fx-border-color: #440000;
-    -fx-border-radius: 4;
     -fx-border-width: 1;
     -fx-cursor: hand;
 }
 
 .saint-portrait {
     -fx-background-radius: 4;
-    -fx-border-radius: 4;
     -fx-border-width: 1;
     -fx-border-color: #333333;
     -fx-min-height: 80;
@@ -264,22 +252,29 @@
     /* Default: dark silhouette placeholder */
     -fx-background-color: linear-gradient(to bottom, #1a0a00, #0a0000);
 }
-
 .rarity-common {
     -fx-effect: dropshadow(gaussian, rgba(28, 99, 24, 0.55), 8, 0.3, 0, 0);
-    -fx-text-fill: rgba(28, 99, 24, 0.55);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-alignment: center;
+    -fx-font-size: 17px
 }
 .rarity-rare {
     -fx-effect: dropshadow(gaussian, rgba(68,136,255,0.35), 8, 0.3, 0, 0);
-    -fx-text-fill: rgba(68, 136, 255, 0.35);
+    -fx-text-fill: rgba(27, 248, 248, 0.71);
+    -fx-alignment: center;
+    -fx-font-size: 17px
 }
 .rarity-epic {
-    -fx-effect: dropshadow(gaussian, rgba(204,68,255,0.45), 10, 0.4, 0, 0);
-    -fx-text-fill: rgba(204, 68, 255, 0.45);
+    -fx-effect: dropshadow(gaussian, rgba(204,68,255,0.45), 8, 0.2, 0, 0);
+    -fx-text-fill: #bb00ff;
+    -fx-alignment: center;
+    -fx-font-size: 17px
 }
 .rarity-legendary {
-    -fx-effect: dropshadow(gaussian, rgba(255,170,0,0.65), 16, 0.55, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(255,170,0,0.65), 8, 0.55, 0, 0);
     -fx-text-fill: -chrome;
+    -fx-alignment: center;
+    -fx-font-size: 17px
 }
 .stat-bars {
     -fx-padding: 4 0 2 0;
@@ -290,26 +285,37 @@
     -fx-min-height: 8;
     -fx-max-height: 8;
     -fx-pref-height: 8;
+    -fx-pref-width: 10;
 }
 .stat-label {
-    -fx-text-fill: #888888;
-    -fx-font-size: 10px;
-    -fx-font-family: "Courier New";
+    -fx-text-fill: #e1e1e1;
+    -fx-font-size: 12px;
 }
 .stat-label-primary {
-    -fx-text-fill: #ffddcc;
-    -fx-font-size: 10px;
-    -fx-font-family: "Courier New";
+    -fx-text-fill: #ffece5;
+    -fx-font-size: 15;
     -fx-font-weight: bold;
 }
 .stat-value-small {
-    -fx-text-fill: #aaaaaa;
-    -fx-font-size: 10px;
-    -fx-font-family: "Courier New";
-    -fx-alignment: CENTER_RIGHT;
+    -fx-text-fill: #e1e1e1;
+    -fx-font-size: 15px;
 }
 .card-cost {
-    -fx-text-fill: #887755;
-    -fx-font-size: 10px;
-    -fx-font-style: italic;
+    -fx-text-fill: #e1e1e1;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
 }
+
+/* In your style.css */
+.cybersigil-border {
+    /* Point to your image file */
+    -fx-border-image-source: url("/images/background/border(1).png");
+    -fx-border-image-slice: 270;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);    -fx-text-fill: -chrome;
+    /* How thick the border should render on screen */
+    -fx-border-image-width: 50px;
+
+    /* Tell it whether to stretch or repeat the edges between the corners */
+    -fx-border-image-repeat: repeat;
+}
+

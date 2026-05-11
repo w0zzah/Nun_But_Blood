@@ -1,109 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="seng201.nunbutblood.gui.MarketController"
+            styleClass="root">
+    <top>
+        <VBox styleClass="title-bar" alignment="CENTER" spacing="4">
+            <Label text="THE MARKET" styleClass="title-label"/>
+            <Label fx:id="faithLabel" text="Faith: 300" styleClass="stat-pill"/>
+        </VBox>
+    </top>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ShopController">
-   <children>
-      <GridPane prefHeight="100.0" prefWidth="600.0" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="134.39996337890625" minWidth="10.0" prefWidth="124.79998779296875" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.20001220703125" minWidth="10.0" prefWidth="115.20001220703125" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints maxHeight="75.79999389648438" minHeight="0.0" prefHeight="0.7999999999999972" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="139.9999977350235" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" text="Faith" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold Italic" size="20.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Gold" GridPane.columnIndex="1">
-               <font>
-                  <Font name="System Bold Italic" size="20.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Party Size" GridPane.columnIndex="2">
-               <font>
-                  <Font name="System Bold Italic" size="20.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Crusades" GridPane.columnIndex="3">
-               <font>
-                  <Font name="System Bold Italic" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="totalFaith" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Italic" size="12.0" />
-               </font>
-            </Label>
-            <Label fx:id="totalGold" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Italic" size="12.0" />
-               </font>
-            </Label>
-            <Label fx:id="totalSize" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="3" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="totalCrusades" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Italic" size="12.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Score" GridPane.columnIndex="4">
-               <font>
-                  <Font name="System Bold Italic" size="20.0" />
-               </font>
-            </Label>
-            <Label fx:id="totalScore" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="0" GridPane.columnIndex="4" GridPane.rowIndex="1">
-               <font>
-                  <Font name="System Italic" size="12.0" />
-               </font>
-            </Label>
-         </children>
-      </GridPane>
-      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="350.0" minHeight="3.199976253509533" prefHeight="277.40000610351564" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button">
-               <graphic>
-                  <ImageView fx:id="marketSaints" fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../OneDrive/Desktop/saintsImage.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button contentDisplay="GRAPHIC_ONLY" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="1">
-               <graphic>
-                  <ImageView fx:id="marketItems" fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../OneDrive/Desktop/itemButton.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="marketBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="marketCrusade" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Crusade" GridPane.rowIndex="1" />
-         </children>
-      </GridPane>
-   </children>
-</AnchorPane>
+    <center>
+        <HBox spacing="16" alignment="TOP_CENTER">
+            <padding><Insets top="16" bottom="8" left="20" right="20"/></padding>
+
+            <!-- Apostles for hire -->
+            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                <Label text="APOSTLES FOR HIRE" styleClass="section-label"/>
+                <ListView fx:id="apostleList" styleClass="apostle-list" VBox.vgrow="ALWAYS"/>
+                <Button text="HIRE APOSTLE" onAction="#handleHire"
+                        styleClass="glow-button" maxWidth="Infinity"/>
+                <Button text="SELL APOSTLE (½ price)" onAction="#handleSellApostle"
+                        styleClass="danger-btn" maxWidth="Infinity"/>
+            </VBox>
+
+            <!-- Items for sale -->
+            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                <Label text="ITEMS FOR SALE" styleClass="section-label"/>
+                <ListView fx:id="itemList" styleClass="apostle-list" VBox.vgrow="ALWAYS"/>
+                <Button text="BUY ITEM" onAction="#handleBuy"
+                        styleClass="glow-button" maxWidth="Infinity"/>
+                <Button text="SELL ITEM (½ price)" onAction="#handleSellItem"
+                        styleClass="danger-btn" maxWidth="Infinity"/>
+            </VBox>
+
+            <!-- Covenant inventory -->
+            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                <Label text="YOUR INVENTORY" styleClass="section-label"/>
+                <ListView fx:id="inventoryList" styleClass="apostle-list" VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </HBox>
+    </center>
+
+    <bottom>
+        <VBox spacing="4" alignment="CENTER">
+            <padding><Insets top="4" bottom="16" left="40" right="40"/></padding>
+            <Label fx:id="statusLabel" text=" " styleClass="hint-label" wrapText="true"/>
+            <Button text="← BACK TO COVENANT" onAction="#handleBack"
+                    styleClass="glow-button" maxWidth="Infinity"/>
+        </VBox>
+    </bottom>
+</BorderPane>

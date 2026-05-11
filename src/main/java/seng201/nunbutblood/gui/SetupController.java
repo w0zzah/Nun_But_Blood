@@ -39,6 +39,7 @@ public class SetupController {
     @FXML private Label saintSelectLabel;
     @FXML private Label statusLabel;
     @FXML private Button startButton;
+    @FXML private Label diffError;
 
     private Stage stage;
 
@@ -99,117 +100,26 @@ public class SetupController {
     }
 
     private void createSaintCards() {
-        // Initialises new list of Saints with art for each
         saintsGrid.getChildren().clear();
-        // for each Saint in the list...
         for (int i = 0; i < saintsList.size(); i++) {
-            // get the ith saint and set to variable currentSaint
             Saints currentSaint = saintsList.get(i);
-            // set that saint to a new vbox with built-in stats
-            VBox card = buildSaintsCard(currentSaint);
-            // Goes through and adds the Saints each by their index into a 3x2 grid
+
+            // Define the button for Setup
+            Button btn = new Button("SELECT");
+            HBox action = new HBox(1);
+            action.getChildren().add(btn);
+
+
+            // We need a reference to the card to change its style on click
+            // So we create the card first, then set the button action
+            VBox card = SaintCardController.createSaintCard(currentSaint, action, false);
+
+            btn.setOnAction(e -> toggleSaintSelection(currentSaint, card, btn));
+
             saintsGrid.add(card, i, 0);
         }
     }
 
-    private VBox buildSaintsCard(Saints a) {
-        // create a new Vbox under name card with a 5px spacing vertically between children
-        VBox card = new VBox(5);
-        // adds CSS class saints-card & rarity to the node via the CSS with respect to its rarity
-        card.getStyleClass().addAll("saint-card", "rarity-" + a.getRarity().name().toLowerCase());
-        // set width to 220 px
-        card.setPrefWidth(300);
-
-        // Portrait ID
-        StackPane portrait = new StackPane();
-        portrait.getStyleClass().add("Saint-portrait");
-        portrait.setPrefHeight(200);
-        try {
-            String imagePath = "/images/good/" + a.getPortraitKey();
-            Image img = new Image(getClass().getResourceAsStream(imagePath), 300, 0, true, true);
-            ImageView portraitView = new ImageView(img);
-
-            portraitView.setFitHeight(180);
-            portraitView.setPreserveRatio(true);
-
-            portrait.getChildren().add(portraitView);
-        } catch (Exception e) {
-            System.err.println("Could not find image at: " + a.getPortraitKey());
-        }
-        // Rarity colors
-        Label rarityBadge = new Label(a.getRarity().getLabel().toUpperCase());
-        rarityBadge.getStyleClass().add("rarity-" + a.getRarity().getLabel().toLowerCase());
-        // Name and class 
-        Label name = new Label(a.getName());
-        name.getStyleClass().add("card-name");
-        
-        Label classLabel = new Label("[" + a.getStatType() + "specialist ]");
-        classLabel.getStyleClass().add("card-type");
-        
-        // Stats 
-        VBox statBars = buildStatBars(a);
-
-        // How much the cost each
-        Label costLabel = new Label(String.format("Cost: Free | Pay: %d faith/round", a.getUpKeep()));
-        costLabel.getStyleClass().add("card-cost");
-        
-        // select button 
-        Button selectBtn = new Button("Select");
-        selectBtn.getStyleClass().add("card-btn");
-        selectBtn.setMaxWidth(Double.MAX_VALUE);
-        selectBtn.setOnAction(e -> toggleSaintSelection(a, card, selectBtn));
-
-        card.getChildren().addAll(portrait, rarityBadge, name, classLabel, statBars, costLabel, selectBtn);
-        return card;
-    }
-
-    private VBox buildStatBars(Saints a) {
-        VBox bars = new VBox(3);
-        bars.getStyleClass().add("stat-bars");
-        bars.getChildren().addAll(
-            buildStatRow("STR", a.getStrength(), a.getStatType().equals("STR"), "#AF4130"),
-            buildStatRow("WIS", a.getWisdom(), a.getStatType().equals("WIS"), "#346687"),
-            buildStatRow("DEX", a.getDexterity(), a.getStatType().equals("DEX"), "#609953")
-        );
-        return bars;
-    }
-
-    private Node buildStatRow(String label, int value, boolean isPrimary, String colour) {
-        HBox row = new HBox(6);
-        row.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-        
-        Label lbl = new Label(label);
-        lbl.getStyleClass().add(isPrimary ? "stat-label-primary" : "stat-label");
-        lbl.setPrefWidth(30);
-        
-        // Background
-        StackPane track = new StackPane();
-        track.getStyleClass().add("stat-track");
-        track.setPrefHeight(8);
-        track.setMaxHeight(Double.MAX_VALUE);
-        /**
-         * Come back here and fix <--- What is this guy on?
-         */
-        // Fill in the bg
-        double fillPct = value / 20.0;
-        Region fill = new Region();
-        fill.setStyle(String.format(
-                "-fx-background-color: %s; -fx-background-radius: 4;", colour));
-        fill.setPrefWidth(0); // will be set by layout
-        fill.prefWidthProperty().bind(track.widthProperty().multiply(fillPct));
-
-        track.getChildren().add(fill);
-        javafx.scene.layout.StackPane.setAlignment(fill, javafx.geometry.Pos.CENTER_LEFT);
-
-        Label valLbl = new Label(String.valueOf(value));
-        valLbl.getStyleClass().add("stat-value-small");
-        valLbl.setPrefWidth(22);
-
-        HBox.setHgrow(track, javafx.scene.layout.Priority.ALWAYS);
-        row.getChildren().addAll(lbl, track, valLbl);
-        return row;
-        
-    }
 
     /**
      * Toggle's through saint dispositions during assignation (ass)
@@ -239,7 +149,7 @@ public class SetupController {
             // Else, assign clickedSaint to selectedSaints
             selectedSaints.add(clickedSaint);
             card.getStyleClass().add("saint-card-selected");
-            btn.setText("✓ CHOSEN");
+            btn.setText("CHOSEN");
         }
         // update selectedSaints UX
         saintSelectLabel.setText(selectedSaints.size() + " / 3 selected");
@@ -283,6 +193,7 @@ public class SetupController {
 
         MarketService market = new MarketService();
         RandomService randomSvc = new RandomService(difficulty);
+        navigator.goToHubFirst(covenant, market, randomSvc);
     }
 
 }

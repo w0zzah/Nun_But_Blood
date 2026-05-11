@@ -9,10 +9,8 @@ import seng201.nunbutblood.services.AudioService;
 import seng201.nunbutblood.services.MarketService;
 import seng201.nunbutblood.services.RandomService;
 import seng201.nunbutblood.services.DemonService;
-import seng201.nunbutblood.models.Demon;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Centralised screen navigation helper.
@@ -35,7 +33,7 @@ public class ScreenNavigator {
     private MarketService marketService;
 
     /** Random event service — fires post-crusade. */
-    private RandomService RandomService;
+    private RandomService randomService;
 
     /** Demon factory — generates crusade options each round. */
     private final DemonService DemonService;
@@ -67,7 +65,32 @@ public class ScreenNavigator {
             }
         });
     }
+    /** Navigates to the Market screen. */
+    public void goToMarket() {
+        loadScreen("/fxml/MarketInterface.fxml", controller -> {
+            if (controller instanceof MarketController mc) {
+                mc.init(stage, this, covenant, marketService);
+            }
+        });
+    }
 
+    /** Navigates to the Crusade selection screen. */
+    public void goToCrusadeSelect() {
+        loadScreen("/fxml/CrusadeSelect.fxml", controller -> {
+            if (controller instanceof CrusadeController cc) {
+                 cc.init(stage, this, covenant, randomService, DemonService);
+             }
+        });
+    }
+
+    /** Navigates to the End Game summary screen. */
+    public void goToEndScreen(boolean isVictory) {
+        loadScreen("/fxml/EndScreen.fxml", controller -> {
+            if (controller instanceof EndScreenController ec) {
+                 ec.init(stage, this, covenant, isVictory);
+             }
+        });
+    }
     /**
      * Navigates to the Church Management hub after setup is complete.
      *
@@ -76,6 +99,27 @@ public class ScreenNavigator {
      * @param randomSvc     the RandomEventService for this game
      */
     /** Navigates to the Church Management hub using the existing game state. */
+    public void goToHubFirst(Covenant covenant, MarketService marketService, RandomService randomSvc) {
+        this.covenant = covenant;
+        this.marketService = marketService;
+        this.randomService = randomSvc;
+        goToHub();
+        loadScreen("/fxml/testInterface.fxml", controller -> {
+            if (controller instanceof HubController hc) {
+                hc.init(stage, this, covenant);
+            }
+        });
+    }
+
+
+    /** Navigates to the Church Management hub using the existing game state. */
+    public void goToHub() {
+        loadScreen("/fxml/testInterface.fxml", controller -> {
+            if (controller instanceof HubController hc) {
+                hc.init(stage, this, covenant);
+            }
+        });
+    }
 
     /**
      * Loads an FXML file, injects the controller via the provided consumer,
@@ -101,6 +145,7 @@ public class ScreenNavigator {
         }
     }
 
+
     /** Functional interface for injecting dependencies into a loaded controller. */
     @FunctionalInterface
     private interface ControllerInjector {
@@ -115,7 +160,7 @@ public class ScreenNavigator {
     public MarketService getMarketService() { return marketService; }
 
     /** @return the RandomEventService */
-    public RandomService getRandomService() { return RandomService; }
+    public RandomService getRandomService() { return randomService; }
 
     /** @return the shared AudioService */
     public AudioService getAudioService() { return audioService; }

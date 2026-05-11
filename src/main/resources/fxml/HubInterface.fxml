@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="seng201.nunbutblood.gui.HubController"
+            styleClass="root">
+
+    <!-- Top header -->
+    <top>
+        <VBox styleClass="title-bar" alignment="CENTER" spacing="4">
+            <Label fx:id="covenantTitle" text="THE COVENANT" styleClass="title-label"/>
+            <HBox alignment="CENTER" spacing="40">
+                <Label fx:id="faithLabel"      text="Faith: 300"    styleClass="stat-pill"/>
+                <Label fx:id="expeditionLabel" text="Crusade 1/10"  styleClass="stat-pill"/>
+                <Label fx:id="partyLabel"      text="Party: 3/5"    styleClass="stat-pill"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Centre: party panels -->
+    <center>
+        <HBox spacing="16" alignment="TOP_CENTER">
+            <padding><Insets top="16" bottom="16" left="20" right="20"/></padding>
+
+            <!-- Active Party -->
+            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                <Label text="ACTIVE PARTY" styleClass="section-label"/>
+                <ListView fx:id="activeList" styleClass="apostle-list" VBox.vgrow="ALWAYS"/>
+                <HBox spacing="8">
+                    <Button text="→ BENCH" onAction="#handleBench"
+                            styleClass="action-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button text="USE ITEM" onAction="#handleUseItem"
+                            styleClass="action-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                </HBox>
+                <Button text="RETIRE APOSTLE" onAction="#handleRetire"
+                        styleClass="danger-btn" maxWidth="Infinity"/>
+            </VBox>
+
+            <!-- Reserves -->
+            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                <Label text="RESERVES" styleClass="section-label"/>
+                <ListView fx:id="reserveList" styleClass="apostle-list" VBox.vgrow="ALWAYS"/>
+                <Button text="← ACTIVATE" onAction="#handleActivate"
+                        styleClass="action-btn" maxWidth="Infinity"/>
+            </VBox>
+
+            <!-- Inventory -->
+            <VBox spacing="8" HBox.hgrow="ALWAYS">
+                <Label text="INVENTORY" styleClass="section-label"/>
+                <ListView fx:id="inventoryList" styleClass="apostle-list" VBox.vgrow="ALWAYS"/>
+                <Button text="EQUIP ITEM" onAction="#handleEquipItem"
+                        styleClass="action-btn" maxWidth="Infinity"/>
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- Bottom nav -->
+    <bottom>
+        <VBox spacing="4" alignment="CENTER">
+            <padding><Insets top="8" bottom="16" left="40" right="40"/></padding>
+            <Label fx:id="statusLabel" text=" " styleClass="hint-label" wrapText="true"/>
+            <HBox spacing="12">
+                <Button text="🛒  MARKET" onAction="#handleMarket"
+                        styleClass="glow-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button text="⚔  BEGIN CRUSADE" onAction="#handleCrusade"
+                        styleClass="crusade-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            </HBox>
+        </VBox>
+    </bottom>
+</BorderPane>

@@ -7,17 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/*
-    TODO:
-       Attributes
-        - baseChance: int
-        - difficultyBonus: int
-        - Skills: List
-        - Random: random
-        - hardMode: bool
-      Methods
-        + triggerEvents(Covenant): List<string>
-*/
 public class RandomService {
     private String difficulty;
     /** Base probability of a random event after a crusade **/
@@ -86,7 +75,7 @@ public class RandomService {
             if (random.nextDouble() < retireChance) {
                 int total = covenant.getActiveParty().size() + covenant.getReserves().size();
                 if (total > 1) {
-                    covenant.retireApostle(saint);
+                    covenant.retireSaint(saint);
                     events.add(String.format("%s has retired, a humble end for our hero...", saint.getName()));
                     break;
                 }
