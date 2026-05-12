@@ -67,7 +67,7 @@ public class ScreenNavigator {
     }
     /** Navigates to the Market screen. */
     public void goToMarket() {
-        loadScreen("/fxml/MarketInterface.fxml", controller -> {
+        loadScreen("/fxml/ShopInterface.fxml", controller -> {
             if (controller instanceof MarketController mc) {
                 mc.init(stage, this, covenant, marketService);
             }
@@ -104,7 +104,7 @@ public class ScreenNavigator {
         this.marketService = marketService;
         this.randomService = randomSvc;
         goToHub();
-        loadScreen("/fxml/testInterface.fxml", controller -> {
+        loadScreen("/fxml/HubInterface.fxml", controller -> {
             if (controller instanceof HubController hc) {
                 hc.init(stage, this, covenant);
             }
@@ -114,7 +114,7 @@ public class ScreenNavigator {
 
     /** Navigates to the Church Management hub using the existing game state. */
     public void goToHub() {
-        loadScreen("/fxml/testInterface.fxml", controller -> {
+        loadScreen("/fxml/HubInterface.fxml", controller -> {
             if (controller instanceof HubController hc) {
                 hc.init(stage, this, covenant);
             }
@@ -139,6 +139,7 @@ public class ScreenNavigator {
                     getClass().getResource("/css/style.css").toExternalForm());
             stage.setScene(scene);
             stage.setTitle("Nun'But Blood");
+            stage.setFullScreen(true);
             stage.show();
         } catch (IOException e) {
             throw new RuntimeException("Failed to load screen: " + fxmlPath, e);

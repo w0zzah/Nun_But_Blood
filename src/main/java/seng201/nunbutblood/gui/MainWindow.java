@@ -1,6 +1,7 @@
 package seng201.nunbutblood.gui;
 
 import javafx.application.Application;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 /**
@@ -19,10 +20,15 @@ public class MainWindow extends Application {
     @Override
     public void start(Stage primaryStage) {
         ScreenNavigator navigator = new ScreenNavigator(primaryStage);
-        navigator.goToSetup();
-        primaryStage.setFullScreen(true);
-    }
 
+        primaryStage.setFullScreenExitHint("");
+        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        primaryStage.setFullScreen(true);
+
+        navigator.goToSetup();
+
+        primaryStage.show();
+    }
     /**
      * Launches the JavaFX application. Must be called from a non-JavaFX class.
      *

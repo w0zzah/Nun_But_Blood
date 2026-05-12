@@ -205,18 +205,18 @@ public class MarketService {
     private static List<Item> buildItemPool() {
         List<Item> pool = new ArrayList<>();
         // Consumables
-        pool.add(new Item("Holy Salve", Item.ItemType.UPGRADE, "STAMINA", 20, 60,
+        pool.add(new Item("Holy Salve", Item.ItemType.UPGRADE, "stamina", 20, 60,
                 "A vial of blessed oil. Restores 20 Stamina."));
-        pool.add(new Item("Perception Powder", Item.ItemType.UPGRADE, "PERCEPTION", 5, 80,
+        pool.add(new Item("Perception Powder", Item.ItemType.UPGRADE, "perception", 5, 80,
                 "Fine dust that sharpens the senses. +5 Perception."));
-        pool.add(new Item("War Unction", Item.ItemType.UPGRADE, "STRENGTH", 4, 70,
-                "An anointing that hardens the arm. +4 to primary stat."));
+        pool.add(new Item("War Unction", Item.ItemType.UPGRADE, "strength", 5, 70,
+                "An anointing that hardens the arm. +5 to strength for one round"));
         // Gear
-        pool.add(new Item("Iron Rosary", Item.ItemType.EQUIPMENT, "PERCEPTION", 8, 120,
+        pool.add(new Item("Iron Rosary", Item.ItemType.EQUIPMENT, "perception", 8, 120,
                 "A heavy iron rosary, focus for the devout. +8 Perception while equipped."));
-        pool.add(new Item("Blessed Gauntlets", Item.ItemType.EQUIPMENT, "STRENGTH", 6, 130,
-                "Gauntlets etched with psalms. +6 to primary stat while equipped."));
-        pool.add(new Item("Pilgrim's Boots", Item.ItemType.EQUIPMENT, "STAMINA", 30, 110,
+        pool.add(new Item("Blessed Gauntlets", Item.ItemType.EQUIPMENT, "strength", 3, 130,
+                "Gauntlets etched with psalms. +3 to strength while equipped."));
+        pool.add(new Item("Pilgrim's Boots", Item.ItemType.EQUIPMENT, "stamina", 30, 110,
                 "Boots worn thin by a thousand miles. +30 Stamina while equipped."));
         // Skill Tomes
         pool.add(new Item("Tome of Discernment", Item.ItemType.SKILL_TOME, "NONE", 0, 150,

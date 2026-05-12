@@ -64,20 +64,20 @@ public class Item implements Purchasable {
      * UPGRADE and SKILL_TOME are consumed on use.
      * EQUIPMENT persists and should be tracked on the apostle separately.
      *
-     * @param apostle the apostle to apply the effect to
+     * @param saint the apostle to apply the effect to
      */
-    public void applyEffect(Saints apostle) {
+    public void applyEffect(Saints saint) {
         switch (type) {
             case UPGRADE, EQUIPMENT -> {
                 switch (statAffected) {
-                    case "STR" -> apostle.changeStrength(bonusValue);
-                    case "WIS" -> apostle.changeWisdom(bonusValue);
-                    case "DEX" -> apostle.changeDexterity(bonusValue);
-                    case "STA" -> apostle.changeMaxStamina(bonusValue);
-                    case "PER" -> apostle.changePerception(bonusValue);
+                    case "strength" -> saint.changeStrength(bonusValue);
+                    case "wisdom" -> saint.changeWisdom(bonusValue);
+                    case "dexterity" -> saint.changeDexterity(bonusValue);
+                    case "stamina" -> saint.changeMaxStamina(bonusValue);
+                    case "perception" -> saint.changePerception(bonusValue);
                 }
             }
-            case SKILL_TOME -> apostle.setSpecialAbility(itemDescription);
+            case SKILL_TOME -> saint.setSpecialAbility(itemDescription);
         }
     }
 
