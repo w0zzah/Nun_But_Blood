@@ -5,7 +5,7 @@
 */
 
 .root {
-    -fx-background-color: linear-gradient(to bottom, #acacac, #000000);
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);    -fx-text-fill: -chrome;
     /* Need font installed to work */
     -fx-font-family: "Angel Wish";
     -fx-font-size: 25px;
@@ -13,6 +13,53 @@
     -crimson: linear-gradient(to bottom, #af0303 0%, #ff2b2b 20%, #9e0202 50%, #ff2b2b 80%);
 }
 
+
+/* --- The Header Area (The empty space behind the tabs) --- */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+/* --- The Unselected Tabs --- */
+.tab-pane .tab {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);    -fx-text-fill: -chrome;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-border-color: -chrome;
+    -fx-border-width: 3;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(37, 37, 37, 0.4), 8, 0.4, 0, 0);
+}
+
+/* --- The Text Inside Unselected Tabs --- */
+.tab-pane .tab .tab-label {
+    -fx-text-fill: white;
+}
+
+/* --- The SELECTED Tab --- */
+.tab-pane .tab:selected {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);    -fx-text-fill: -chrome;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-border-color: -crimson;
+    -fx-border-width: 3;
+    -fx-cursor: hand;
+}
+
+/* --- The Text Inside the SELECTED Tab --- */
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: white;
+}
+
+/* --- Remove the annoying blue focus ring when you click a tab --- */
+.tab-pane .tab:focus {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* Hover effect for unselected tabs */
+.tab-pane .tab:hover {
+    -fx-background-color: #4a4a4a;
+}
 .title-bar {
     -fx-background-color: linear-gradient(to top, #979797, #353535);
     -fx-padding: 18 40 14 40;
@@ -211,16 +258,14 @@
 .scroll-bar .increment-button, .scroll-bar .decrement-button, .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
     -fx-background-color: transparent;
 }
-.glow-button {
+.button {
     -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);    -fx-text-fill: -chrome;
-    -fx-font-size: 25px;
-    -fx-font-weight: bold;
-    -fx-padding: 11 22 11 22;
-    -fx-border-color: #f3f3f3;
-    -fx-border-width: 3;
+    -fx-font-size: 20px;
+    -fx-border-color: -chrome;
+    -fx-border-width: 1;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(37, 37, 37, 0.4), 8, 0.4, 0, 0);
-
+    -fx-max-width: infinity;
 }
 .glow-button:hover {
     -fx-text-fill: linear-gradient(to bottom, #c30000, #6c0000);
@@ -236,7 +281,6 @@
     -fx-text-fill: #cc8866;
     -fx-font-size: 12px;
     -fx-font-weight: bold;
-    -fx-padding: 8 14 8 14;
     -fx-background-radius: 4;
     -fx-border-color: #440000;
     -fx-border-width: 1;
@@ -311,10 +355,10 @@
     /* Point to your image file */
     -fx-border-image-source: url("/images/background/border(1).png");
     -fx-border-image-slice: 270;
+
     -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);    -fx-text-fill: -chrome;
     /* How thick the border should render on screen */
     -fx-border-image-width: 50px;
-
     /* Tell it whether to stretch or repeat the edges between the corners */
     -fx-border-image-repeat: repeat;
 }

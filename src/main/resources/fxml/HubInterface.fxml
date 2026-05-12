@@ -1,73 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
-<BorderPane xmlns="http://javafx.com/javafx/25"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="seng201.nunbutblood.gui.HubController"
-            styleClass="root">
-
-    <!-- Top header -->
-    <top>
-        <VBox styleClass="title-bar" alignment="CENTER" spacing="4">
-            <Label fx:id="covenantTitle" text="THE COVENANT" styleClass="title-label"/>
-            <HBox alignment="CENTER" spacing="40">
-                <Label fx:id="faithLabel"      text="Faith: 300"    styleClass="stat-pill"/>
-                <Label fx:id="expeditionLabel" text="Crusade 1/10"  styleClass="stat-pill"/>
-                <Label fx:id="partyLabel"      text="Party: 3/5"    styleClass="stat-pill"/>
-            </HBox>
-        </VBox>
-    </top>
-
-    <!-- Centre: party panels -->
-    <center>
-        <HBox spacing="16" alignment="TOP_CENTER">
-            <padding><Insets top="16" bottom="16" left="20" right="20"/></padding>
-
-            <!-- Active Party -->
-            <VBox spacing="8" HBox.hgrow="ALWAYS">
-                <Label text="ACTIVE PARTY" styleClass="section-label"/>
-                <ListView fx:id="activeList" styleClass="apostle-list" VBox.vgrow="ALWAYS"/>
-                <HBox spacing="8">
-                    <Button text="→ BENCH" onAction="#handleBench"
-                            styleClass="action-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-                    <Button text="USE ITEM" onAction="#handleUseItem"
-                            styleClass="action-btn" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.HubController">
+    <children>
+        <VBox alignment="CENTER" spacing="6" styleClass="cybersigil-border">
+            <children>
+                <HBox alignment="BASELINE_LEFT">
+                    <children>
+                        <Label fx:id="covenantTitle" styleClass="title-label" text="covenant" textFill="WHITE">
+                            <effect>
+                                <InnerShadow blurType="GAUSSIAN">
+                                    <color>
+                                        <Color red="0.8421052694320679" green="0.44054579734802246" blue="0.44054579734802246" />
+                                    </color>
+                                </InnerShadow>
+                            </effect>
+                            <HBox.margin>
+                                <Insets left="20.0" />
+                            </HBox.margin>
+                        </Label>
+                        <Region HBox.hgrow="SOMETIMES" />
+                        <Label fx:id="faithLabel" styleClass="section-label" text="Faith: 0" />
+                        <Region HBox.hgrow="SOMETIMES" />
+                        <Label fx:id="expeditionLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="section-label" text="Crsuade 0/ 0" />
+                        <Region HBox.hgrow="SOMETIMES" />
+                        <Label fx:id="partyLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="section-label" text="Party: 0/5" />
+                    </children>
                 </HBox>
-                <Button text="RETIRE APOSTLE" onAction="#handleRetire"
-                        styleClass="danger-btn" maxWidth="Infinity"/>
-            </VBox>
-
-            <!-- Reserves -->
-            <VBox spacing="8" HBox.hgrow="ALWAYS">
-                <Label text="RESERVES" styleClass="section-label"/>
-                <ListView fx:id="reserveList" styleClass="apostle-list" VBox.vgrow="ALWAYS"/>
-                <Button text="← ACTIVATE" onAction="#handleActivate"
-                        styleClass="action-btn" maxWidth="Infinity"/>
-            </VBox>
-
-            <!-- Inventory -->
-            <VBox spacing="8" HBox.hgrow="ALWAYS">
-                <Label text="INVENTORY" styleClass="section-label"/>
-                <ListView fx:id="inventoryList" styleClass="apostle-list" VBox.vgrow="ALWAYS"/>
-                <Button text="EQUIP ITEM" onAction="#handleEquipItem"
-                        styleClass="action-btn" maxWidth="Infinity"/>
-            </VBox>
-        </HBox>
-    </center>
-
-    <!-- Bottom nav -->
-    <bottom>
-        <VBox spacing="4" alignment="CENTER">
-            <padding><Insets top="8" bottom="16" left="40" right="40"/></padding>
-            <Label fx:id="statusLabel" text=" " styleClass="hint-label" wrapText="true"/>
-            <HBox spacing="12">
-                <Button text="🛒  MARKET" onAction="#handleMarket"
-                        styleClass="glow-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-                <Button text="⚔  BEGIN CRUSADE" onAction="#handleCrusade"
-                        styleClass="crusade-button" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-            </HBox>
+            </children>
         </VBox>
-    </bottom>
-</BorderPane>
+        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="618.0" prefWidth="1032.0" vbarPolicy="NEVER" VBox.vgrow="SOMETIMES">
+            <content>
+                <BorderPane>
+                    <center>
+                        <VBox BorderPane.alignment="CENTER">
+                            <children>
+                                <VBox alignment="TOP_CENTER" styleClass="cybersigil-border">
+                                    <children>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="section-label" text="Items" />
+                                        <HBox fx:id="inventoryPane" />
+                                    </children>
+                                </VBox>
+                                <HBox>
+                                    <children>
+                                        <VBox alignment="TOP_CENTER" styleClass="cybersigil-border" HBox.hgrow="SOMETIMES">
+                                            <children>
+                                                <Label alignment="TOP_CENTER" contentDisplay="TOP" styleClass="section-label" text="Active" VBox.vgrow="NEVER" />
+                                                <FlowPane fx:id="activePane" hgap="10.0" vgap="10.0" />
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="TOP_CENTER" styleClass="cybersigil-border" HBox.hgrow="SOMETIMES">
+                                            <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" styleClass="section-label" text="Reserves" />
+                                                <FlowPane fx:id="reservePane" hgap="10.0" vgap="10.0" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </center>
+                </BorderPane>
+            </content>
+        </ScrollPane>
+        <HBox alignment="CENTER" styleClass="cybersigil-border">
+            <children>
+                <VBox alignment="CENTER" spacing="4">
+                    <padding>
+                        <Insets bottom="16" left="40" right="40" top="8" />
+                    </padding>
+                    <children>
+                        <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="12">
+                            <children>
+                                <Label fx:id="statusLabel" styleClass="hint-label" text=" " wrapText="true" />
+                                <Button alignment="CENTER" maxWidth="Infinity" onAction="#handleMarket" styleClass="glow-button" text="MARKET" HBox.hgrow="ALWAYS" />
+                                <Button maxWidth="Infinity" onAction="#handleCrusade" styleClass="glow-button" text="BEGIN CRUSADE" HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</VBox>

@@ -28,7 +28,7 @@ public class SaintCardController {
      */
     public static VBox createSaintCard(Saints saint, Node actionNode, boolean isCompact) {
 
-        int cardWidth = isCompact ? 200 : 300;
+        int cardWidth = isCompact ? 180 : 300;
         int cardHeight = isCompact ? 150 : 300;
         int portraitBoxHeight = isCompact ? 100 : 200;
         int imageFitHeight = isCompact ? 90 : 180;

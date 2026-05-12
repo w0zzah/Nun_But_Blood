@@ -47,7 +47,7 @@ public class HubController {
 
     /** Refreshes all displayed data from the Covenant model. */
     private void refresh() {
-        covenantTitle.setText(" " + covenant.getName().toUpperCase());
+        covenantTitle.setText(covenant.getName().toUpperCase());
         faithLabel.setText("Faith: " + covenant.getFaith());
         expeditionLabel.setText("Crusade " + covenant.getCurrentCrusade()
                 + " / " + covenant.getTotalCrusades());
@@ -56,6 +56,34 @@ public class HubController {
         refreshActiveParty();
         refreshReserves();
         refreshInventory();
+    }
+    private void refreshReserves() {
+        reservePane.getChildren().clear();
+        for (Saints a : covenant.getReserves()) {
+            Button activateBtn = new Button("ACTIVATE");
+            activateBtn.setOnAction(e -> {
+                if (!covenant.activateApostle(a)) {
+                    statusLabel.setText("Active party is full (max 5).");
+                } else {
+                    statusLabel.setText(a.getName() + " added to active party.");
+                    a.resetCrusadeCount();
+                    refresh();
+                }
+            });
+
+            Button retireBtn = new Button("RETIRE");
+            retireBtn.setOnAction(e -> {
+                covenant.retireSaint(a); // No restriction on retiring from reserves
+                statusLabel.setText(a.getName() + " has retired.");
+                refresh();
+            });
+
+            VBox actions = new VBox(5, activateBtn, retireBtn);
+            actions.setAlignment(javafx.geometry.Pos.CENTER);
+
+            VBox card = SaintCardController.createSaintCard(a, actions, true);
+            reservePane.getChildren().add(card);
+        }
     }
 
     private void refreshActiveParty() {
@@ -81,40 +109,12 @@ public class HubController {
                 }
             });
 
-            HBox actions = new HBox(5, benchBtn, retireBtn);
+            VBox actions = new VBox(5);
+            actions.getChildren().addAll(benchBtn, retireBtn);
             actions.setAlignment(javafx.geometry.Pos.CENTER);
 
             VBox card = SaintCardController.createSaintCard(saint, actions, true);
             activePane.getChildren().add(card);
-        }
-    }
-
-    private void refreshReserves() {
-        reservePane.getChildren().clear();
-        for (Saints a : covenant.getReserves()) {
-            Button activateBtn = new Button("ACTIVATE");
-            activateBtn.setOnAction(e -> {
-                if (!covenant.activateApostle(a)) {
-                    statusLabel.setText("Active party is full (max 5).");
-                } else {
-                    statusLabel.setText(a.getName() + " added to active party.");
-                    a.resetCrusadeCount();
-                    refresh();
-                }
-            });
-
-            Button retireBtn = new Button("RETIRE");
-            retireBtn.setOnAction(e -> {
-                covenant.retireSaint(a); // No restriction on retiring from reserves
-                statusLabel.setText(a.getName() + " has retired.");
-                refresh();
-            });
-
-            HBox actions = new HBox(5, activateBtn, retireBtn);
-            actions.setAlignment(javafx.geometry.Pos.CENTER);
-
-            VBox card = SaintCardController.createSaintCard(a, actions, true);
-            reservePane.getChildren().add(card);
         }
     }
 
@@ -144,13 +144,13 @@ public class HubController {
         ChoiceDialog<Saints> dialog = new ChoiceDialog<>(allSaints.getFirst(), allSaints);
         dialog.setTitle("Use Item");
         dialog.setHeaderText("Applying: " + item.getItemName());
-        dialog.setContentText("Select an Apostle to equip or use this on:");
+        dialog.setContentText("Select a Saint to use this on:");
 
         Optional<Saints> result = dialog.showAndWait();
-        result.ifPresent(apostle -> {
-            item.applyEffect(apostle);
+        result.ifPresent(saint -> {
+            item.applyEffect(saint);
             covenant.removeItem(item);
-            statusLabel.setText(item.getItemName() + " applied to " + apostle.getName() + "!");
+            statusLabel.setText(item.getItemName() + " applied to " + saint.getName() + "!");
             refresh();
         });
     }

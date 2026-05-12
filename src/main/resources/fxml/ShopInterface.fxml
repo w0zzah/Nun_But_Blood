@@ -1,57 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="seng201.nunbutblood.gui.MarketController"
-            styleClass="root">
-    <top>
-        <VBox styleClass="title-bar" alignment="CENTER" spacing="4">
-            <Label text="THE MARKET" styleClass="title-label"/>
-            <Label fx:id="faithLabel" text="Faith: 300" styleClass="stat-pill"/>
-        </VBox>
-    </top>
-
-    <center>
-        <HBox spacing="16" alignment="TOP_CENTER">
-            <padding><Insets top="16" bottom="8" left="20" right="20"/></padding>
-
-            <!-- Apostles for hire -->
-            <VBox spacing="8" HBox.hgrow="ALWAYS">
-                <Label text="APOSTLES FOR HIRE" styleClass="section-label"/>
-                <ListView fx:id="apostleList" styleClass="apostle-list" VBox.vgrow="ALWAYS"/>
-                <Button text="HIRE APOSTLE" onAction="#handleHire"
-                        styleClass="glow-button" maxWidth="Infinity"/>
-                <Button text="SELL APOSTLE (½ price)" onAction="#handleSellApostle"
-                        styleClass="danger-btn" maxWidth="Infinity"/>
-            </VBox>
-
-            <!-- Items for sale -->
-            <VBox spacing="8" HBox.hgrow="ALWAYS">
-                <Label text="ITEMS FOR SALE" styleClass="section-label"/>
-                <ListView fx:id="itemList" styleClass="apostle-list" VBox.vgrow="ALWAYS"/>
-                <Button text="BUY ITEM" onAction="#handleBuy"
-                        styleClass="glow-button" maxWidth="Infinity"/>
-                <Button text="SELL ITEM (½ price)" onAction="#handleSellItem"
-                        styleClass="danger-btn" maxWidth="Infinity"/>
-            </VBox>
-
-            <!-- Covenant inventory -->
-            <VBox spacing="8" HBox.hgrow="ALWAYS">
-                <Label text="YOUR INVENTORY" styleClass="section-label"/>
-                <ListView fx:id="inventoryList" styleClass="apostle-list" VBox.vgrow="ALWAYS"/>
-            </VBox>
-        </HBox>
-    </center>
-
-    <bottom>
-        <VBox spacing="4" alignment="CENTER">
-            <padding><Insets top="4" bottom="16" left="40" right="40"/></padding>
-            <Label fx:id="statusLabel" text=" " styleClass="hint-label" wrapText="true"/>
-            <Button text="← BACK TO COVENANT" onAction="#handleBack"
-                    styleClass="glow-button" maxWidth="Infinity"/>
-        </VBox>
-    </bottom>
-</BorderPane>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.MarketController">
+   <children>
+      <VBox alignment="CENTER" spacing="6" styleClass="cybersigil-border">
+         <children>
+            <HBox alignment="BASELINE_LEFT">
+               <children>
+                  <Label styleClass="title-label" text="Market" textFill="WHITE">
+                     <effect>
+                        <InnerShadow blurType="GAUSSIAN">
+                           <color>
+                              <Color red="0.8421052694320679" green="0.44054579734802246" blue="0.44054579734802246" />
+                           </color>
+                        </InnerShadow>
+                     </effect>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Region HBox.hgrow="SOMETIMES" />
+                  <Label fx:id="faithLabel" styleClass="section-label" text="Faith: 0" />
+                  <Region HBox.hgrow="SOMETIMES" />
+                  <Label fx:id="expeditionLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="section-label" text="Crsuade 0/ 0" />
+                  <Region HBox.hgrow="SOMETIMES" />
+                  <Label fx:id="partyLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="section-label" text="Party: 0/5" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="618.0" prefWidth="1032.0" vbarPolicy="NEVER" VBox.vgrow="SOMETIMES">
+         <content>
+            <BorderPane>
+               <center>
+                  <VBox styleClass="cybersigil-border" BorderPane.alignment="CENTER">
+                     <children>
+                        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                          <tabs>
+                            <Tab text="Items">
+                                 <content>
+                                    <VBox fx:id="itemPane" alignment="TOP_CENTER" />
+                                 </content>
+                            </Tab>
+                            <Tab text="Saints">
+                                 <content>
+                                    <FlowPane fx:id="saintPane" prefHeight="200.0" prefWidth="200.0" />
+                                 </content></Tab>
+                              <Tab text="Inventory">
+                                 <content>
+                                    <VBox fx:id="inventoryPane" alignment="TOP_CENTER" />
+                                 </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </VBox>
+               </center>
+            </BorderPane>
+         </content>
+      </ScrollPane>
+      <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="12" styleClass="cybersigil-border">
+         <children>
+            <Label fx:id="statusLabel" styleClass="hint-label" text=" " wrapText="true" />
+            <Button maxWidth="Infinity" onAction="#handleBack" text="Go Back" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

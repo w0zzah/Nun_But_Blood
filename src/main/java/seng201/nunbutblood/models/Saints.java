@@ -182,6 +182,11 @@ public abstract class Saints implements Purchasable {
 
     public int getCrusadeCount() {return  crusadeCount; }
 
+    @Override
+    public String toString() {
+        return this.getName(); // Assuming you have a getName() method
+    }
+
 
     // ----- GETTERS (ABSTRACT)----------------------------------------------------------------
 
