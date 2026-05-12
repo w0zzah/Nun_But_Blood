@@ -6,6 +6,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
+import seng201.nunbutblood.services.DemonService;
 
 import java.util.List;
 public class CrusadeSelectController {
@@ -17,24 +18,43 @@ public class CrusadeSelectController {
     private Stage stage;
     private ScreenNavigator navigator;
     private Covenant covenant;
-    private List<Demon> demons;
+    private DemonService demonService;
     private Demon selectedDemon;
 
-    public void init(Stage stage, ScreenNavigator navigator, Covenant covenant, List<Demon> demons) {
+    public void init(Stage stage, ScreenNavigator navigator, Covenant covenant, DemonService demonService) {
         this.stage = stage;
         this.navigator = navigator;
-        this.demons = demons;
+        this.covenant = covenant; // Make sure this.covenant is assigned!
+        this.demonService = demonService;
+
+        // Generate new demons only if we don't have current options
+        if (demonService.getCurrentOptions().isEmpty()) {
+            demonService.generateNewOptions(covenant.getCurrentCrusade());
+        }
+
         crusadeLabel.setText("Crusade " + covenant.getCurrentCrusade() + " of " + covenant.getTotalCrusades());
         renderDemonCards();
     }
+
     public void renderDemonCards() {
         demonCardBox.getChildren().clear();
-        for (Demon demon : demons) {
+        // Call the method from the service, not the service itself
+        for (Demon demon : demonService.getCurrentOptions()) {
             VBox card = buildDemonCard(demon);
             HBox.setHgrow(card, Priority.ALWAYS);
             demonCardBox.getChildren().add(card);
         }
+    }
 
+    @FXML
+    private void handleBegin() {
+        if (selectedDemon == null) {
+            hintLabel.setText("You must choose a demon to continue!");
+            hintLabel.setStyle("-fx-text-fill: red;");
+            return;
+        }
+        // 2. Tell the navigator to launch the battle screen
+        navigator.goToCrusade(selectedDemon);
     }
 
     public VBox buildDemonCard(Demon demon) {
@@ -82,14 +102,6 @@ public class CrusadeSelectController {
         beginBtn.setText("Rock n' Roll!");
         hintLabel.setText("Facing " + demon.getName() + " Difficulty: " +
             demon.getDifficultyRating() + " Weakness: " + demon.getWeakness());
-    }
-
-    @FXML
-    private void handleBegin() {
-        if (selectedDemon == null) {
-            hintLabel.setText("You must chose a demon to continue");
-            return;
-        }
     }
 
     @FXML

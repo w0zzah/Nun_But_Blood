@@ -193,7 +193,7 @@ public class SetupController {
 
         MarketService market = new MarketService();
         RandomService randomSvc = new RandomService(difficulty);
-        navigator.goToHubFirst(covenant, market, randomSvc);
+        navigator.startCovenant(covenant, market, randomSvc);
     }
 
 }

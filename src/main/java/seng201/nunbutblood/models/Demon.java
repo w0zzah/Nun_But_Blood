@@ -12,6 +12,8 @@ public class Demon {
     /** Display name of the demon. */
     private final String name;
 
+    private final String portraitKey;
+
     /** Combat difficulty, used to scale encounter frequency and rewards. */
     private final int difficultyRating;
 
@@ -22,8 +24,7 @@ public class Demon {
     private final int faithReward;
 
     /** Probability of the curse triggering after combat, between 0.0 and 1.0. */
-    private final double curseChance;
-
+    private double curseChance = 0.20; // Default 20% chance
     // ── Constructor ───────────────────────────────────────────────────────────
 
     /**
@@ -33,17 +34,14 @@ public class Demon {
      * @param difficultyRating combat difficulty (higher = harder)
      * @param weakness         stat type this demon is weak to ("STR", "WIS", "DEX")
      * @param faithReward      faith awarded on defeat
-     * @param curseChance      probability of curse triggering (0.0 to 1.0)
      */
-    public Demon(String name, int difficultyRating, String weakness, int faithReward, double curseChance){
+    public Demon(String name, String portraitKey, int difficultyRating, String weakness, int faithReward){
         this.name = name;
+        this.portraitKey = portraitKey;
         this.difficultyRating = difficultyRating;
         this.weakness = weakness;
         this.faithReward = faithReward;
-        this.curseChance = curseChance;
     }
-
-    // ── Getters ───────────────────────────────────────────────────────────────
 
     /**
      * Returns the demon's display name.
@@ -60,25 +58,12 @@ public class Demon {
     public int getDifficultyRating() { return difficultyRating; }
 
     /**
-     * Returns the stat type this demon is weak to.
-     *
-     * @return weakness stat type ("STR", "WIS", or "DEX")
-     */
-    public String getWeakness() { return weakness; }
-
-    /**
      * Returns the faith reward for defeating this demon.
      *
      * @return faith reward amount
      */
     public int getFaithReward() { return faithReward; }
 
-    /**
-     * Returns the curse chance for this demon.
-     *
-     * @return curse probability between 0.0 and 1.0
-     */
-    public double getCurseChance() { return curseChance; }
 
     /**
      * Returns a formatted summary of this demon's attributes
@@ -102,4 +87,16 @@ public class Demon {
     public boolean applyCurse() {
         return Math.random() < curseChance;
     }
+
+    public String getPortraitKey() {
+        return this.portraitKey;
+    }
+
+    /**
+     * Returns the stat type this demon is weak to.
+     *
+     * @return weakness stat type ("STR", "WIS", or "DEX")
+     */
+
+    public String getWeakness() { return weakness; }
 }

@@ -16,7 +16,6 @@ import seng201.nunbutblood.services.RandomService;
 
 public class MarketController {
 
-    @FXML private Label covenantTitle;
     @FXML private Label faithLabel;
     @FXML private Label statusLabel;
     @FXML private FlowPane saintPane;
@@ -37,7 +36,6 @@ public class MarketController {
     }
 
     private void refresh() {
-        covenantTitle.setText(covenant.getName().toUpperCase());
         faithLabel.setText("Faith: " + covenant.getFaith());
         saintPane.getChildren().clear();
 
