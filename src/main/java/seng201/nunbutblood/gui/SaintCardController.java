@@ -28,11 +28,11 @@ public class SaintCardController {
      */
     public static VBox createSaintCard(Saints saint, Node actionNode, boolean isCompact) {
 
-        int cardWidth = isCompact ? 180 : 300;
-        int cardHeight = isCompact ? 150 : 300;
-        int portraitBoxHeight = isCompact ? 100 : 200;
-        int imageFitHeight = isCompact ? 90 : 180;
-        int spacing = isCompact ? 2 : 5;
+        int cardWidth = isCompact ? 180 : 200;
+        int cardHeight = isCompact ? 150 : 100;
+        int portraitBoxHeight = isCompact ? 100 : 150;
+        int imageFitHeight = isCompact ? 90 : 120;
+        int spacing = isCompact ? 2 : 3;
 
         VBox card = new VBox(spacing);
         // add CSS link dependent on rarity of card
