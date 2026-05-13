@@ -52,7 +52,7 @@
                                         <HBox fx:id="inventoryPane" />
                                     </children>
                                 </VBox>
-                                <HBox>
+                                <HBox VBox.vgrow="ALWAYS">
                                     <children>
                                         <VBox alignment="TOP_CENTER" styleClass="cybersigil-border" HBox.hgrow="SOMETIMES">
                                             <children>
@@ -74,23 +74,16 @@
                 </BorderPane>
             </content>
         </ScrollPane>
-        <HBox alignment="CENTER" styleClass="cybersigil-border">
-            <children>
-                <VBox alignment="CENTER" spacing="4">
-                    <padding>
-                        <Insets bottom="16" left="40" right="40" top="8" />
-                    </padding>
-                    <children>
-                        <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="12">
-                            <children>
-                                <Label fx:id="statusLabel" styleClass="hint-label" text=" " wrapText="true" />
-                                <Button alignment="CENTER" maxWidth="Infinity" onAction="#handleMarket" styleClass="glow-button" text="MARKET" HBox.hgrow="ALWAYS" />
-                                <Button maxWidth="Infinity" onAction="#handleCrusade" styleClass="glow-button" text="BEGIN CRUSADE" HBox.hgrow="ALWAYS" />
-                            </children>
-                        </HBox>
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
+      <VBox alignment="BOTTOM_CENTER">
+         <children>
+            <Label fx:id="statusLabel" alignment="CENTER" styleClass="hint-label" text=" " wrapText="true" VBox.vgrow="SOMETIMES" />
+            <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="12">
+               <children>
+                  <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#handleMarket" styleClass="cybersigil-border" text="MARKET" HBox.hgrow="ALWAYS" />
+                  <Button maxWidth="1.7976931348623157E308" onAction="#handleCrusade" styleClass="cybersigil-border" text="BEGIN CRUSADE" HBox.hgrow="ALWAYS" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
     </children>
 </VBox>

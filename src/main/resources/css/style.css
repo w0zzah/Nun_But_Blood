@@ -5,7 +5,8 @@
 */
 
 .root {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);    -fx-text-fill: -chrome;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);
+    -fx-text-fill: -chrome;
     /* Need font installed to work */
     -fx-font-family: "Angel Wish";
     -fx-font-size: 25px;
@@ -13,47 +14,33 @@
     -crimson: linear-gradient(to bottom, #af0303 0%, #ff2b2b 20%, #9e0202 50%, #ff2b2b 80%);
 }
 
-
+.label {
+    -fx-text-fill: -chrome
+}
 /* --- The Header Area (The empty space behind the tabs) --- */
-.tab-pane .tab-header-area .tab-header-background {
+.tab-header-area .tab-header-background {
     -fx-background-color: transparent;
 }
 
-/* --- The Unselected Tabs --- */
+
 .tab-pane .tab {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);    -fx-text-fill: -chrome;
-    -fx-font-size: 25px;
-    -fx-font-weight: bold;
+    -fx-min-width: infinity;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);
     -fx-border-color: -chrome;
-    -fx-border-width: 3;
+    -fx-border-width: 2;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(37, 37, 37, 0.4), 8, 0.4, 0, 0);
 }
-
-/* --- The Text Inside Unselected Tabs --- */
-.tab-pane .tab .tab-label {
-    -fx-text-fill: white;
-}
-
-/* --- The SELECTED Tab --- */
-.tab-pane .tab:selected {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);    -fx-text-fill: -chrome;
+.tab-label {
+    -fx-text-fill: -chrome;
     -fx-font-size: 25px;
     -fx-font-weight: bold;
+}
+
+.tab-pane .tab:selected {
     -fx-border-color: -crimson;
-    -fx-border-width: 3;
-    -fx-cursor: hand;
-}
-
-/* --- The Text Inside the SELECTED Tab --- */
-.tab-pane .tab:selected .tab-label {
-    -fx-text-fill: white;
-}
-
-/* --- Remove the annoying blue focus ring when you click a tab --- */
-.tab-pane .tab:focus {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
+    -fx-focus-color: rgba(0,0,0,0);
+    -fx-faint-focus-color: rgba(0,0,0,0);
 }
 
 /* Hover effect for unselected tabs */
@@ -94,15 +81,13 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.85), 10, 0.2, 0, 0);
     -fx-text-fill: -chrome;
     -fx-alignment: CENTER;
-    -fx-padding: 0 40;
-    -fx-font-size: 35;
+    -fx-font-size: 30;
 }
 
 .hint-label {
     -fx-text-fill: -crimson;
     -fx-font-style: italic;
     -fx-alignment: CENTER;
-
 }
 .form-section {
     -fx-background-color: rgba(30, 30, 30, 0.87);
@@ -126,7 +111,6 @@
 }
 .input-field:focused {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 8, 0.4, 0, 0);
-    -fx-border-width: 2;
 }
 
 .error-label {
@@ -141,7 +125,7 @@
 }
 
 .slider .track {
-    -fx-background-color: rgba(0,0,0,0);
+    -fx-background-color: -chrome;
 
 }
 .slider .thumb {
@@ -167,12 +151,6 @@
 }
 .diff-btn:selected {
     -fx-text-fill: -crimson;
-    -fx-border-color: #e1e1e1;
-    -fx-effect: dropshadow(gaussian, rgba(28, 28, 28, 0.5), 10, 0.5, 0, 0);
-}
-.diff-btn:hover:!selected {
-    -fx-background-color: #2a0000;
-    -fx-border-color: #660000;
 }
 .saint-card {
     -fx-padding: 5px;
@@ -183,7 +161,10 @@
     -fx-text-fill: -chrome;
 }
 .saint-card-selected {
-    -fx-background-color: linear-gradient(to top, rgba(67, 67, 67, 0.1) 20%, rgba(0,0,0,0));
+    -fx-background-color: linear-gradient(to top, rgba(67, 67, 67, 0.1) 30%, rgba(0,0,0,0));
+    -fx-background-radius: 35;
+    -fx-text-fill: -crimson;
+
 }
 .card-name {
     -fx-text-fill: white;
@@ -259,21 +240,16 @@
     -fx-background-color: transparent;
 }
 .button {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);    -fx-text-fill: -chrome;
-    -fx-font-size: 20px;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);
+    -fx-text-fill: -chrome;
+    -fx-font-size: 30px;
     -fx-border-color: -chrome;
     -fx-border-width: 1;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(37, 37, 37, 0.4), 8, 0.4, 0, 0);
-    -fx-max-width: infinity;
 }
-.glow-button:hover {
+.button:hover {
     -fx-text-fill: linear-gradient(to bottom, #c30000, #6c0000);
-    -fx-effect: dropshadow(gaussian, rgb(0, 0, 0), 18, 0.6, 0, 0);
-}
-.glow-button:pressed {
-    -fx-scale-x: 0.98;
-    -fx-scale-y: 0.98;
 }
 
 .action-btn {
@@ -297,19 +273,19 @@
     -fx-background-color: linear-gradient(to bottom, #1a0a00, #0a0000);
 }
 .rarity-common {
-    -fx-effect: dropshadow(gaussian, rgba(28, 99, 24, 0.55), 8, 0.3, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(28, 99, 24, 0.65), 8, 0.3, 0, 0);
     -fx-text-fill: rgb(255, 255, 255);
     -fx-alignment: center;
     -fx-font-size: 17px
 }
 .rarity-rare {
-    -fx-effect: dropshadow(gaussian, rgba(68,136,255,0.35), 8, 0.3, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(68,136,255,0.65), 8, 0.3, 0, 0);
     -fx-text-fill: rgba(27, 248, 248, 0.71);
     -fx-alignment: center;
     -fx-font-size: 17px
 }
 .rarity-epic {
-    -fx-effect: dropshadow(gaussian, rgba(204,68,255,0.45), 8, 0.2, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(204,68,255,0.65), 8, 0.2, 0, 0);
     -fx-text-fill: #bb00ff;
     -fx-alignment: center;
     -fx-font-size: 17px
@@ -350,16 +326,45 @@
     -fx-font-weight: bold;
 }
 
-/* In your style.css */
+.demon-card {
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, #390000, 8, 0.55, 0, 0);
+}
+
+.demon-card-name {
+    -fx-text-fill: -crimson;
+    -fx-font-size: 50px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+
+}
+
+.demon-card-type {
+    -fx-text-fill: -chrome;
+    -fx-font-size: 35px;
+    -fx-font-style: italic;
+    -fx-alignment: center;
+}
+.demon-card-stats {
+    -fx-text-fill: -chrome;
+    -fx-font-size: 30px;
+    -fx-wrap-text: true;
+    -fx-alignment: center;
+
+}
+
 .cybersigil-border {
-    /* Point to your image file */
     -fx-border-image-source: url("/images/background/border(1).png");
     -fx-border-image-slice: 270;
-
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);    -fx-text-fill: -chrome;
-    /* How thick the border should render on screen */
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);
+    -fx-text-fill: -chrome;
     -fx-border-image-width: 50px;
-    /* Tell it whether to stretch or repeat the edges between the corners */
     -fx-border-image-repeat: repeat;
 }
 

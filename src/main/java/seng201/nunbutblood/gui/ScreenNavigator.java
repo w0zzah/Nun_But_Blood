@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
+import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.services.AudioService;
 import seng201.nunbutblood.services.MarketService;
 import seng201.nunbutblood.services.RandomService;
@@ -12,52 +13,22 @@ import seng201.nunbutblood.services.DemonService;
 
 import java.io.IOException;
 
-/**
- * Centralised screen navigation helper.
- * <p>
- * Holds references to the primary {@link Stage}, the current {@link Covenant}
- * (game state), and shared services so they persist across scene transitions.
- * Each {@code goTo*()} method loads an FXML file, injects dependencies into the
- * controller via its {@code init()} method, and sets the scene on the stage.
- * </p>
- */
 public class ScreenNavigator {
 
-    /** The application's sole primary stage. */
     private final Stage stage;
-
-    /** The player's Covenant — shared across all screens. */
     private Covenant covenant;
-
-    /** Market service — refreshed after each crusade. */
     private MarketService marketService;
-
-    /** Random event service — fires post-crusade. */
     private RandomService randomService;
-
-    /** Demon factory — generates crusade options each round. */
-    private final DemonService DemonService;
-
-    /**
-     * Audio service — loaded once and shared across all screens.
-     * Persists here so clips stay in memory and play instantly.
-     */
+    private final DemonService demonService;
     private final AudioService audioService;
 
-    /**
-     * Constructs a ScreenNavigator bound to the given stage.
-     *
-     * @param stage the application's primary stage
-     */
     public ScreenNavigator(Stage stage) {
         this.stage = stage;
-        this.DemonService = new DemonService();
+        this.demonService = new DemonService();
         this.audioService = new AudioService();
     }
 
-    /**
-     * Navigates to the game setup screen (name / expeditions / difficulty / starting apostles).
-     */
+    /** Start of the game flow */
     public void goToSetup() {
         loadScreen("/fxml/SetupInterface.fxml", controller -> {
             if (controller instanceof SetupController sc) {
@@ -65,7 +36,33 @@ public class ScreenNavigator {
             }
         });
     }
-    /** Navigates to the Market screen. */
+
+    /**
+     * Initial Hub entry. Use this only once when finishing Setup
+     * to "hook" your services into the navigator.
+     */
+    public void startCovenant(Covenant covenant, MarketService marketService, RandomService randomSvc) {
+        this.covenant = covenant;
+        this.marketService = marketService;
+        this.randomService = randomSvc;
+        goToHub();
+    }
+
+    /** Main navigation hub */
+    public void goToHub() {
+        // Check if the game is over before loading the hub
+        if (covenant.isGameComplete() || covenant.hasLost()) {
+            goToEndScreen(covenant.isGameComplete());
+            return;
+        }
+
+        loadScreen("/fxml/HubInterface.fxml", controller -> {
+            if (controller instanceof HubController hc) {
+                hc.init(stage, this, covenant);
+            }
+        });
+    }
+
     public void goToMarket() {
         loadScreen("/fxml/ShopInterface.fxml", controller -> {
             if (controller instanceof MarketController mc) {
@@ -74,95 +71,69 @@ public class ScreenNavigator {
         });
     }
 
-    /** Navigates to the Crusade selection screen. */
+    /** Step 1: Select a Demon */
     public void goToCrusadeSelect() {
-        loadScreen("/fxml/CrusadeSelect.fxml", controller -> {
-            if (controller instanceof CrusadeController cc) {
-                 cc.init(stage, this, covenant, randomService, DemonService);
-             }
+        loadScreen("/fxml/SelectDemonInterface.fxml", controller -> {
+            if (controller instanceof CrusadeSelectController csc) {
+                csc.init(stage, this, covenant, demonService);
+            }
         });
     }
 
-    /** Navigates to the End Game summary screen. */
+    /** Step 2: The actual battle/dice roll screen */
+    public void goToCrusade(Demon chosenDemon) {
+        loadScreen("/fxml/CrusadeInterface.fxml", controller -> {
+            if (controller instanceof CrusadeController cc) {
+                cc.init(covenant, chosenDemon, this);
+            }
+        });
+    }
+
+    /** Final Score / Game Over Screen */
     public void goToEndScreen(boolean isVictory) {
         loadScreen("/fxml/EndScreen.fxml", controller -> {
             if (controller instanceof EndScreenController ec) {
-                 ec.init(stage, this, covenant, isVictory);
-             }
-        });
-    }
-    /**
-     * Navigates to the Church Management hub after setup is complete.
-     *
-     * @param covenant      the newly created Covenant
-     * @param marketService the freshly initialised MarketService
-     * @param randomSvc     the RandomEventService for this game
-     */
-    /** Navigates to the Church Management hub using the existing game state. */
-    public void goToHubFirst(Covenant covenant, MarketService marketService, RandomService randomSvc) {
-        this.covenant = covenant;
-        this.marketService = marketService;
-        this.randomService = randomSvc;
-        goToHub();
-        loadScreen("/fxml/HubInterface.fxml", controller -> {
-            if (controller instanceof HubController hc) {
-                hc.init(stage, this, covenant);
-            }
-        });
-    }
-
-
-    /** Navigates to the Church Management hub using the existing game state. */
-    public void goToHub() {
-        loadScreen("/fxml/HubInterface.fxml", controller -> {
-            if (controller instanceof HubController hc) {
-                hc.init(stage, this, covenant);
+                ec.init(stage, this, covenant, isVictory);
             }
         });
     }
 
     /**
-     * Loads an FXML file, injects the controller via the provided consumer,
-     * and swaps the stage's scene.
-     *
-     * @param fxmlPath   classpath resource path to the FXML file
-     * @param injector   lambda that receives the raw controller object for injection
+     * Standardized loader.
+     * TIP: Add your CSS files here so they apply to all screens automatically.
      */
     private void loadScreen(String fxmlPath, ControllerInjector injector) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
+
             Object controller = loader.getController();
             injector.inject(controller);
-            Scene scene = new Scene(root, 860, 620);
-            scene.getStylesheets().add(
-                    getClass().getResource("/css/style.css").toExternalForm());
+
+            // You can adjust the default resolution here
+            Scene scene = new Scene(root, 1280, 720);
+
+            // Apply global CSS (including your tab and dialog styles)
+            String style = getClass().getResource("/css/style.css").toExternalForm();
+            scene.getStylesheets().add(style);
+
             stage.setScene(scene);
             stage.setTitle("Nun'But Blood");
-            stage.setFullScreen(true);
             stage.show();
+            stage.setFullScreen(true);
         } catch (IOException e) {
-            throw new RuntimeException("Failed to load screen: " + fxmlPath, e);
+            throw new RuntimeException("CRITICAL: Failed to load FXML: " + fxmlPath, e);
         }
     }
 
-
-    /** Functional interface for injecting dependencies into a loaded controller. */
     @FunctionalInterface
     private interface ControllerInjector {
         void inject(Object controller);
     }
 
-
-    /** @return the current Covenant */
+    // Getters for services
     public Covenant getCovenant() { return covenant; }
-
-    /** @return the MarketService */
     public MarketService getMarketService() { return marketService; }
-
-    /** @return the RandomEventService */
     public RandomService getRandomService() { return randomService; }
-
-    /** @return the shared AudioService */
     public AudioService getAudioService() { return audioService; }
 }
