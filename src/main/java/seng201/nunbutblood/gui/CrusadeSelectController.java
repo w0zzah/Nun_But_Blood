@@ -2,6 +2,8 @@ package seng201.nunbutblood.gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
@@ -50,7 +52,6 @@ public class CrusadeSelectController {
     private void handleBegin() {
         if (selectedDemon == null) {
             hintLabel.setText("You must choose a demon to continue!");
-            hintLabel.setStyle("-fx-text-fill: red;");
             return;
         }
         // 2. Tell the navigator to launch the battle screen
@@ -59,30 +60,42 @@ public class CrusadeSelectController {
 
     public VBox buildDemonCard(Demon demon) {
 
-        VBox card = new VBox(10);
+        String path = "/images/evil/" + demon.getPortraitKey();
+        var resource = getClass().getResourceAsStream(path);
+
+        ImageView demonImg = new ImageView();
+        if (resource != null) {
+            demonImg.setImage(new Image(resource));
+        }
+        else {
+            System.err.println("MISSING IMAGE: Could not find demon portrait at " + path);
+        }
+        demonImg.setFitHeight(250);
+        demonImg.setPreserveRatio(true);
+
+        VBox card = new VBox(3);
         card.getStyleClass().add("demon-card");
         card.setMaxWidth(Double.MAX_VALUE);
 
 
         Label name = new Label(demon.getName());
-        name.getStyleClass().add("card-name");
+        name.getStyleClass().add("demon-card-name");
         name.setWrapText(true);
 
         Label weakness = new Label("Weak to: " + demon.getWeakness());
-        weakness.getStyleClass().add("card-type");
+        weakness.getStyleClass().add("demon-card-type");
 
         Label difficulty = new Label("Difficulty: " + demon.getDifficultyRating());
-        difficulty.getStyleClass().add("card-stats");
+        difficulty.getStyleClass().add("demon-card-stats");
 
         Label reward = new Label("Reward: " + demon.getFaithReward());
-        difficulty.getStyleClass().add("card-type");
+        difficulty.getStyleClass().add("demon-card-type");
 
-        Button selectBtn = new Button("Exorcise");
-        selectBtn.getStyleClass().add("glow-button");
+        Button selectBtn = new Button("Select");
         selectBtn.setMaxWidth(Double.MAX_VALUE);
         selectBtn.setOnAction(e -> selectedDemon(demon, card, selectBtn));
 
-        card.getChildren().addAll(name, weakness, difficulty, reward, selectBtn);
+        card.getChildren().addAll(demonImg, name, weakness, difficulty, reward, selectBtn);
         return card;
     }
 

@@ -5,12 +5,23 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.CrusadeSelectController">
    <children>
-      <Label fx:id="crusadeLabel" text="Label" />
-      <HBox fx:id="demonCardBox" prefHeight="100.0" prefWidth="200.0" styleClass="cybersigil-border" />
-      <Label fx:id="hintLabel" text="Label" />
-      <Button fx:id="beginBtn" mnemonicParsing="false" onAction="#handleBegin" text="Button" />
+      <HBox alignment="CENTER" styleClass="cybersigil-border">
+         <children>
+            <Label fx:id="crusadeLabel" styleClass="title-label" text="Label" />
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" styleClass="cybersigil-border" VBox.vgrow="ALWAYS">
+         <children>
+            <HBox fx:id="demonCardBox" alignment="CENTER" VBox.vgrow="ALWAYS" />
+            <Label fx:id="hintLabel" styleClass="title-label" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER">
+         <children>
+            <Button fx:id="beginBtn" maxWidth="9.09999099E8" mnemonicParsing="false" onAction="#handleBegin" styleClass="cybersigil-border" text="Begin" />
+         </children>
+      </VBox>
    </children>
 </VBox>

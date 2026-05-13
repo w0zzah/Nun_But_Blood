@@ -14,7 +14,7 @@ import seng201.nunbutblood.models.Saints;
 import seng201.nunbutblood.services.MarketService;
 import seng201.nunbutblood.services.RandomService;
 
-public class MarketController {
+public class    MarketController {
 
     @FXML private Label faithLabel;
     @FXML private Label statusLabel;
@@ -77,8 +77,8 @@ public class MarketController {
 
             // Row for the items to be stored
             Label descLabel = new Label(item.getDescription());
-            HBox itemRow = new HBox(10, buyBtn, descLabel);
-            itemRow.setAlignment(Pos.CENTER_LEFT);
+            VBox itemRow = new VBox(10, descLabel, buyBtn);
+            itemRow.setAlignment(Pos.CENTER);
             itemPane.getChildren().add(itemRow);
         }
 

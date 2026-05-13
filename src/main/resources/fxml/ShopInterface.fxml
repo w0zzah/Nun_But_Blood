@@ -7,14 +7,13 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.effect.InnerShadow?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.MarketController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.MarketController">
    <children>
       <VBox alignment="CENTER" spacing="6" styleClass="cybersigil-border">
          <children>
@@ -42,41 +41,52 @@
             </HBox>
          </children>
       </VBox>
-      <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="618.0" prefWidth="1032.0" vbarPolicy="NEVER" VBox.vgrow="SOMETIMES">
+      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="cybersigil-border" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
          <content>
-            <BorderPane>
-               <center>
-                  <VBox styleClass="cybersigil-border" BorderPane.alignment="CENTER">
-                     <children>
-                        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-                          <tabs>
-                            <Tab text="Items">
-                                 <content>
-                                    <VBox fx:id="itemPane" alignment="TOP_CENTER" />
-                                 </content>
-                            </Tab>
-                            <Tab text="Saints">
-                                 <content>
-                                    <FlowPane fx:id="saintPane" prefHeight="200.0" prefWidth="200.0" />
-                                 </content></Tab>
-                              <Tab text="Inventory">
-                                 <content>
-                                    <VBox fx:id="inventoryPane" alignment="TOP_CENTER" />
-                                 </content>
-                              </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children>
-                  </VBox>
-               </center>
-            </BorderPane>
+            <VBox alignment="CENTER">
+               <children>
+                  <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                     <tabs>
+                        <Tab text="Items">
+                           <content>
+                              <VBox fx:id="itemPane" alignment="TOP_CENTER" spacing="20.0" styleClass="section-label">
+                                 <padding>
+                                    <Insets top="20.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </Tab>
+                        <Tab text="Saints">
+                           <content>
+                              <FlowPane fx:id="saintPane" hgap="10.0" prefHeight="200.0" prefWidth="200.0" styleClass="section-label" vgap="10.0">
+                                 <padding>
+                                    <Insets top="20.0" />
+                                 </padding>
+                              </FlowPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Inventory">
+                           <content>
+                              <VBox fx:id="inventoryPane" alignment="TOP_CENTER" spacing="20.0" styleClass="section-label" />
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+               </children>
+            </VBox>
          </content>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets left="50.0" top="50.0" />
+         </padding>
       </ScrollPane>
-      <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="12" styleClass="cybersigil-border">
+      <VBox alignment="CENTER">
          <children>
-            <Label fx:id="statusLabel" styleClass="hint-label" text=" " wrapText="true" />
-            <Button maxWidth="Infinity" onAction="#handleBack" text="Go Back" />
+            <Label fx:id="statusLabel" alignment="CENTER" styleClass="hint-label" wrapText="true" />
+            <Button maxWidth="Infinity" onAction="#handleBack" styleClass="cybersigil-border" text="Go Back" />
          </children>
-      </HBox>
+      </VBox>
    </children>
 </VBox>

@@ -11,9 +11,9 @@ public class DemonService {
     public void generateNewOptions(int currentCrusade) {
         currentOptions.clear();
         // Logic to create 3 demons that get harder as currentCrusade increases
-        currentOptions.add(new Demon("Imp", "/images/imp.png", 6 + currentCrusade, "strength", 100));
-        currentOptions.add(new Demon("Shadow", "/images/imp.png", 5 + currentCrusade, "wisdom", 100));
-        currentOptions.add(new Demon("Gargoyle", "/images/imp.png", 6 + currentCrusade, "dexterity", 100));
+        currentOptions.add(new Demon("Imp", "imp.png", 6 + currentCrusade, "strength", 100));
+        currentOptions.add(new Demon("Shadow", "imp.png", 5 + currentCrusade, "wisdom", 100));
+        currentOptions.add(new Demon("Gargoyle", "imp.png", 6 + currentCrusade, "dexterity", 100));
     }
 
     public List<Demon> getCurrentOptions() {
