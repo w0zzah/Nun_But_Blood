@@ -120,6 +120,7 @@ public class ScreenNavigator {
             stage.setScene(scene);
             stage.setTitle("Nun'But Blood");
             stage.show();
+            stage.setFullScreen(true);
         } catch (IOException e) {
             throw new RuntimeException("CRITICAL: Failed to load FXML: " + fxmlPath, e);
         }

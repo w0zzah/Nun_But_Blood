@@ -3,25 +3,30 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.CrusadeController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="724.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.CrusadeController">
    <children>
-      <Label fx:id="narrativeLabel" text="Label" />
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER" VBox.vgrow="SOMETIMES">
          <children>
-            <VBox fx:id="partyContainer" prefHeight="200.0" prefWidth="100.0" />
-            <VBox fx:id="demonContainer" prefHeight="200.0" prefWidth="100.0" />
+            <VBox HBox.hgrow="SOMETIMES">
+               <children>
+                  <FlowPane fx:id="partyContainer" hgap="10.0" styleClass="cybersigil-border" vgap="10.0" />
+               </children>
+            </VBox>
+            <VBox HBox.hgrow="SOMETIMES">
+               <children>
+                  <Label fx:id="narrativeLabel" maxWidth="1.7976931348623157E308" styleClass="cybersigil-border" text="Let's get this party started!!!" />
+                  <TextArea fx:id="eventLog" />
+               </children>
+            </VBox>
+            <VBox fx:id="demonContainer" styleClass="cybersigil-border" HBox.hgrow="SOMETIMES" />
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <ProgressBar fx:id="crusadeProgressBar" prefWidth="200.0" progress="0.0" />
-            <TextArea fx:id="eventLog" prefHeight="200.0" prefWidth="200.0" />
-         </children>
-      </HBox>
+      <HBox />
       <Label fx:id="rollResultLabel" text="rollResultLabel" />
+      <ProgressBar fx:id="crusadeProgressBar" maxWidth="1.7976931348623157E308" progress="0.0" styleClass="cybersigil-border" />
    </children>
 </VBox>

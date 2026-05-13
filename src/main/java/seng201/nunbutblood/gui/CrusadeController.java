@@ -14,7 +14,7 @@ import java.util.List;
 
 public class CrusadeController {
 
-    @FXML private VBox partyContainer;
+    @FXML private FlowPane partyContainer;
     @FXML private VBox demonContainer;
     @FXML private Label rollResultLabel;
     @FXML private Label narrativeLabel;
@@ -41,8 +41,17 @@ public class CrusadeController {
 
         // Demon Portrait
         String path = "/images/evil/" + currentDemon.getPortraitKey();
-        ImageView demonImg = new ImageView(new Image(getClass().getResourceAsStream(path)));
-        demonImg.setFitHeight(250);
+        var resource = getClass().getResourceAsStream(path);
+
+        ImageView demonImg = new ImageView();
+        if (resource != null) {
+            demonImg.setImage(new Image(resource));
+        }
+
+        else {
+            System.err.println("MISSING IMAGE: Could not find demon portrait at " + path);
+        }
+        demonImg.setFitHeight(200);
         demonImg.setPreserveRatio(true);
 
         Label name = new Label(currentDemon.getName());
@@ -96,6 +105,9 @@ public class CrusadeController {
     }
 
     private void showEndDialog(String title, String message, boolean won) {
+        if (covenant.getCurrentCrusade() >= covenant.getTotalCrusades()) {
+
+        }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(null);
@@ -106,8 +118,14 @@ public class CrusadeController {
             int reward = manager.dropLoot(currentDemon, covenant.getActiveParty().size());
             covenant.addFaith(reward);
             navigator.goToHub();
+            covenant.addScore(currentDemon.getDifficultyRating());
+            covenant.advanceCrusade();
         } else {
             navigator.goToHub();
         }
+    }
+
+    private void checkForFinish(Covenant covenant) {
+
     }
 }
