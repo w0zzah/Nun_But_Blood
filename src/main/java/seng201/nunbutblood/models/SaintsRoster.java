@@ -43,7 +43,7 @@ public class SaintsRoster {
      * @param baseDex     base Dexterity before class bonus
      */
     public record Entry(String name, String portraitKey, String type,
-                        int baseStr, int baseWis, int baseDex) {}
+                        int baseStr, int baseWis, int baseDex, int stamina) {}
 
 
 
@@ -94,11 +94,11 @@ public class SaintsRoster {
         return switch (entry.type()) {
             // create
             case "EXE" -> new Executioner(entry.name(), entry.portraitKey(),
-                    entry.baseStr(), entry.baseWis(), entry.baseDex());
+                    entry.baseStr(), entry.baseWis(), entry.baseDex(), entry.stamina);
             case "ORA" -> new Oracle(entry.name(), entry.portraitKey(),
-                    entry.baseStr(), entry.baseWis(), entry.baseDex());
+                    entry.baseStr(), entry.baseWis(), entry.baseDex(), entry.stamina);
             default    -> new Inquisitor(entry.name(), entry.portraitKey(),
-                    entry.baseStr(), entry.baseWis(), entry.baseDex());
+                    entry.baseStr(), entry.baseWis(), entry.baseDex(), entry.stamina);
         };
     }
 
@@ -110,12 +110,12 @@ public class SaintsRoster {
      */
     private static List<Entry> buildRoster() {
         List<Entry> r = new ArrayList<>();
-        r.add(new Entry("Saint Germain",  "Germain.png",  "INQ",  5,  5,  8));
-        r.add(new Entry("Saint Arsenia",  "t4.png",  "INQ",  5,  5,  8));
-        r.add(new Entry("Saint Winifred",  "Winifred.png",  "EXE",  8,  8,  8));
-        r.add(new Entry("Saint Hilda",  "Hilda.png",  "EXE",  10,  15,  5));
-        r.add(new Entry("Saint Anastasius",  "Anastasius.png",  "ORA",  15,  15,  15));
-        r.add(new Entry("Saint Chrysostomi",  "t1.png",  "ORA",  20,  20,  20));
+        r.add(new Entry("Saint Germain",  "Germain.png",  "INQ",  5,  5,  8, 30));
+        r.add(new Entry("Saint Arsenia",  "t4.png",  "INQ",  5,  5,  8, 30));
+        r.add(new Entry("Saint Winifred",  "Winifred.png",  "EXE",  8,  8,  8, 30));
+        r.add(new Entry("Saint Hilda",  "Hilda.png",  "EXE",  10,  15,  5, 30));
+        r.add(new Entry("Saint Anastasius",  "Anastasius.png",  "ORA",  15,  15,  15, 5000));
+        r.add(new Entry("Saint Chrysostomi",  "t1.png",  "ORA",  20,  20,  20, 30));
         return r;
     }
 }
