@@ -300,7 +300,7 @@ public class Covenant {
      * @return true if the game is won
      */
     public boolean isGameComplete() {
-        return currentCrusade >= totalCrusades;
+        return currentCrusade > totalCrusades;
     }
 
     /**

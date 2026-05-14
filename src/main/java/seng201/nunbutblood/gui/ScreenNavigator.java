@@ -50,17 +50,20 @@ public class ScreenNavigator {
 
     /** Main navigation hub */
     public void goToHub() {
+        goToEndScreen(covenant.isGameComplete());
         // Check if the game is over before loading the hub
         if (covenant.isGameComplete() || covenant.hasLost()) {
             goToEndScreen(covenant.isGameComplete());
             return;
         }
 
-        loadScreen("/fxml/HubInterface.fxml", controller -> {
-            if (controller instanceof HubController hc) {
-                hc.init(stage, this, covenant);
-            }
-        });
+        else {
+            loadScreen("/fxml/HubInterface.fxml", controller -> {
+                if (controller instanceof HubController hc) {
+                    hc.init(stage, this, covenant);
+                }
+            });
+        }
     }
 
     public void goToMarket() {
@@ -99,8 +102,8 @@ public class ScreenNavigator {
     }
 
     /**
-     * Standardized loader.
-     * TIP: Add your CSS files here so they apply to all screens automatically.
+     *
+     *
      */
     private void loadScreen(String fxmlPath, ControllerInjector injector) {
         try {
@@ -130,10 +133,4 @@ public class ScreenNavigator {
     private interface ControllerInjector {
         void inject(Object controller);
     }
-
-    // Getters for services
-    public Covenant getCovenant() { return covenant; }
-    public MarketService getMarketService() { return marketService; }
-    public RandomService getRandomService() { return randomService; }
-    public AudioService getAudioService() { return audioService; }
 }

@@ -175,9 +175,9 @@ public abstract class Saints implements Purchasable {
     public int getPrimaryStat() { return primaryStat; }
 
     /** @return number of consecutive crusades without rest */
-
     public String getPortraitKey() { return portraitKey; }
 
+    /** @return Saints rarity*/
     public Rarity getRarity() { return rarity; }
 
     public int getCrusadeCount() {return  crusadeCount; }
