@@ -12,16 +12,12 @@ package seng201.nunbutblood.models;
  */
 public class Executioner extends Saints {
 
-    public Executioner(String name) {
-        this(name, getPortraitID(name), 8, 5, 5);
-    }
-
-    public Executioner(String name, String portraitID, int strength, int wisdom, int dexterity){
+    public Executioner(String name, String portraitID, int strength, int wisdom, int dexterity, int stamina){
         super(name, portraitID,
                 Math.min(20, strength + 5),
                 wisdom,
                 dexterity,
-                60,
+                stamina,
                 20,
                 calcHireCost(strength + 5, wisdom, dexterity),
                 calcUpKeep(strength + 5, wisdom, dexterity));

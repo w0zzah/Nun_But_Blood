@@ -12,7 +12,31 @@ import seng201.nunbutblood.services.CrusadeService;
 
 import java.util.List;
 
+
+/**
+ * <h1>Crussade Controller manages core gameplay loop.</h1>
+ * <br>
+ * <h2>FUNCTIONS : </h2>
+ * <br>
+ * <p><b>setupDemonDisplay() - </b>  Takes the selected demons stats + portrait from {@link seng201.nunbutblood.services.DemonService}
+ * and creates a relevant info into {@link #demonContainer}</p>
+ * <br>
+ * <p><b>refreshUI() - </b> Updates the Saint's stamina after roll, the {@link #crusadeProgressBar}, and the {@link #eventLog}</p>
+ * <br>
+ * <p><b>handleRoll(Saints) - </b> Rolls the dice and checks for a success. Set's {@link  #rollResultLabel} and {@link #narrativeLabel}
+ * Then checks for if the game is over or not</p>
+ * <br>
+ * <p><b>showEndDialog(String, String, boolean) -</b>  Pops up and alert declaring whether you successfully exorcized the demon</p>
+ *
+ */
 public class CrusadeController {
+
+    //    partyContainer(FlowPane): On the left representing your team
+    //    demonContainer(VBox): On the right representing the demon
+    //    rollResultLabel(Label): Represents the result of the roll
+    //    narrativeLabel(Label): The most recent event
+    //    crusadeProgressBar(ProgressBar): The current progress of the party out of 5
+    //    eventLog(TextArea): The log of the combat
 
     @FXML private FlowPane partyContainer;
     @FXML private VBox demonContainer;
@@ -21,11 +45,18 @@ public class CrusadeController {
     @FXML private ProgressBar crusadeProgressBar;
     @FXML private TextArea eventLog;
 
+
     private CrusadeService manager;
     private Covenant covenant;
     private Demon currentDemon;
     private ScreenNavigator navigator;
 
+    /**
+     *
+     * @param covenant
+     * @param demon
+     * @param navigator
+     */
     public void init(Covenant covenant, Demon demon, ScreenNavigator navigator) {
         this.covenant = covenant;
         this.currentDemon = demon;
@@ -36,6 +67,9 @@ public class CrusadeController {
         refreshUI();
     }
 
+    /**
+     *
+     */
     private void setupDemonDisplay() {
         demonContainer.getChildren().clear();
 
@@ -62,32 +96,35 @@ public class CrusadeController {
         demonContainer.getChildren().addAll(demonImg, name, difficulty);
     }
 
+    /**
+     *
+     */
     private void refreshUI() {
         // 1. Refresh Party (Left Side)
         partyContainer.getChildren().clear();
         for (Saints saint : covenant.getActiveParty()) {
 
-            // Create a "Roll" button for each saint
             Button rollBtn = new Button("SELECT TO ROLL");
             rollBtn.setDisable(saint.getCurrentStamina() < 20);
             rollBtn.setOnAction(e -> handleRoll(saint));
 
-            // Reuse your existing card controller!
             VBox saintCard = SaintCardController.createSaintCard(saint, rollBtn, true);
             partyContainer.getChildren().add(saintCard);
         }
 
-        // 2. Update Progress
         double progress = manager.getCurrentStep() / 5.0;
         crusadeProgressBar.setProgress(progress);
 
-        // 3. Update Log
         eventLog.setText(manager.getLog());
         eventLog.setScrollTop(Double.MAX_VALUE); // Keep scroll at bottom
+
     }
 
+    /**
+     *
+     * @param selectedSaint
+     */
     private void handleRoll(Saints selectedSaint) {
-        // Perform the step logic we wrote earlier
         CrusadeService.StepResult result = manager.performStep(selectedSaint, currentDemon, covenant.getActiveParty());
 
         // Update Central Visuals
@@ -104,15 +141,14 @@ public class CrusadeController {
         }
     }
 
-    private void showEndDialog(String title, String message, boolean won) {
-        if (covenant.getCurrentCrusade() >= covenant.getTotalCrusades()) {
+    /**
+     *
+     * @param title
+     * @param message
+     * @param won
+     */
 
-        }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
+    private void showEndDialog(String title, String message, boolean won) {
 
         if (won) {
             int reward = manager.dropLoot(currentDemon, covenant.getActiveParty().size());
@@ -125,7 +161,4 @@ public class CrusadeController {
         }
     }
 
-    private void checkForFinish(Covenant covenant) {
-
-    }
 }
