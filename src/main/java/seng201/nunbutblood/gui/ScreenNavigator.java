@@ -129,6 +129,12 @@ public class ScreenNavigator {
         }
     }
 
+    public AudioService getAudioService() {
+        return this.audioService;
+    }
+
+
+
     @FunctionalInterface
     private interface ControllerInjector {
         void inject(Object controller);

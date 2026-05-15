@@ -95,9 +95,9 @@ public class    MarketController {
                     refresh();
                 }
             });
-            Label invLabel = new Label(item.getItemName() + " [" + item.getType() + "]");
-            HBox invRow = new HBox(10, sellBtn, invLabel);
-            invRow.setAlignment((Pos.CENTER_LEFT));
+            Label invLabel = new Label(item.getItemName() + " [" + item.getDescription() + "]");
+            VBox invRow = new VBox(10, invLabel, sellBtn);
+            invRow.setAlignment((Pos.CENTER));
             inventoryPane.getChildren().add(invRow);
         }
     }

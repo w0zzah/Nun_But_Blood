@@ -1,112 +1,96 @@
 package seng201.nunbutblood.services;
 
-import com.sun.jdi.request.StepRequest;
-import seng201.nunbutblood.models.Saints;
+import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
+import seng201.nunbutblood.models.Saints;
+
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The brain of the Crusade. Handles the math, stamina costs, and
+ * progression logic, returning data for the UI to display.
+ */
 public class CrusadeService {
 
-    private static final int TARGET_STEPS = 5;
-    private static final int STAMINA_COST = 20;
-    private static final int BACKTRACK_STAMINA_PENALTY = 30;
+    private int currentStep = 0;
+    private final int totalSteps = 5;
+    private final StringBuilder logHistory = new StringBuilder("Crusade Initialized. Steel your soul.\n");
+    private final Random random = new Random();
 
-    private int currentStep;
-    private int difficultyModifier; // For random events
-    private final Random random;
-    private final StringBuilder log;
+    /**
+     * Data carrier for the Controller and Animation.
+     */
+    public record StepResult(
+            int roll,
+            String type,
+            String narrative,
+            String logMessage,
+            boolean hasDemonEvent
+    ) {}
 
-    public CrusadeService() {
-        this.currentStep = 0;
-        this.difficultyModifier = 0;
-        this.random = new Random();
-        this.log = new StringBuilder();
-    }
-
-    public StepResult performStep(Saints saint, Demon demon, List<Saints> entireParty) {
-        // 1. Check Stamina Requirement
-        if (saint.getCurrentStamina() < STAMINA_COST) {
-            return new StepResult(currentStep, 0, 0, false, "Apostle too exhausted to proceed!");
-        }
-
-        // Deduct initial cost
-        saint.consumeStamina(STAMINA_COST);
-
-        // 2. Trigger Random Event (e.g., 15% chance)
-        handleRandomEvent(demon, entireParty);
-
-        // 3. Roll Mechanics
+    /**
+     * Executes one "turn" of the crusade.
+     * @return A StepResult containing all data needed for the animation and UI update.
+     */
+    public StepResult performStep(Saints saint, Demon demon, List<Saints> party) {
+        // 1. Calculate the Roll
         int roll = random.nextInt(20) + 1;
-        String eventNarrative = "";
-        int total = 0;
 
-        if (roll == 20) {
-            currentStep = Math.min(TARGET_STEPS, currentStep + 2);
-            eventNarrative = "⚡ CRITICAL SUCCESS! Advanced 2 steps!";
-        } else if (roll == 1) {
-            if (currentStep > 0) {
-                currentStep--;
-                eventNarrative = "💀 CRITICAL FAILURE! Slipped back one step.";
-            } else {
-                saint.consumeStamina(BACKTRACK_STAMINA_PENALTY);
-                eventNarrative = "💀 CRITICAL FAILURE! Cannot go back further; lost 30 extra Stamina!";
-            }
+        // 2. Determine Outcome
+        // Logic: Success if Roll + Saint Attribute >= Demon Difficulty
+        // We assume 'demon.getWeakness()' returns a string matching a Saint's attribute
+        int bonus = saint.getAttributeValue(demon.getWeakness());
+        boolean isSuccess = (roll + bonus) >= demon.getDifficultyRating();
+
+        // 3. Define the "Type" (This string maps directly to CSS: .dice-crit, .dice-success, etc.)
+        String type = "fail";
+        if (roll == 20) type = "crit";
+        else if (isSuccess) type = "success";
+
+        // 4. Handle Progression and Costs
+        // Every roll costs stamina, regardless of success
+        saint.consumeStamina(20);
+
+        String narrative;
+        if (type.equals("crit")) {
+            currentStep += 2; // Crits move you forward faster
+            narrative = "DIVINE INTERVENTION! " + saint.getName() + " strikes a shattering blow!";
+        } else if (isSuccess) {
+            currentStep += 1;
+            narrative = saint.getName() + " forces the demon back!";
         } else {
-            // Formula: roll + (saint stat) - 10 / 2
-            // Note: Integer division in Java naturally floors the result
-            total = roll + (saint.getStatBonus() - 10) / 2;
-
-            int effectiveDifficulty = demon.getDifficultyRating() + difficultyModifier;
-
-            if (total >= effectiveDifficulty) {
-                currentStep++;
-                eventNarrative = String.format("✅ Success! (Roll %d vs %d Diff). Advanced 1 step.", total, effectiveDifficulty);
-            } else {
-                eventNarrative = String.format("❌ Failure (Roll %d vs %d Diff). No progress made.", total, effectiveDifficulty);
-            }
+            narrative = "The demon resists! The party falters...";
         }
 
-        // reset temporary difficulty modifiers
-        difficultyModifier = 0;
+        // 5. Update the Log
+        String logEntry = String.format("[Roll %d] %s used %s. Result: %s",
+                roll, saint.getName(), demon.getWeakness(), type.toUpperCase());
+        addToLog(logEntry);
 
-        String finalLog = "Step " + currentStep + ": " + eventNarrative;
-        log.append(finalLog).append("\n");
-
-
-        return new StepResult(currentStep, roll, total, currentStep >= TARGET_STEPS, finalLog);
+        // 6. Return Result (Setting hasDemonEvent to true on low rolls for spice)
+        return new StepResult(roll, type, narrative, logEntry, roll < 3);
     }
 
-    private void handleRandomEvent(Demon demon, List<Saints> party) {
-        double chance = random.nextDouble();
-
-        if (chance < 0.10) {
-            for (Saints saint : party) saint.consumeStamina(10);
-            log.append("THE DEMON CURSES YOUR TEAM: -10 stamina");
-        }
-
-        else if (chance < 0.20) {
-            difficultyModifier = 2;
-            log.append(("THE DEMON SCREAMS IN RAGE: +2 Difficulty"));
-        }
-    }
-
-    public  boolean checkVictory() {
-        return currentStep >= TARGET_STEPS;
+    public boolean checkVictory() {
+        return currentStep >= totalSteps;
     }
 
     public boolean checkGameOver(List<Saints> party) {
-        return party.stream().allMatch((saint -> saint.getCurrentStamina() < STAMINA_COST));
+        // Game is over if all party members are below the required stamina to act
+        return party.stream().allMatch(s -> s.getCurrentStamina() < 20);
+    }
+
+    public int dropLoot(Demon demon) {
+        // Simple loot logic based on difficulty
+        return demon.getDifficultyRating() * 10;
     }
 
     public int getCurrentStep() { return currentStep; }
 
-    public String getLog() {return log.toString(); }
+    public String getLog() { return logHistory.toString(); }
 
-    public int dropLoot(Demon currentDemon, int size) {
-        return 5;
+    private void addToLog(String message) {
+        logHistory.insert(0, message + "\n"); // Newest messages at the top
     }
-
-    public record StepResult(int step, int roll, int total, boolean isVictory, String narrative) {}
-
 }

@@ -315,7 +315,15 @@ public class Covenant {
     }
 
     public void addSaints(Saints saints) {
-        if (reserves.size() >= 5) return;
+        if (activeParty.size() < 5) {
+            activeParty.add(saints);
+            return;
+        }
+
+        if (reserves.size() >= 5) {
+            return;
+        }
+
         reserves.add(saints);
     }
 }

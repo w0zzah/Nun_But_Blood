@@ -43,6 +43,8 @@ package seng201.nunbutblood.models;
 
 */
 
+import java.util.Objects;
+
 public abstract class Saints implements Purchasable {
 
     /*
@@ -171,8 +173,6 @@ public abstract class Saints implements Purchasable {
     /** @return special ability name, or empty string if none */
     public String getSpecialAbility() { return specialAbility; }
 
-    /** @return primary combat stat value */
-    public int getPrimaryStat() { return primaryStat; }
 
     /** @return number of consecutive crusades without rest */
     public String getPortraitKey() { return portraitKey; }
@@ -186,6 +186,7 @@ public abstract class Saints implements Purchasable {
     public String toString() {
         return this.getName(); // Assuming you have a getName() method
     }
+
 
 
     // ----- GETTERS (ABSTRACT)----------------------------------------------------------------
@@ -293,6 +294,17 @@ public abstract class Saints implements Purchasable {
     public void setSpecialAbility(String abilityName) {
         this.specialAbility = abilityName;
     }
+
+    /** @return primary combat stat value */
+    public int getAttributeValue(String attributeName){
+        if (Objects.equals(attributeName, "strength")) {
+            return strength;
+        } else if (Objects.equals(attributeName, "wisdom")) {
+            return wisdom;
+        }
+        else return dexterity;
+    }
+
 
     // ----- METHODS (STAT CHANGES) END --------------------------------------------------------------------------
 

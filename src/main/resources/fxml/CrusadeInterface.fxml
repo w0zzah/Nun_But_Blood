@@ -1,32 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="724.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.CrusadeController">
-   <children>
-      <HBox alignment="CENTER" VBox.vgrow="SOMETIMES">
-         <children>
-            <VBox HBox.hgrow="SOMETIMES">
-               <children>
-                  <FlowPane fx:id="partyContainer" hgap="10.0" styleClass="cybersigil-border" vgap="10.0" />
-               </children>
-            </VBox>
-            <VBox HBox.hgrow="SOMETIMES">
-               <children>
-                  <Label fx:id="narrativeLabel" maxWidth="1.7976931348623157E308" styleClass="cybersigil-border" text="Let's get this party started!!!" />
-                  <TextArea fx:id="eventLog" />
-               </children>
-            </VBox>
-            <VBox fx:id="demonContainer" styleClass="cybersigil-border" HBox.hgrow="SOMETIMES" />
-         </children>
-      </HBox>
-      <HBox />
-      <Label fx:id="rollResultLabel" text="rollResultLabel" />
-      <ProgressBar fx:id="crusadeProgressBar" maxWidth="1.7976931348623157E308" progress="0.0" styleClass="cybersigil-border" />
-   </children>
-</VBox>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.CrusadeController">
+
+   <!-- TOP: Crusade Progress -->
+   <top>
+      <VBox alignment="CENTER" spacing="10.0" styleClass="cybersigil-border" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="10.0" top="20.0" />
+         </padding>
+         <Label styleClass="header-label" text="CURRENT EXPEDITION PROGRESS" />
+         <ProgressBar fx:id="crusadeProgressBar" prefWidth="600.0" progress="0.0" styleClass="crusade-progress" />
+      </VBox>
+   </top>
+
+   <!-- LEFT: Your Saints -->
+   <left>
+      <VBox prefWidth="500.0" spacing="10.0" styleClass="cybersigil-border" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="10.0" top="10.0" />
+         </padding>
+         <Label styleClass="subheader-label" text="THE COVENANT" />
+         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="transparent-scroll" vbarPolicy="NEVER">
+            <FlowPane fx:id="partyContainer" alignment="TOP_CENTER" columnHalignment="CENTER" prefWrapLength="0.0" />
+         </ScrollPane>
+      </VBox>
+   </left>
+
+   <!-- CENTER: The Dice and Narrative Theater -->
+   <center>
+      <VBox alignment="CENTER" fillWidth="false" prefHeight="411.0" prefWidth="274.0" spacing="25.0" styleClass="cybersigil-border" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+
+         <!-- Dice Section -->
+         <VBox alignment="CENTER" spacing="10.0">
+            <StackPane fx:id="diceBox" maxHeight="150.0" maxWidth="150.0" prefHeight="0.0" prefWidth="0.0" styleClass="dice-box">
+               <Label fx:id="diceLabel" styleClass="dice-label" text="?" />
+            </StackPane>
+            <Label fx:id="outcomeLabel" opacity="0.0" styleClass="outcome-flash" text="OUTCOME" />
+         </VBox>
+
+         <!-- Results Section -->
+         <VBox alignment="CENTER" spacing="5.0">
+            <HBox alignment="CENTER" spacing="10.0">
+               <Label styleClass="small-label" text="LAST ROLL:" />
+               <Label fx:id="rollResultLabel" styleClass="result-value" text="--" />
+            </HBox>
+            <Label fx:id="narrativeLabel" styleClass="narrative-text" text="Choose a Saint to begin the exorcism..." textAlignment="CENTER" wrapText="true" />
+         </VBox>
+      </VBox>
+   </center>
+
+   <!-- RIGHT: The Demon -->
+   <right>
+      <VBox fx:id="demonContainer" alignment="TOP_CENTER" prefWidth="500.0" spacing="15.0" styleClass="cybersigil-border" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="20.0" left="10.0" right="20.0" top="10.0" />
+         </padding>
+         <Label styleClass="subheader-label" text="THE ADVERSARY" />
+         <!-- Demon stats injected dynamically via setupDemonDisplay() -->
+      </VBox>
+   </right>
+
+   <!-- BOTTOM: Combat Log -->
+   <bottom>
+      <VBox spacing="5.0" styleClass="cybersigil-border" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+         <Label styleClass="small-label" text="BATTLE LOG" />
+         <TextArea fx:id="eventLog" editable="false" prefHeight="120.0" styleClass="event-log" wrapText="true" />
+      </VBox>
+   </bottom>
+
+</BorderPane>

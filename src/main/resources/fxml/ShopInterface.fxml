@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.MarketController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="940.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.MarketController">
    <children>
       <VBox alignment="CENTER" spacing="6" styleClass="cybersigil-border">
          <children>
@@ -49,11 +49,28 @@
                      <tabs>
                         <Tab text="Items">
                            <content>
-                              <VBox fx:id="itemPane" alignment="TOP_CENTER" spacing="20.0" styleClass="section-label">
+                              <VBox alignment="TOP_CENTER" spacing="20.0" styleClass="section-label">
                                  <padding>
                                     <Insets top="20.0" />
                                  </padding>
                               </VBox>
+                           </content>
+                           <content>
+                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                 <content>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <Region HBox.hgrow="SOMETIMES" />
+                                          <VBox fx:id="itemPane" alignment="TOP_CENTER" spacing="20.0" styleClass="section-label" HBox.hgrow="SOMETIMES">
+                                             <padding>
+                                                <Insets top="20.0" />
+                                             </padding>
+                                          </VBox>
+                                          <Region HBox.hgrow="SOMETIMES" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                              </ScrollPane>
                            </content>
                         </Tab>
                         <Tab text="Saints">
@@ -67,7 +84,21 @@
                         </Tab>
                         <Tab text="Inventory">
                            <content>
-                              <VBox fx:id="inventoryPane" alignment="TOP_CENTER" spacing="20.0" styleClass="section-label" />
+                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                                 <content>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <Region HBox.hgrow="SOMETIMES" />
+                                          <VBox fx:id="inventoryPane" alignment="TOP_CENTER" spacing="20.0" styleClass="section-label" HBox.hgrow="SOMETIMES">
+                                             <padding>
+                                                <Insets top="20.0" />
+                                             </padding>
+                                          </VBox>
+                                          <Region HBox.hgrow="SOMETIMES" />
+                                       </children>
+                                    </HBox>
+                                 </content>
+                              </ScrollPane>
                            </content>
                         </Tab>
                      </tabs>

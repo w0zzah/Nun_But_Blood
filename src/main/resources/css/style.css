@@ -368,3 +368,84 @@
     -fx-border-image-repeat: repeat;
 }
 
+
+/* Progress Bar Customization */
+.crusade-progress .track {
+    -fx-background-color: #222;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+.crusade-progress .bar {
+    -fx-background-color: linear-gradient(to right, #8b0000, #ff4444); /* Blood red gradient */
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+/* The Dice Box */
+.dice-box {
+    -fx-background-color: #121212;
+    -fx-border-color: #444;
+    -fx-border-width: 5;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, black, 20, 0, 0, 0);
+}
+
+.dice-label {
+    -fx-font-size: 72px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+/* Dynamic Dice States (Applied by Animation logic) */
+.dice-crit {
+    -fx-text-fill: #ffdd00;
+    -fx-effect: dropshadow(gaussian, #ffdd00, 20, 0.5, 0, 0);
+}
+
+.dice-success {
+    -fx-text-fill: #44ff88;
+    -fx-effect: dropshadow(gaussian, #44ff88, 15, 0.3, 0, 0);
+}
+
+.dice-fail {
+    -fx-text-fill: #ff4444;
+    -fx-effect: dropshadow(gaussian, #ff4444, 15, 0.3, 0, 0);
+}
+
+/* Outcome Flash Label */
+.outcome-flash {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.transparent-scroll {
+    -fx-background-color: transparent;
+}
+
+.transparent-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Battle Log (TextArea) */
+.event-log {
+    -fx-control-inner-background: #0a0a0a;
+    -fx-text-fill: #cccccc;
+    -fx-font-family: "Consolas", monospace;
+    -fx-border-color: #333;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.event-log .content {
+    -fx-background-color: #0a0a0a;
+}
+
+.demon-name-label {
+    -fx-text-fill: #ff4444;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, black, 5, 0, 0, 0);
+}

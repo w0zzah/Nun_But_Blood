@@ -57,31 +57,34 @@ public class HubController {
         refreshReserves();
         refreshInventory();
     }
+
     private void refreshReserves() {
+        // Clears the pane
         reservePane.getChildren().clear();
-        for (Saints a : covenant.getReserves()) {
+        //
+        for (Saints saint : covenant.getReserves()) {
             Button activateBtn = new Button("ACTIVATE");
             activateBtn.setOnAction(e -> {
-                if (!covenant.activateApostle(a)) {
+                if (!covenant.activateApostle(saint)) {
                     statusLabel.setText("Active party is full (max 5).");
                 } else {
-                    statusLabel.setText(a.getName() + " added to active party.");
-                    a.resetCrusadeCount();
+                    statusLabel.setText(saint.getName() + " added to active party.");
+                    saint.resetCrusadeCount();
                     refresh();
                 }
             });
 
             Button retireBtn = new Button("RETIRE");
             retireBtn.setOnAction(e -> {
-                covenant.retireSaint(a); // No restriction on retiring from reserves
-                statusLabel.setText(a.getName() + " has retired.");
+                covenant.retireSaint(saint); // No restriction on retiring from reserves
+                statusLabel.setText(saint.getName() + " has retired.");
                 refresh();
             });
 
             VBox actions = new VBox(5, activateBtn, retireBtn);
             actions.setAlignment(javafx.geometry.Pos.CENTER);
 
-            VBox card = SaintCardController.createSaintCard(a, actions, true);
+            VBox card = SaintCardController.createSaintCard(saint, actions, true);
             reservePane.getChildren().add(card);
         }
     }
