@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
@@ -34,90 +35,92 @@
                   <Region HBox.hgrow="SOMETIMES" />
                   <Label fx:id="faithLabel" styleClass="section-label" text="Faith: 0" />
                   <Region HBox.hgrow="SOMETIMES" />
-                  <Label fx:id="expeditionLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="section-label" text="Crsuade 0/ 0" />
-                  <Region HBox.hgrow="SOMETIMES" />
-                  <Label fx:id="partyLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="section-label" text="Party: 0/5" />
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Button maxWidth="1.7976931348623157E308" onAction="#handleBack" styleClass="btn-mkt" text="The Covenant ↠" />
+                     </children>
+                  </VBox>
                </children>
             </HBox>
          </children>
       </VBox>
-      <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="cybersigil-border" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+      <ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
          <content>
-            <VBox alignment="CENTER">
+            <VBox alignment="CENTER" prefWidth="932.0">
                <children>
-                  <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-                     <tabs>
-                        <Tab text="Items">
-                           <content>
-                              <VBox alignment="TOP_CENTER" spacing="20.0" styleClass="section-label">
-                                 <padding>
-                                    <Insets top="20.0" />
-                                 </padding>
-                              </VBox>
-                           </content>
-                           <content>
-                              <ScrollPane fitToHeight="true" fitToWidth="true">
+                  <StackPane alignment="TOP_CENTER" prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <TabPane styleClass="cybersigil-border" tabClosingPolicy="UNAVAILABLE">
+                           <tabs>
+                              <Tab text="Items">
                                  <content>
-                                    <HBox alignment="CENTER">
-                                       <children>
-                                          <Region HBox.hgrow="SOMETIMES" />
-                                          <VBox fx:id="itemPane" alignment="TOP_CENTER" spacing="20.0" styleClass="section-label" HBox.hgrow="SOMETIMES">
-                                             <padding>
-                                                <Insets top="20.0" />
-                                             </padding>
-                                          </VBox>
-                                          <Region HBox.hgrow="SOMETIMES" />
-                                       </children>
-                                    </HBox>
+                                    <VBox alignment="TOP_CENTER" spacing="20.0" styleClass="section-label">
+                                       <padding>
+                                          <Insets top="20.0" />
+                                       </padding>
+                                    </VBox>
                                  </content>
-                              </ScrollPane>
-                           </content>
-                        </Tab>
-                        <Tab text="Saints">
-                           <content>
-                              <FlowPane fx:id="saintPane" hgap="10.0" prefHeight="200.0" prefWidth="200.0" styleClass="section-label" vgap="10.0">
-                                 <padding>
-                                    <Insets top="20.0" />
-                                 </padding>
-                              </FlowPane>
-                           </content>
-                        </Tab>
-                        <Tab text="Inventory">
-                           <content>
-                              <ScrollPane fitToHeight="true" fitToWidth="true">
                                  <content>
-                                    <HBox alignment="CENTER">
-                                       <children>
-                                          <Region HBox.hgrow="SOMETIMES" />
-                                          <VBox fx:id="inventoryPane" alignment="TOP_CENTER" spacing="20.0" styleClass="section-label" HBox.hgrow="SOMETIMES">
-                                             <padding>
-                                                <Insets top="20.0" />
-                                             </padding>
-                                          </VBox>
-                                          <Region HBox.hgrow="SOMETIMES" />
-                                       </children>
-                                    </HBox>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true">
+                                       <content>
+                                          <HBox alignment="CENTER">
+                                             <children>
+                                                <Region HBox.hgrow="SOMETIMES" />
+                                                <VBox fx:id="itemPane" alignment="TOP_CENTER" spacing="20.0" styleClass="section-label" HBox.hgrow="SOMETIMES">
+                                                   <padding>
+                                                      <Insets top="20.0" />
+                                                   </padding>
+                                                </VBox>
+                                                <Region HBox.hgrow="SOMETIMES" />
+                                             </children>
+                                          </HBox>
+                                       </content>
+                                    </ScrollPane>
                                  </content>
-                              </ScrollPane>
-                           </content>
-                        </Tab>
-                     </tabs>
-                  </TabPane>
+                              </Tab>
+                              <Tab text="Saints">
+                                 <content>
+                                    <FlowPane fx:id="saintPane" hgap="10.0" prefHeight="200.0" prefWidth="200.0" styleClass="section-label" vgap="10.0">
+                                       <padding>
+                                          <Insets top="20.0" />
+                                       </padding>
+                                    </FlowPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="Inventory">
+                                 <content>
+                                    <ScrollPane fitToHeight="true" fitToWidth="true">
+                                       <content>
+                                          <HBox alignment="CENTER">
+                                             <children>
+                                                <Region HBox.hgrow="SOMETIMES" />
+                                                <VBox fx:id="inventoryPane" alignment="TOP_CENTER" spacing="20.0" styleClass="section-label" HBox.hgrow="SOMETIMES">
+                                                   <padding>
+                                                      <Insets top="20.0" />
+                                                   </padding>
+                                                </VBox>
+                                                <Region HBox.hgrow="SOMETIMES" />
+                                             </children>
+                                          </HBox>
+                                       </content>
+                                    </ScrollPane>
+                                 </content>
+                              </Tab>
+                           </tabs>
+                        </TabPane>
+                        <HBox fx:id="alertBox" alignment="CENTER" opacity="0.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: rgba(0, 0, 0, 0.7);" visible="false">
+                           <children>
+                              <Label fx:id="statusLabel" alignment="CENTER" styleClass="title-label" wrapText="true" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </StackPane>
                </children>
             </VBox>
          </content>
          <VBox.margin>
             <Insets />
          </VBox.margin>
-         <padding>
-            <Insets left="50.0" top="50.0" />
-         </padding>
       </ScrollPane>
-      <VBox alignment="CENTER">
-         <children>
-            <Label fx:id="statusLabel" alignment="CENTER" styleClass="hint-label" wrapText="true" />
-            <Button maxWidth="Infinity" onAction="#handleBack" styleClass="cybersigil-border" text="Go Back" />
-         </children>
-      </VBox>
    </children>
 </VBox>

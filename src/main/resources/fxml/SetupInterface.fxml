@@ -12,13 +12,14 @@
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
 <VBox alignment="TOP_CENTER" spacing="0" styleClass="root" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.SetupController">
 
-         <ScrollPane fitToWidth="true" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
-      <VBox alignment="TOP_CENTER">
+         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+      <VBox alignment="CENTER">
          <VBox alignment="CENTER" styleClass="cybersigil-border">
             <children>
                <Label styleClass="title-label" text="NUN'BUT BLOOD" textFill="WHITE" VBox.vgrow="NEVER">
@@ -33,68 +34,75 @@
                <Label styleClass="subtitle-label" text="— Establish Your Covenant —" VBox.vgrow="NEVER" />
             </children>
          </VBox>
-         <HBox styleClass="cybersigil-border">
+         <StackPane alignment="TOP_CENTER" prefHeight="3.0" prefWidth="1672.0">
             <children>
-               <VBox alignment="CENTER" styleClass="form-section-part" HBox.hgrow="SOMETIMES">
+               <VBox prefHeight="200.0" prefWidth="100.0">
                   <children>
-                     <Label styleClass="section-label" text="COVENANT NAME" VBox.vgrow="NEVER" />
-                     <TextField fx:id="nameField" promptText="3–15 characters, letters and numbers only" styleClass="input-field" VBox.vgrow="NEVER" />
-                  </children>
-               </VBox>
-               <VBox alignment="CENTER" styleClass="form-section-part" HBox.hgrow="SOMETIMES">
-                  <children>
-                     <Label styleClass="section-label" text="DIFFICULTY" />
-                     <HBox spacing="16" style="-fx-padding: 4 0;">
+                     <HBox styleClass="cybersigil-border">
                         <children>
-                           <ToggleButton fx:id="easyMode" maxWidth="Infinity" styleClass="diff-btn" text="I'm afraid" HBox.hgrow="ALWAYS" />
-                           <ToggleButton fx:id="hardMode" maxWidth="Infinity" styleClass="diff-btn" text="Hurt me plenty&#10;" HBox.hgrow="ALWAYS" />
+                           <VBox alignment="CENTER" styleClass="form-section-part" HBox.hgrow="SOMETIMES">
+                              <children>
+                                 <Label styleClass="section-label" text="COVENANT NAME" VBox.vgrow="NEVER" />
+                                 <TextField fx:id="nameField" promptText="3–15 characters, letters and numbers only" styleClass="input-field" VBox.vgrow="NEVER" />
+                                 <Label fx:id="nameError" styleClass="error-label" text=" " wrapText="true" />
+                              </children>
+                           </VBox>
+                           <VBox alignment="CENTER" styleClass="form-section-part" HBox.hgrow="SOMETIMES">
+                              <children>
+                                 <Label styleClass="section-label" text="DIFFICULTY" />
+                                 <HBox spacing="16" style="-fx-padding: 4 0;">
+                                    <children>
+                                       <ToggleButton fx:id="easyMode" maxWidth="Infinity" styleClass="diff-btn" text="I'm afraid" HBox.hgrow="ALWAYS" />
+                                       <ToggleButton fx:id="hardMode" maxWidth="Infinity" styleClass="diff-btn" text="Hurt me plenty&#10;" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                 </HBox>
+                                 <Label fx:id="nameError1" styleClass="error-label" text=" " wrapText="true" />
+                              </children>
+                           </VBox>
+                           <VBox alignment="TOP_CENTER" spacing="6" styleClass="form-section-part" HBox.hgrow="SOMETIMES">
+                              <children>
+                                 <Label styleClass="section-label" text="NUMBER OF CRUSADES" />
+                                 <HBox alignment="CENTER" fillHeight="false" VBox.vgrow="NEVER">
+                                    <children>
+                                       <Slider fx:id="expeditionSlider" blockIncrement="1" majorTickUnit="5" max="15" min="5" minorTickCount="4" snapToTicks="true" value="10" HBox.hgrow="ALWAYS">
+                                          <cursor>
+                                             <Cursor fx:constant="H_RESIZE" />
+                                          </cursor>
+                                       </Slider>
+                                       <Label fx:id="expeditionValue" alignment="CENTER" contentDisplay="TOP" minWidth="30" styleClass="stat-value" text="10" />
+                                    </children>
+                                 </HBox>
+                                 <Label fx:id="nameError2" styleClass="error-label" text=" " wrapText="true" />
+                              </children>
+                           </VBox>
                         </children>
                      </HBox>
-                  </children>
-               </VBox>
-               <VBox alignment="TOP_CENTER" spacing="6" styleClass="form-section-part" HBox.hgrow="SOMETIMES">
-                  <children>
-                     <Label styleClass="section-label" text="NUMBER OF CRUSADES" />
-                     <HBox alignment="CENTER" fillHeight="false" VBox.vgrow="NEVER">
+                     <VBox alignment="CENTER" spacing="8" styleClass="cybersigil-border">
                         <children>
-                           <Slider fx:id="expeditionSlider" blockIncrement="1" majorTickUnit="5" max="15" min="5" minorTickCount="4" snapToTicks="true" value="10" HBox.hgrow="ALWAYS">
-                              <cursor>
-                                 <Cursor fx:constant="H_RESIZE" />
-                              </cursor>
-                           </Slider>
-                           <Label fx:id="expeditionValue" alignment="CENTER" contentDisplay="TOP" minWidth="30" styleClass="stat-value" text="10" />
+                           <Label contentDisplay="BOTTOM" styleClass="section-label" text="CHOOSE 3 STARTING APOSTLES       " />
+                           <Label fx:id="saintSelectLabel" alignment="TOP_RIGHT" contentDisplay="RIGHT" styleClass="hint-label" text="0 / 3 selected" />
+                           <GridPane fx:id="saintsGrid" alignment="CENTER" hgap="10" styleClass="apostle-card" vgap="10" />
+                           <Label fx:id="statusLabel" styleClass="error-label" text=" " />
                         </children>
-                     </HBox>
+                     </VBox>
                   </children>
                </VBox>
-            </children>
-         </HBox>
-         <VBox alignment="CENTER" spacing="8" styleClass="cybersigil-border">
-            <children>
-               <HBox alignment="CENTER" prefHeight="10.0" prefWidth="658.0">
+               <HBox fx:id="alertBox" alignment="CENTER" opacity="0.0" style="-fx-background-color: rgba(0, 0, 0, 0.7);" visible="false">
                   <children>
-                     <Label contentDisplay="BOTTOM" styleClass="section-label" text="CHOOSE 3 STARTING APOSTLES       " />
-                  </children>
-               </HBox>
-               <GridPane fx:id="saintsGrid" alignment="CENTER" hgap="10" styleClass="apostle-card" vgap="10" />
-               <HBox alignment="TOP_CENTER" VBox.vgrow="NEVER">
-                  <children>
-                     <Label fx:id="nameError" styleClass="error-label" text=" " wrapText="true" HBox.hgrow="SOMETIMES" />
-                     <Label fx:id="saintSelectLabel" alignment="TOP_RIGHT" contentDisplay="RIGHT" styleClass="hint-label" text="0 / 3 selected" />
-                     <Label fx:id="statusLabel" styleClass="error-label" text=" " />
+                     <Label fx:id="statusLabel" styleClass="title-label" text="Label" />
                   </children>
                </HBox>
             </children>
-         </VBox>
-         <Button fx:id="startButton" maxWidth="Infinity" onAction="#handleStart" text="BEGIN THE CRUSADE">
-            <styleClass>
-               <String fx:value="glow-button" />
-               <String fx:value="cybersigil-border" />
-            </styleClass>
-         </Button>
+         </StackPane>
          <VBox.margin>
             <Insets bottom="20" />
          </VBox.margin>
       </VBox>
    </ScrollPane>
+   <Button fx:id="startButton" maxWidth="Infinity" onAction="#handleStart" text="BEGIN THE CRUSADE">
+      <styleClass>
+         <String fx:value="glow-button" />
+         <String fx:value="cybersigil-border" />
+      </styleClass>
+   </Button>
 </VBox>

@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
@@ -18,7 +19,14 @@
             <children>
                 <HBox alignment="BASELINE_LEFT">
                     <children>
-                        <Label fx:id="covenantTitle" styleClass="title-label" text="covenant" textFill="WHITE">
+                  <VBox alignment="CENTER" HBox.hgrow="SOMETIMES">
+                     <children>
+                        <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="-Infinity" onAction="#handleMarket" styleClass="btn-mkt" text="← MARKET" />
+                              <Label fx:id="faithLabel" text="Faith: 0" />
+                     </children>
+                  </VBox>
+                        <Region HBox.hgrow="SOMETIMES" />
+                        <Label fx:id="covenantTitle" styleClass="title-label" text="COVENANT" textFill="WHITE">
                             <effect>
                                 <InnerShadow blurType="GAUSSIAN">
                                     <color>
@@ -31,11 +39,12 @@
                             </HBox.margin>
                         </Label>
                         <Region HBox.hgrow="SOMETIMES" />
-                        <Label fx:id="faithLabel" styleClass="section-label" text="Faith: 0" />
-                        <Region HBox.hgrow="SOMETIMES" />
-                        <Label fx:id="expeditionLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="section-label" text="Crsuade 0/ 0" />
-                        <Region HBox.hgrow="SOMETIMES" />
-                        <Label fx:id="partyLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="section-label" text="Party: 0/5" />
+                  <VBox alignment="CENTER" HBox.hgrow="SOMETIMES">
+                     <children>
+                        <Button maxWidth="1.7976931348623157E308" onAction="#handleCrusade" styleClass="btn-mkt" text="BEGIN CRUSADE ↠" />
+                              <Label fx:id="expeditionLabel" alignment="CENTER" contentDisplay="CENTER" text="Crsuade 0/ 0" />
+                     </children>
+                  </VBox>
                     </children>
                 </HBox>
             </children>
@@ -44,46 +53,48 @@
             <content>
                 <BorderPane>
                     <center>
-                        <VBox BorderPane.alignment="CENTER">
+                        <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
                             <children>
-                                <VBox alignment="TOP_CENTER" styleClass="cybersigil-border">
-                                    <children>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" styleClass="section-label" text="Items" />
-                                        <HBox fx:id="inventoryPane" />
-                                    </children>
-                                </VBox>
-                                <HBox VBox.vgrow="ALWAYS">
-                                    <children>
-                                        <VBox alignment="TOP_CENTER" styleClass="cybersigil-border" HBox.hgrow="SOMETIMES">
-                                            <children>
-                                                <Label alignment="TOP_CENTER" contentDisplay="TOP" styleClass="section-label" text="Active" VBox.vgrow="NEVER" />
-                                                <FlowPane fx:id="activePane" hgap="10.0" vgap="10.0" />
-                                            </children>
-                                        </VBox>
-                                        <VBox alignment="TOP_CENTER" styleClass="cybersigil-border" HBox.hgrow="SOMETIMES">
-                                            <children>
-                                                <Label alignment="CENTER" contentDisplay="CENTER" styleClass="section-label" text="Reserves" />
-                                                <FlowPane fx:id="reservePane" hgap="10.0" vgap="10.0" />
-                                            </children>
-                                        </VBox>
-                                    </children>
-                                </HBox>
+                        <StackPane alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                            <VBox alignment="TOP_CENTER" styleClass="cybersigil-border" VBox.vgrow="SOMETIMES">
+                                                <children>
+                                                    <Label alignment="CENTER" contentDisplay="CENTER" styleClass="section-label" text="Items" />
+                                                    <HBox fx:id="inventoryPane" />
+                                                </children>
+                                            </VBox>
+                                            <HBox VBox.vgrow="ALWAYS">
+                                                <children>
+                                                    <VBox alignment="TOP_CENTER" styleClass="cybersigil-border" HBox.hgrow="SOMETIMES">
+                                                        <children>
+                                                      <Label fx:id="partyLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="section-label" text="Active Party: 0/5" />
+                                                            <FlowPane fx:id="activePane" hgap="10.0" vgap="10.0" />
+                                                        </children>
+                                                    </VBox>
+                                                    <VBox alignment="TOP_CENTER" styleClass="cybersigil-border" HBox.hgrow="SOMETIMES">
+                                                        <children>
+                                                            <Label alignment="CENTER" contentDisplay="CENTER" styleClass="section-label" text="Reserves" />
+                                                            <FlowPane fx:id="reservePane" hgap="10.0" vgap="10.0" />
+                                                        </children>
+                                                    </VBox>
+                                                </children>
+                                            </HBox>
+                                 </children>
+                              </VBox>
+                              <HBox fx:id="alertBox" alignment="CENTER" opacity="0.0" style="-fx-background-color: rgba(0, 0, 0, 0.7);" visible="false" StackPane.alignment="CENTER">
+                                 <children>
+                                    <Label fx:id="statusLabel" styleClass="title-label" text="Label" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </StackPane>
                             </children>
                         </VBox>
                     </center>
                 </BorderPane>
             </content>
         </ScrollPane>
-      <VBox alignment="BOTTOM_CENTER">
-         <children>
-            <Label fx:id="statusLabel" alignment="CENTER" styleClass="hint-label" text=" " wrapText="true" VBox.vgrow="SOMETIMES" />
-            <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="12">
-               <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" onAction="#handleMarket" styleClass="cybersigil-border" text="MARKET" HBox.hgrow="ALWAYS" />
-                  <Button maxWidth="1.7976931348623157E308" onAction="#handleCrusade" styleClass="cybersigil-border" text="BEGIN CRUSADE" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
     </children>
 </VBox>

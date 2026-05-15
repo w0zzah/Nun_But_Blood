@@ -10,47 +10,68 @@ import java.util.Random;
 
 public class DiceRollAnimation {
     private final StackPane diceContainer;
+    private final int bonus;
     private final Label dieLabel;
     private final Label outcomeLabel;
     private final AudioService audio;
     private final Random random = new Random();
 
-    public DiceRollAnimation(StackPane diceContainer, Label dieLabel, Label outcomeLabel, AudioService audio) {
+    public DiceRollAnimation(StackPane diceContainer, Label dieLabel, Label outcomeLabel, AudioService audio, int bonus) {
         this.diceContainer = diceContainer;
         this.dieLabel = dieLabel;
         this.outcomeLabel = outcomeLabel;
         this.audio = audio;
+        this.bonus = bonus;
     }
 
-    public void play(int finalValue, String resultType, Runnable onComplete) {
+    public void play(int finalValue, String resultType, int attributeValue, Runnable onComplete) {
+
+        // 1. Reset Phase
+        String[] styleClasses = {"dice-success", "dice-fail", "dice-critical-success", "dice-critical-fail"};
+        dieLabel.getStyleClass().removeAll(styleClasses);
+        outcomeLabel.getStyleClass().removeAll(styleClasses);
+        outcomeLabel.setText("");
+        outcomeLabel.setOpacity(0.0);
+
         audio.play(AudioService.Clip.ROLLING);
 
+        // Creates an empty animation timeline where we will map out specific events at specific milliseconds
         Timeline cycling = new Timeline();
-        int frames = 20;
+        // How many times the number will change
+        int totalFrames = 25;
+        // Running timer that we increase the longer it rolls
+        double currentDelayMs = 1;
+        // Starting duration between numbers
+        double frameDuration = 15;
+        // How fast the dice slows down (1.5 means it takes 50% longer than the one before)
+        double slowdownFactor = 1.14;
 
-        for (int i = 0; i< frames; i++) {
-            // play random numbers
-            int val = (i == frames -1) ? finalValue : random.nextInt(20) +1;
-            cycling.getKeyFrames().add(new KeyFrame(Duration.millis(i * 40),
-                e -> dieLabel.setText(String.valueOf(val))));
+        // 3. Frame Generation Phase
+        for (int i = 0; i < totalFrames; i++) {
+            // Calculate number and toggle the shake direction (up on even frames, down on odd)
+            int val = (i == totalFrames - 1) ? finalValue : random.nextInt(20) + 1;
+            int shakeOffset = (i % 2 == 0) ? 10 : -10;
+
+            cycling.getKeyFrames().add(new KeyFrame(
+                    Duration.millis(currentDelayMs),
+                    e -> {
+                        dieLabel.setText(String.valueOf(val));
+                        diceContainer.setTranslateY(shakeOffset); // Synced perfectly with the numbers!
+                    }
+            ));
+
+            frameDuration *= slowdownFactor;
+            currentDelayMs += frameDuration;
         }
 
-        // Shake effect for the dice
-        TranslateTransition shake = new TranslateTransition(Duration.millis(20), diceContainer);
-        shake.setFromX(-10);
-        shake.setToX(10);
-        shake.setCycleCount(40);
-        shake.setAutoReverse(true);
-
-        // Syncs up shake with the numbers
-        ParallelTransition rollPhase = new ParallelTransition(cycling, shake);
-
-        rollPhase.setOnFinished(e -> {
+        // 4. Completion Phase
+        cycling.setOnFinished(e -> {
+            diceContainer.setTranslateY(0);
             audio.stop(AudioService.Clip.ROLLING);
-            applyLandingEffect(resultType, onComplete);
+            applyLandingEffect(finalValue, resultType, onComplete, attributeValue);
         });
 
-        rollPhase.play();
+        cycling.play();
     }
 
     /**
@@ -59,29 +80,52 @@ public class DiceRollAnimation {
      * @param type
      * @param onComplete
      */
-    private void applyLandingEffect(String type, Runnable onComplete) {
+    private void applyLandingEffect(int finalValue, String type, Runnable onComplete, int bonus) {
 
+        ScaleTransition pop = new ScaleTransition(Duration.millis(350), diceContainer);
+        // Increase size of dice when finished to add more oomph + play sound
+        switch (type) {
 
-        // Increase size of dice when finished to add more oomph
-        ScaleTransition pop = new ScaleTransition(Duration.millis(200), diceContainer);
-        pop.setFromX(1.0); pop.setToX(1.3); // increase size by 30%
+            case "critical-success":
+                audio.play(AudioService.Clip.CRITICAL_SUCCESS);
+                pop.setFromX(1.0); pop.setToX(1.5);pop.setFromY(1.0); pop.setToY(1.5);
+                break;
+
+            case "critical-fail":
+                audio.play(AudioService.Clip.CRITICAL_FAIL);
+                pop.setFromX(1.0); pop.setToX(1.5);pop.setFromY(1.0); pop.setToY(1.5);
+                break;
+
+            case "success":
+                audio.play(AudioService.Clip.SUCCESS);
+                pop.setFromX(1.0); pop.setToX(1.3);pop.setFromY(1.0); pop.setToY(1.3);
+                break;
+
+            case "fail":
+                audio.play(AudioService.Clip.FAIL);
+                pop.setFromX(1.0); pop.setToX(1.3);pop.setFromY(1.0); pop.setToY(1.3);
+                break;
+        }
         pop.setAutoReverse(true);
         pop.setCycleCount(2); // Grows then shrinks
 
+        String[] styleClasses = {"dice-success", "dice-fail", "dice-critical-success", "dice-critical-fail"};
+        outcomeLabel.getStyleClass().removeAll(styleClasses);
 
-        // we use css classes to handle colors. This keeps the java
-        dieLabel.getStyleClass().removeAll("dice-crit", "dice-success", "dice-fail");
-        dieLabel.getStyleClass().add("dice-" + type.toLowerCase());
+        dieLabel.getStyleClass().add("dice-" + type);
+        outcomeLabel.getStyleClass().add("dice-" + type);
 
-        outcomeLabel.setText(type.toUpperCase());
+        String readableType = type.replace("-", " ").toUpperCase();
+        outcomeLabel.setText("Bonus : " + bonus + "\n" + readableType);
         outcomeLabel.setOpacity(1.0);
+
 
         pop.setOnFinished(e -> {
             FadeTransition fade = new FadeTransition(Duration.millis(500), outcomeLabel);
             fade.setFromValue(1.0); fade.setToValue(0.0);
             fade.setDelay(Duration.millis(400)); // quick pause b4 fade
 
-            fade.setOnFinished(ev -> onComplete.run());
+            fade.setOnFinished(event -> onComplete.run());
             fade.play();
         });
 

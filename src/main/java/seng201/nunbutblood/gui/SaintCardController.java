@@ -85,6 +85,7 @@ public class SaintCardController {
         VBox bars = new VBox(3);
         bars.getStyleClass().add("stat-bars");
         bars.getChildren().addAll(
+                buildStatRow("STA", saint.getCurrentStamina(), saint.getStatType().equals("STA"), "#a38934", isCompact),
                 buildStatRow("STR", saint.getStrength(), saint.getStatType().equals("STR"), "#AF4130", isCompact),
                 buildStatRow("WIS", saint.getWisdom(), saint.getStatType().equals("WIS"), "#346687", isCompact),
                 buildStatRow("DEX", saint.getDexterity(), saint.getStatType().equals("DEX"), "#609953", isCompact)
@@ -99,7 +100,6 @@ public class SaintCardController {
         row.setAlignment(Pos.CENTER_LEFT);
         Label lbl = new Label(label);
         lbl.getStyleClass().add(isPrimary ? "stat-label-primary" : "stat-label");
-        lbl.setPrefWidth(isCompact ? 20 : 30);
 
         StackPane track = new StackPane();
         track.getStyleClass().add("stat-track");
@@ -115,7 +115,6 @@ public class SaintCardController {
 
         Label statNum = new Label(String.valueOf(value));
         statNum.getStyleClass().add("stat-value-small");
-        statNum.setPrefWidth(isCompact ? 14 : 22);
 
         HBox.setHgrow(track, Priority.ALWAYS);
         row.getChildren().addAll(lbl, track, statNum);

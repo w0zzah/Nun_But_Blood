@@ -36,32 +36,30 @@ public class CrusadeService {
     public StepResult performStep(Saints saint, Demon demon, List<Saints> party) {
         // 1. Calculate the Roll
         int roll = random.nextInt(20) + 1;
-
-        // 2. Determine Outcome
-        // Logic: Success if Roll + Saint Attribute >= Demon Difficulty
-        // We assume 'demon.getWeakness()' returns a string matching a Saint's attribute
         int bonus = saint.getAttributeValue(demon.getWeakness());
         boolean isSuccess = (roll + bonus) >= demon.getDifficultyRating();
 
-        // 3. Define the "Type" (This string maps directly to CSS: .dice-crit, .dice-success, etc.)
-        String type = "fail";
-        if (roll == 20) type = "crit";
-        else if (isSuccess) type = "success";
+        String type = switch(roll) {
+            case 20 -> "critical-success";
+            case 1 -> "critical-fail";
+            default -> isSuccess ? "success" : "fail";
+        };
 
         // 4. Handle Progression and Costs
         // Every roll costs stamina, regardless of success
         saint.consumeStamina(20);
 
         String narrative;
-        if (type.equals("crit")) {
-            currentStep += 2; // Crits move you forward faster
-            narrative = "DIVINE INTERVENTION! " + saint.getName() + " strikes a shattering blow!";
+        if (type.equals("critical-success")) {
+            currentStep += 2;
+            narrative = "CRITICAL SUCCESS";
         } else if (isSuccess) {
             currentStep += 1;
-            narrative = saint.getName() + " forces the demon back!";
-        } else {
-            narrative = "The demon resists! The party falters...";
-        }
+            narrative = "SUCCESS";
+        } else if (type.equals("critical-fail")){
+            currentStep -= 1;
+            narrative = "CRITICAL FAIL";
+        } else { narrative = "FAIL"; }
 
         // 5. Update the Log
         String logEntry = String.format("[Roll %d] %s used %s. Result: %s",

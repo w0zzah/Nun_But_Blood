@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 import seng201.nunbutblood.models.Saints;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
+import seng201.nunbutblood.services.AudioService;
 import seng201.nunbutblood.services.CrusadeService;
 
 /**
@@ -44,20 +45,24 @@ public class CrusadeController {
     private Covenant covenant;
     private Demon currentDemon;
     private ScreenNavigator navigator;
+    private int bonus;
+    private AudioService audio;
 
     public void init(Covenant covenant, Demon demon, ScreenNavigator navigator) {
         this.covenant = covenant;
         this.currentDemon = demon;
         this.navigator = navigator;
         this.manager = new CrusadeService();
+        this.audio = new AudioService();
 
         // Initialize the animation theater
         this.diceAnimation = new DiceRollAnimation(
                 diceBox,
                 diceLabel,
                 outcomeLabel,
-                navigator.getAudioService()
-        );
+                navigator.getAudioService(),
+                bonus
+                );
 
         setupDemonDisplay();
         refreshUI();
@@ -93,7 +98,7 @@ public class CrusadeController {
         partyContainer.getChildren().clear();
         for (Saints saint : covenant.getActiveParty()) {
 
-            Button rollBtn = new Button("1");
+            Button rollBtn = new Button("EXORCISE");
             rollBtn.setDisable(saint.getCurrentStamina() < 20);
             rollBtn.setOnAction(e -> handleRoll(saint));
 
@@ -111,15 +116,16 @@ public class CrusadeController {
     private void handleRoll(Saints selectedSaint) {
         // 1. LOCK UI: Prevent spam clicking while animating
         partyContainer.setDisable(true);
-
+        int bonus = selectedSaint.getAttributeValue(currentDemon.getWeakness());
         // 2. GET RESULT: Process logic instantly behind the scenes
         CrusadeService.StepResult result = manager.performStep(selectedSaint, currentDemon, covenant.getActiveParty());
 
-        // 3. PLAY ANIMATION: Pass result type ("success", "crit", "fail") to generate colors
-        diceAnimation.play(result.roll(), result.type(), () -> {
+        diceAnimation.play(result.roll(), result.type(), bonus, () -> {
 
-            // 4. CALLBACK: This runs ONLY after the die finishes shaking and landing
-            rollResultLabel.setText(String.valueOf(result.roll()));
+            // Set Text below Dice roll
+            rollResultLabel.getStyleClass().add("dice-" + result.type());
+            rollResultLabel.setText(String.valueOf(result.roll() + bonus));
+
             narrativeLabel.setText(result.narrative());
 
             // 5. UPDATE BACKEND/UI CONDITIONS

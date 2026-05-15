@@ -46,7 +46,6 @@ public class SaintsRoster {
                         int baseStr, int baseWis, int baseDex, int stamina) {}
 
 
-
     /** The complete named Apostle catalogue.
      * List called 'allSaints' containing all Saints from @buildRoster function
      *

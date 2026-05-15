@@ -1,4 +1,5 @@
 package seng201.nunbutblood.gui;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -8,6 +9,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Item;
 import seng201.nunbutblood.models.Saints;
@@ -21,6 +23,7 @@ public class    MarketController {
     @FXML private FlowPane saintPane;
     @FXML private VBox itemPane;
     @FXML private VBox inventoryPane;
+    @FXML private HBox alertBox;
 
     private Stage stage;
     private ScreenNavigator navigator;
@@ -46,9 +49,9 @@ public class    MarketController {
             // Define Market Logic
             hireBtn.setOnAction(e -> {
                 if (!marketService.buySaint(saint, covenant)) {
-                    statusLabel.setText("Unable to hire, you lack faith!");
+                    setAlertBox("Unable to hire, you lack faith!");
                 } else {
-                    statusLabel.setText(saint.getName() + " hired for " + saint.getCost() + "faith!");
+                    setAlertBox(saint.getName() + " hired for " + saint.getCost() + "faith!");
                     refresh();
                 }
             });
@@ -68,9 +71,9 @@ public class    MarketController {
 
             buyBtn.setOnAction(e -> {
                 if (!marketService.buyItem(item, covenant)) {
-                    statusLabel.setText("Not enough Faith to buy " + item.getItemName() + ".");
+                    setAlertBox("Not enough Faith");
                 } else {
-                    statusLabel.setText(item.getItemName() + " purchased!");
+                    setAlertBox(item.getItemName() + " purchased!");
                     refresh();
                 }
             });
@@ -89,9 +92,9 @@ public class    MarketController {
             Button sellBtn = new Button("SELL (" + sellPrice + " faith)");
             sellBtn.setOnAction(e -> {
                 if (!marketService.sellItem(item, covenant)) {
-                    statusLabel.setText("Could not sell " + item.getItemName());
+                    setAlertBox("Could not sell " + item.getItemName());
                 } else {
-                    statusLabel.setText("Sold " + item.getItemName() + " for " + sellPrice + " faith");
+                    setAlertBox("Sold " + item.getItemName() + " for " + sellPrice + " faith");
                     refresh();
                 }
             });
@@ -101,6 +104,28 @@ public class    MarketController {
             inventoryPane.getChildren().add(invRow);
         }
     }
+    /**
+     * Create's a dark radial gradient overlay showing the alert popup
+     * @param alert
+     */
+    private void setAlertBox(String alert) {
+        // Set text & show box
+        statusLabel.setText(alert);
+        alertBox.setOpacity(1);
+        alertBox.setVisible(true);
+
+        // Fade transition
+        FadeTransition fade = new FadeTransition(Duration.millis(800), alertBox);
+        fade.setFromValue(1.0); fade.setToValue(0.0);
+        fade.setDelay(Duration.millis(500));
+
+        // Once finished make invisible so you can still interact
+        fade.setOnFinished(event -> alertBox.setVisible(false));
+
+        // Play the scene
+        fade.play();
+    }
+
     @FXML
     private void handleBack() {
         navigator.goToHub();
