@@ -13,26 +13,38 @@ public class EndScreenController {
     private boolean isVictory;
     @FXML private Label score;
     @FXML private Label result;
+    @FXML private Button goNext;
 
 
-    public void init(Stage stage, ScreenNavigator screenNavigator, Covenant covenant, boolean isVictory) {
+    public void init(Stage stage, ScreenNavigator screenNavigator, Covenant covenant, boolean isVictory, boolean gameOver) {
         this.covenant = covenant;
         this.navigator = screenNavigator;
         this.isVictory = isVictory;
-
-        score(covenant, isVictory);
+        result(isVictory, gameOver);
     }
-
-    public void score(Covenant covenant, boolean isVictory){
-        score.setText("Score: " + covenant.getScore());
-        if (isVictory) {
-            result.setText("Victory!");
+    public void result(boolean isVictory, boolean gameOver){
+        if (gameOver) {
+            goNext.setText("Play Again?");
+            goNext.setOnAction(e -> goToSetup());
+            score.setText("Score: " + covenant.getScore());
+            if (isVictory) {
+                result.setText("All Demon's Exorcised!!!");
+            }
         } else {
-            result.setText("GAME OVER");
+            goNext.setText("Back to Covenant");
+            goNext.setOnAction(e -> goToHub());
+            if (isVictory) {
+                result.setText("Demon Exorcised!!!");
+            }
+            else {result.setText("YOU FAILED!");}
         }
-
     }
+
 
     @FXML
     private void goToSetup() {navigator.goToSetup();}
+
+    @FXML
+    private void goToHub() {navigator.goToHub();}
+
 }

@@ -3,12 +3,9 @@ package seng201.nunbutblood.services;
 
  */
 import seng201.nunbutblood.models.*;
+import javafx.animation.FadeTransition;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.Collector;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -20,12 +17,9 @@ public class MarketService {
     private List<Saints> availableSaints;
 
     /** List of available items */
-    private List<Item> availableItems;
+    private final List<Item> availableItems;
 
     private final Random random;
-
-    /** Every Item possible to be stocked in the market */
-    private static final List<Item> ITEM_POOL = buildItemPool();
 
     /**
      * Contructs new Marketservice and performs the initial refresh
@@ -57,12 +51,12 @@ public class MarketService {
             availableSaints.add(generateRandomSaint(crusadeNumber));
         }
 
-        // Generate a list of random items from the ITEM_POOL
-        List<Item> newItems = new ArrayList<>(ITEM_POOL);
-        Collections.shuffle(newItems, random);
-        int itemCount = Math.min(3 + random.nextInt(3), newItems.size());
-        availableItems.addAll(newItems.subList(0, itemCount));
-
+        List<ItemCatalog> allCatalogItems = new ArrayList<>(Arrays.asList(ItemCatalog.values()));
+        Collections.shuffle(allCatalogItems, random);
+        int itemsToDraw = Math.min(3, allCatalogItems.size());
+        for (int i = 0; i < itemsToDraw; i++) {
+            availableItems.add(allCatalogItems.get(i).create());
+        }
     }
 
 
@@ -129,6 +123,7 @@ public class MarketService {
         return availableSaints;
     }
     /** @return List of available items for sale */
+
     public List<Item> getAvailableItems() {
         return availableItems;
     }
@@ -196,33 +191,5 @@ public class MarketService {
             if (roll < 60) return Rarity.EPIC;
             return Rarity.LEGENDARY;
         }
-    }
-    /**
-     * Builds the static pool of all possible items the Market can stock.
-     *
-     * @return list of all item definitions
-     */
-    private static List<Item> buildItemPool() {
-        List<Item> pool = new ArrayList<>();
-        // Consumables
-        pool.add(new Item("Holy Salve", Item.ItemType.UPGRADE, "stamina", 20, 60,
-                "A vial of blessed oil. Restores 20 Stamina."));
-        pool.add(new Item("Perception Powder", Item.ItemType.UPGRADE, "perception", 5, 80,
-                "Fine dust that sharpens the senses. +5 Perception."));
-        pool.add(new Item("War Unction", Item.ItemType.UPGRADE, "strength", 5, 70,
-                "An anointing that hardens the arm. +5 to strength for one round"));
-        // Gear
-        pool.add(new Item("Iron Rosary", Item.ItemType.EQUIPMENT, "perception", 8, 120,
-                "A heavy iron rosary, focus for the devout. +8 Perception while equipped."));
-        pool.add(new Item("Blessed Gauntlets", Item.ItemType.EQUIPMENT, "strength", 3, 130,
-                "Gauntlets etched with psalms. +3 to strength while equipped."));
-        pool.add(new Item("Pilgrim's Boots", Item.ItemType.EQUIPMENT, "stamina", 30, 110,
-                "Boots worn thin by a thousand miles. +30 Stamina while equipped."));
-        // Skill Tomes
-        pool.add(new Item("Tome of Discernment", Item.ItemType.SKILL_TOME, "NONE", 0, 150,
-                "Grants the Apostle the ability to sense a Demon's weakness before rolling."));
-        pool.add(new Item("Codex of Fortitude", Item.ItemType.SKILL_TOME, "NONE", 0, 140,
-                "Teaches the Apostle to endure — they no longer lose Stamina on cursed checks."));
-        return pool;
     }
 }

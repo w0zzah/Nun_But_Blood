@@ -22,7 +22,6 @@ public class MainWindow extends Application {
         ScreenNavigator navigator = new ScreenNavigator(primaryStage);
 
         primaryStage.setFullScreenExitHint("");
-        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         primaryStage.setFullScreen(true);
 
         navigator.goToSetup();

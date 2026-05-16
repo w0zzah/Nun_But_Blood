@@ -4,15 +4,34 @@
     Colors use HSV not HSL — use a picker to verify: https://www.google.com/search?q=color+picker
 */
 
+@import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
+
 .root {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);
     -fx-text-fill: -chrome;
     /* Need font installed to work */
-    -fx-font-family: "Angel Wish";
-    -fx-font-size: 25px;
+    -fx-font-family: "New Rocker";
+    -fx-font-size: 20px;
     -chrome: linear-gradient(to bottom, #cfcfcf 0%, #ffffff 20%, #a1a1a1 50%, #ffffff 80%, #cfcfcf 100%);
     -crimson: linear-gradient(to bottom, #af0303 0%, #ff2b2b 20%, #9e0202 50%, #ff2b2b 80%);
 }
+
+.root-setup {
+    -fx-background-image: url("/images/background/SetupBackground.png");
+    -fx-background-size: cover;
+}
+.root-hub {
+    -fx-background-image: url("/images/background/CovenantBackground.png");
+    -fx-background-size: cover;
+}
+.root-market {
+    -fx-background-image: url("/images/background/MarketBackground.png");
+    -fx-background-size: cover;
+}
+.root-crusade {
+    -fx-background-image: url("/images/background/CrusadeBackground.png");
+    -fx-background-size: cover;
+}
+
 
 .label {
     -fx-text-fill: -chrome
@@ -55,16 +74,11 @@
 }
 
 .title-label {
-    -fx-text-fill: -crimson;
+    -fx-text-fill: linear-gradient(to top, #000000, #cc0000);;
+    -fx-font-family: "Angel wish";
     -fx-font-size: 45px;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0), 25, 0.6, 0, 0);
-}
-
-.subtitle-label {
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.9), 10, 0.2, 0, 0);
-    -fx-text-fill: -chrome;
+    -fx-effect: dropshadow(gaussian, rgb(20, 0, 0, 0.6), 25, 0.6, 0, 0);
 }
 
 .stat-pill {
@@ -160,7 +174,7 @@
     -fx-background-position: center;
     -fx-text-fill: -chrome;
 }
-.saint-card-selected {
+.saint-card-active {
     -fx-background-color: linear-gradient(to top, rgba(67, 67, 67, 0.1) 30%, rgba(0,0,0,0));
     -fx-background-radius: 35;
     -fx-text-fill: -crimson;
@@ -171,6 +185,7 @@
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-wrap-text: true;
+    -fx-alignment: center;
 }
 .card-type {
     -fx-text-fill: -chrome;
@@ -182,6 +197,7 @@
     -fx-font-size: 11px;
     -fx-wrap-text: true;
 }
+
 .card-btn {
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);
     -fx-cursor: hand;
@@ -189,11 +205,11 @@
     -fx-text-fill: -chrome;
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-pref-width: 100%;
+    -fx-min-width: 100%;
 }
 .card-btn-com {
-    -fx-font-size: 11px;
-    -fx-pref-width: 50%;
+    -fx-font-size: 20px;
+    -fx-min-width: 100%;
 }
 .card-btn:hover {
     -fx-effect: dropshadow(gaussian, -crimson, 10, 0.5, 0, 0);
@@ -227,29 +243,25 @@
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
-.scroll-bar {
-    -fx-background-color: -chrome;
-}
 
-.scroll-bar .thumb {
-    -fx-background-color: -chrome;
-    -fx-background-radius: 10px;
-}
 
-.scroll-bar .increment-button, .scroll-bar .decrement-button, .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+.scroll-bar .increment-button, .scroll-bar .decrement-button, .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow, .scroll-bar,.scroll-bar .thumb {
     -fx-background-color: transparent;
 }
+
 .button {
     -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);
     -fx-text-fill: -chrome;
-    -fx-font-size: 30px;
     -fx-border-color: -chrome;
     -fx-border-width: 1;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(37, 37, 37, 0.4), 8, 0.4, 0, 0);
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
 }
+
 .button:hover {
-    -fx-text-fill: linear-gradient(to bottom, #c30000, #6c0000);
+    -fx-text-fill: linear-gradient(to top, #000000, #cc0000);
 }
 
 .action-btn {
@@ -276,25 +288,29 @@
     -fx-effect: dropshadow(gaussian, rgba(28, 99, 24, 0.65), 8, 0.3, 0, 0);
     -fx-text-fill: rgb(255, 255, 255);
     -fx-alignment: center;
-    -fx-font-size: 17px
+    -fx-font-size: 16px;
+    -fx-font-family: "Nexa Extra Light";
 }
 .rarity-rare {
     -fx-effect: dropshadow(gaussian, rgba(68,136,255,0.65), 8, 0.3, 0, 0);
     -fx-text-fill: rgba(27, 248, 248, 0.71);
     -fx-alignment: center;
-    -fx-font-size: 17px
+    -fx-font-size: 17px;
+    -fx-font-family: "fantasy";
 }
 .rarity-epic {
     -fx-effect: dropshadow(gaussian, rgba(204,68,255,0.65), 8, 0.2, 0, 0);
     -fx-text-fill: #bb00ff;
     -fx-alignment: center;
-    -fx-font-size: 17px
+    -fx-font-size: 17px;
 }
 .rarity-legendary {
     -fx-effect: dropshadow(gaussian, rgba(255,170,0,0.65), 8, 0.55, 0, 0);
     -fx-text-fill: -chrome;
     -fx-alignment: center;
-    -fx-font-size: 17px
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Angel wish";
 }
 .stat-bars {
     -fx-padding: 4 0 2 0;
@@ -310,20 +326,24 @@
 .stat-label {
     -fx-text-fill: #e1e1e1;
     -fx-font-size: 12px;
+    -fx-min-width: 100%;
 }
 .stat-label-primary {
     -fx-text-fill: #ffece5;
     -fx-font-size: 15;
     -fx-font-weight: bold;
+    -fx-min-width: 100%;
 }
 .stat-value-small {
     -fx-text-fill: #e1e1e1;
     -fx-font-size: 15px;
+    -fx-min-width: 100%;
 }
 .card-cost {
     -fx-text-fill: #e1e1e1;
     -fx-font-size: 15px;
     -fx-font-weight: bold;
+    -fx-min-width: 100%;
 }
 
 .demon-card {
@@ -368,3 +388,135 @@
     -fx-border-image-repeat: repeat;
 }
 
+
+
+/* ----------------------------------- Progress Bar Customization ----------------------------------- */
+.crusade-progress .track {
+    -fx-background-color: rgb(34, 34, 34 , 0.7);
+    -fx-background-radius: 0;
+}
+
+.crusade-progress .bar {
+    -fx-background-color: linear-gradient(to right, #500000, #fb6e6e); /* Blood red gradient */
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+}
+
+/* ----------------------------------- The Dice Box -----------------------------------*/
+.dice-box {
+    -fx-background-color: #121212;
+    -fx-border-color: #444;
+    -fx-border-width: 5;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, black, 20, 0, 0, 0);
+}
+
+.dice-label {
+    -fx-font-size: 72px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-min-width: -fx-pref-width;
+}
+
+/*----------------------------------- Dice result colorchanger----------------------------------- */
+.dice-critical-success {
+    -fx-text-fill: #e600ff;
+    -fx-effect: dropshadow(gaussian, #712aff, 20, 0.5, 0, 0);
+}
+
+.dice-success {
+    -fx-text-fill: #44ff88;
+    -fx-effect: dropshadow(gaussian, #44ff88, 15, 0.3, 0, 0);
+}
+
+.dice-fail {
+    -fx-text-fill: #c88c49;
+    -fx-effect: dropshadow(gaussian, #852d2d, 15, 0.3, 0, 0);
+}
+
+.dice-critical-fail {
+    -fx-text-fill: #1c0000;
+    -fx-effect: dropshadow(gaussian, #fa0000, 15, 0.3, 0, 0);
+}
+
+
+/* Outcome Flash Label */
+.outcome-flash {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.transparent-scroll {
+    -fx-background-color: transparent;
+}
+
+.transparent-scroll .viewport {
+    -fx-background-color: transparent;
+}
+
+/*---------------------------------------------------------------------------------------------------------*/
+
+
+
+/* ----------------------------------- Battle Log (TextArea) ----------------------------------- */
+.event-log {
+    -fx-text-fill: #cccccc;
+    -fx-font-family: "Consolas", monospace;
+    -fx-border-color: transparent;
+}
+
+.event-log .content {
+    -fx-background-color: transparent;
+}
+
+.demon-name-label {
+    -fx-text-fill: #ff4444;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(one-pass-box, black, 5, 0, 0, 0);
+}
+
+.btn-mkt {
+    -fx-effect: dropshadow(gaussian, rgb(20, 0, 0, 1), 25, 0.6, 0, 0);
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: -chrome;
+    -fx-font-size: 35px;
+    -fx-font-weight: bold;
+}
+/* ---------------------------------------------------------------------------------------------------------*/
+
+
+
+
+/* ----------------------------------- CSS FOR ITEMS -----------------------------------*/
+.item-card {
+    -fx-alignment: center;
+}
+.item-card-potion {
+    -fx-effect: dropshadow(gaussian, rgb(13, 210, 0 , 0.65), 6, 0.3, 0, 0);
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+}
+
+.item-card-equipment {
+    -fx-effect: dropshadow(gaussian, rgba(68,136,255,0.65), 6, 0.3, 0, 0);
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+}
+
+.item-card-skill {
+    -fx-effect: dropshadow(gaussian, rgba(204,68,255,0.65), 6, 0.3, 0, 0);
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+}
+.item-card-desc {
+    -fx-font-size: 20px;
+}
+
+/* ---------------------------------------------------------------------------------------------------*/

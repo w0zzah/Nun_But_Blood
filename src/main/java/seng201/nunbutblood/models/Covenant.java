@@ -251,6 +251,10 @@ public class Covenant {
         return total;
     }
 
+    public void refreshStamina() {
+        activeParty.forEach(Saints::restoreStamina);
+    }
+
     // ── Items ─────────────────────────────────────────────────────────────────
 
     /**
@@ -290,8 +294,16 @@ public class Covenant {
     public void advanceCrusade() {
         currentCrusade++;
         activeParty.forEach(Saints::incrementCrusadeCount);
+
     }
 
+    public void postCrusade(int reward, int score) {
+        this.addFaith(reward);
+        this.payActiveParty();
+        this.addScore(score);
+        this.advanceCrusade();
+        this.refreshStamina();
+    }
     // ── Game State ────────────────────────────────────────────────────────────
 
     /**
@@ -315,7 +327,15 @@ public class Covenant {
     }
 
     public void addSaints(Saints saints) {
-        if (reserves.size() >= 5) return;
+        if (activeParty.size() < 5) {
+            activeParty.add(saints);
+            return;
+        }
+
+        if (reserves.size() >= 5) {
+            return;
+        }
+
         reserves.add(saints);
     }
 }
