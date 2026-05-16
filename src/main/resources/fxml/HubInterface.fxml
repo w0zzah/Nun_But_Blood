@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.HubController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="root-hub" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.HubController">
     <children>
         <VBox alignment="CENTER" spacing="6" styleClass="cybersigil-border">
             <children>
@@ -57,15 +57,15 @@
                             <children>
                         <StackPane alignment="TOP_CENTER" VBox.vgrow="ALWAYS">
                            <children>
-                              <VBox alignment="CENTER">
+                              <VBox alignment="CENTER" StackPane.alignment="CENTER">
                                  <children>
-                                            <VBox alignment="TOP_CENTER" styleClass="cybersigil-border" VBox.vgrow="SOMETIMES">
+                                            <VBox alignment="CENTER" styleClass="cybersigil-border" VBox.vgrow="SOMETIMES">
                                                 <children>
                                                     <Label alignment="CENTER" contentDisplay="CENTER" styleClass="section-label" text="Items" />
                                                     <HBox fx:id="inventoryPane" />
                                                 </children>
                                             </VBox>
-                                            <HBox VBox.vgrow="ALWAYS">
+                                            <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                                                 <children>
                                                     <VBox alignment="TOP_CENTER" styleClass="cybersigil-border" HBox.hgrow="SOMETIMES">
                                                         <children>

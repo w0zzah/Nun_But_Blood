@@ -7,15 +7,31 @@
 @import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
 
 .root {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.56), #000000);
     -fx-text-fill: -chrome;
     /* Need font installed to work */
     -fx-font-family: "New Rocker";
-    -fx-font-weight: 100;
     -fx-font-size: 20px;
     -chrome: linear-gradient(to bottom, #cfcfcf 0%, #ffffff 20%, #a1a1a1 50%, #ffffff 80%, #cfcfcf 100%);
     -crimson: linear-gradient(to bottom, #af0303 0%, #ff2b2b 20%, #9e0202 50%, #ff2b2b 80%);
 }
+
+.root-setup {
+    -fx-background-image: url("/images/background/SetupBackground.png");
+    -fx-background-size: cover;
+}
+.root-hub {
+    -fx-background-image: url("/images/background/CovenantBackground.png");
+    -fx-background-size: cover;
+}
+.root-market {
+    -fx-background-image: url("/images/background/MarketBackground.png");
+    -fx-background-size: cover;
+}
+.root-crusade {
+    -fx-background-image: url("/images/background/CrusadeBackground.png");
+    -fx-background-size: cover;
+}
+
 
 .label {
     -fx-text-fill: -chrome
@@ -176,6 +192,7 @@
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-wrap-text: true;
+    -fx-alignment: center;
 }
 .card-type {
     -fx-text-fill: -chrome;
@@ -187,6 +204,7 @@
     -fx-font-size: 11px;
     -fx-wrap-text: true;
 }
+
 .card-btn {
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0, 0);
     -fx-cursor: hand;
@@ -194,7 +212,7 @@
     -fx-text-fill: -chrome;
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-    -fx-pref-width: 100%;
+    -fx-min-width: 100%;
 }
 .card-btn-com {
     -fx-font-size: 20px;
@@ -338,6 +356,7 @@
     -fx-text-fill: #e1e1e1;
     -fx-font-size: 15px;
     -fx-font-weight: bold;
+    -fx-min-width: 100%;
 }
 
 .demon-card {
@@ -481,4 +500,35 @@
     -fx-text-fill: -crimson;
     -fx-font-size: 35px;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0), 25, 0.6, 0, 0);}
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0), 25, 0.6, 0, 0);
+}
+
+
+/* ----------------------------------- CSS FOR ITEMS -----------------------------------*/
+.item-card {
+    -fx-alignment: center;
+}
+.item-card-potion {
+    -fx-effect: dropshadow(gaussian, rgb(13, 210, 0 , 0.65), 6, 0.3, 0, 0);
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+}
+
+.item-card-equipment {
+    -fx-effect: dropshadow(gaussian, rgba(68,136,255,0.65), 6, 0.3, 0, 0);
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+}
+
+.item-card-skill {
+    -fx-effect: dropshadow(gaussian, rgba(204,68,255,0.65), 6, 0.3, 0, 0);
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+}
+.item-card-desc {
+    -fx-font-size: 20px;
+}
+

@@ -46,6 +46,9 @@ public class DiceRollAnimation {
         // How fast the dice slows down (1.5 means it takes 50% longer than the one before)
         double slowdownFactor = 1.14;
 
+        if (resultType.equals("success") || resultType.equals("fail")) {
+            finalValue += attributeValue;
+        }
         // 3. Frame Generation Phase
         for (int i = 0; i < totalFrames; i++) {
             // Calculate number and toggle the shake direction (up on even frames, down on odd)
@@ -68,7 +71,7 @@ public class DiceRollAnimation {
         cycling.setOnFinished(e -> {
             diceContainer.setTranslateY(0);
             audio.stop(AudioService.Clip.ROLLING);
-            applyLandingEffect(finalValue, resultType, onComplete, attributeValue);
+            applyLandingEffect(resultType, onComplete, attributeValue);
         });
 
         cycling.play();
@@ -80,7 +83,7 @@ public class DiceRollAnimation {
      * @param type
      * @param onComplete
      */
-    private void applyLandingEffect(int finalValue, String type, Runnable onComplete, int bonus) {
+    private void applyLandingEffect(String type, Runnable onComplete, int bonus) {
 
         ScaleTransition pop = new ScaleTransition(Duration.millis(350), diceContainer);
         // Increase size of dice when finished to add more oomph + play sound

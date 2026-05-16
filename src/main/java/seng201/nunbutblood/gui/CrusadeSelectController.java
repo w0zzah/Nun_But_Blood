@@ -72,7 +72,8 @@ public class CrusadeSelectController {
         }
         demonImg.setFitHeight(250);
         demonImg.setPreserveRatio(true);
-
+        demonImg.setSmooth(false);
+        
         VBox card = new VBox(3);
         card.getStyleClass().add("demon-card");
         card.setMaxWidth(Double.MAX_VALUE);

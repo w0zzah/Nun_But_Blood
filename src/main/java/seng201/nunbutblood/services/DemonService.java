@@ -16,7 +16,7 @@ public class DemonService {
         currentOptions.add(new Demon("Gargoyle", "2.png", 12 + currentCrusade, "dexterity", 100));
         currentOptions.add(new Demon("1", "3.png", 11 + currentCrusade, "strength", 100));
         currentOptions.add(new Demon("2", "1.png", 16 + currentCrusade, "wisdom", 100));
-        currentOptions.add(new Demon("3", "2.png", 8 + currentCrusade, "dexterity", 100));
+        currentOptions.add(new Demon("3", "4.png", 8 + currentCrusade, "dexterity", 100));
     }
 
     public List<Demon> getCurrentOptions() {

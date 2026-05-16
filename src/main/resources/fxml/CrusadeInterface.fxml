@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="522.0" prefWidth="1128.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.CrusadeController">
+<VBox prefHeight="522.0" prefWidth="1128.0" styleClass="root-crusade" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.CrusadeController">
    <children>
-      <VBox alignment="CENTER" spacing="10.0" styleClass="cybersigil-border" VBox.vgrow="SOMETIMES">
+      <VBox alignment="CENTER" spacing="10.0" styleClass="cybersigil-border" VBox.vgrow="NEVER">
          <padding>
             <Insets bottom="10.0" top="20.0" />
          </padding>
@@ -22,7 +22,7 @@
             <ProgressBar fx:id="crusadeProgressBar" prefWidth="600.0" progress="0.0" styleClass="crusade-progress" />
          </children>
       </VBox>
-      <StackPane prefHeight="150.0" prefWidth="200.0">
+      <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
@@ -70,7 +70,7 @@
             </HBox>
          </children>
       </StackPane>
-      <VBox spacing="5.0" styleClass="cybersigil-border" VBox.vgrow="SOMETIMES">
+      <VBox spacing="5.0" styleClass="cybersigil-border" VBox.vgrow="NEVER">
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
          </padding>

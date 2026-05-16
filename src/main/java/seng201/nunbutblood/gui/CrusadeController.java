@@ -84,6 +84,7 @@ public class CrusadeController {
 
         demonImg.setFitHeight(200);
         demonImg.setPreserveRatio(true);
+        demonImg.setSmooth(false);
 
         Label name = new Label(currentDemon.getName());
         name.getStyleClass().add("demon-name-label");
@@ -147,10 +148,11 @@ public class CrusadeController {
             covenant.addFaith(reward);
             covenant.payActiveParty();
             navigator.goToHub();
-            covenant.addScore(currentDemon.getDifficultyRating());
+            covenant.addScore(currentDemon.getDifficultyRating() * 10);
             covenant.advanceCrusade();
         } else {
             navigator.goToHub();
+            covenant.advanceCrusade();
         }
     }
 }

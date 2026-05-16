@@ -12,6 +12,10 @@ import javafx.util.Duration;
 import seng201.nunbutblood.models.Saints;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Item;
+import seng201.nunbutblood.gui.ItemCardController;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,11 +130,10 @@ public class HubController {
         for (Item item : covenant.getInventory()) {
             Button useBtn = new Button("USE / EQUIP");
             useBtn.setOnAction(e -> handleUseItemDialog(item));
+            useBtn.setStyle("-fx-font-size: 15");
 
-            Label itemLabel = new Label(item.getItemName() + " — " + item.getType().name());
-            HBox row = new HBox(10, useBtn, itemLabel);
-            row.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-            inventoryPane.getChildren().add(row);
+            VBox card = ItemCardController.createItemCard(item, useBtn);
+            inventoryPane.getChildren().add(card);
         }
     }
 

@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -14,9 +13,8 @@ import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Item;
 import seng201.nunbutblood.models.Saints;
 import seng201.nunbutblood.services.MarketService;
-import seng201.nunbutblood.services.RandomService;
 
-public class    MarketController {
+public class MarketController {
 
     @FXML private Label faithLabel;
     @FXML private Label statusLabel;
@@ -60,11 +58,11 @@ public class    MarketController {
             HBox action = new HBox(1);
             action.getChildren().add(hireBtn);
 
-            VBox card = SaintCardController.createSaintCard(saint, action, true);
+            VBox card = SaintCardController.createSaintCard(saint, action, false);
             saintPane.getChildren().add(card);
         }
-        itemPane.getChildren().clear();
 
+        itemPane.getChildren().clear();
         // Purchase logic for the items
         for (Item item : marketService.getAvailableItems()) {
             Button buyBtn = new Button("Buy (" + item.getCost() + " Faith)");
@@ -78,51 +76,44 @@ public class    MarketController {
                 }
             });
 
-            // Row for the items to be stored
-            Label descLabel = new Label(item.getDescription());
-            VBox itemRow = new VBox(10, descLabel, buyBtn);
-            itemRow.setAlignment(Pos.CENTER);
-            itemPane.getChildren().add(itemRow);
+            // Create the item
+            VBox itemCard = ItemCardController.createItemCard(item, buyBtn);
+            itemPane.getChildren().add(itemCard);
         }
 
-        // Refresh player inventory
+
+
         inventoryPane.getChildren().clear();
-        for (Item item : covenant.getInventory()) {
-            int sellPrice = item.getCost() / 2;
-            Button sellBtn = new Button("SELL (" + sellPrice + " faith)");
+        for (Item playerItem : covenant.getInventory()) {
+            Button sellBtn = new Button("Sell");
+
             sellBtn.setOnAction(e -> {
-                if (!marketService.sellItem(item, covenant)) {
-                    setAlertBox("Could not sell " + item.getItemName());
-                } else {
-                    setAlertBox("Sold " + item.getItemName() + " for " + sellPrice + " faith");
-                    refresh();
-                }
+                marketService.sellItem(playerItem, covenant);
+                setAlertBox(playerItem.getItemName() + " sold!");
+                refresh();
             });
-            Label invLabel = new Label(item.getItemName() + " [" + item.getDescription() + "]");
+
+            Label invLabel = new Label(playerItem.getItemName() + " [" + playerItem.getDescription() + "]");
             VBox invRow = new VBox(10, invLabel, sellBtn);
-            invRow.setAlignment((Pos.CENTER));
+            invRow.setAlignment(Pos.CENTER);
             inventoryPane.getChildren().add(invRow);
         }
     }
+
     /**
-     * Create's a dark radial gradient overlay showing the alert popup
-     * @param alert
+     * Creates a temporary pop-up notice that fades out cleanly.
      */
     private void setAlertBox(String alert) {
-        // Set text & show box
         statusLabel.setText(alert);
-        alertBox.setOpacity(1);
+        alertBox.setOpacity(1.0);
         alertBox.setVisible(true);
 
-        // Fade transition
         FadeTransition fade = new FadeTransition(Duration.millis(800), alertBox);
-        fade.setFromValue(1.0); fade.setToValue(0.0);
+        fade.setFromValue(1.0);
+        fade.setToValue(0.0);
         fade.setDelay(Duration.millis(500));
 
-        // Once finished make invisible so you can still interact
         fade.setOnFinished(event -> alertBox.setVisible(false));
-
-        // Play the scene
         fade.play();
     }
 

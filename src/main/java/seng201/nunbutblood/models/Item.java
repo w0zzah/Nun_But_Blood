@@ -40,6 +40,9 @@ public class Item implements Purchasable {
     /** Description shown in the market and inventory screens. */
     private final String itemDescription;
 
+    private final String portraitKey;
+
+
     /**
      * Creates an Item with the given attributes.
      *
@@ -49,14 +52,16 @@ public class Item implements Purchasable {
      * @param bonusValue      amount added to the affected stat
      * @param cost            faith cost to purchase
      * @param itemDescription description shown in market and inventory
+     * @param portraitKey      Item Portrait
      */
-    public Item(String itemName, ItemType type, String statAffected, int bonusValue, int cost, String itemDescription){
+    public Item(String itemName, ItemType type, String statAffected, int bonusValue, int cost, String itemDescription, String portraitKey){
         this.itemName = itemName;
         this.type = type;
         this.statAffected = statAffected;
         this.bonusValue = bonusValue;
         this.cost = cost;
         this.itemDescription = itemDescription;
+        this.portraitKey = portraitKey;
     }
 
     /**
@@ -87,7 +92,12 @@ public class Item implements Purchasable {
      * Returns the display name of this item.
      * @return item name
      */
-    public String getItemName(){ return itemName; }
+
+    public String getPortraitKey() {return portraitKey; }
+
+    public String getItemName(){return String.format("[%s] %s",
+            type, itemName);
+    }
 
     /**
      * Returns the functional type of this item.
@@ -120,7 +130,7 @@ public class Item implements Purchasable {
      */
     @Override
     public String getDescription() {
-        return String.format("[%s] %s | +%d %s | Cost: %d Faith",
-                type, itemName, bonusValue, statAffected, cost);
+        return String.format("+%d %s | Cost: %d Faith | %s",
+                bonusValue, statAffected, cost, itemDescription);
     }
 }
