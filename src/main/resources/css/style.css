@@ -74,18 +74,11 @@
 }
 
 .title-label {
-    -fx-text-fill: -crimson;
+    -fx-text-fill: linear-gradient(to top, #000000, #cc0000);;
     -fx-font-family: "Angel wish";
     -fx-font-size: 45px;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0), 25, 0.6, 0, 0);
-}
-
-.subtitle-label {
-    -fx-font-family: "Angel wish";
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.9), 10, 0.2, 0, 0);
-    -fx-text-fill: -chrome;
+    -fx-effect: dropshadow(gaussian, rgb(20, 0, 0, 0.6), 25, 0.6, 0, 0);
 }
 
 .stat-pill {
@@ -250,16 +243,9 @@
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
-.scroll-bar {
-    -fx-background-color: transparent;
-}
 
-.scroll-bar .thumb {
-    -fx-background-color: transparent;
-    -fx-background-radius: 10px;
-}
 
-.scroll-bar .increment-button, .scroll-bar .decrement-button, .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+.scroll-bar .increment-button, .scroll-bar .decrement-button, .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow, .scroll-bar,.scroll-bar .thumb {
     -fx-background-color: transparent;
 }
 
@@ -273,8 +259,9 @@
     -fx-wrap-text: true;
     -fx-text-alignment: center;
 }
+
 .button:hover {
-    -fx-text-fill: linear-gradient(to bottom, #c30000, #6c0000);
+    -fx-text-fill: linear-gradient(to top, #000000, #cc0000);
 }
 
 .action-btn {
@@ -402,20 +389,20 @@
 }
 
 
-/* Progress Bar Customization */
+
+/* ----------------------------------- Progress Bar Customization ----------------------------------- */
 .crusade-progress .track {
-    -fx-background-color: #222;
-    -fx-background-insets: 0;
+    -fx-background-color: rgb(34, 34, 34 , 0.7);
     -fx-background-radius: 0;
 }
 
 .crusade-progress .bar {
-    -fx-background-color: linear-gradient(to right, #8b0000, #ff4444); /* Blood red gradient */
+    -fx-background-color: linear-gradient(to right, #500000, #fb6e6e); /* Blood red gradient */
     -fx-background-insets: 0;
     -fx-background-radius: 0;
 }
 
-/* The Dice Box */
+/* ----------------------------------- The Dice Box -----------------------------------*/
 .dice-box {
     -fx-background-color: #121212;
     -fx-border-color: #444;
@@ -432,7 +419,7 @@
     -fx-min-width: -fx-pref-width;
 }
 
-/* Dynamic Dice States (Applied by Animation logic) */
+/*----------------------------------- Dice result colorchanger----------------------------------- */
 .dice-critical-success {
     -fx-text-fill: #e600ff;
     -fx-effect: dropshadow(gaussian, #712aff, 20, 0.5, 0, 0);
@@ -469,9 +456,12 @@
     -fx-background-color: transparent;
 }
 
-/* Battle Log (TextArea) */
+/*---------------------------------------------------------------------------------------------------------*/
+
+
+
+/* ----------------------------------- Battle Log (TextArea) ----------------------------------- */
 .event-log {
-    -fx-control-inner-background: transparent;
     -fx-text-fill: #cccccc;
     -fx-font-family: "Consolas", monospace;
     -fx-border-color: transparent;
@@ -488,18 +478,17 @@
     -fx-effect: dropshadow(one-pass-box, black, 5, 0, 0, 0);
 }
 
-.result-value {
-
-}
-
 .btn-mkt {
+    -fx-effect: dropshadow(gaussian, rgb(20, 0, 0, 1), 25, 0.6, 0, 0);
     -fx-background-color: transparent;
     -fx-border-color: transparent;
-    -fx-text-fill: -crimson;
+    -fx-text-fill: -chrome;
     -fx-font-size: 35px;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0), 25, 0.6, 0, 0);
 }
+/* ---------------------------------------------------------------------------------------------------------*/
+
+
 
 
 /* ----------------------------------- CSS FOR ITEMS -----------------------------------*/
@@ -530,3 +519,4 @@
     -fx-font-size: 20px;
 }
 
+/* ---------------------------------------------------------------------------------------------------*/

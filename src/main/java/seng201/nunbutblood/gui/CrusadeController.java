@@ -10,6 +10,8 @@ import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.services.AudioService;
 import seng201.nunbutblood.services.CrusadeService;
+import seng201.nunbutblood.services.RandomService;
+
 
 /**
  * <h1>Crusade Controller manages core gameplay loop.</h1>
@@ -106,6 +108,7 @@ public class CrusadeController {
             VBox saintCard = SaintCardController.createSaintCard(saint, rollBtn, true);
             partyContainer.getChildren().add(saintCard);
         }
+
 
         double progress = manager.getCurrentStep() / 5.0;
         crusadeProgressBar.setProgress(progress);

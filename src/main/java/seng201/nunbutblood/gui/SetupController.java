@@ -43,6 +43,8 @@ public class SetupController {
     @FXML private Label diffError;
     @FXML private HBox alertBox;
     @FXML private Label statusLabel;
+    @FXML private Button enter;
+    @FXML private VBox entryBox;
 
     private Stage stage;
 
@@ -108,6 +110,21 @@ public class SetupController {
 
             if (exe == 2 && ora == 2 && inq == 2) break;
         }
+    }
+    @FXML
+    private void enter() {
+        entryBox.setOpacity(1);
+        entryBox.setVisible(true);
+
+        // Fade transition
+        FadeTransition fade = new FadeTransition(Duration.millis(1000), entryBox);
+        fade.setFromValue(1.0); fade.setToValue(0.0);
+
+        // Once finished make invisible so you can still interact
+        fade.setOnFinished(event -> entryBox.setVisible(false));
+
+        // Play the scene
+        fade.play();
     }
 
     private void createSaintCards() {

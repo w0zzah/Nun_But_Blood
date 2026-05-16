@@ -14,19 +14,15 @@
 
 <VBox prefHeight="522.0" prefWidth="1128.0" styleClass="root-crusade" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.CrusadeController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0" styleClass="cybersigil-border">
+      <VBox fx:id="crusadeProgress" alignment="CENTER" spacing="10.0" styleClass="cybersigil-border">
+         <padding>
+            <Insets bottom="10.0" top="20.0" />
+         </padding>
          <children>
-            <VBox alignment="CENTER" spacing="10.0" HBox.hgrow="SOMETIMES">
-               <padding>
-                  <Insets bottom="10.0" top="20.0" />
-               </padding>
-               <children>
-                  <Label styleClass="header-label" text="CURRENT EXPEDITION PROGRESS" />
-                  <ProgressBar fx:id="crusadeProgressBar" prefWidth="600.0" progress="0.0" styleClass="crusade-progress" />
-               </children>
-            </VBox>
+            <Label styleClass="header-label" text="CURRENT EXPEDITION PROGRESS" />
+            <ProgressBar fx:id="crusadeProgressBar" maxHeight="10.0" prefHeight="20.0" prefWidth="600.0" progress="0.0" styleClass="crusade-progress" />
          </children>
-      </HBox>
+      </VBox>
       <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -85,7 +81,7 @@
                <TextArea fx:id="eventLog" editable="false" prefHeight="120.0" style="-fx-background-color: transparent;" wrapText="true">
                   <styleClass>
                      <String fx:value="event-log" />
-                     <String fx:value="scroll-bar" />
+                     <String fx:value="scroll-bar-trn" />
                   </styleClass>
                </TextArea>
             </VBox>
