@@ -50,20 +50,11 @@ public class ScreenNavigator {
 
     /** Main navigation hub */
     public void goToHub() {
-        goToEndScreen(covenant.isGameComplete());
-        // Check if the game is over before loading the hub
-        if (covenant.isGameComplete() || covenant.hasLost()) {
-            goToEndScreen(covenant.isGameComplete());
-            return;
-        }
-
-        else {
-            loadScreen("/fxml/HubInterface.fxml", controller -> {
-                if (controller instanceof HubController hc) {
-                    hc.init(stage, this, covenant);
-                }
-            });
-        }
+        loadScreen("/fxml/HubInterface.fxml", controller -> {
+            if (controller instanceof HubController hc) {
+                hc.init(stage, this, covenant);
+            }
+        });
     }
 
     public void goToMarket() {
@@ -93,10 +84,10 @@ public class ScreenNavigator {
     }
 
     /** Final Score / Game Over Screen */
-    public void goToEndScreen(boolean isVictory) {
+    public void goToEndScreen(boolean isVictory, boolean isGameOver) {
         loadScreen("/fxml/EndScreen.fxml", controller -> {
             if (controller instanceof EndScreenController ec) {
-                ec.init(stage, this, covenant, isVictory);
+                ec.init(stage, this, covenant, isVictory, isGameOver);
             }
         });
     }

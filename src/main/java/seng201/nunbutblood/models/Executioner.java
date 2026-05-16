@@ -38,11 +38,6 @@ public class Executioner extends Saints {
         return "STR";
     }
 
-
-    static String getPortraitID(String name) {
-        return name.toLowerCase().replace(" ", "-");
-    }
-
     /**
      *
      * @param strength

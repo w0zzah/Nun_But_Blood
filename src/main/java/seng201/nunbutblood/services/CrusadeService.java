@@ -47,7 +47,7 @@ public class CrusadeService {
 
         // 4. Handle Progression and Costs
         // Every roll costs stamina, regardless of success
-        saint.consumeStamina(20);
+        saint.consumeStamina(5);
 
         String narrative;
         if (type.equals("critical-success")) {
@@ -76,7 +76,7 @@ public class CrusadeService {
 
     public boolean checkGameOver(List<Saints> party) {
         // Game is over if all party members are below the required stamina to act
-        return party.stream().allMatch(s -> s.getCurrentStamina() < 20);
+        return party.stream().allMatch(s -> s.getCurrentStamina() < 5);
     }
 
     public int dropLoot(Demon demon) {

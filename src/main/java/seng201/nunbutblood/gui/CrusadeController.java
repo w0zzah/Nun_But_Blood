@@ -100,7 +100,7 @@ public class CrusadeController {
         for (Saints saint : covenant.getActiveParty()) {
 
             Button rollBtn = new Button("EXORCISE");
-            rollBtn.setDisable(saint.getCurrentStamina() < 20);
+            rollBtn.setDisable(saint.getCurrentStamina() < 5);
             rollBtn.setOnAction(e -> handleRoll(saint));
 
             VBox saintCard = SaintCardController.createSaintCard(saint, rollBtn, true);
@@ -131,9 +131,9 @@ public class CrusadeController {
 
             // 5. UPDATE BACKEND/UI CONDITIONS
             if (manager.checkVictory()) {
-                showEndDialog("DIVINE VICTORY", "The demon has been exorcised!", true);
+                showEndDialog(true);
             } else if (manager.checkGameOver(covenant.getActiveParty())) {
-                showEndDialog("CRUSADE FAILED", "Your saints have collapsed...", false);
+                showEndDialog(false);
             } else {
                 partyContainer.setDisable(false);
                 refreshUI();
@@ -141,18 +141,21 @@ public class CrusadeController {
         });
     }
 
-
-    private void showEndDialog(String title, String message, boolean won) {
+    @FXML
+    private void giveUp() {
+        navigator.goToEndScreen(false, false);
+    }
+    private void showEndDialog(boolean won) {
         if (won) {
             int reward = manager.dropLoot(currentDemon);
-            covenant.addFaith(reward);
-            covenant.payActiveParty();
-            navigator.goToHub();
-            covenant.addScore(currentDemon.getDifficultyRating() * 10);
-            covenant.advanceCrusade();
+            int score = currentDemon.getDifficultyRating() * 10;
+            covenant.postCrusade(reward, score);
+            navigator.goToEndScreen(true, false);
+
         } else {
-            navigator.goToHub();
-            covenant.advanceCrusade();
+            covenant.postCrusade(0, 0);
+            navigator.goToEndScreen(false, false);
+
         }
     }
 }

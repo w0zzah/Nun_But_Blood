@@ -251,11 +251,11 @@
     -fx-background-color: transparent;
 }
 .scroll-bar {
-    -fx-background-color: -chrome;
+    -fx-background-color: transparent;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: -chrome;
+    -fx-background-color: transparent;
     -fx-background-radius: 10px;
 }
 
@@ -471,16 +471,14 @@
 
 /* Battle Log (TextArea) */
 .event-log {
-    -fx-control-inner-background: #0a0a0a;
+    -fx-control-inner-background: transparent;
     -fx-text-fill: #cccccc;
     -fx-font-family: "Consolas", monospace;
-    -fx-border-color: #333;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
+    -fx-border-color: transparent;
 }
 
 .event-log .content {
-    -fx-background-color: #0a0a0a;
+    -fx-background-color: transparent;
 }
 
 .demon-name-label {

@@ -191,11 +191,11 @@ public class HubController {
     @FXML
     private void handleCrusade() {
         if (covenant.hasLost()) {
-            navigator.goToEndScreen(false);
+            navigator.goToEndScreen(false, false);
             return;
         }
         if (covenant.isGameComplete()) {
-            navigator.goToEndScreen(true);
+            navigator.goToEndScreen(true, true);
             return;
         }
         if (covenant.getActiveParty().isEmpty()) {
