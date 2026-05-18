@@ -1,6 +1,6 @@
 package seng201.nunbutblood;
 
-import seng201.nunbutblood.gui.MainWindow;
+import seng201.nunbutblood.controllers.MainWindow;
 
 /**
  * Default entry point class

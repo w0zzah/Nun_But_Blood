@@ -2,13 +2,11 @@ package seng201.nunbutblood.models;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import seng201.nunbutblood.models.Executioner;
 import seng201.nunbutblood.models.Oracle;
 import seng201.nunbutblood.models.Inquisitor;
 import seng201.nunbutblood.models.Rarity;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class SaintsTest {

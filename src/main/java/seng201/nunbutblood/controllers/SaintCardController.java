@@ -1,8 +1,7 @@
-package seng201.nunbutblood.gui;
+package seng201.nunbutblood.controllers;
 
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -85,11 +84,11 @@ public class SaintCardController {
         VBox bars = new VBox(3);
         bars.getStyleClass().add("stat-bars");
         bars.getChildren().addAll(
-                buildStatRow("STA", saint.getCurrentStamina(), saint.getStatType().equals("STA"), "#a38934", isCompact),
                 buildStatRow("STR", saint.getStrength(), saint.getStatType().equals("STR"), "#AF4130", isCompact),
                 buildStatRow("WIS", saint.getWisdom(), saint.getStatType().equals("WIS"), "#346687", isCompact),
-                buildStatRow("DEX", saint.getDexterity(), saint.getStatType().equals("DEX"), "#609953", isCompact)
-        );
+                buildStatRow("DEX", saint.getDexterity(), saint.getStatType().equals("DEX"), "#609953", isCompact),
+                buildStatRow("STA", saint.getCurrentStamina(), saint.getStatType().equals("STA"), "#a38934", isCompact)
+                );
         return bars;
     }
 

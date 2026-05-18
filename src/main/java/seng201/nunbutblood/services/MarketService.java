@@ -4,6 +4,7 @@ package seng201.nunbutblood.services;
  */
 import seng201.nunbutblood.models.*;
 import javafx.animation.FadeTransition;
+import seng201.nunbutblood.services.CovenantService;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,7 +26,6 @@ public class MarketService {
      * Contructs new Marketservice and performs the initial refresh
      *
      */
-
 
     public MarketService(Random random) {
         this.random = new Random();
@@ -160,7 +160,6 @@ public class MarketService {
 
     /**
      * Rolls the rarity based on crusade count
-     *
      *
      */
     private Rarity rollRarity(int crusadeNumber) {

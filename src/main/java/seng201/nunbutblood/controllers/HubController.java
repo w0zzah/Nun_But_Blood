@@ -1,7 +1,6 @@
-package seng201.nunbutblood.gui;
+package seng201.nunbutblood.controllers;
 
 import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
@@ -9,15 +8,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import seng201.nunbutblood.models.AlertBox;
 import seng201.nunbutblood.models.Saints;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Item;
-import seng201.nunbutblood.gui.ItemCardController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,7 +72,7 @@ public class HubController {
             Button activateBtn = new Button("ACTIVATE");
             activateBtn.setOnAction(e -> {
                 if (!covenant.activateApostle(saint)) {
-                    setAlertBox("Active party is full \n (max 5).");
+                    AlertBox.showAlert(statusLabel, alertBox, "Active party is full \n (max 5).");
                 }
                 refresh();
             });
@@ -110,9 +108,9 @@ public class HubController {
             Button retireBtn = new Button("RETIRE");
             retireBtn.setOnAction(e -> {
                 if (!covenant.retireSaint(saint)) {
-                    setAlertBox("Cannot retire the last Apostle.");
+                    AlertBox.showAlert(statusLabel, alertBox, "Cannot retire the last Apostle.");
                 } else {
-                    setAlertBox(saint.getName() + " has retired.");
+                    AlertBox.showAlert(statusLabel, alertBox, saint.getName() + " has retired.");
                     refresh();
                 }
             });
@@ -136,28 +134,6 @@ public class HubController {
             VBox card = ItemCardController.createItemCard(item, useBtn);
             inventoryPane.getChildren().add(card);
         }
-    }
-
-    /**
-     * Create's an overlay showing the alert
-     * @param alert
-     */
-    private void setAlertBox(String alert) {
-        // Set text & show box
-        statusLabel.setText(alert);
-        alertBox.setOpacity(1);
-        alertBox.setVisible(true);
-
-        // Fade transition
-        FadeTransition fade = new FadeTransition(Duration.millis(600), alertBox);
-        fade.setFromValue(1.0); fade.setToValue(0.0);
-        fade.setDelay(Duration.millis(500));
-
-        // Once finished make invisible so you can still interact
-        fade.setOnFinished(event -> alertBox.setVisible(false));
-
-        // play the scene
-        fade.play();
     }
 
     /** Opens a ChoiceDialog allowing the player to select which Apostle to apply the item to. */
@@ -193,7 +169,7 @@ public class HubController {
     @FXML
     private void handleCrusade() {
         if (covenant.getActiveParty().isEmpty()) {
-            setAlertBox("Active party is currently empty...");
+            AlertBox.showAlert(statusLabel, alertBox, "Active party is currently empty...");
             return;
         }
         navigator.goToCrusadeSelect();

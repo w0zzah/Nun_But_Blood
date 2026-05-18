@@ -94,12 +94,13 @@ Build Tool: Gradle Version 8.5
 
 6. Select App.java in 'src/main/java/seng.201.nunbutblood' and run!
 
-  
 
-## NO ERRORS?!
+## ASSETS:
+(ALL ASSETS ARE CC0)
 
-Congrats you didnt go through what I did
-
-(if you have anymore problems call me 0204836895)
-
+https://ansimuz.itch.io/gothicvania-patreon-collection - Demons
+https://free-game-assets.itch.io/free-undead-loot-pixel-art-icons?download - Items
+https://free-game-assets.itch.io/free-vampires-locations-battle-background-pack - Backgrounds
+https://batareya.itch.io/500-fantasy-pixel-art-portraits-a-world-of-characters-for-your-projects - Saints
+https://ci.itch.io/400-sounds-pack - Dice Roll Audio
   

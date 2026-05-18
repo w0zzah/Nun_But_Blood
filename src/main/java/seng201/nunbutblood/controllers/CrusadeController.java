@@ -1,4 +1,4 @@
-package seng201.nunbutblood.gui;
+package seng201.nunbutblood.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -10,6 +10,7 @@ import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.services.AudioService;
 import seng201.nunbutblood.services.CrusadeService;
+import seng201.nunbutblood.services.CovenantService;
 
 
 /**
@@ -43,6 +44,7 @@ public class CrusadeController {
 
     private DiceRollAnimation diceAnimation;
     private CrusadeService crusadeService;
+    private CovenantService covenantService;
     private Covenant covenant;
     private Demon currentDemon;
     private ScreenNavigator navigator;

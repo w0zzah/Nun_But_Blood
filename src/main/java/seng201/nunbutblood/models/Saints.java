@@ -106,7 +106,7 @@ public abstract class Saints implements Purchasable {
      * @param portraitKey       Portrait of the Apostle generated in market
      */
     public Saints(String name, String portraitKey, int strength, int wisdom, int dexterity,
-                  int stamina, int perception, int hireCost, int upKeep ) {
+                  int stamina, int perception, int hireCost, int upKeep) {
         this.portraitKey = portraitKey;
         this.name        = name;
         this.strength    = Math.clamp(strength, 0, 20);
@@ -118,7 +118,7 @@ public abstract class Saints implements Purchasable {
         this.hireCost = hireCost;
         this.upKeep = upKeep;
         this.rarity = Rarity.fromStatTotal(this.strength + this.wisdom + this.dexterity);
-
+        this.crusadeCount = 0;
     }
 
     // ----- GETTERS (PURCHASABLE) ----------------------------------------------------------------

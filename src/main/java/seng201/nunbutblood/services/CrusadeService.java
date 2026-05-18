@@ -1,6 +1,5 @@
 package seng201.nunbutblood.services;
 
-import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.models.Saints;
 

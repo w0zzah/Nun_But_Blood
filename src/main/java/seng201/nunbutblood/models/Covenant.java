@@ -1,337 +1,252 @@
 package seng201.nunbutblood.models;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import seng201.nunbutblood.services.BankService;
+import seng201.nunbutblood.services.CovenantService;
+import seng201.nunbutblood.services.SaintsService;
+
 import java.util.List;
 
 /**
- * Represents the player's covenant — the central hub for game state.
- * Manages the active party, reserves, inventory, faith currency,
- * crusade progression, and win/loss conditions.
- *
- * @author pgi33
+ * Represents the player's Covenant.
+ * Stores information about saints, faith, score, crusades, and inventory.
  */
 public class Covenant {
 
-    /**
-     * The covenant's name, set once at game setup.
-     */
+    /** Name of the covenant. */
     private final String name;
 
-    /**
-     * Current faith balance, used as currency.
-     */
-    private int faith;
+    /** Handles saint roster management. */
+    private final SaintsService roster;
+
+    /** Handles faith and economy logic. */
+    private final BankService wallet;
+
+    /** Handles crusade progression and score tracking. */
+    private final CovenantService covenantService;
+
+    /** Stores all owned inventory items. */
+    private final java.util.ArrayList<Item> rawInventory;
 
     /**
-     * Total number of crusades chosen at game setup (5–15).
-     */
-    private final int totalCrusades;
-
-    /**
-     * Number of crusades completed so far.
-     */
-    private int currentCrusade;
-
-    /**
-     * Running total of all faith ever received, unaffected by spending.
-     */
-    private int totalFaithEarned;
-
-    /**
-     * Current score accumulated through crusades.
-     */
-    private int score;
-
-    /**
-     * Active party of apostles going on the next crusade. Max 5.
-     */
-    private final ArrayList<Saints> activeParty;
-
-    /**
-     * Reserve apostles not used in the upcoming crusade. Max 5.
-     */
-    private final ArrayList<Saints> reserves;
-
-    /**
-     * Items and equipment held by the covenant.
-     */
-    private final ArrayList<Item> inventory;
-
-
-    /**
-     * Creates a new Covenant at game start.
+     * Creates a new covenant.
      *
-     * @param name          player-chosen covenant name (3–15 chars)
-     * @param totalCrusades number of crusades chosen (5–15)
+     * @param name Name of the covenant
+     * @param totalCrusades Total number of crusades in the game
+     * @param difficulty Difficulty setting used for starting faith
      */
     public Covenant(String name, int totalCrusades, String difficulty) {
         this.name = name;
-        this.totalCrusades = totalCrusades;
-        this.currentCrusade = 1;
-        this.activeParty = new ArrayList<>();
-        this.reserves = new ArrayList<>();
-        this.inventory = new ArrayList<>();
-        this.totalFaithEarned = 0;
-        this.score = 0;
-        this.faith = difficulty.equals("Hard") ? 100 : 300;
+        this.roster = new SaintsService();
+        this.wallet = new BankService(difficulty);
+        this.covenantService = new CovenantService(totalCrusades);
+        this.rawInventory = new java.util.ArrayList<>();
     }
 
+    /**
+     * Handles all end-of-crusade updates.
+     * Rewards faith, applies upkeep, updates score,
+     * advances crusade count, and refreshes saint stamina.
+     *
+     * @param reward Faith earned from the crusade
+     * @param scoreReward Score earned from the crusade
+     */
+    public void postCrusade(int reward, int scoreReward) {
+
+        wallet.addFaith(reward);
+
+        int upkeepCost = roster.calculateUpKeep();
+        wallet.payUpKeep(upkeepCost);
+
+        covenantService.changeScore(scoreReward);
+        covenantService.advanceCrusade();
+
+        roster.incrementCrusadeCounts();
+        roster.refreshStamina();
+    }
 
     /**
-     * @return the covenant's name
+     * Checks whether the player has lost the game.
+     * Player loses if they have no saints and no faith.
+     *
+     * @return True if game is lost
+     */
+    public boolean hasLost() {
+        return roster.isEmpty() && wallet.getFaith() <= 0;
+    }
+
+    /**
+     * Gets the covenant name.
+     *
+     * @return Covenant name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return current faith balance
+     * Gets the current amount of faith.
+     *
+     * @return Current faith total
      */
     public int getFaith() {
-        return faith;
+        return wallet.getFaith();
     }
 
     /**
-     * @return total number of crusades chosen at game setup
+     * Gets the total number of crusades in the game.
+     *
+     * @return Total crusades
      */
     public int getTotalCrusades() {
-        return totalCrusades;
+        return covenantService.getTotalCrusades();
     }
 
     /**
-     * @return number of crusades completed so far
+     * Gets the current crusade number.
+     *
+     * @return Current crusade
      */
     public int getCurrentCrusade() {
-        return currentCrusade;
+        return covenantService.getCurrentCrusade();
     }
 
     /**
-     * @return number of crusades still to complete
-     */
-    public int getRemainingCrusades() {
-        return totalCrusades - currentCrusade;
-    }
-
-    /**
-     * @return total faith ever received, not affected by spending
+     * Gets the total amount of faith earned during the game.
+     *
+     * @return Total faith earned
      */
     public int getTotalFaithEarned() {
-        return totalFaithEarned;
+        return wallet.getTotalFaithEarned();
     }
 
     /**
-     * @return current score
+     * Gets the current covenant score.
+     *
+     * @return Current score
      */
     public int getScore() {
-        return score;
+        return covenantService.getScore();
     }
 
     /**
-     * @return unmodifiable view of the active party
-     */
-    public List<Saints> getActiveParty() {
-        return Collections.unmodifiableList(activeParty);
-    }
-
-    /**
-     * @return unmodifiable view of the reserves
-     */
-    public List<Saints> getReserves() {
-        return Collections.unmodifiableList(reserves);
-    }
-
-    /**
-     * @return unmodifiable view of the inventory
-     */
-    public List<Item> getInventory() {
-        return Collections.unmodifiableList(inventory);
-    }
-
-
-    /**
-     * Adds a newly hired apostle to the reserves.
+     * Checks whether all crusades are complete.
      *
-     * @param saint the apostle to add
-     * @return true if added, false if reserves are full (max 5)
-     */
-    public boolean addSaint(Saints saint) {
-        if (reserves.size() >= 5) return false;
-        reserves.add(saint);
-        return true;
-    }
-
-    /**
-     * Moves an apostle from reserves to the active party.
-     *
-     * @param apostle the apostle to activate
-     * @return true if successful, false if party is full or apostle not in reserves
-     */
-    public boolean activateApostle(Saints apostle) {
-        if (activeParty.size() >= 5) return false;
-        if (!reserves.contains(apostle)) return false;
-        reserves.remove(apostle);
-        activeParty.add(apostle);
-        return true;
-    }
-
-    /**
-     * Moves an apostle from the active party to reserves.
-     * The active party must always retain at least one member.
-     *
-     * @param apostle the apostle to bench
-     * @return true if successful, false if party would be empty or reserves are full
-     */
-    public boolean benchApostle(Saints apostle) {
-        if (activeParty.size() <= 1) return false;
-        if (reserves.size() >= 5) return false;
-        if (!activeParty.contains(apostle)) return false;
-        activeParty.remove(apostle);
-        reserves.add(apostle);
-        return true;
-    }
-
-    /**
-     * Permanently removes an apostle from the guild.
-     * Cannot retire the last remaining apostle across both party and reserves.
-     *
-     * @param apostle the apostle to retire
-     * @return true if retired, false if they are the last apostle or not found
-     */
-    public boolean retireSaint(Saints apostle) {
-        int total = activeParty.size() + reserves.size();
-        if (total <= 1) return false;
-        if (activeParty.remove(apostle)) return true;
-        if (reserves.remove(apostle)) return true;
-        return false;
-    }
-
-    /**
-     * Adds faith to the balance and running total.
-     * Negative amounts are ignored.
-     *
-     * @param amount positive amount of faith to add
-     * @return new faith balance
-     */
-    public int addFaith(int amount) {
-        if (amount < 0) return faith;
-        faith += amount;
-        totalFaithEarned += amount;
-        return faith;
-    }
-
-    /**
-     * Deducts faith from the balance if funds are sufficient.
-     *
-     * @param amount positive amount to spend
-     * @return true if successful, false if insufficient funds
-     */
-    public boolean spendFaith(int amount) {
-        if (amount > faith) return false;
-        faith -= amount;
-        return true;
-    }
-
-    /**
-     * Deducts upkeep pay for every apostle in the active party.
-     * Called at the start of each crusade. Balance may go negative.
-     *
-     * @return total faith paid out
-     */
-    public int payActiveParty() {
-        int total = activeParty.stream()
-                .mapToInt(Saints::getUpKeep)
-                .sum();
-        faith -= total;
-        return total;
-    }
-
-    public void refreshStamina() {
-        activeParty.forEach(Saints::restoreStamina);
-    }
-
-
-
-    /**
-     * Adds an item to the covenant's inventory.
-     *
-     * @param item the item to add
-     */
-    public void addItem(Item item) {
-        inventory.add(item);
-    }
-
-    /**
-     * Removes an item from the covenant's inventory.
-     *
-     * @param item the item to remove
-     * @return true if the item was found and removed, false otherwise
-     */
-    public boolean removeItem(Item item) {
-        return inventory.remove(item);
-    }
-
-    /**
-     * Adds points to the covenant's score.
-     *
-     * @param points points to add
-     */
-    public void addScore(int points) {
-        score += points;
-    }
-
-    /**
-     * Advances to the next crusade and increments each active party
-     * member's crusade count.
-     */
-    public void advanceCrusade() {
-        currentCrusade++;
-        activeParty.forEach(Saints::incrementCrusadeCount);
-
-    }
-
-    public void postCrusade(int reward, int score) {
-        this.addFaith(reward);
-        this.payActiveParty();
-        this.addScore(score);
-        this.advanceCrusade();
-        this.refreshStamina();
-    }
-
-    /**
-     * Checks whether all crusades have been completed.
-     *
-     * @return true if the game is won
+     * @return True if game is complete
      */
     public boolean isGameComplete() {
-        return currentCrusade >= totalCrusades;
+        return covenantService.isGameComplete();
     }
 
     /**
-     * Checks whether the player has lost.
-     * Loss occurs when there are no apostles and faith is zero or negative.
+     * Gets all saints currently in the active party.
      *
-     * @return true if the player has lost
+     * @return Active party list
      */
-    public boolean hasLost() {
-        boolean noApostles = activeParty.isEmpty() && reserves.isEmpty();
-        return noApostles && faith <= 0;
+    public List<Saints> getActiveParty() {
+        return roster.getActiveParty();
     }
 
-    public void addSaints(Saints saints) {
-        if (activeParty.size() < 5) {
-            activeParty.add(saints);
-            return;
-        }
-        if (reserves.size() >= 5) {
-            return;
-        }
-        reserves.add(saints);
+    /**
+     * Gets all saints currently in reserves.
+     *
+     * @return Reserve saint list
+     */
+    public List<Saints> getReserves() {
+        return roster.getReserves();
     }
 
+    /**
+     * Gets every saint owned by the player.
+     *
+     * @return List of all owned saints
+     */
     public List<Saints> getOwnedSaints() {
-        List<Saints> allSaints = new ArrayList<>(getActiveParty());
-        allSaints.addAll(getReserves());
-        return allSaints;
+        return roster.getOwnedSaints();
+    }
+
+    /**
+     * Adds a saint to the covenant roster.
+     *
+     * @param saints Saint to add
+     */
+    public void addSaints(Saints saints) {
+        roster.addSaints(saints);
+    }
+
+    /**
+     * Moves a saint into the active party.
+     *
+     * @param apostle Saint to activate
+     * @return True if activation succeeds
+     */
+    public boolean activateApostle(Saints apostle) {
+        return roster.activateSaint(apostle);
+    }
+
+    /**
+     * Moves a saint out of the active party.
+     *
+     * @param apostle Saint to bench
+     * @return True if benching succeeds
+     */
+    public boolean benchApostle(Saints apostle) {
+        return roster.benchSaint(apostle);
+    }
+
+    /**
+     * Permanently removes a saint from the roster.
+     *
+     * @param apostle Saint to retire
+     * @return True if retirement succeeds
+     */
+    public boolean retireSaint(Saints apostle) {
+        return roster.retireSaint(apostle);
+    }
+
+    /**
+     * Attempts to spend faith.
+     *
+     * @param amount Amount of faith to spend
+     * @return True if payment succeeds
+     */
+    public boolean spendFaith(int amount) {
+        return wallet.spendFaith(amount);
+    }
+
+    /**
+     * Adds faith to the covenant wallet.
+     *
+     * @param amount Amount of faith to add
+     */
+    public void addFaith(int amount) {
+        wallet.addFaith(amount);
+    }
+
+    /**
+     * Gets a read-only version of the inventory.
+     *
+     * @return Inventory item list
+     */
+    public List<Item> getInventory() {
+        return java.util.Collections.unmodifiableList(rawInventory);
+    }
+
+    /**
+     * Adds an item to the inventory.
+     *
+     * @param item Item to add
+     */
+    public void addItem(Item item) {
+        rawInventory.add(item);
+    }
+
+    /**
+     * Removes an item from the inventory.
+     *
+     * @param item Item to remove
+     * @return True if item was removed
+     */
+    public boolean removeItem(Item item) {
+        return rawInventory.remove(item);
     }
 }

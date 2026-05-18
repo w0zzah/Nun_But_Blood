@@ -1,14 +1,11 @@
-package seng201.nunbutblood.gui;
+package seng201.nunbutblood.controllers;
 
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import seng201.nunbutblood.models.Item;
-import javafx.scene.layout.HBox;
 
 import java.io.InputStream;
 

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="522.0" prefWidth="1128.0" styleClass="root-crusade" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.gui.CrusadeController">
+<VBox prefHeight="522.0" prefWidth="1128.0" styleClass="root-crusade" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.controllers.CrusadeController">
    <children>
       <VBox fx:id="crusadeProgress" alignment="CENTER" spacing="10.0" styleClass="cybersigil-border">
          <padding>

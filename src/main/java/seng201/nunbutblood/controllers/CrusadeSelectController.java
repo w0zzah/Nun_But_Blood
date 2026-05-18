@@ -1,17 +1,14 @@
-package seng201.nunbutblood.gui;
+package seng201.nunbutblood.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.services.DemonService;
-import seng201.nunbutblood.gui.DemonCardController;
+import seng201.nunbutblood.services.CovenantService;
 
-import java.util.List;
 public class CrusadeSelectController {
     @FXML private Label crusadeLabel;
     @FXML private HBox demonCardBox;
@@ -30,8 +27,12 @@ public class CrusadeSelectController {
         this.covenant = covenant;
         this.demonService = demonService;
 
-        demonService.generateNewOptions(covenant.getCurrentCrusade());
-        crusadeLabel.setText("Crusade " + covenant.getCurrentCrusade() + " of " + covenant.getTotalCrusades());
+        int currentCrusade = covenant.getCurrentCrusade();
+        int totalCrusades = covenant.getTotalCrusades();
+
+
+        demonService.generateNewOptions(currentCrusade);
+        crusadeLabel.setText("Crusade " + currentCrusade+ " of " + totalCrusades);
         renderDemonCards();
     }
 

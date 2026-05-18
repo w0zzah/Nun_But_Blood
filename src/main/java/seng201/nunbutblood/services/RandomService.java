@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomService {
+
+
     private String difficulty;
     /** Base probability of a random event after a crusade **/
     private static final double BASE_EVENT_CHANCE = 0.40;

@@ -1,7 +1,6 @@
-package seng201.nunbutblood.gui;
+package seng201.nunbutblood.controllers;
 
 import javafx.application.Application;
-import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 /**

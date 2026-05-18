@@ -1,4 +1,4 @@
-package seng201.nunbutblood.gui;
+package seng201.nunbutblood.controllers;
 
 import javafx.animation.*;
 import javafx.scene.control.Label;

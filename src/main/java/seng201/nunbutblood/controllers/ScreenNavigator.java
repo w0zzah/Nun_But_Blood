@@ -1,4 +1,4 @@
-package seng201.nunbutblood.gui;
+package seng201.nunbutblood.controllers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -6,10 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
-import seng201.nunbutblood.services.AudioService;
-import seng201.nunbutblood.services.MarketService;
-import seng201.nunbutblood.services.RandomService;
-import seng201.nunbutblood.services.DemonService;
+import seng201.nunbutblood.services.*;
 
 import java.io.IOException;
 
@@ -21,6 +18,7 @@ public class ScreenNavigator {
     private RandomService randomService;
     private final DemonService demonService;
     private final AudioService audioService;
+    private CovenantService covenantService;
 
     public ScreenNavigator(Stage stage) {
         this.stage = stage;

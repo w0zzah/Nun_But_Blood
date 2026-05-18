@@ -60,7 +60,7 @@ public enum Rarity {
         return COMMON;
     }
 
-    // GETTERS (Label, Colour, Background)
+    // GETTERS (Label, Colour)
 
     /** @return display rarity label, (Common, Rare, Epic, Legendary) */
     public String getLabel() {

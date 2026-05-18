@@ -1,8 +1,7 @@
-package seng201.nunbutblood.gui;
+package seng201.nunbutblood.controllers;
 
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,18 +9,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import seng201.nunbutblood.models.Covenant;
-import seng201.nunbutblood.models.Saints;
-import seng201.nunbutblood.models.SaintsRoster;
+import seng201.nunbutblood.models.*;
+import seng201.nunbutblood.services.CovenantService;
 import seng201.nunbutblood.services.MarketService;
 import seng201.nunbutblood.services.RandomService;
-import seng201.nunbutblood.models.AlertBox;
 
-import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -100,18 +96,17 @@ public class SetupController {
     }
 
     private void buildSaintsList() {
-        // Create an Array list of all possible Saints
-        List<SaintsRoster.Entry> all = new ArrayList<>(SaintsRoster.getAllSaints());
-        // Initialise a count of each to ensure 2 of each Executioner, Oracle and Inquisitor are picked
-        int exe = 0, ora = 0, inq = 0;
-        for (SaintsRoster.Entry e : all) {
-            if (exe < 2 && e.type().equals("EXE")) {saintsList.add(SaintsRoster.create(e)); exe++; }
-            else if (ora < 2 && e.type().equals("ORA")) {saintsList.add(SaintsRoster.create(e)); ora++; }
-            else if (inq < 2 && e.type().equals("INQ")) {saintsList.add(SaintsRoster.create(e)); inq++; }
+        saintsList.clear();
 
-            if (exe == 2 && ora == 2 && inq == 2) break;
+        List<SaintsRoster.Entry> commonEntries = SaintsRoster.getAllSaints().stream()
+                .filter(entry -> SaintsRoster.create(entry).getRarity() == Rarity.COMMON)
+                .limit(6).toList();
+
+        for (SaintsRoster.Entry entry : commonEntries) {
+            saintsList.add(SaintsRoster.create(entry));
         }
     }
+
     @FXML
     private void enter() {
         entryBox.setOpacity(1);
@@ -138,9 +133,6 @@ public class SetupController {
             HBox action = new HBox(1);
             action.getChildren().add(btn);
 
-
-            // We need a reference to the card to change its style on click
-            // So we create the card first, then set the button action
             VBox card = SaintCardController.createSaintCard(currentSaint, action, false);
 
             btn.setOnAction(e -> toggleSaintSelection(currentSaint, card, btn));
@@ -171,7 +163,7 @@ public class SetupController {
         } else {
             // If SelectedSaints is greater than 3 throw error message and return
             if (selectedSaints.size() >= 3) {
-                setAlertBox("You can only choose 3 starting Saints.");
+                AlertBox.showAlert(statusLabel, alertBox, "You can only choose 3 starting Saints.");
                 return;
             }
 
@@ -194,53 +186,37 @@ public class SetupController {
      *
      */
 
-    private void setAlertBox(String alert) {
-        // Set text & show box
-        statusLabel.setText(alert);
-        alertBox.setOpacity(1);
-        alertBox.setVisible(true);
-
-        // Fade transition
-        FadeTransition fade = new FadeTransition(Duration.millis(800), alertBox);
-        fade.setFromValue(1.0); fade.setToValue(0.0);
-        fade.setDelay(Duration.millis(600));
-
-        // Once finished make invisible so you can still interact
-        fade.setOnFinished(event -> alertBox.setVisible(false));
-
-        // Play the scene
-        fade.play();
-    }
 
     @FXML
     private void handleStart() {
 
         String name = nameField.getText().trim();
         if (name.length() < 3 || name.length() > 15) {
-            setAlertBox("Name must be 3-15 characters");
+              AlertBox.showAlert(statusLabel, alertBox,"Name must be 3-15 characters");
             return;
         }
         if (!name.matches("^[a-zA-Z0-9 ]+$")) {
-            setAlertBox("Only letters, numbers and spaces allowed");
+              AlertBox.showAlert(statusLabel, alertBox,"Only letters, numbers and spaces allowed");
             return;
         }
 
         if (selectedSaints.size() != 3) {
-            setAlertBox("Please select exactly 3 Saints");
+              AlertBox.showAlert(statusLabel, alertBox,"Please select exactly 3 Saints");
             return;
         }
 
-        int expeditions = (int) expeditionSlider.getValue();
+        int crusades = (int) expeditionSlider.getValue();
 
         String difficulty = hardMode.isSelected() ? "Hard" : "Easy";
 
-        Covenant covenant = new Covenant(name, expeditions, difficulty);
+        Covenant covenant = new Covenant(name, crusades, difficulty);
         for (Saints a : selectedSaints) {
             covenant.addSaints(a);
         }
 
         MarketService market = new MarketService(new Random());
         RandomService randomSvc = new RandomService(difficulty);
+
         navigator.startCovenant(covenant, market, randomSvc);
     }
 

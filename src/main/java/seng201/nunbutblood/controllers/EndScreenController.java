@@ -1,8 +1,7 @@
-package seng201.nunbutblood.gui;
+package seng201.nunbutblood.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.services.MarketService;

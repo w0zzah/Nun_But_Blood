@@ -1,15 +1,6 @@
 package seng201.nunbutblood.models;
-/*
-    TODO:
-      Attributes:
-        + ENTRY: record (name, portraittKey, type, str, wis, dex)
-        - allSaints: List <Entry>
-      Methods:
-        + getAllSaints() : List<Entry> {static}
-        + pickRandom(int, Random): List<Entry> {static}
-        + create(entry): Saints {static}
-        + buldRoster(): ArrayList<Entry>
- */
+
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +19,7 @@ import java.util.Random;
  *
  *
  */
-public class SaintsRoster {
+public final class SaintsRoster {
 
     /**
      * record documentation for reference see <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Record.html">here</a>
@@ -44,14 +35,7 @@ public class SaintsRoster {
      */
     public record Entry(String name, String portraitKey, String type,
                         int baseStr, int baseWis, int baseDex, int stamina) {}
-
-
-    /** The complete named Apostle catalogue.
-     * List called 'allSaints' containing all Saints from @buildRoster function
-     *
-     * Take's the Entry element type and creates a list with immutable size (prevent memory leaks) and mutable elements.
-     *
-     */
+    
     private static final List<Entry> allSaints = buildRoster();
 
     /**
@@ -74,7 +58,6 @@ public class SaintsRoster {
     /**
      * Returns all roster entries for the setup screen's fixed starting pool.
      *
-     *
      * @return unmodifiable view of the full roster
      */
     public static List<Entry> getAllSaints() {
@@ -88,10 +71,7 @@ public class SaintsRoster {
      * @return a new Apostle object of the appropriate subclass
      */
     public static Saints create(Entry entry) {
-        // Return switch.
-        //     Take's a list at index type and return's a
         return switch (entry.type()) {
-            // create
             case "EXE" -> new Executioner(entry.name(), entry.portraitKey(),
                     entry.baseStr(), entry.baseWis(), entry.baseDex(), entry.stamina);
             case "ORA" -> new Oracle(entry.name(), entry.portraitKey(),
@@ -102,31 +82,41 @@ public class SaintsRoster {
     }
 
     /**
-     * Builds the complete named Apostle catalogue.
-     * Stat totals shown are BEFORE the +5 class bonus is applied.
+     * Builds all possible Saints with unique identifiers. <br>
+     * (6 Common, 6 Rare, 4 Epic, 2 Legendary)
+     * <br>
      *
      * @return mutable list of all entries
      */
     private static List<Entry> buildRoster() {
-        List<Entry> r = new ArrayList<>();
-        r.add(new Entry("Saint Germain",  "Germain.png",  "INQ",  5,  5,  8, 20));
-        r.add(new Entry("Saint Arsenia",  "Arsenia.png",  "INQ",  5,  5,  8, 20));
-        r.add(new Entry("Saint Winifred",  "Winifred.png",  "EXE",  8,  8,  8, 20));
-        r.add(new Entry("Saint Hilda",  "Hilda.png",  "EXE",  10,  15,  5, 20));
-        r.add(new Entry("Saint Anastasius",  "Anastasius.png",  "ORA",  15,  15,  15, 5000));
-        r.add(new Entry("Saint Chrysostomi",  "Chrysostomi.png",  "ORA",  18,  16,  20, 20));
-        r.add(new Entry("Saint Lucian", "Lucian.png", "EXE", 15, 5, 8, 25));
-        r.add(new Entry("Saint Selene", "Selene.png", "INQ", 6, 8, 15, 18));
-        r.add(new Entry("Saint Helena", "Helena.png", "ORA", 7, 14, 6, 20));
-        r.add(new Entry("Saint George", "George.png", "EXE", 18, 8, 12, 25));
-        r.add(new Entry("Saint Joan of Arc", "JoanOfArc.png", "INQ", 12, 16, 14, 25));
-        r.add(new Entry("Saint Michael", "Michael.png", "EXE", 20, 14, 16, 30));
-        r.add(new Entry("Saint Maurice", "Maurice.png", "EXE", 17, 10, 13, 25));
-        r.add(new Entry("Saint Martin of Tours", "MartinOfTours.png", "INQ", 14, 15, 12, 25));
-        r.add(new Entry("Saint Theodora", "Theodora.png", "ORA", 10, 18, 13, 22));
-        r.add(new Entry("Saint Longinus", "Longinus.png", "EXE", 16, 11, 15, 25));
-        r.add(new Entry("Saint Vladimir", "Vladimir.png", "INQ", 18, 13, 10, 28));
-        r.add(new Entry("Saint David of Wales", "DavidOfWales.png", "ORA", 11, 17, 14, 22));
-        return r;
+        List<Entry> saintRecord = new ArrayList<>();
+
+
+        // Common (Total stats under 30)
+        saintRecord.add(new Entry("Saint Germain", "Man.png", "INQ", 6, 5, 7, 20));
+        saintRecord.add(new Entry("Saint Arsenia", "Arsenia.png", "INQ", 4, 7, 6, 20));
+        saintRecord.add(new Entry("Saint Winifred", "Winifred.png", "EXE", 8, 6, 5, 20));
+        saintRecord.add(new Entry("Saint Hilda", "Hilda.png", "EXE", 9, 4, 7, 20));
+        saintRecord.add(new Entry("Saint Anastasius", "Anastasius.png", "ORA", 5, 8, 9, 20));
+        saintRecord.add(new Entry("Saint Chrysostomi", "Chrysostomi.png", "ORA", 7, 9, 10, 20));
+
+        // Rare (Total stats 30–39)
+        saintRecord.add(new Entry("Saint Lucian", "Lucian.png", "EXE", 14, 8, 10, 25));
+        saintRecord.add(new Entry("Saint Selene", "Selene.png", "INQ", 9, 11, 13, 18));
+        saintRecord.add(new Entry("Saint Helena", "Helena.png", "ORA", 10, 12, 11, 20));
+        saintRecord.add(new Entry("Saint George", "George.png", "EXE", 16, 10, 12, 25));
+        saintRecord.add(new Entry("Saint Joan of Arc", "JoanOfArc.png", "INQ", 11, 13, 14, 25));
+        saintRecord.add(new Entry("Saint Michael", "Michael.png", "EXE", 17, 12, 10, 30));
+
+        // Epic (Total stats 40–50)
+        saintRecord.add(new Entry("Saint Maurice", "Maurice.png", "EXE", 16, 13, 12, 25));
+        saintRecord.add(new Entry("Saint Martin of Tours", "MartinOfTours.png", "INQ", 14, 15, 13, 25));
+        saintRecord.add(new Entry("Saint Theodora", "Theodora.png", "ORA", 12, 17, 14, 22));
+        saintRecord.add(new Entry("Saint Longinus", "Longinus.png", "EXE", 18, 11, 15, 25));
+
+        // Legendary (Total stats over 50)
+        saintRecord.add(new Entry("Saint Vladimir", "Vladimir.png", "INQ", 19, 16, 17, 28));
+        saintRecord.add(new Entry("Saint David of Wales", "DavidOfWales.png", "ORA", 15, 18, 19, 22));
+        return saintRecord;
     }
 }
