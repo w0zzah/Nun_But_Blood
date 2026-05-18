@@ -14,13 +14,13 @@ public class Executioner extends Saints {
 
     public Executioner(String name, String portraitID, int strength, int wisdom, int dexterity, int stamina){
         super(name, portraitID,
-                Math.min(20, strength + 5),
+                strength,
                 wisdom,
                 dexterity,
                 stamina,
                 20,
-                calcHireCost(strength + 5, wisdom, dexterity),
-                calcUpKeep(strength + 5, wisdom, dexterity));
+                calcHireCost(strength, wisdom, dexterity),
+                calcUpKeep(strength, wisdom, dexterity));
     }
 
     // APOSTLES CLASS

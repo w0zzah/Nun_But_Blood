@@ -86,7 +86,6 @@ public class Item implements Purchasable {
         }
     }
 
-    // ── Getters ──────────────────────────────────────────────────────────────
 
     /**
      * Returns the display name of this item.

@@ -14,18 +14,15 @@ public class Oracle extends Saints {
 
     public Oracle(String name, String portraitID, int strength, int wisdom, int dexterity, int stamina){
         super(name, portraitID,
-                Math.min(20, strength + 5),
+                strength,
                 wisdom,
                 dexterity,
                 stamina,
                 20,
-                calcHireCost(strength + 5, wisdom, dexterity),
-                calcUpKeep(strength + 5, wisdom, dexterity));
+                calcHireCost(strength, wisdom, dexterity),
+                calcUpKeep(strength, wisdom, dexterity));
     }
 
-    // APOSTLES CLASS
-
-    // PURCHASABLE INTERFACE
 
     @Override
     public int getStatBonus() {
@@ -37,10 +34,6 @@ public class Oracle extends Saints {
         return "WIS";
     }
 
-
-    static String getPortraitID(String name) {
-        return name.toLowerCase().replace(" ", "-");
-    }
 
     /**
      *

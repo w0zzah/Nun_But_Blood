@@ -26,7 +26,8 @@ public class MarketService {
      *
      */
 
-    public MarketService() {
+
+    public MarketService(Random random) {
         this.random = new Random();
         this.availableSaints = new ArrayList<>();
         this.availableItems = new ArrayList<>();
@@ -138,11 +139,12 @@ public class MarketService {
      * @return a new Saint from the roster
      */
     private Saints generateRandomSaint(int crusadeNumber) {
+
         Rarity targetRarity = rollRarity(crusadeNumber);
 
         // Filter the roster to best fit the current crusade number
         List<SaintsRoster.Entry> candidates = SaintsRoster.getAllSaints().stream()
-                .filter(w -> SaintsRoster.create(w).getRarity() == targetRarity)
+                .filter(saint -> SaintsRoster.create(saint).getRarity() == targetRarity)
                 .collect(Collectors.toList());
 
 

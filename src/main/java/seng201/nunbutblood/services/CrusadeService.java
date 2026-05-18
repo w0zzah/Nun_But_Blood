@@ -37,7 +37,7 @@ public class CrusadeService {
         // 1. Calculate the Roll
         int roll = random.nextInt(20) + 1;
         int bonus = saint.getAttributeValue(demon.getWeakness());
-        boolean isSuccess = (roll + bonus) >= demon.getDifficultyRating();
+        boolean isSuccess = (roll + (bonus / 2)) >= demon.getDifficultyRating();
 
         String type = switch(roll) {
             case 20 -> "critical-success";

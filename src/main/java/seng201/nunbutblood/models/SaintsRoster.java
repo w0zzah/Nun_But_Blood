@@ -74,7 +74,6 @@ public class SaintsRoster {
     /**
      * Returns all roster entries for the setup screen's fixed starting pool.
      *
-     *
      * @return unmodifiable view of the full roster
      */
     public static List<Entry> getAllSaints() {
@@ -113,8 +112,13 @@ public class SaintsRoster {
         r.add(new Entry("Saint Arsenia",  "t4.png",  "INQ",  5,  5,  8, 20));
         r.add(new Entry("Saint Winifred",  "Winifred.png",  "EXE",  8,  8,  8, 20));
         r.add(new Entry("Saint Hilda",  "Hilda.png",  "EXE",  10,  15,  5, 20));
-        r.add(new Entry("Saint Anastasius",  "Anastasius.png",  "ORA",  15,  15,  15, 5000));
+        r.add(new Entry("Saint Anastasius",  "Anastasius.png",  "ORA",  15,  15,  15, 20));
         r.add(new Entry("Saint Chrysostomi",  "t1.png",  "ORA",  18,  16,  20, 20));
+
+        r.add(new Entry("Saint 1",  "t1.png",  "ORA",  18,  16,  20, 20));
+        r.add(new Entry("Saint 2",  "t1.png",  "ORA",  18,  16,  20, 20));
+        r.add(new Entry("Saint 3",  "t1.png",  "ORA",  18,  16,  20, 20));
+
         return r;
     }
 }

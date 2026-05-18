@@ -58,7 +58,6 @@ public class Covenant {
      */
     private final ArrayList<Item> inventory;
 
-    // ── Constructor ──────────────────────────────────────────────────────────
 
     /**
      * Creates a new Covenant at game start.
@@ -78,7 +77,6 @@ public class Covenant {
         this.faith = difficulty.equals("Hard") ? 100 : 300;
     }
 
-    // ── Getters ──────────────────────────────────────────────────────────────
 
     /**
      * @return the covenant's name
@@ -150,7 +148,6 @@ public class Covenant {
         return Collections.unmodifiableList(inventory);
     }
 
-    // ── Party Management ─────────────────────────────────────────────────────
 
     /**
      * Adds a newly hired apostle to the reserves.
@@ -209,8 +206,6 @@ public class Covenant {
         return false;
     }
 
-    // ── Faith (Currency) ─────────────────────────────────────────────────────
-
     /**
      * Adds faith to the balance and running total.
      * Negative amounts are ignored.
@@ -255,7 +250,7 @@ public class Covenant {
         activeParty.forEach(Saints::restoreStamina);
     }
 
-    // ── Items ─────────────────────────────────────────────────────────────────
+
 
     /**
      * Adds an item to the covenant's inventory.
@@ -275,8 +270,6 @@ public class Covenant {
     public boolean removeItem(Item item) {
         return inventory.remove(item);
     }
-
-    // ── Score & Progression ───────────────────────────────────────────────────
 
     /**
      * Adds points to the covenant's score.
@@ -304,7 +297,6 @@ public class Covenant {
         this.advanceCrusade();
         this.refreshStamina();
     }
-    // ── Game State ────────────────────────────────────────────────────────────
 
     /**
      * Checks whether all crusades have been completed.
@@ -312,7 +304,7 @@ public class Covenant {
      * @return true if the game is won
      */
     public boolean isGameComplete() {
-        return currentCrusade > totalCrusades;
+        return currentCrusade >= totalCrusades;
     }
 
     /**
@@ -331,11 +323,15 @@ public class Covenant {
             activeParty.add(saints);
             return;
         }
-
         if (reserves.size() >= 5) {
             return;
         }
-
         reserves.add(saints);
+    }
+
+    public List<Saints> getOwnedSaints() {
+        List<Saints> allSaints = new ArrayList<>(getActiveParty());
+        allSaints.addAll(getReserves());
+        return allSaints;
     }
 }

@@ -5,17 +5,14 @@ package seng201.nunbutblood.models;
  */
 public enum ItemCatalog {
 
-    // --- UPGRADES ---
     HOLY_WATER("Holy Water", Item.ItemType.UPGRADE, "wisdom", 5, 20,
             "Cleanses the mind and grants divine insight.", "circlet.png"),
     MARTYRS_BLOOD("Martyr's Blood", Item.ItemType.UPGRADE, "stamina", 15, 30,
-            "Bolsters the spirit for the long crusade.", "bloodvial.png"),
+            "Bolsters the spirit for the long crusade.", "bloodVial.png"),
 
-    // --- EQUIPMENT ---
     SILVER_CRUCIFIX("Silver Crucifix", Item.ItemType.EQUIPMENT, "strength", 10, 50,
             "A heavy cross that burns demons on touch.", "chestPlate.png"),
 
-    // --- SKILL TOMES ---
     TOME_OF_SMITING("Tome of Smiting", Item.ItemType.SKILL_TOME, "none", 0, 100,
             "Divine Smite", "tome.png");
 

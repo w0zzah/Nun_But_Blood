@@ -22,7 +22,6 @@ public final class AlertBox {
         fade.setToValue(0);
         fade.setDelay(Duration.millis(500));
 
-        fade.setDelay(Duration.millis(500));
         // Once finished make invisible
         fade.setOnFinished(event -> alertBox.setVisible(false));
 

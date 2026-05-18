@@ -25,7 +25,6 @@ public class Demon {
 
     /** Probability of the curse triggering after combat, between 0.0 and 1.0. */
     private double curseChance = 0.20; // Default 20% chance
-    // ── Constructor ───────────────────────────────────────────────────────────
 
     /**
      * Creates a Demon with the given combat attributes.

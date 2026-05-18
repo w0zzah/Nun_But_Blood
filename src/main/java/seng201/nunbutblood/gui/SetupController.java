@@ -21,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -238,7 +239,7 @@ public class SetupController {
             covenant.addSaints(a);
         }
 
-        MarketService market = new MarketService();
+        MarketService market = new MarketService(new Random());
         RandomService randomSvc = new RandomService(difficulty);
         navigator.startCovenant(covenant, market, randomSvc);
     }

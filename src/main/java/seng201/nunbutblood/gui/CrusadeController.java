@@ -10,7 +10,6 @@ import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.services.AudioService;
 import seng201.nunbutblood.services.CrusadeService;
-import seng201.nunbutblood.services.RandomService;
 
 
 /**
@@ -43,7 +42,7 @@ public class CrusadeController {
     @FXML private Label outcomeLabel;
 
     private DiceRollAnimation diceAnimation;
-    private CrusadeService manager;
+    private CrusadeService crusadeService;
     private Covenant covenant;
     private Demon currentDemon;
     private ScreenNavigator navigator;
@@ -51,10 +50,11 @@ public class CrusadeController {
     private AudioService audio;
 
     public void init(Covenant covenant, Demon demon, ScreenNavigator navigator) {
+
         this.covenant = covenant;
         this.currentDemon = demon;
         this.navigator = navigator;
-        this.manager = new CrusadeService();
+        this.crusadeService = new CrusadeService();
         this.audio = new AudioService();
 
         // Initialize the animation theater
@@ -110,32 +110,33 @@ public class CrusadeController {
         }
 
 
-        double progress = manager.getCurrentStep() / 5.0;
+        double progress = crusadeService.getCurrentStep() / 5.0;
         crusadeProgressBar.setProgress(progress);
 
-        eventLog.setText(manager.getLog());
+        eventLog.setText(crusadeService.getLog());
         eventLog.setScrollTop(Double.MAX_VALUE);
     }
 
     private void handleRoll(Saints selectedSaint) {
-        // 1. LOCK UI: Prevent spam clicking while animating
+
+        // Disable Saints Container
         partyContainer.setDisable(true);
         int bonus = selectedSaint.getAttributeValue(currentDemon.getWeakness());
-        // 2. GET RESULT: Process logic instantly behind the scenes
-        CrusadeService.StepResult result = manager.performStep(selectedSaint, currentDemon, covenant.getActiveParty());
 
+        // Advance to the next step + diceAnimation
+        CrusadeService.StepResult result = crusadeService.performStep(selectedSaint, currentDemon, covenant.getActiveParty());
         diceAnimation.play(result.roll(), result.type(), bonus, () -> {
 
-            // Set Text below Dice roll
+            // Set Text below diceAnimation
             rollResultLabel.getStyleClass().add("dice-" + result.type());
             rollResultLabel.setText(String.valueOf(result.roll() + bonus));
 
             narrativeLabel.setText(result.narrative());
 
-            // 5. UPDATE BACKEND/UI CONDITIONS
-            if (manager.checkVictory()) {
+            // Check if demon has been exorcised,
+            if (crusadeService.checkVictory()) {
                 showEndDialog(true);
-            } else if (manager.checkGameOver(covenant.getActiveParty())) {
+            } else if (crusadeService.checkGameOver(covenant.getActiveParty())) {
                 showEndDialog(false);
             } else {
                 partyContainer.setDisable(false);
@@ -148,17 +149,16 @@ public class CrusadeController {
     private void giveUp() {
         navigator.goToEndScreen(false, false);
     }
+
     private void showEndDialog(boolean won) {
         if (won) {
-            int reward = manager.dropLoot(currentDemon);
+            int reward = crusadeService.dropLoot(currentDemon);
             int score = currentDemon.getDifficultyRating() * 10;
             covenant.postCrusade(reward, score);
-            navigator.goToEndScreen(true, false);
-
+            navigator.goToEndScreen(true, covenant.isGameComplete());
         } else {
             covenant.postCrusade(0, 0);
-            navigator.goToEndScreen(false, false);
-
+            navigator.goToEndScreen(false, covenant.isGameComplete());
         }
     }
 }

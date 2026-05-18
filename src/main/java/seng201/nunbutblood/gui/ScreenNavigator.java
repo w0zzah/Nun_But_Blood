@@ -87,7 +87,7 @@ public class ScreenNavigator {
     public void goToEndScreen(boolean isVictory, boolean isGameOver) {
         loadScreen("/fxml/EndScreen.fxml", controller -> {
             if (controller instanceof EndScreenController ec) {
-                ec.init(stage, this, covenant, isVictory, isGameOver);
+                ec.init(stage, this, covenant, marketService, isVictory, isGameOver);
             }
         });
     }

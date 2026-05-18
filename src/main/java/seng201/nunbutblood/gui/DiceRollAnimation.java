@@ -109,8 +109,10 @@ public class DiceRollAnimation {
                 pop.setFromX(1.0); pop.setToX(1.3);pop.setFromY(1.0); pop.setToY(1.3);
                 break;
         }
+
+        // Repeat animation 2x
         pop.setAutoReverse(true);
-        pop.setCycleCount(2); // Grows then shrinks
+        pop.setCycleCount(2);
 
         String[] styleClasses = {"dice-success", "dice-fail", "dice-critical-success", "dice-critical-fail"};
         outcomeLabel.getStyleClass().removeAll(styleClasses);

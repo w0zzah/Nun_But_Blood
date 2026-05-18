@@ -14,13 +14,13 @@ public class Inquisitor extends Saints {
 
     public Inquisitor(String name, String portraitID, int strength, int wisdom, int dexterity, int stamina){
         super(name, portraitID,
-                Math.min(20, strength + 3),
+                strength,
                 wisdom,
                 dexterity,
                 stamina,
                 20,
-                calcHireCost(strength + 5, wisdom, dexterity),
-                calcUpKeep(strength + 5, wisdom, dexterity));
+                calcHireCost(strength, wisdom, dexterity),
+                calcUpKeep(strength, wisdom, dexterity));
     }
 
     // APOSTLES CLASS
@@ -36,11 +36,6 @@ public class Inquisitor extends Saints {
     @Override
     public String getStatType() {
         return "DEX";
-    }
-
-
-    static String getPortraitID(String name) {
-        return name.toLowerCase().replace(" ", "-");
     }
 
     /**

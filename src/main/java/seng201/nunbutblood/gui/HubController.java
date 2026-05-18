@@ -52,6 +52,7 @@ public class HubController {
         refresh();
     }
 
+
     /** Refreshes all displayed data from the Covenant model. */
     private void refresh() {
         covenantTitle.setText(covenant.getName().toUpperCase());
@@ -161,8 +162,9 @@ public class HubController {
 
     /** Opens a ChoiceDialog allowing the player to select which Apostle to apply the item to. */
     private void handleUseItemDialog(Item item) {
-        List<Saints> allSaints = new ArrayList<>(covenant.getActiveParty());
-        allSaints.addAll(covenant.getReserves());
+
+
+        List<Saints> allSaints = covenant.getOwnedSaints();
 
         if (allSaints.isEmpty()) {
             statusLabel.setText("You have no Saints to use this on.");
@@ -190,14 +192,6 @@ public class HubController {
 
     @FXML
     private void handleCrusade() {
-        if (covenant.hasLost()) {
-            navigator.goToEndScreen(false, false);
-            return;
-        }
-        if (covenant.isGameComplete()) {
-            navigator.goToEndScreen(true, true);
-            return;
-        }
         if (covenant.getActiveParty().isEmpty()) {
             setAlertBox("Active party is currently empty...");
             return;

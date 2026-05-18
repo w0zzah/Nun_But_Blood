@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.services.DemonService;
+import seng201.nunbutblood.gui.DemonCardController;
 
 import java.util.List;
 public class CrusadeSelectController {
@@ -26,25 +27,28 @@ public class CrusadeSelectController {
     public void init(Stage stage, ScreenNavigator navigator, Covenant covenant, DemonService demonService) {
         this.stage = stage;
         this.navigator = navigator;
-        this.covenant = covenant; // Make sure this.covenant is assigned!
+        this.covenant = covenant;
         this.demonService = demonService;
 
-        // Generate new demons only if we don't have current options
-        if (demonService.getCurrentOptions().isEmpty()) {
-            demonService.generateNewOptions(covenant.getCurrentCrusade());
-        }
-
+        demonService.generateNewOptions(covenant.getCurrentCrusade());
         crusadeLabel.setText("Crusade " + covenant.getCurrentCrusade() + " of " + covenant.getTotalCrusades());
         renderDemonCards();
     }
 
     public void renderDemonCards() {
         demonCardBox.getChildren().clear();
-        // Call the method from the service, not the service itself
+
         for (Demon demon : demonService.getCurrentOptions()) {
-            VBox card = buildDemonCard(demon);
+            // 1. Create the button (selectDemon is a Button/Node)
+            Button selectDemon = new Button("Select");
+
+            // 2. FIX: Pass 'selectDemon' (the Button), NOT 'selectedDemon' (the Demon model)
+            VBox card = DemonCardController.buildDemonCard(demon, selectDemon);
+
             HBox.setHgrow(card, Priority.ALWAYS);
             demonCardBox.getChildren().add(card);
+
+            selectDemon.setOnAction(e -> selectedDemon(demon, card, selectDemon));
         }
     }
 
@@ -54,50 +58,7 @@ public class CrusadeSelectController {
             hintLabel.setText("You must choose a demon to continue!");
             return;
         }
-        // 2. Tell the navigator to launch the battle screen
         navigator.goToCrusade(selectedDemon);
-    }
-
-    public VBox buildDemonCard(Demon demon) {
-
-        String path = "/images/evil/" + demon.getPortraitKey();
-        var resource = getClass().getResourceAsStream(path);
-
-        ImageView demonImg = new ImageView();
-        if (resource != null) {
-            demonImg.setImage(new Image(resource));
-        }
-        else {
-            System.err.println("MISSING IMAGE: Could not find demon portrait at " + path);
-        }
-        demonImg.setFitHeight(250);
-        demonImg.setPreserveRatio(true);
-        demonImg.setSmooth(false);
-        
-        VBox card = new VBox(3);
-        card.getStyleClass().add("demon-card");
-        card.setMaxWidth(Double.MAX_VALUE);
-
-
-        Label name = new Label(demon.getName());
-        name.getStyleClass().add("demon-card-name");
-        name.setWrapText(true);
-
-        Label weakness = new Label("Weak to: " + demon.getWeakness());
-        weakness.getStyleClass().add("demon-card-type");
-
-        Label difficulty = new Label("Difficulty: " + demon.getDifficultyRating());
-        difficulty.getStyleClass().add("demon-card-stats");
-
-        Label reward = new Label("Reward: " + demon.getFaithReward());
-        difficulty.getStyleClass().add("demon-card-type");
-
-        Button selectBtn = new Button("Select");
-        selectBtn.setMaxWidth(Double.MAX_VALUE);
-        selectBtn.setOnAction(e -> selectedDemon(demon, card, selectBtn));
-
-        card.getChildren().addAll(demonImg, name, weakness, difficulty, reward, selectBtn);
-        return card;
     }
 
     private void selectedDemon(Demon demon, VBox card, Button selectBtn) {
