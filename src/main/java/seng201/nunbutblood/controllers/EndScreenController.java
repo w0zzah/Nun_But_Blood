@@ -2,6 +2,7 @@ package seng201.nunbutblood.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.services.MarketService;
@@ -24,6 +25,7 @@ public class EndScreenController {
     @FXML private Label score;
     @FXML private Label result;
     @FXML private Button goNext;
+    @FXML private ListView eventsList;
 
 
     public void init(Stage stage, ScreenNavigator screenNavigator, Covenant covenant, MarketService market,
@@ -53,6 +55,7 @@ public class EndScreenController {
             // Trigger post crusade events
             List<String> events = postCrusadeEvents.triggerEvents(covenant);
 
+            eventsList.getItems().setAll(events);
 
             goNext.setText("Back to Covenant");
             market.refresh(covenant.getCurrentCrusade());

@@ -17,7 +17,7 @@ public class CrusadeService {
 
     private int currentStep = 0;
     private final int totalSteps = 5;
-    private final StringBuilder logHistory = new StringBuilder("Crusade Initialized. Steel your soul.\n");
+    private final StringBuilder logHistory = new StringBuilder("Click 'Exorcise' to roll the die. Roll higher 5 times and you win!\n");
     private final Random random = new Random();
 
     /**
@@ -37,8 +37,9 @@ public class CrusadeService {
      */
     public StepResult performStep(Saints saint, Demon demon, List<Saints> party) {
         // 1. Calculate the Roll
-        int roll = random.nextInt(20) + 1;
+        int roll = 20;
         int bonus = saint.getAttributeValue(demon.getWeakness());
+        int total = roll + bonus;
         boolean isSuccess = (roll + (bonus / 2)) >= demon.getDifficultyRating();
 
         String type = switch(roll) {
@@ -63,13 +64,13 @@ public class CrusadeService {
             narrative = "CRITICAL FAIL";
         } else { narrative = "FAIL"; }
 
-        // 5. Update the Log
-        String logEntry = String.format("[Roll %d] %s used %s. Result: %s",
-                roll, saint.getName(), demon.getWeakness(), type.toUpperCase());
+
+        String logEntry = String.format("[Roll : %d] (%d+%d) %s used %s. Result: %s",
+                (roll + bonus), roll, bonus, saint.getName(), demon.getWeakness(), type.toUpperCase());
         addToLog(logEntry);
 
-        // 6. Return Result (Setting hasDemonEvent to true on low rolls for spice)
-        return new StepResult(roll, type, narrative, logEntry, roll < 3);
+
+        return new StepResult(roll, type, narrative, logEntry, roll < 10);
     }
 
     public boolean checkVictory() {
@@ -102,7 +103,7 @@ public class CrusadeService {
      * Rolls for a mid-crusade random event. Call this from the controller
      */
     public Optional<CrusadeEvent> rollMidCrusadeEvent(List<Saints> party) {
-        if (party.isEmpty() || random.nextDouble() > 0.01) return Optional.empty();
+        if (party.isEmpty() || random.nextDouble() > .9) return Optional.empty();
 
         Saints target = party.get(random.nextInt(party.size()));
         boolean isBuff = random.nextBoolean();
@@ -112,6 +113,8 @@ public class CrusadeService {
         int change = isBuff ? (random.nextInt(3) + 2) : -(random.nextInt(3) + 1);
         applyStat(target, randomStat, change);
         String description = String.format("%s's %s changes by %d", target.getName(), randomStat.label, change);
+
+        addToLog(description);
 
         CrusadeEvent event = new CrusadeEvent(target, randomStat, change, description);
         activeEvents.add(event);

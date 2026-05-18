@@ -57,7 +57,6 @@ public class PostCrusadeService {
             // set the change to either +3 or -2
             int change = random.nextBoolean() ? 3 : -2;
 
-            // Set the stat to be randomly changed
             StatType[] stats = StatType.values();
             StatType randomStat = stats[random.nextInt(stats.length)];
 

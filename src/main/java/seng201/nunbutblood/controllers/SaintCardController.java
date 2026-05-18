@@ -29,8 +29,8 @@ public class SaintCardController {
 
         int cardWidth = isCompact ? 180 : 200;
         int cardHeight = isCompact ? 150 : 100;
-        int portraitBoxHeight = isCompact ? 100 : 150;
-        int imageFitHeight = isCompact ? 90 : 120;
+        int portraitBoxHeight = isCompact ? 150 : 200;
+        int imageFitHeight = isCompact ? 120 : 150;
         int spacing = isCompact ? 2 : 3;
 
         VBox card = new VBox(spacing);
@@ -49,7 +49,7 @@ public class SaintCardController {
         try {
 
             // Assign image path to distinct portrait in SaintsRoster
-            String imagePath = "/images/good/" + saint.getPortraitKey();
+            String imagePath = "/images/Saints/" + saint.getPortraitKey();
             Image img = new Image(SaintCardController.class.getResourceAsStream(imagePath), 300, 0, true, true);
 
             // set to ImageView to allow for easy resizing
