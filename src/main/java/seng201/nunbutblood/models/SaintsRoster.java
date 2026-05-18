@@ -74,6 +74,7 @@ public class SaintsRoster {
     /**
      * Returns all roster entries for the setup screen's fixed starting pool.
      *
+     *
      * @return unmodifiable view of the full roster
      */
     public static List<Entry> getAllSaints() {
@@ -109,16 +110,23 @@ public class SaintsRoster {
     private static List<Entry> buildRoster() {
         List<Entry> r = new ArrayList<>();
         r.add(new Entry("Saint Germain",  "Germain.png",  "INQ",  5,  5,  8, 20));
-        r.add(new Entry("Saint Arsenia",  "t4.png",  "INQ",  5,  5,  8, 20));
+        r.add(new Entry("Saint Arsenia",  "Arsenia.png",  "INQ",  5,  5,  8, 20));
         r.add(new Entry("Saint Winifred",  "Winifred.png",  "EXE",  8,  8,  8, 20));
         r.add(new Entry("Saint Hilda",  "Hilda.png",  "EXE",  10,  15,  5, 20));
-        r.add(new Entry("Saint Anastasius",  "Anastasius.png",  "ORA",  15,  15,  15, 20));
-        r.add(new Entry("Saint Chrysostomi",  "t1.png",  "ORA",  18,  16,  20, 20));
-
-        r.add(new Entry("Saint 1",  "t1.png",  "ORA",  18,  16,  20, 20));
-        r.add(new Entry("Saint 2",  "t1.png",  "ORA",  18,  16,  20, 20));
-        r.add(new Entry("Saint 3",  "t1.png",  "ORA",  18,  16,  20, 20));
-
+        r.add(new Entry("Saint Anastasius",  "Anastasius.png",  "ORA",  15,  15,  15, 5000));
+        r.add(new Entry("Saint Chrysostomi",  "Chrysostomi.png",  "ORA",  18,  16,  20, 20));
+        r.add(new Entry("Saint Lucian", "Lucian.png", "EXE", 15, 5, 8, 25));
+        r.add(new Entry("Saint Selene", "Selene.png", "INQ", 6, 8, 15, 18));
+        r.add(new Entry("Saint Helena", "Helena.png", "ORA", 7, 14, 6, 20));
+        r.add(new Entry("Saint George", "George.png", "EXE", 18, 8, 12, 25));
+        r.add(new Entry("Saint Joan of Arc", "JoanOfArc.png", "INQ", 12, 16, 14, 25));
+        r.add(new Entry("Saint Michael", "Michael.png", "EXE", 20, 14, 16, 30));
+        r.add(new Entry("Saint Maurice", "Maurice.png", "EXE", 17, 10, 13, 25));
+        r.add(new Entry("Saint Martin of Tours", "MartinOfTours.png", "INQ", 14, 15, 12, 25));
+        r.add(new Entry("Saint Theodora", "Theodora.png", "ORA", 10, 18, 13, 22));
+        r.add(new Entry("Saint Longinus", "Longinus.png", "EXE", 16, 11, 15, 25));
+        r.add(new Entry("Saint Vladimir", "Vladimir.png", "INQ", 18, 13, 10, 28));
+        r.add(new Entry("Saint David of Wales", "DavidOfWales.png", "ORA", 11, 17, 14, 22));
         return r;
     }
 }
