@@ -10,14 +10,12 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import seng201.nunbutblood.models.*;
-import seng201.nunbutblood.services.CovenantService;
 import seng201.nunbutblood.services.MarketService;
-import seng201.nunbutblood.services.RandomService;
+import seng201.nunbutblood.services.PostCrusadeService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -215,9 +213,8 @@ public class SetupController {
         }
 
         MarketService market = new MarketService(new Random());
-        RandomService randomSvc = new RandomService(difficulty);
 
-        navigator.startCovenant(covenant, market, randomSvc);
+        navigator.startCovenant(covenant, market);
     }
 
 }

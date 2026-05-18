@@ -71,12 +71,14 @@ public class MarketService {
      * @param covenant The Covenant purchasing the saint
      */
     public boolean buySaint(Saints saint, Covenant covenant) {
-        if (!availableSaints.contains(saint)) return false;
-        if (!covenant.spendFaith(saint.getCost())) return false;
-        availableSaints.remove(saint);
-        covenant.addSaints(saint);
-        return true;
+        if (availableSaints.contains(saint) && covenant.spendFaith(saint.getCost())) {
+            availableSaints.remove(saint);
+            covenant.addSaints(saint);
+            return true;
+        }
+        return false;
     }
+
 
     /**
      * Sells a Saint back to the market for half of their original purchase price

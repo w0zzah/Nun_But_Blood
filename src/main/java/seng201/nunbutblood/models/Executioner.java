@@ -19,7 +19,7 @@ public class Executioner extends Saints {
                 dexterity,
                 stamina,
                 20,
-                calcHireCost(strength, wisdom, dexterity),
+                Saints.calcHireCost(strength, wisdom, dexterity),
                 calcUpKeep(strength, wisdom, dexterity));
     }
 
@@ -36,17 +36,6 @@ public class Executioner extends Saints {
     @Override
     public String getStatType() {
         return "STR";
-    }
-
-    /**
-     *
-     * @param strength
-     * @param wisdom
-     * @param dexterity
-     * @return
-     */
-    static int calcHireCost(int strength, int wisdom, int dexterity) {
-        return 80 + (strength + wisdom + dexterity) * 3;
     }
 
     /**

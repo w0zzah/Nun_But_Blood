@@ -31,7 +31,7 @@ public class CrusadeSelectController {
         int totalCrusades = covenant.getTotalCrusades();
 
 
-        demonService.generateNewOptions(currentCrusade);
+        demonService.generateNewOptions(currentCrusade, covenant.getDifficulty());
         crusadeLabel.setText("Crusade " + currentCrusade+ " of " + totalCrusades);
         renderDemonCards();
     }
@@ -40,10 +40,9 @@ public class CrusadeSelectController {
         demonCardBox.getChildren().clear();
 
         for (Demon demon : demonService.getCurrentOptions()) {
-            // 1. Create the button (selectDemon is a Button/Node)
+
             Button selectDemon = new Button("Select");
 
-            // 2. FIX: Pass 'selectDemon' (the Button), NOT 'selectedDemon' (the Demon model)
             VBox card = DemonCardController.buildDemonCard(demon, selectDemon);
 
             HBox.setHgrow(card, Priority.ALWAYS);

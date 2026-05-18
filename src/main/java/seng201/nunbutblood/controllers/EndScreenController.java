@@ -5,6 +5,9 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.services.MarketService;
+import seng201.nunbutblood.services.PostCrusadeService;
+
+import java.util.List;
 
 public class EndScreenController {
 
@@ -13,6 +16,9 @@ public class EndScreenController {
     private ScreenNavigator navigator;
     private boolean isVictory;
     private MarketService market;
+    private PostCrusadeService postCrusadeEvents;
+    private int postReward;
+    private int postScore;
 
     @FXML private Label crusadesCompleted;
     @FXML private Label score;
@@ -20,13 +26,18 @@ public class EndScreenController {
     @FXML private Button goNext;
 
 
-    public void init(Stage stage, ScreenNavigator screenNavigator, Covenant covenant, MarketService market, boolean isVictory, boolean gameOver) {
+    public void init(Stage stage, ScreenNavigator screenNavigator, Covenant covenant, MarketService market,
+                     boolean isVictory, boolean gameOver, int score, int reward) {
+
         this.covenant = covenant;
         this.navigator = screenNavigator;
         this.isVictory = isVictory;
         this.market = market;
-
+        this.postReward = reward;
+        this.postScore = score;
+        this.postCrusadeEvents = new PostCrusadeService(covenant.getDifficulty(), score, reward);
         result(isVictory, gameOver);
+
     }
     public void result(boolean isVictory, boolean gameOver){
         if (gameOver) {
@@ -34,30 +45,30 @@ public class EndScreenController {
             goNext.setText("Play Again?");
             goNext.setOnAction(e -> goToSetup());
             score.setText("Score: " + covenant.getScore());
-            if (isVictory) {
-                result.setText("All Demon's Exorcised!!!");
-            }
-        } else {    
+            result.setText(isVictory ? "the game didnt break?" : "you are dead lmao, go again");
+        } else {
+            // add score + reward
+            covenant.postCrusade(postReward, postScore);
+
+            // Trigger post crusade events
+            List<String> events = postCrusadeEvents.triggerEvents(covenant);
+
+
             goNext.setText("Back to Covenant");
             market.refresh(covenant.getCurrentCrusade());
             goNext.setOnAction(e -> goToHub());
-            if (isVictory) {
-                result.setText("Demon Exorcised!!!");
-            }
-            else {result.setText("YOU FAILED!");}
+            result.setText(isVictory ? "Demon Vanquished" : "The Demon Flee's...");
         }
     }
 
 
     @FXML
     private void goToSetup() {
-
         navigator.goToSetup();
     }
 
     @FXML
     private void goToHub() {
-
         navigator.goToHub();}
 
 }

@@ -26,7 +26,7 @@ public class DiceRollAnimation {
 
     public void play(int finalValue, String resultType, int attributeValue, Runnable onComplete) {
 
-        // 1. Reset Phase
+        // Reset Phase
         String[] styleClasses = {"dice-success", "dice-fail", "dice-critical-success", "dice-critical-fail"};
         dieLabel.getStyleClass().removeAll(styleClasses);
         outcomeLabel.getStyleClass().removeAll(styleClasses);
@@ -39,16 +39,14 @@ public class DiceRollAnimation {
         Timeline cycling = new Timeline();
         // How many times the number will change
         int totalFrames = 25;
-        // Running timer that we increase the longer it rolls
+        // running timer that increases the longer it rolls
         double currentDelayMs = 1;
-        // Starting duration between numbers
+        // Starting Duration between numbers
         double frameDuration = 15;
-        // How fast the dice slows down (1.5 means it takes 50% longer than the one before)
+        // How fast the dice slows down, (1.5 means it takes 50% longer than the one before)
         double slowdownFactor = 1.14;
 
-        if (resultType.equals("success") || resultType.equals("fail")) {
-            finalValue += attributeValue;
-        }
+
         // 3. Frame Generation Phase
         for (int i = 0; i < totalFrames; i++) {
             // Calculate number and toggle the shake direction (up on even frames, down on odd)
@@ -110,7 +108,7 @@ public class DiceRollAnimation {
                 break;
         }
 
-        // Repeat animation 2x
+
         pop.setAutoReverse(true);
         pop.setCycleCount(2);
 

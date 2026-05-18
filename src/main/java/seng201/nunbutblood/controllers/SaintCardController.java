@@ -16,7 +16,7 @@ import javafx.scene.layout.HBox;
  *
  * {@link #createSaintCard(Saints, Node, boolean)} : Creates a distinct card for the Saint with a button to purchase the saint <br>
  * {@link #buildStatBars(Saints, boolean)} : Creates 3 rounded rectangles for each stat type <br>
- * {@link #buildStatRow(Saints, int, boolean, String, boolean)} : Assigns stats to each Saint card
+ * {@link #buildStatRow(String ,int ,boolean ,String ,boolean ))} : Assigns stats to each Saint card
  */
 public class SaintCardController {
     /**

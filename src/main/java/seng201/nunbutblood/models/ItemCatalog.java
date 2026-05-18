@@ -7,19 +7,19 @@ public enum ItemCatalog {
 
     // --- UPGRADES ---
 
-    HOLY_WATER("Holy Water", Item.ItemType.UPGRADE, "wisdom", 5, 20,
+    HOLY_WATER("Holy Water", Item.ItemType.UPGRADE, "wisdom", 3, 200,
             "Cleanses the mind and grants divine insight.", "circlet.png"),
 
-    MARTYRS_BLOOD("Martyr's Blood", Item.ItemType.UPGRADE, "stamina", 15, 30,
+    MARTYRS_BLOOD("Martyr's Blood", Item.ItemType.UPGRADE, "stamina", 8, 500,
             "Bolsters the spirit for the long crusade.", "bloodvial.png"),
 
     CROWN_OF_ASHES("Crown of Ashes", Item.ItemType.UPGRADE,
-            "wisdom", 10, 75,
+            "wisdom", 11, 670,
             "The burden of sacrifice sharpens holy judgment.", "crown.png"),
 
     // --- EQUIPMENT ---
 
-    SILVER_CRUCIFIX("Silver Crucifix", Item.ItemType.EQUIPMENT, "strength", 10, 50,
+    SILVER_CRUCIFIX("Silver Crucifix", Item.ItemType.EQUIPMENT, "strength", 1, 125,
             "A heavy cross that burns demons on touch.", "chestPlate.png"),
 
     RELIQUARY_BLADE("Reliquary Blade", Item.ItemType.EQUIPMENT,
@@ -27,7 +27,7 @@ public enum ItemCatalog {
             "A consecrated sword sealed with saintly relics.", "reliquaryblade.png"),
 
     PENITENTS_CHAIN("Penitent's Chain", Item.ItemType.EQUIPMENT,
-            "stamina", 20, 90,
+            "stamina", 15, 800,
             "Heavy chains carried in devotion strengthen resolve.", "chain.png"),
 
     // --- SKILL TOMES ---

@@ -19,7 +19,7 @@ public class Covenant {
     private final SaintsService roster;
 
     /** Handles faith and economy logic. */
-    private final BankService wallet;
+    private final BankService bank;
 
     /** Handles crusade progression and score tracking. */
     private final CovenantService covenantService;
@@ -27,19 +27,22 @@ public class Covenant {
     /** Stores all owned inventory items. */
     private final java.util.ArrayList<Item> rawInventory;
 
+    private final String difficulty;
+
     /**
      * Creates a new covenant.
      *
-     * @param name Name of the covenant
+     * @param name          Name of the covenant
      * @param totalCrusades Total number of crusades in the game
-     * @param difficulty Difficulty setting used for starting faith
+     * @param difficulty    Difficulty setting used for starting faith
      */
     public Covenant(String name, int totalCrusades, String difficulty) {
         this.name = name;
         this.roster = new SaintsService();
-        this.wallet = new BankService(difficulty);
+        this.bank = new BankService(difficulty);
         this.covenantService = new CovenantService(totalCrusades);
         this.rawInventory = new java.util.ArrayList<>();
+        this.difficulty = difficulty;
     }
 
     /**
@@ -52,10 +55,10 @@ public class Covenant {
      */
     public void postCrusade(int reward, int scoreReward) {
 
-        wallet.addFaith(reward);
+        bank.addFaith(reward);
 
         int upkeepCost = roster.calculateUpKeep();
-        wallet.payUpKeep(upkeepCost);
+        bank.payUpKeep(upkeepCost);
 
         covenantService.changeScore(scoreReward);
         covenantService.advanceCrusade();
@@ -71,7 +74,7 @@ public class Covenant {
      * @return True if game is lost
      */
     public boolean hasLost() {
-        return roster.isEmpty() && wallet.getFaith() <= 0;
+        return roster.isEmpty() && bank.getFaith() <= 0;
     }
 
     /**
@@ -89,7 +92,7 @@ public class Covenant {
      * @return Current faith total
      */
     public int getFaith() {
-        return wallet.getFaith();
+        return bank.getFaith();
     }
 
     /**
@@ -116,7 +119,7 @@ public class Covenant {
      * @return Total faith earned
      */
     public int getTotalFaithEarned() {
-        return wallet.getTotalFaithEarned();
+        return bank.getTotalFaithEarned();
     }
 
     /**
@@ -165,6 +168,15 @@ public class Covenant {
     }
 
     /**
+     * Gets the selected difficulty as a string
+     *
+     * @return Difficulty String
+     */
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    /**
      * Adds a saint to the covenant roster.
      *
      * @param saints Saint to add
@@ -210,16 +222,16 @@ public class Covenant {
      * @return True if payment succeeds
      */
     public boolean spendFaith(int amount) {
-        return wallet.spendFaith(amount);
+        return bank.spendFaith(amount);
     }
 
     /**
-     * Adds faith to the covenant wallet.
+     * Adds faith to the covenant bank.
      *
      * @param amount Amount of faith to add
      */
     public void addFaith(int amount) {
-        wallet.addFaith(amount);
+        bank.addFaith(amount);
     }
 
     /**
@@ -249,4 +261,6 @@ public class Covenant {
     public boolean removeItem(Item item) {
         return rawInventory.remove(item);
     }
+
+
 }

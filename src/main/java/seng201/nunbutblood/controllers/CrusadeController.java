@@ -8,9 +8,9 @@ import javafx.scene.layout.*;
 import seng201.nunbutblood.models.Saints;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
-import seng201.nunbutblood.services.AudioService;
-import seng201.nunbutblood.services.CrusadeService;
-import seng201.nunbutblood.services.CovenantService;
+import seng201.nunbutblood.services.*;
+
+import java.util.List;
 
 
 /**
@@ -99,7 +99,6 @@ public class CrusadeController {
     }
 
     private void refreshUI() {
-        // 1. Refresh Party (Left Side)
         partyContainer.getChildren().clear();
         for (Saints saint : covenant.getActiveParty()) {
 
@@ -127,6 +126,14 @@ public class CrusadeController {
 
         // Advance to the next step + diceAnimation
         CrusadeService.StepResult result = crusadeService.performStep(selectedSaint, currentDemon, covenant.getActiveParty());
+
+        if (result.hasDemonEvent()) {
+            crusadeService.rollMidCrusadeEvent(covenant.getActiveParty())
+                    .ifPresent(event -> {
+                        eventLog.setText(event.description());
+                    });
+        }
+
         diceAnimation.play(result.roll(), result.type(), bonus, () -> {
 
             // Set Text below diceAnimation
@@ -137,9 +144,9 @@ public class CrusadeController {
 
             // Check if demon has been exorcised,
             if (crusadeService.checkVictory()) {
-                showEndDialog(true);
+                postCrusade(true);
             } else if (crusadeService.checkGameOver(covenant.getActiveParty())) {
-                showEndDialog(false);
+                postCrusade(false);
             } else {
                 partyContainer.setDisable(false);
                 refreshUI();
@@ -147,20 +154,20 @@ public class CrusadeController {
         });
     }
 
+
     @FXML
     private void giveUp() {
-        navigator.goToEndScreen(false, false);
+        navigator.goToEndScreen(false, false,  0, 0);
     }
 
-    private void showEndDialog(boolean won) {
+    private void postCrusade(boolean won) {
         if (won) {
-            int reward = crusadeService.dropLoot(currentDemon);
+            int reward = currentDemon.getFaithReward();
             int score = currentDemon.getDifficultyRating() * 10;
-            covenant.postCrusade(reward, score);
-            navigator.goToEndScreen(true, covenant.isGameComplete());
+            navigator.goToEndScreen(true, covenant.isGameComplete(), reward, score);
         } else {
             covenant.postCrusade(0, 0);
-            navigator.goToEndScreen(false, covenant.isGameComplete());
+            navigator.goToEndScreen(false, covenant.isGameComplete(), 0, 0);
         }
     }
 }

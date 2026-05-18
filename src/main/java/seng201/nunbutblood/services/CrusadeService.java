@@ -2,8 +2,11 @@ package seng201.nunbutblood.services;
 
 import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.models.Saints;
+import seng201.nunbutblood.models.StatType;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 /**
@@ -78,10 +81,11 @@ public class CrusadeService {
         return party.stream().allMatch(s -> s.getCurrentStamina() < 5);
     }
 
-    public int dropLoot(Demon demon) {
+    public int demonReward(Demon demon) {
         // Simple loot logic based on difficulty
         return demon.getDifficultyRating() * 10;
     }
+
 
     public int getCurrentStep() { return currentStep; }
 
@@ -90,4 +94,49 @@ public class CrusadeService {
     private void addToLog(String message) {
         logHistory.insert(0, message + "\n"); // Newest messages at the top
     }
+
+    private final List<CrusadeEvent> activeEvents = new ArrayList<>();
+
+
+    /**
+     * Rolls for a mid-crusade random event. Call this from the controller
+     */
+    public Optional<CrusadeEvent> rollMidCrusadeEvent(List<Saints> party) {
+        if (party.isEmpty() || random.nextDouble() > 0.01) return Optional.empty();
+
+        Saints target = party.get(random.nextInt(party.size()));
+        boolean isBuff = random.nextBoolean();
+
+        StatType[] stats = StatType.values();
+        StatType randomStat = stats[random.nextInt(stats.length)];
+        int change = isBuff ? (random.nextInt(3) + 2) : -(random.nextInt(3) + 1);
+        applyStat(target, randomStat, change);
+        String description = String.format("%s's %s changes by %d", target.getName(), randomStat.label, change);
+
+        CrusadeEvent event = new CrusadeEvent(target, randomStat, change, description);
+        activeEvents.add(event);
+        return Optional.of(event);
+    }
+
+    /**
+     * reverse changes
+     */
+    public void revertEvents() {
+        for (CrusadeEvent event : activeEvents) {
+            applyStat(event.target(), event.stat(), -event.change());
+        }
+        activeEvents.clear();
+    }
+
+
+    private void applyStat(Saints saint, StatType stat, int amount) {
+        switch (stat) {
+            case STRENGTH   -> saint.changeStrength(amount);
+            case WISDOM     -> saint.changeWisdom(amount);
+            case DEXTERITY  -> saint.changeDexterity(amount);
+            case PERCEPTION -> saint.changePerception(amount);
+            case STAMINA    -> saint.changeMaxStamina(amount);
+        }
+    }
+
 }

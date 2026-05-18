@@ -16,10 +16,10 @@ public final class AlertBox {
         statusLabel.getStyleClass().add("status-label");
 
         // Fade transition
-        FadeTransition fade = new FadeTransition(Duration.millis(1000), alertBox);
+        FadeTransition fade = new FadeTransition(Duration.seconds(1), alertBox);
         fade.setFromValue(1);
         fade.setToValue(0);
-        fade.setDelay(Duration.millis(1500));
+        fade.setDelay(Duration.millis(1));
 
         // Once finished make invisible
         fade.setOnFinished(event -> alertBox.setVisible(false));

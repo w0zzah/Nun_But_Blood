@@ -1,5 +1,6 @@
 package seng201.nunbutblood.controllers;
 import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -134,8 +135,15 @@ public class MarketController {
     @FXML
     private void shopRefresh() {
         if (covenant.spendFaith(50)) {
-            marketService.refresh(covenant.getCurrentCrusade());
+
             AlertBox.showAlert(statusLabel, alertBox, "Refreshing...!");
+            marketService.refresh(covenant.getCurrentCrusade());
+            PauseTransition refresh = new PauseTransition(Duration.seconds(2));
+            refresh.setOnFinished(e -> {
+                navigator.goToMarket();
+            });
+
+            refresh.play();
         } else {
             AlertBox.showAlert(statusLabel, alertBox, "Not enough Faith!");
         }

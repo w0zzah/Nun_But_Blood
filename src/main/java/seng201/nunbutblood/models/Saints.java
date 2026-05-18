@@ -258,7 +258,6 @@ public abstract class Saints implements Purchasable {
     public void consumeStamina(int amount) {
         this.currentStamina = Math.max(0, this.currentStamina - amount); // Math.max return's the higher of two value's, not aloowing current stamina to go below 0
     }
-
     /**
      * Restores stamina to maximum, called after crusade.
      *
@@ -314,6 +313,12 @@ public abstract class Saints implements Purchasable {
             return "dexterity";
         }
     }
+
+    static int calcHireCost(int strength, int wisdom, int dexterity) {
+        return 500 + ((strength - 10) + (wisdom - 10) + (dexterity - 10)) * 25;
+    }
+
+
 
 
     // ----- METHODS (STAT CHANGES) END --------------------------------------------------------------------------

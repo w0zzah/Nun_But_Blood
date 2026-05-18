@@ -15,7 +15,7 @@ public class ScreenNavigator {
     private final Stage stage;
     private Covenant covenant;
     private MarketService marketService;
-    private RandomService randomService;
+    private PostCrusadeService randomService;
     private final DemonService demonService;
     private final AudioService audioService;
     private CovenantService covenantService;
@@ -39,10 +39,9 @@ public class ScreenNavigator {
      * Initial Hub entry. Use this only once when finishing Setup
      * to "hook" your services into the navigator.
      */
-    public void startCovenant(Covenant covenant, MarketService marketService, RandomService randomSvc) {
+    public void startCovenant(Covenant covenant, MarketService marketService) {
         this.covenant = covenant;
         this.marketService = marketService;
-        this.randomService = randomSvc;
         goToHub();
     }
 
@@ -82,10 +81,10 @@ public class ScreenNavigator {
     }
 
     /** Final Score / Game Over Screen */
-    public void goToEndScreen(boolean isVictory, boolean isGameOver) {
+    public void goToEndScreen(boolean isVictory, boolean isGameOver, int score, int reward) {
         loadScreen("/fxml/EndScreen.fxml", controller -> {
             if (controller instanceof EndScreenController ec) {
-                ec.init(stage, this, covenant, marketService, isVictory, isGameOver);
+                ec.init(stage, this, covenant, marketService, isVictory, isGameOver, reward, score);
             }
         });
     }
