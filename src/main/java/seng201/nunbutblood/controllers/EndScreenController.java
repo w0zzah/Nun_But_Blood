@@ -46,8 +46,8 @@ public class EndScreenController {
             crusadesCompleted.setText("You Completed: " + (covenant.getCurrentCrusade() - 1) + " / " + covenant.getTotalCrusades() + " Crusade's");
             goNext.setText("Play Again?");
             goNext.setOnAction(e -> goToSetup());
-            score.setText("Score: " + covenant.getScore());
-            result.setText(isVictory ? "the game didnt break?" : "you are dead lmao, go again");
+            score.setText("Score: " + covenant.getScore() + "\n Total Faith Earned: " + covenant.getTotalFaithEarned());
+            result.setText(isVictory ? covenant.getName() + "Has pushed the Demons back to Hell!" : covenant.getName() + "Has been Destroyed \n DEMONS REIGN!");
         } else {
             // add score + reward
             covenant.postCrusade(postReward, postScore);
