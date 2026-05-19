@@ -92,31 +92,31 @@ public final class SaintsRoster {
         List<Entry> saintRecord = new ArrayList<>();
 
 
-        // Common (Total stats under 30)
-        saintRecord.add(new Entry("Saint Germain", "Man.png", "INQ", 6, 5, 7, 20));
-        saintRecord.add(new Entry("Saint Arsenia", "Arsenia.png", "INQ", 4, 7, 6, 20));
-        saintRecord.add(new Entry("Saint Winifred", "Winifred.png", "EXE", 8, 6, 5, 20));
-        saintRecord.add(new Entry("Saint Hilda", "Hilda.png", "EXE", 9, 4, 7, 20));
-        saintRecord.add(new Entry("Saint Anastasius", "Anastasius.png", "ORA", 5, 8, 9, 20));
-        saintRecord.add(new Entry("Saint Chrysostomi", "Chrysostomi.png", "ORA", 7, 9, 10, 20));
+        // Common (stat total < 20)
+        saintRecord.add(new Entry("Luxana", "Luxana.png", "ORA", 4, 9, 5, 20));
+        saintRecord.add(new Entry("Chia", "Chia.png", "INQ", 3, 5, 9, 20));
+        saintRecord.add(new Entry("Mack", "Mack.png", "EXE", 9, 4, 5, 20));
+        saintRecord.add(new Entry("Torvald", "Torvald.png", "EXE", 10, 3, 6, 20));
+        saintRecord.add(new Entry("Unohana", "Unohana.png", "ORA", 4, 10, 5, 20));
+        saintRecord.add(new Entry("Tsundere", "Tsundere.png", "INQ", 5, 6, 8, 20));
 
-        // Rare (Total stats 30–39)
-        saintRecord.add(new Entry("Saint Lucian", "Lucian.png", "EXE", 14, 8, 10, 25));
-        saintRecord.add(new Entry("Saint Selene", "Selene.png", "INQ", 9, 11, 13, 18));
-        saintRecord.add(new Entry("Saint Helena", "Helena.png", "ORA", 10, 12, 11, 20));
-        saintRecord.add(new Entry("Saint George", "George.png", "EXE", 16, 10, 12, 25));
-        saintRecord.add(new Entry("Saint Joan of Arc", "JoanOfArc.png", "INQ", 11, 13, 14, 25));
-        saintRecord.add(new Entry("Saint Michael", "Michael.png", "EXE", 17, 12, 10, 30));
+        // Rare
+        saintRecord.add(new Entry("Issac", "Issac.png", "INQ", 6, 5, 14, 22));
+        saintRecord.add(new Entry("Rukia", "Rukia.png", "EXE", 15, 6, 9, 18));
+        saintRecord.add(new Entry("Krac", "Krac.png", "ORA", 8, 14, 10, 20));
+        saintRecord.add(new Entry("Kai'Sa", "KaiSa.png", "ORA", 11, 16, 12, 22));
 
-        // Epic (Total stats 40–50)
-        saintRecord.add(new Entry("Saint Maurice", "Maurice.png", "EXE", 16, 13, 12, 25));
-        saintRecord.add(new Entry("Saint Martin of Tours", "MartinOfTours.png", "INQ", 14, 15, 13, 25));
-        saintRecord.add(new Entry("Saint Theodora", "Theodora.png", "ORA", 12, 17, 14, 22));
-        saintRecord.add(new Entry("Saint Longinus", "Longinus.png", "EXE", 18, 11, 15, 25));
+        // Epic
+        saintRecord.add(new Entry("Yamato", "Yamato.png", "EXE", 17, 11, 12, 24));
+        saintRecord.add(new Entry("Lego'ne", "Legone.png", "INQ", 11, 12, 16, 24));
+        saintRecord.add(new Entry("Jarvan", "Jarvan.png", "ORA", 10, 17, 13, 24));
+        saintRecord.add(new Entry("Argo'Sax", "ArgoSax.png", "EXE", 18, 10, 14, 25));
 
-        // Legendary (Total stats over 50)
-        saintRecord.add(new Entry("Saint Vladimir", "Vladimir.png", "INQ", 19, 16, 17, 28));
-        saintRecord.add(new Entry("Saint David of Wales", "DavidOfWales.png", "ORA", 15, 18, 19, 22));
+        // Legendary
+        saintRecord.add(new Entry("Flamme'", "Flamme.png", "ORA", 17, 20, 18, 30));
+        saintRecord.add(new Entry("Crystalis", "Crystalis.png", "INQ", 18, 19, 20, 30));
+        saintRecord.add(new Entry("Crystolis", "Crystolis.png", "EXE", 20, 18, 19, 30));
+
         return saintRecord;
     }
 }

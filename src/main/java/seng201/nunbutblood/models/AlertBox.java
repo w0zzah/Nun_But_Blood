@@ -19,7 +19,7 @@ public final class AlertBox {
         FadeTransition fade = new FadeTransition(Duration.seconds(1), alertBox);
         fade.setFromValue(1);
         fade.setToValue(0);
-        fade.setDelay(Duration.millis(1));
+        fade.setDelay(Duration.seconds(1));
 
         // Once finished make invisible
         fade.setOnFinished(event -> alertBox.setVisible(false));

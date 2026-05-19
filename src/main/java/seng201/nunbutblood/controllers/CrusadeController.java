@@ -133,9 +133,8 @@ public class CrusadeController {
                         eventLog.setText(event.description());
                     });
         }
-
         diceAnimation.play(result.roll(), result.type(), bonus, () -> {
-
+            refreshUI();
             // Set Text below diceAnimation
             rollResultLabel.getStyleClass().add("dice-" + result.type());
             rollResultLabel.setText(String.valueOf(result.roll() + bonus));
@@ -149,7 +148,6 @@ public class CrusadeController {
                 postCrusade(false);
             } else {
                 partyContainer.setDisable(false);
-                refreshUI();
             }
         });
     }
