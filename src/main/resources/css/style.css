@@ -240,7 +240,7 @@
     -fx-background-color: #3a0000;
     -fx-text-fill: #ffffff;
 }
-.saint-list .list-cell:hover:!selected {
+.saint-list .list-cell:hover:selected {
     -fx-background-color: #200000;
 }
 
