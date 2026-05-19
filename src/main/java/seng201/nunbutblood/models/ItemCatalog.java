@@ -7,23 +7,23 @@ public enum ItemCatalog {
 
     // --- UPGRADES ---
 
-    HOLY_WATER("Holy Water", Item.ItemType.UPGRADE, "wisdom", 3, 200,
+    HOLY_WATER("Holy Water", Item.ItemType.UPGRADE, "wisdom", 5, 200,
             "Cleanses the mind and grants divine insight.", "circlet.png"),
 
-    MARTYRS_BLOOD("Martyr's Blood", Item.ItemType.UPGRADE, "stamina", 8, 500,
+    MARTYRS_BLOOD("Martyr's Blood", Item.ItemType.UPGRADE, "stamina", 10, 400,
             "Bolsters the spirit for the long crusade.", "bloodvial.png"),
 
     CROWN_OF_ASHES("Crown of Ashes", Item.ItemType.UPGRADE,
-            "wisdom", 11, 670,
+            "dexterity", 7, 300,
             "The burden of sacrifice sharpens holy judgment.", "crown.png"),
 
     // --- EQUIPMENT ---
 
-    SILVER_CRUCIFIX("Silver Crucifix", Item.ItemType.EQUIPMENT, "strength", 1, 125,
+    SILVER_CRUCIFIX("Silver Crucifix", Item.ItemType.EQUIPMENT, "wisdom", 5, 200,
             "A heavy cross that burns demons on touch.", "chestPlate.png"),
 
     RELIQUARY_BLADE("Reliquary Blade", Item.ItemType.EQUIPMENT,
-            "strength", 12, 80,
+            "strength", 5, 200,
             "A consecrated sword sealed with saintly relics.", "reliquaryblade.png"),
 
     PENITENTS_CHAIN("Penitent's Chain", Item.ItemType.EQUIPMENT,
@@ -33,10 +33,10 @@ public enum ItemCatalog {
     // --- SKILL TOMES ---
 
     SCRIPTURE_OF_FLAMES("Scripture of Flames", Item.ItemType.SKILL_TOME,
-            "none", 0, 120,
+            "wisdom", 5, 200,
             "Holy Inferno", "flametome.png"),
 
-    TOME_OF_SMITING("Tome of Smiting", Item.ItemType.SKILL_TOME, "none", 0, 100,
+    TOME_OF_SMITING("Tome of Smiting", Item.ItemType.SKILL_TOME, "strength", 5, 200,
             "Divine Smite", "tome.png");
 
 
