@@ -11,6 +11,7 @@ import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.services.*;
 
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -42,6 +43,9 @@ public class CrusadeController {
     @FXML private Label diceLabel;
     @FXML private Label outcomeLabel;
 
+    @FXML private Button choiceAButton;
+    @FXML private Button choiceBButton;
+
     private DiceRollAnimation diceAnimation;
     private CrusadeService crusadeService;
     private CovenantService covenantService;
@@ -50,6 +54,9 @@ public class CrusadeController {
     private ScreenNavigator navigator;
     private int bonus;
     private AudioService audio;
+    private MidCrusadeEvents midCrusadeEvents;
+    private MidCrusadeEvents.Event currentEvent;
+    private final Random random = new Random();
 
     public void init(Covenant covenant, Demon demon, ScreenNavigator navigator) {
 
@@ -58,6 +65,8 @@ public class CrusadeController {
         this.navigator = navigator;
         this.crusadeService = new CrusadeService();
         this.audio = new AudioService();
+        this.midCrusadeEvents = new MidCrusadeEvents();
+        showNextAdventureEvent();
 
         // Initialize the animation theater
         this.diceAnimation = new DiceRollAnimation(
@@ -96,6 +105,37 @@ public class CrusadeController {
         Label difficulty = new Label("Difficulty: " + currentDemon.getDifficultyRating());
 
         demonContainer.getChildren().addAll(demonImg, name, difficulty);
+    }
+
+    private void showNextAdventureEvent() {
+        currentEvent = midCrusadeEvents.getRandomEvent();
+
+        narrativeLabel.setText(currentEvent.description());
+
+        choiceAButton.setVisible(true);
+        choiceBButton.setVisible(true);
+
+        choiceAButton.setText(currentEvent.choiceA().text());
+        choiceBButton.setText(currentEvent.choiceB().text());
+
+        choiceAButton.setOnAction(e -> handleAdventureChoice(currentEvent.choiceA()));
+        choiceBButton.setOnAction(e -> handleAdventureChoice(currentEvent.choiceB()));
+    }
+
+    private void handleAdventureChoice(MidCrusadeEvents.Choice choice) {
+        String result = midCrusadeEvents.applyChoice(
+                covenant.getActiveParty(),
+                choice
+        );
+
+        eventLog.insertText(0, result + "\n");
+
+        choiceAButton.setVisible(false);
+        choiceBButton.setVisible(false);
+
+        narrativeLabel.setText(result);
+
+        refreshUI();
     }
 
     private void refreshUI() {
@@ -150,6 +190,11 @@ public class CrusadeController {
                 partyContainer.setDisable(false);
             }
         });
+        if (random.nextBoolean()) {
+            showNextAdventureEvent();
+        } else {
+            narrativeLabel.setText("The crusade continues without incident...");
+        }
     }
 
 

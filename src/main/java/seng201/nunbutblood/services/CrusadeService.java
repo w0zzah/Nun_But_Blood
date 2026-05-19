@@ -87,6 +87,10 @@ public class CrusadeService {
         return demon.getDifficultyRating() * 10;
     }
 
+    public void advanceStep() {
+        currentStep++;
+    }
+
 
     public int getCurrentStep() { return currentStep; }
 

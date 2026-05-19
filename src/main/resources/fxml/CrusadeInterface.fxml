@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="522.0" prefWidth="1128.0" styleClass="root-crusade" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.controllers.CrusadeController">
+<VBox prefHeight="522.0" prefWidth="1128.0" styleClass="root-crusade" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.controllers.CrusadeController">
    <children>
       <VBox fx:id="crusadeProgress" alignment="CENTER" spacing="10.0" styleClass="cybersigil-border">
          <padding>
@@ -20,6 +20,8 @@
          </padding>
          <children>
             <Label styleClass="header-label" text="CURRENT EXPEDITION PROGRESS" />
+            <Button fx:id="choiceAButton" mnemonicParsing="false" text="Button" />
+            <Button fx:id="choiceBButton" mnemonicParsing="false" text="Button" />
             <ProgressBar fx:id="crusadeProgressBar" maxHeight="10.0" prefHeight="20.0" prefWidth="600.0" progress="0.0" styleClass="crusade-progress" />
          </children>
       </VBox>
