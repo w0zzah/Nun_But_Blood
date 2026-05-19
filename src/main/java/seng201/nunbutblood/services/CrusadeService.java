@@ -37,7 +37,7 @@ public class CrusadeService {
      */
     public StepResult performStep(Saints saint, Demon demon, List<Saints> party) {
         // 1. Calculate the Roll
-        int roll = 20;
+        int roll = random.nextInt(20) + 1;
         int bonus = saint.getAttributeValue(demon.getWeakness());
         int total = roll + bonus;
         boolean isSuccess = (roll + (bonus / 2)) >= demon.getDifficultyRating();
