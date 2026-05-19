@@ -44,7 +44,8 @@ public class CrusadeController {
     @FXML private Label diceLabel;
     @FXML private Label outcomeLabel;
 
-    @FXML private Label statusLabel;
+    @FXML private Label statChange;
+    @FXML private Label eventQuestion;
     @FXML private VBox eventBox;
     @FXML private Button choiceAButton;
     @FXML private Button choiceBButton;
@@ -114,16 +115,23 @@ public class CrusadeController {
      * then loads a new random event with its two choices.
      */
     private void showNextAdventureEvent() {
-        // Guard against null on the very first event (no prior choice has been made yet)
-        statusLabel.setText(result != null ? result : "");
-        statusLabel.getStyleClass().add("status-label");
 
+        // Set for nullPointer
+        eventQuestion.setText(result != null ? result : "");
+        statChange.setText("");
+        // Set to be visible
         eventBox.setOpacity(1);
         eventBox.setVisible(true);
 
+        // Set's current event to be a random record containing description, choiceA, choiceB
         currentEvent = midCrusadeEvents.getRandomEvent();
+
+        // Set desc + button names
+        eventQuestion.setText(currentEvent.description());
         choiceAButton.setText(currentEvent.choiceA().text());
         choiceBButton.setText(currentEvent.choiceB().text());
+
+        // Set onAction for each button
         choiceAButton.setOnAction(e -> handleAdventureChoice(currentEvent.choiceA()));
         choiceBButton.setOnAction(e -> handleAdventureChoice(currentEvent.choiceB()));
 
@@ -142,7 +150,7 @@ public class CrusadeController {
         );
 
         eventLog.insertText(0, result + "\n");
-
+        statChange.setText(result);
         FadeTransition fade = new FadeTransition(Duration.seconds(1), eventBox);
         fade.setFromValue(1);
         fade.setToValue(0);
@@ -202,7 +210,7 @@ public class CrusadeController {
                 partyContainer.setDisable(false);
             }
 
-            if (random.nextInt(10) < 1 ) {
+            if (random.nextInt(10) < 5 ) {
                 showNextAdventureEvent();
             }
         });
