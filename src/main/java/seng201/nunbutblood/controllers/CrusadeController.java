@@ -1,16 +1,17 @@
 package seng201.nunbutblood.controllers;
 
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 import seng201.nunbutblood.models.Saints;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.services.*;
 
-import java.util.List;
 import java.util.Random;
 
 
@@ -43,12 +44,13 @@ public class CrusadeController {
     @FXML private Label diceLabel;
     @FXML private Label outcomeLabel;
 
+    @FXML private Label statusLabel;
+    @FXML private VBox eventBox;
     @FXML private Button choiceAButton;
     @FXML private Button choiceBButton;
 
     private DiceRollAnimation diceAnimation;
     private CrusadeService crusadeService;
-    private CovenantService covenantService;
     private Covenant covenant;
     private Demon currentDemon;
     private ScreenNavigator navigator;
@@ -58,24 +60,24 @@ public class CrusadeController {
     private MidCrusadeEvents.Event currentEvent;
     private final Random random = new Random();
 
-    public void init(Covenant covenant, Demon demon, ScreenNavigator navigator) {
+    // Stores the narrative result of the last adventure choice, displayed at the top of the next event
+    private String result;
 
+    public void init(Covenant covenant, Demon demon, ScreenNavigator navigator) {
         this.covenant = covenant;
         this.currentDemon = demon;
         this.navigator = navigator;
         this.crusadeService = new CrusadeService();
         this.audio = new AudioService();
         this.midCrusadeEvents = new MidCrusadeEvents();
-        showNextAdventureEvent();
 
-        // Initialize the animation theater
         this.diceAnimation = new DiceRollAnimation(
                 diceBox,
                 diceLabel,
                 outcomeLabel,
                 navigator.getAudioService(),
                 bonus
-                );
+        );
 
         setupDemonDisplay();
         refreshUI();
@@ -84,7 +86,6 @@ public class CrusadeController {
     private void setupDemonDisplay() {
         demonContainer.getChildren().clear();
 
-        // Demon Portrait
         String path = "/images/evil/" + currentDemon.getPortraitKey();
         var resource = getClass().getResourceAsStream(path);
 
@@ -107,33 +108,49 @@ public class CrusadeController {
         demonContainer.getChildren().addAll(demonImg, name, difficulty);
     }
 
+    /**
+     * Shows the next adventure event panel.
+     * Displays the result of the previous choice (if any) in the status label,
+     * then loads a new random event with its two choices.
+     */
     private void showNextAdventureEvent() {
+        // Guard against null on the very first event (no prior choice has been made yet)
+        statusLabel.setText(result != null ? result : "");
+        statusLabel.getStyleClass().add("status-label");
+
+        eventBox.setOpacity(1);
+        eventBox.setVisible(true);
+
         currentEvent = midCrusadeEvents.getRandomEvent();
-
-        narrativeLabel.setText(currentEvent.description());
-
-        choiceAButton.setVisible(true);
-        choiceBButton.setVisible(true);
-
         choiceAButton.setText(currentEvent.choiceA().text());
         choiceBButton.setText(currentEvent.choiceB().text());
-
         choiceAButton.setOnAction(e -> handleAdventureChoice(currentEvent.choiceA()));
         choiceBButton.setOnAction(e -> handleAdventureChoice(currentEvent.choiceB()));
+
+        refreshUI();
     }
 
+    /**
+     * Applies the player's chosen adventure choice, stores the result narrative,
+     * logs it, then fades out the event panel before loading the next event.
+     */
     private void handleAdventureChoice(MidCrusadeEvents.Choice choice) {
-        String result = midCrusadeEvents.applyChoice(
+        // Store result into the class field (not a local variable) so showNextAdventureEvent can read it
+        result = midCrusadeEvents.applyChoice(
                 covenant.getActiveParty(),
                 choice
         );
 
         eventLog.insertText(0, result + "\n");
 
-        choiceAButton.setVisible(false);
-        choiceBButton.setVisible(false);
-
-        narrativeLabel.setText(result);
+        FadeTransition fade = new FadeTransition(Duration.seconds(1), eventBox);
+        fade.setFromValue(1);
+        fade.setToValue(0);
+        fade.setDelay(Duration.seconds(1));
+        fade.setOnFinished(event -> {
+            eventBox.setVisible(false);
+        });
+        fade.play(); // FIX: fade.play() was missing — the animation never ran before
 
         refreshUI();
     }
@@ -141,7 +158,6 @@ public class CrusadeController {
     private void refreshUI() {
         partyContainer.getChildren().clear();
         for (Saints saint : covenant.getActiveParty()) {
-
             Button rollBtn = new Button("EXORCISE");
             rollBtn.setDisable(saint.getCurrentStamina() < 5);
             rollBtn.setOnAction(e -> handleRoll(saint));
@@ -149,7 +165,6 @@ public class CrusadeController {
             VBox saintCard = SaintCardController.createSaintCard(saint, rollBtn, true);
             partyContainer.getChildren().add(saintCard);
         }
-
 
         double progress = crusadeService.getCurrentStep() / 5.0;
         crusadeProgressBar.setProgress(progress);
@@ -159,29 +174,26 @@ public class CrusadeController {
     }
 
     private void handleRoll(Saints selectedSaint) {
-
-        // Disable Saints Container
         partyContainer.setDisable(true);
+
         int bonus = selectedSaint.getAttributeValue(currentDemon.getWeakness());
 
-        // Advance to the next step + diceAnimation
-        CrusadeService.StepResult result = crusadeService.performStep(selectedSaint, currentDemon, covenant.getActiveParty());
+            CrusadeService.StepResult stepResult = crusadeService.performStep(selectedSaint, currentDemon, covenant.getActiveParty());
 
-        if (result.hasDemonEvent()) {
+        if (stepResult.hasDemonEvent()) {
             crusadeService.rollMidCrusadeEvent(covenant.getActiveParty())
-                    .ifPresent(event -> {
-                        eventLog.setText(event.description());
-                    });
+                    .ifPresent(event -> eventLog.setText(event.description()));
         }
-        diceAnimation.play(result.roll(), result.type(), bonus, () -> {
+
+        diceAnimation.play(stepResult.roll(), stepResult.type(), bonus, () -> {
             refreshUI();
-            // Set Text below diceAnimation
-            rollResultLabel.getStyleClass().add("dice-" + result.type());
-            rollResultLabel.setText(String.valueOf(result.roll() + bonus));
 
-            narrativeLabel.setText(result.narrative());
+            rollResultLabel.getStyleClass().add("dice-" + stepResult.type());
+            rollResultLabel.setText(String.valueOf(stepResult.roll() + bonus));
+            narrativeLabel.setText(stepResult.narrative());
 
-            // Check if demon has been exorcised,
+
+
             if (crusadeService.checkVictory()) {
                 postCrusade(true);
             } else if (crusadeService.checkGameOver(covenant.getActiveParty())) {
@@ -189,18 +201,16 @@ public class CrusadeController {
             } else {
                 partyContainer.setDisable(false);
             }
-        });
-        if (random.nextBoolean()) {
-            showNextAdventureEvent();
-        } else {
-            narrativeLabel.setText("The crusade continues without incident...");
-        }
-    }
 
+            if (random.nextInt(10) < 1 ) {
+                showNextAdventureEvent();
+            }
+        });
+    }
 
     @FXML
     private void giveUp() {
-        navigator.goToEndScreen(false, false,  0, 0);
+        navigator.goToEndScreen(false, false, 0, 0);
     }
 
     private void postCrusade(boolean won) {

@@ -36,11 +36,11 @@ public class CrusadeService {
      * @return A StepResult containing all data needed for the animation and UI update.
      */
     public StepResult performStep(Saints saint, Demon demon, List<Saints> party) {
-        // 1. Calculate the Roll
+        //  Calculate the Roll
         int roll = random.nextInt(20) + 1;
-        int bonus = saint.getAttributeValue(demon.getWeakness());
+        int bonus = saint.getAttributeValue(demon.getWeakness()) ;
         int total = roll + bonus;
-        boolean isSuccess = (roll + (bonus / 2)) >= demon.getDifficultyRating();
+        boolean isSuccess = total >= demon.getDifficultyRating();
 
         String type = switch(roll) {
             case 20 -> "critical-success";
@@ -48,7 +48,6 @@ public class CrusadeService {
             default -> isSuccess ? "success" : "fail";
         };
 
-        // 4. Handle Progression and Costs
         // Every roll costs stamina, regardless of success
         saint.consumeStamina(5);
 
