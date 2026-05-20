@@ -48,7 +48,7 @@
                                  <Label styleClass="section-label" text="NUMBER OF CRUSADES" />
                                  <HBox alignment="CENTER" fillHeight="false" VBox.vgrow="NEVER">
                                     <children>
-                                       <Slider fx:id="expeditionSlider" blockIncrement="1" majorTickUnit="5" max="15" min="5.0" minorTickCount="4" snapToTicks="true" value="10" HBox.hgrow="ALWAYS">
+                                       <Slider fx:id="expeditionSlider" blockIncrement="1" majorTickUnit="5" max="15" min="1.0" minorTickCount="4" snapToTicks="true" value="10" HBox.hgrow="ALWAYS">
                                           <cursor>
                                              <Cursor fx:constant="H_RESIZE" />
                                           </cursor>

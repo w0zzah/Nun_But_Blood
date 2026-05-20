@@ -209,7 +209,6 @@ public class CrusadeController {
             } else {
                 partyContainer.setDisable(false);
             }
-
             if (random.nextInt(10) < 5 ) {
                 showNextAdventureEvent();
             }
@@ -227,7 +226,7 @@ public class CrusadeController {
             int score = currentDemon.getDifficultyRating() * 10;
             navigator.goToEndScreen(true, covenant.isGameComplete(), reward, score);
         } else {
-            covenant.postCrusade(0, 0);
+            covenant.postCrusade(0, 0, false);
             navigator.goToEndScreen(false, covenant.isGameComplete(), 0, 0);
         }
     }

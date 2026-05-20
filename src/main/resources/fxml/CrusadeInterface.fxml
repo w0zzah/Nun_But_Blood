@@ -39,16 +39,12 @@
                            </ScrollPane>
                         </VBox>
                         <VBox alignment="CENTER" fillWidth="false" spacing="15.0" styleClass="cybersigil-border" HBox.hgrow="NEVER">
-
-                           <!-- Dice Section -->
                            <VBox alignment="CENTER" spacing="10.0">
                               <StackPane fx:id="diceBox" maxHeight="200.0" maxWidth="200.0" prefHeight="150.0" prefWidth="150.0" styleClass="dice-box">
                                  <Label fx:id="diceLabel" styleClass="dice-label" text="?" />
                               </StackPane>
                               <Label fx:id="outcomeLabel" opacity="0.0" styleClass="outcome-flash" text="OUTCOME" />
                            </VBox>
-
-                           <!-- Results Section -->
                            <VBox alignment="CENTER" spacing="5.0" styleClass="section-label">
                               <HBox alignment="CENTER" spacing="10.0">
                                  <Label text="LAST ROLL:" />
@@ -67,7 +63,6 @@
                               <Insets bottom="20.0" left="10.0" right="20.0" top="10.0" />
                            </padding>
                            <Label styleClass="subheader-label" text="THE ADVERSARY" />
-                           <!-- Demon stats injected dynamically via setupDemonDisplay() -->
                         </VBox>
                      </children>
                   </HBox>
@@ -91,19 +86,25 @@
                </children>
             </HBox>
          </VBox>
-      <VBox fx:id="eventBox" alignment="CENTER" styleClass="cybersigil-border" StackPane.alignment="CENTER">
+      <VBox fx:id="eventBox" alignment="CENTER" style="-fx-background-image: url(&quot;/images/background/hands.png&quot;); -fx-background-size: stretch;" visible="false" StackPane.alignment="CENTER">
          <children>
-            <Label fx:id="eventQuestion" styleClass="title-label" text="Question" VBox.vgrow="ALWAYS" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="SOMETIMES">
+            <Label fx:id="eventQuestion" style="-fx-font-size: 70px; -fx-text-fill: -crimson;" styleClass="title-label" text="Question" VBox.vgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="30.0" />
+               </padding></Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
-                  <Button fx:id="choiceAButton" alignment="CENTER" mnemonicParsing="false" styleClass="btn-mkt" text="Button" />
+                  <Button fx:id="choiceAButton" alignment="CENTER" mnemonicParsing="false" styleClass="btn-mkt" text="Button">
+                     <padding>
+                        <Insets right="15.0" />
+                     </padding></Button>
                   <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
                   <Button fx:id="choiceBButton" alignment="CENTER" mnemonicParsing="false" styleClass="btn-mkt" text="Button" />
                   <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
                </children>
             </HBox>
-            <Label fx:id="statChange" styleClass="title-label" VBox.vgrow="SOMETIMES" />
+            <Label fx:id="statChange" style="-fx-font-size: 70;" styleClass="title-label" VBox.vgrow="SOMETIMES" />
          </children>
       </VBox>
       </children>

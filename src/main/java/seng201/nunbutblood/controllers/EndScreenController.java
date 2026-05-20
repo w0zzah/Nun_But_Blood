@@ -25,7 +25,7 @@ public class EndScreenController {
     @FXML private Label score;
     @FXML private Label result;
     @FXML private Button goNext;
-    @FXML private ListView eventsList;
+    @FXML private ListView<String> eventsList;
 
 
     public void init(Stage stage, ScreenNavigator screenNavigator, Covenant covenant, MarketService market,
@@ -43,24 +43,18 @@ public class EndScreenController {
     }
     public void result(boolean isVictory, boolean gameOver){
         if (gameOver) {
-            crusadesCompleted.setText("You Completed: " + (covenant.getCurrentCrusade() - 1) + " / " + covenant.getTotalCrusades() + " Crusade's");
+            crusadesCompleted.setText("You Completed: " + covenant.getCurrentCrusade() + " / " + covenant.getTotalCrusades() + " Crusade's");
             goNext.setText("Play Again?");
             goNext.setOnAction(e -> goToSetup());
             score.setText("Score: " + covenant.getScore() + "\n Total Faith Earned: " + covenant.getTotalFaithEarned());
             result.setText(isVictory ? covenant.getName() + "Has pushed the Demons back to Hell!" : covenant.getName() + "Has been Destroyed \n DEMONS REIGN!");
         } else {
-            // add score + reward
-            covenant.postCrusade(postReward, postScore);
-
-            // Trigger post crusade events
-            List<String> events = postCrusadeEvents.triggerEvents(covenant);
-
-            eventsList.getItems().setAll(events);
-
             goNext.setText("Back to Covenant");
             market.refresh(covenant.getCurrentCrusade());
             goNext.setOnAction(e -> goToHub());
             result.setText(isVictory ? "Demon Vanquished" : "The Demon Flee's...");
+            List<String> events = postCrusadeEvents.triggerEvents(covenant);
+            eventsList.getItems().setAll(events);
         }
     }
 

@@ -25,33 +25,33 @@ public class MidCrusadeEvents {
     public Event getRandomEvent() {
         return switch (random.nextInt(5)) {
             case 0 -> new Event(
-                    "Your party finds a cracked holy relic pulsing with unstable power.",
-                    new Choice("Let the strongest saint touch it", StatType.STRENGTH, 2),
-                    new Choice("Destroy it from a distance", StatType.WISDOM, -1)
+                    "HIS POWER LEVEL IS OVER 9000!!! ",
+                    new Choice("Side with Goku ? ", StatType.STRENGTH, 2),
+                    new Choice("Side with Vegeta ?", StatType.DEXTERITY, 2)
             );
 
             case 1 -> new Event(
-                    "A cursed fog surrounds the party and whispers old sins.",
-                    new Choice("Push forward through the fog", StatType.STAMINA, -3),
-                    new Choice("Stop and perform a cleansing rite", StatType.WISDOM, 2)
+                    "The Epstein files have just been unredacted, Epstein is calling...",
+                    new Choice("Apply baby oil", StatType.STAMINA, -3),
+                    new Choice("Call Diddy for help", StatType.STAMINA, -2)
             );
 
             case 2 -> new Event(
-                    "You discover strange footprints leading away from the path.",
-                    new Choice("Track the creature carefully", StatType.PERCEPTION, 2),
-                    new Choice("Rush after it", StatType.DEXTERITY, -1)
+                    "One will crash your game, the other hopefully wont...",
+                    new Choice("Good", StatType.PERCEPTION, 2),
+                    new Choice("Luck!", StatType.WISDOM, -1)
             );
 
             case 3 -> new Event(
-                    "A wounded pilgrim offers a blessing in return for aid.",
-                    new Choice("Help the pilgrim", StatType.STAMINA, 3),
-                    new Choice("Ignore them and keep moving", StatType.PERCEPTION, -1)
+                    "Red or Blue pill? .. or green (you wont find it...)",
+                    new Choice("red", StatType.STAMINA, 3),
+                    new Choice("blue", StatType.PERCEPTION, -1)
             );
 
             default -> new Event(
-                    "A demon shriek shakes the minds of the saints.",
-                    new Choice("Stand firm and chant prayers", StatType.WISDOM, 1),
-                    new Choice("Charge forward aggressively", StatType.STRENGTH, -1)
+                    "Button or Button? That is the question...",
+                    new Choice("I'm Button", StatType.WISDOM, 1),
+                    new Choice("And im BUTTon <3", StatType.STRENGTH, -1)
             );
         };
     }

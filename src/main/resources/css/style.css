@@ -12,7 +12,7 @@
     -fx-font-family: "New Rocker";
     -fx-font-size: 20px;
     -chrome: linear-gradient(to bottom, #cfcfcf 0%, #ffffff 20%, #a1a1a1 50%, #ffffff 80%, #cfcfcf 100%);
-    -crimson: linear-gradient(to bottom, #af0303 0%, #ff2b2b 20%, #9e0202 50%, #ff2b2b 80%);
+    -crimson: linear-gradient(to bottom, #af0303 0%, #ae1d1d 20%, #9e0202 50%, #cd2121 80%);
 }
 
 .root-setup {
@@ -74,11 +74,11 @@
 }
 
 .title-label {
-    -fx-text-fill: -chrome;
+    -fx-text-fill: -crimson;
     -fx-font-family: "Angel wish";
     -fx-font-size: 45px;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgb(207, 0, 0), 25, 0.2, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgb(0, 0, 0), 60, 0.4, 3, 3);
 }
 
 .status-label {
@@ -496,6 +496,20 @@
 /* ---------------------------------------------------------------------------------------------------------*/
 
 
+/** -----------------------------------CSS FOR LIST VIEW-------------------------------------------------*/
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+}
+
+
+.list-cell:filled {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 35;
+    -fx-effect: dropshadow(gaussian, rgb(20, 0, 0, 1), 25, 0.6, 0, 0);
+    -fx-padding: 10;
+}
 
 
 /* ----------------------------------- CSS FOR ITEMS -----------------------------------*/

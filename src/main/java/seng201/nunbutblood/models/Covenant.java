@@ -53,18 +53,15 @@ public class Covenant {
      * @param reward Faith earned from the crusade
      * @param scoreReward Score earned from the crusade
      */
-    public void postCrusade(int reward, int scoreReward) {
-
+    public void postCrusade(int reward, int scoreReward, boolean isVictory) {
         bank.addFaith(reward);
-
         int upkeepCost = roster.calculateUpKeep();
         bank.payUpKeep(upkeepCost);
-
         covenantService.changeScore(scoreReward);
-        covenantService.advanceCrusade();
-
         roster.incrementCrusadeCounts();
-        roster.refreshStamina();
+
+        if (isVictory) { covenantService.advanceCrusade(); roster.refreshStamina(); }
+
     }
 
     /**

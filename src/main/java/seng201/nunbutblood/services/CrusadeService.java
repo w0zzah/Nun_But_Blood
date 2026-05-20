@@ -16,6 +16,7 @@ import java.util.Random;
 public class CrusadeService {
 
     private int currentStep = 0;
+    // expedition length
     private final int totalSteps = 5;
     private final StringBuilder logHistory = new StringBuilder("Click 'Exorcise' to roll the die. Roll higher 5 times and you win!\n");
     private final Random random = new Random();

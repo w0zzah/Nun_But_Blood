@@ -101,21 +101,21 @@ public final class SaintsRoster {
         saintRecord.add(new Entry("Tsundere", "Tsundere.png", "INQ", 5, 6, 8, 20));
 
         // Rare
-        saintRecord.add(new Entry("Issac", "Issac.png", "INQ", 6, 5, 14, 22));
-        saintRecord.add(new Entry("Rukia", "Rukia.png", "EXE", 15, 6, 9, 18));
+        saintRecord.add(new Entry("Issac", "Issac.png", "INQ", 6, 5, 14, 20));
+        saintRecord.add(new Entry("Rukia", "Rukia.png", "EXE", 15, 6, 9, 20));
         saintRecord.add(new Entry("Krac", "Krac.png", "ORA", 8, 14, 10, 20));
-        saintRecord.add(new Entry("Kai'Sa", "KaiSa.png", "ORA", 11, 16, 12, 22));
+        saintRecord.add(new Entry("Kai'Sa", "KaiSa.png", "ORA", 11, 16, 12, 20));
 
         // Epic
-        saintRecord.add(new Entry("Yamato", "Yamato.png", "EXE", 17, 11, 12, 24));
-        saintRecord.add(new Entry("Lego'ne", "Legone.png", "INQ", 11, 12, 16, 24));
-        saintRecord.add(new Entry("Jarvan", "Jarvan.png", "ORA", 10, 17, 13, 24));
-        saintRecord.add(new Entry("Argo'Sax", "ArgoSax.png", "EXE", 18, 10, 14, 25));
+        saintRecord.add(new Entry("Yamato", "Yamato.png", "EXE", 17, 11, 12, 20));
+        saintRecord.add(new Entry("Lego'ne", "Legone.png", "INQ", 11, 12, 16, 20));
+        saintRecord.add(new Entry("Jarvan", "Jarvan.png", "ORA", 10, 17, 13, 20));
+        saintRecord.add(new Entry("Argo'Sax", "ArgoSax.png", "EXE", 18, 10, 14, 20));
 
         // Legendary
-        saintRecord.add(new Entry("Flamme'", "Flamme.png", "ORA", 17, 20, 18, 30));
-        saintRecord.add(new Entry("Crystalis", "Crystalis.png", "INQ", 18, 19, 20, 30));
-        saintRecord.add(new Entry("Crystolis", "Crystolis.png", "EXE", 20, 18, 19, 30));
+        saintRecord.add(new Entry("Flamme'", "Flamme.png", "ORA", 17, 20, 18, 20));
+        saintRecord.add(new Entry("Crystalis", "Crystalis.png", "INQ", 18, 19, 20, 20));
+        saintRecord.add(new Entry("Crystolis", "Crystolis.png", "EXE", 20, 18, 19, 20));
 
         return saintRecord;
     }

@@ -163,6 +163,7 @@ public abstract class Saints implements Purchasable {
     /** @return perception stat */
     public int getPerception() { return perception; }
 
+    /** @return Returns the combined total of strength, wisdom and dexterity */
     public int getStatTotal() {
         return strength + wisdom + dexterity;
     }
