@@ -17,7 +17,7 @@ public class CrusadeService {
 
     private int currentStep = 0;
     // expedition length
-    private final int totalSteps = 5;
+    private final int totalSteps = 3;
     private final StringBuilder logHistory = new StringBuilder("Click 'Exorcise' to roll the die. Roll higher 5 times and you win!\n");
     private final Random random = new Random();
 
@@ -36,10 +36,10 @@ public class CrusadeService {
      * Executes one "turn" of the crusade.
      * @return A StepResult containing all data needed for the animation and UI update.
      */
-    public StepResult performStep(Saints saint, Demon demon, List<Saints> party) {
+    public StepResult performStep(Saints saint, Demon demon, List<Saints> party, StatType stat) {
         //  Calculate the Roll
         int roll = random.nextInt(20) + 1;
-        int bonus = saint.getAttributeValue(demon.getWeakness()) ;
+        int bonus = saint.getAttributeValue(stat);
         int total = roll + bonus;
         boolean isSuccess = total >= demon.getDifficultyRating();
 
@@ -66,7 +66,7 @@ public class CrusadeService {
 
 
         String logEntry = String.format("[Roll : %d] (%d+%d) %s used %s. Result: %s",
-                (roll + bonus), roll, bonus, saint.getName(), demon.getWeakness(), type.toUpperCase());
+                (roll + bonus), roll, bonus, saint.getName(), stat, type.toUpperCase());
         addToLog(logEntry);
 
 
@@ -94,6 +94,9 @@ public class CrusadeService {
 
     public int getCurrentStep() { return currentStep; }
 
+    public int getTotalSteps() { return totalSteps; }
+
+
     public String getLog() { return logHistory.toString(); }
 
     private void addToLog(String message) {
@@ -107,7 +110,7 @@ public class CrusadeService {
      * Rolls for a mid-crusade random event. Call this from the controller
      */
     public Optional<CrusadeEvent> rollMidCrusadeEvent(List<Saints> party) {
-        if (party.isEmpty() || random.nextDouble() > .9) return Optional.empty();
+        if (party.isEmpty() || random.nextDouble() > 0.5) return Optional.empty();
 
         Saints target = party.get(random.nextInt(party.size()));
         boolean isBuff = random.nextBoolean();

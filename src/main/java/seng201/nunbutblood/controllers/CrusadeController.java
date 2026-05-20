@@ -10,6 +10,7 @@ import javafx.util.Duration;
 import seng201.nunbutblood.models.Saints;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
+import seng201.nunbutblood.models.StatType;
 import seng201.nunbutblood.services.*;
 
 import java.util.Random;
@@ -38,6 +39,8 @@ public class CrusadeController {
     @FXML private Label narrativeLabel;
     @FXML private ProgressBar crusadeProgressBar;
     @FXML private TextArea eventLog;
+    @FXML private Label demonName;
+
 
     // Dice Animation Fields
     @FXML private StackPane diceBox;
@@ -49,6 +52,9 @@ public class CrusadeController {
     @FXML private VBox eventBox;
     @FXML private Button choiceAButton;
     @FXML private Button choiceBButton;
+    @FXML private Button none;
+    @FXML private Label statTypeLabel;
+
 
     private DiceRollAnimation diceAnimation;
     private CrusadeService crusadeService;
@@ -60,9 +66,10 @@ public class CrusadeController {
     private MidCrusadeEvents midCrusadeEvents;
     private MidCrusadeEvents.Event currentEvent;
     private final Random random = new Random();
-
+    private StatType rollStatType;
     // Stores the narrative result of the last adventure choice, displayed at the top of the next event
     private String result;
+
 
     public void init(Covenant covenant, Demon demon, ScreenNavigator navigator) {
         this.covenant = covenant;
@@ -85,28 +92,11 @@ public class CrusadeController {
     }
 
     private void setupDemonDisplay() {
-        demonContainer.getChildren().clear();
-
-        String path = "/images/evil/" + currentDemon.getPortraitKey();
-        var resource = getClass().getResourceAsStream(path);
-
-        ImageView demonImg = new ImageView();
-        if (resource != null) {
-            demonImg.setImage(new Image(resource));
-        } else {
-            System.err.println("MISSING IMAGE: Could not find demon portrait at " + path);
-        }
-
-        demonImg.setFitHeight(200);
-        demonImg.setPreserveRatio(true);
-        demonImg.setSmooth(false);
-
-        Label name = new Label(currentDemon.getName());
-        name.getStyleClass().add("demon-name-label");
-
-        Label difficulty = new Label("Difficulty: " + currentDemon.getDifficultyRating());
-
-        demonContainer.getChildren().addAll(demonImg, name, difficulty);
+        Button none = new Button("");
+        VBox card = DemonCardController.buildDemonCard(currentDemon, none, false);
+        HBox.setHgrow(card, Priority.ALWAYS);
+        demonContainer.getChildren().add(card);
+        demonName.setText(currentDemon.getName());
     }
 
     /**
@@ -166,7 +156,7 @@ public class CrusadeController {
     private void refreshUI() {
         partyContainer.getChildren().clear();
         for (Saints saint : covenant.getActiveParty()) {
-            Button rollBtn = new Button("EXORCISE");
+            Button rollBtn = new Button("ROLL");
             rollBtn.setDisable(saint.getCurrentStamina() < 5);
             rollBtn.setOnAction(e -> handleRoll(saint));
 
@@ -174,7 +164,13 @@ public class CrusadeController {
             partyContainer.getChildren().add(saintCard);
         }
 
-        double progress = crusadeService.getCurrentStep() / 5.0;
+        double stepsLeft = (double) (crusadeService.getTotalSteps() - crusadeService.getCurrentStep());
+        double progress = stepsLeft / crusadeService.getTotalSteps();
+        progress = Math.max(0.0, Math.min(1.0, progress));
+
+        // Next Stat type to check n set label
+        rollStatType = StatType.getRandomOf(StatType.STRENGTH, StatType.WISDOM, StatType.DEXTERITY);
+        statTypeLabel.setText("NEXT ROLL TYPE:\n" + rollStatType);
         crusadeProgressBar.setProgress(progress);
 
         eventLog.setText(crusadeService.getLog());
@@ -184,9 +180,11 @@ public class CrusadeController {
     private void handleRoll(Saints selectedSaint) {
         partyContainer.setDisable(true);
 
-        int bonus = selectedSaint.getAttributeValue(currentDemon.getWeakness());
+        if (currentDemon.getWeakness().equals(rollStatType)) {
+            bonus = selectedSaint.getAttributeValue(rollStatType) + 3;
+        } else {bonus = selectedSaint.getAttributeValue(rollStatType);}
 
-            CrusadeService.StepResult stepResult = crusadeService.performStep(selectedSaint, currentDemon, covenant.getActiveParty());
+        CrusadeService.StepResult stepResult = crusadeService.performStep(selectedSaint, currentDemon, covenant.getActiveParty(), rollStatType);
 
         if (stepResult.hasDemonEvent()) {
             crusadeService.rollMidCrusadeEvent(covenant.getActiveParty())
@@ -194,10 +192,8 @@ public class CrusadeController {
         }
 
         diceAnimation.play(stepResult.roll(), stepResult.type(), bonus, () -> {
+            rollResultLabel.setText(stepResult.roll() +" + " + bonus);
             refreshUI();
-
-            rollResultLabel.getStyleClass().add("dice-" + stepResult.type());
-            rollResultLabel.setText(String.valueOf(stepResult.roll() + bonus));
             narrativeLabel.setText(stepResult.narrative());
 
 
@@ -217,17 +213,19 @@ public class CrusadeController {
 
     @FXML
     private void giveUp() {
-        navigator.goToEndScreen(false, false, 0, 0);
+        covenant.postCrusade(0,0,false);
+        navigator.goToEndScreen(false, false);
     }
 
     private void postCrusade(boolean won) {
         if (won) {
             int reward = currentDemon.getFaithReward();
             int score = currentDemon.getDifficultyRating() * 10;
-            navigator.goToEndScreen(true, covenant.isGameComplete(), reward, score);
+            covenant.postCrusade(reward, score, true);
+            navigator.goToEndScreen(true, covenant.isGameComplete());
         } else {
             covenant.postCrusade(0, 0, false);
-            navigator.goToEndScreen(false, covenant.isGameComplete(), 0, 0);
+            navigator.goToEndScreen(false, covenant.isGameComplete());
         }
     }
 }

@@ -25,25 +25,22 @@ public class CrusadeSelectController {
         this.stage = stage;
         this.navigator = navigator;
         this.covenant = covenant;
-        this.demonService = demonService;
+        this.demonService = covenant.getDemonService();
 
         int currentCrusade = covenant.getCurrentCrusade();
         int totalCrusades = covenant.getTotalCrusades();
 
-
-        demonService.generateNewOptions(currentCrusade, covenant.getDifficulty());
         crusadeLabel.setText("Crusade " + currentCrusade+ " of " + totalCrusades);
         renderDemonCards();
     }
 
     public void renderDemonCards() {
         demonCardBox.getChildren().clear();
-
         for (Demon demon : demonService.getCurrentOptions()) {
 
             Button selectDemon = new Button("Select");
 
-            VBox card = DemonCardController.buildDemonCard(demon, selectDemon);
+            VBox card = DemonCardController.buildDemonCard(demon, selectDemon, true);
 
             HBox.setHgrow(card, Priority.ALWAYS);
             demonCardBox.getChildren().add(card);

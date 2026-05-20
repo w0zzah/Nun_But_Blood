@@ -411,12 +411,7 @@
 
 /* ----------------------------------- The Dice Box -----------------------------------*/
 .dice-box {
-    -fx-background-color: #121212;
-    -fx-border-color: #444;
-    -fx-border-width: 5;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-    -fx-effect: dropshadow(gaussian, black, 20, 0, 0, 0);
+    -fx-background-color: radial-gradient(center 50% 50%, radius 60%, rgba(0, 0, 0), rgba(0, 0, 0, 0));;
 }
 
 .dice-label {
@@ -429,22 +424,22 @@
 /*----------------------------------- Dice result colorchanger----------------------------------- */
 .dice-critical-success {
     -fx-text-fill: #e600ff;
-    -fx-effect: dropshadow(gaussian, #712aff, 20, 0.5, 0, 0);
+    -fx-effect: dropshadow(gaussian, #712aff, 20, 0.3, 0, 0);
 }
 
 .dice-success {
     -fx-text-fill: #44ff88;
-    -fx-effect: dropshadow(gaussian, #44ff88, 15, 0.3, 0, 0);
+    -fx-effect: dropshadow(gaussian, #44ff88, 15, 0.2, 0, 0);
 }
 
 .dice-fail {
     -fx-text-fill: #c88c49;
-    -fx-effect: dropshadow(gaussian, #852d2d, 15, 0.3, 0, 0);
+    -fx-effect: dropshadow(gaussian, #852d2d, 15, 0.2, 0, 0);
 }
 
 .dice-critical-fail {
-    -fx-text-fill: #1c0000;
-    -fx-effect: dropshadow(gaussian, #fa0000, 15, 0.3, 0, 0);
+    -fx-text-fill: #a80202;
+    -fx-effect: dropshadow(gaussian, #fa0000, 15, 0.2, 0, 0);
 }
 
 

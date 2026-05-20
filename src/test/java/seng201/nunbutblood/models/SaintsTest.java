@@ -179,9 +179,9 @@ class SaintsTest {
 
     @Test
     void getAttributeValue() {
-        assertEquals(20, executioner.getAttributeValue("strength"));
-        assertEquals(10, executioner.getAttributeValue("wisdom"));
-        assertEquals(0, executioner.getAttributeValue("dexterity"));
+        assertEquals(20, executioner.getAttributeValue(StatType.STRENGTH));
+        assertEquals(10, executioner.getAttributeValue(StatType.WISDOM));
+        assertEquals(0, executioner.getAttributeValue(StatType.DEXTERITY));
     }
 
     @Test

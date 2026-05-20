@@ -3,6 +3,9 @@ package seng201.nunbutblood.models;
 import seng201.nunbutblood.services.BankService;
 import seng201.nunbutblood.services.CovenantService;
 import seng201.nunbutblood.services.SaintsService;
+import seng201.nunbutblood.services.DemonService;
+
+
 
 import java.util.List;
 
@@ -29,6 +32,8 @@ public class Covenant {
 
     private final String difficulty;
 
+    private final DemonService demonService;
+
     /**
      * Creates a new covenant.
      *
@@ -43,6 +48,8 @@ public class Covenant {
         this.covenantService = new CovenantService(totalCrusades);
         this.rawInventory = new java.util.ArrayList<>();
         this.difficulty = difficulty;
+        this.demonService = new DemonService();
+        demonService.generateNewOptions(covenantService.getCurrentCrusade(), difficulty);
     }
 
     /**
@@ -59,8 +66,12 @@ public class Covenant {
         bank.payUpKeep(upkeepCost);
         covenantService.changeScore(scoreReward);
         roster.incrementCrusadeCounts();
-
-        if (isVictory) { covenantService.advanceCrusade(); roster.refreshStamina(); }
+        demonService.generateNewOptions(covenantService.getCurrentCrusade(), difficulty);
+        if (isVictory) {
+            covenantService.advanceCrusade();
+            roster.refreshStamina();
+        }
+        demonService.generateNewOptions(covenantService.getCurrentCrusade(), difficulty);
 
     }
 
@@ -119,6 +130,14 @@ public class Covenant {
         return bank.getTotalFaithEarned();
     }
 
+    /**
+     * Gets the demon service containing the current crusade's demon options.
+     *
+     * @return The active DemonService instance
+     */
+    public DemonService getDemonService() {
+        return this.demonService;
+    }
     /**
      * Gets the current covenant score.
      *

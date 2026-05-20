@@ -9,7 +9,8 @@ import seng201.nunbutblood.models.Demon;
 
 public class DemonCardController {
 
-    public static VBox buildDemonCard(Demon demon, Button actionNode) {
+    public static VBox buildDemonCard(Demon demon, Button actionNode, boolean isCompact) {
+
 
         String path = "/images/evil/" + demon.getPortraitKey();
         var resource = DemonCardController.class.getResourceAsStream(path);
@@ -21,7 +22,7 @@ public class DemonCardController {
         else {
             System.err.println("MISSING IMAGE: Could not find demon portrait at " + path);
         }
-        demonImg.setFitHeight(250);
+        demonImg.setFitHeight(isCompact ? 250 : 350);
         demonImg.setPreserveRatio(true);
         demonImg.setSmooth(false);
 
@@ -41,8 +42,10 @@ public class DemonCardController {
 
         Label reward = new Label("Reward: " + demon.getFaithReward());
         reward.getStyleClass().add("demon-card-type");
+        if (isCompact) {
+            card.getChildren().addAll(demonImg, name, weakness, difficulty, reward, actionNode);
+        } else {card.getChildren().addAll(demonImg, weakness, difficulty); }
 
-        card.getChildren().addAll(demonImg, name, weakness, difficulty, reward, actionNode);
         return card;
     }
 }

@@ -29,15 +29,13 @@ public class EndScreenController {
 
 
     public void init(Stage stage, ScreenNavigator screenNavigator, Covenant covenant, MarketService market,
-                     boolean isVictory, boolean gameOver, int score, int reward) {
+                     boolean isVictory, boolean gameOver) {
 
         this.covenant = covenant;
         this.navigator = screenNavigator;
         this.isVictory = isVictory;
         this.market = market;
-        this.postReward = reward;
-        this.postScore = score;
-        this.postCrusadeEvents = new PostCrusadeService(covenant.getDifficulty(), score, reward);
+        this.postCrusadeEvents = new PostCrusadeService(covenant.getDifficulty(), covenant.getScore(), covenant.getFaith());
         result(isVictory, gameOver);
 
     }

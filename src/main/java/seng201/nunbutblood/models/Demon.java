@@ -18,7 +18,7 @@ public class Demon {
     private final int difficultyRating;
 
     /** Stat type this demon is weak to — one of "STR", "WIS", or "DEX". */
-    private final String weakness;
+    private final StatType weakness;
 
     /** Faith awarded to the covenant upon defeating this demon. */
     private final int faithReward;
@@ -34,7 +34,7 @@ public class Demon {
      * @param weakness         stat type this demon is weak to ("STR", "WIS", "DEX")
      * @param faithReward      faith awarded on defeat
      */
-    public Demon(String name, String portraitKey, int difficultyRating, String weakness, int faithReward){
+    public Demon(String name, String portraitKey, int difficultyRating, StatType weakness, int faithReward){
         this.name = name;
         this.portraitKey = portraitKey;
         this.difficultyRating = difficultyRating;
@@ -97,5 +97,5 @@ public class Demon {
      * @return weakness stat type ("STR", "WIS", or "DEX")
      */
 
-    public String getWeakness() { return weakness; }
+    public StatType getWeakness() { return weakness; }
 }

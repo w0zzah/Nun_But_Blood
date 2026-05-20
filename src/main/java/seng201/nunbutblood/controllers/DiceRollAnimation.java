@@ -29,6 +29,7 @@ public class DiceRollAnimation {
 
         // Reset Phase
         String[] styleClasses = {"dice-success", "dice-fail", "dice-critical-success", "dice-critical-fail"};
+
         dieLabel.getStyleClass().removeAll(styleClasses);
         outcomeLabel.getStyleClass().removeAll(styleClasses);
         outcomeLabel.setText("");
@@ -48,7 +49,6 @@ public class DiceRollAnimation {
         double slowdownFactor = 1.14;
 
 
-        // 3. Frame Generation Phase
         for (int i = 0; i < totalFrames; i++) {
             // Calculate number and toggle the shake direction (up on even frames, down on odd)
             int val = (i == totalFrames - 1) ? finalValue : random.nextInt(20) + 1;

@@ -10,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import seng201.nunbutblood.models.*;
+import seng201.nunbutblood.services.DemonService;
 import seng201.nunbutblood.services.MarketService;
 import seng201.nunbutblood.services.PostCrusadeService;
 
@@ -213,7 +214,7 @@ public class SetupController {
         }
 
         MarketService market = new MarketService(new Random());
-
+        DemonService demonService = new DemonService();
         navigator.startCovenant(covenant, market);
     }
 

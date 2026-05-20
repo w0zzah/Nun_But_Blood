@@ -296,13 +296,13 @@ public abstract class Saints implements Purchasable {
     }
 
     /** @return primary combat stat value */
-    public int getAttributeValue(String attributeName){
-        if (Objects.equals(attributeName, "strength")) {
+    public int getAttributeValue(StatType stat){
+        if (stat == StatType.STRENGTH) {
             return (this.strength);
-        } else if (Objects.equals(attributeName, "wisdom")) {
+        } else if (stat == StatType.WISDOM) {
             return (this.wisdom);
-        }
-        else return (this.dexterity);
+        } else return (this.dexterity);
+
     }
 
     public String getMainStat() {
