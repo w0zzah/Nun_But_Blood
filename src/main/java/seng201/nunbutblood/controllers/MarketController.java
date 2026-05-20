@@ -15,6 +15,9 @@ import seng201.nunbutblood.models.Item;
 import seng201.nunbutblood.models.Saints;
 import seng201.nunbutblood.services.MarketService;
 
+/**
+ * The type Market controller.
+ */
 public class MarketController {
 
     @FXML private Label faithLabel;
@@ -31,6 +34,14 @@ public class MarketController {
     private Covenant covenant;
     private MarketService marketService;
 
+    /**
+     * Init.
+     *
+     * @param stage         the stage
+     * @param navigator     the navigator
+     * @param covenant      the covenant
+     * @param marketService the market service
+     */
     public void init(Stage stage, ScreenNavigator navigator, Covenant covenant, MarketService marketService) {
         this.stage = stage;
         this.navigator = navigator;

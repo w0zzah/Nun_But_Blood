@@ -9,10 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The type Post crusade service.
+ */
 public class PostCrusadeService {
 
     /** Base probability of a random event after a crusade **/
-    private static final double BASE_EVENT_CHANCE = 1;
+    private static final double BASE_EVENT_CHANCE = 0.40;
     
     /** Difficulty increase for probability **/
     private static final double HARD_BONUS = 0.20;
@@ -26,7 +29,14 @@ public class PostCrusadeService {
     private final Random random;
     
     private final boolean hardMode;
-    
+
+    /**
+     * Instantiates a new Post crusade service.
+     *
+     * @param difficulty the difficulty
+     * @param score      the score
+     * @param reward     the reward
+     */
     public PostCrusadeService(String difficulty, int score, int reward) {
         this.random = new Random();
         this.hardMode = "Hard".equals(difficulty);
@@ -36,15 +46,15 @@ public class PostCrusadeService {
     /**
      * Creates random events after the crusade
      *
+     * @param covenant the covenant
+     * @return the list
      */
     public List<String> triggerEvents(Covenant covenant) {
 
         List<String> events = new ArrayList<>();
-        List<Saints> activeParty = new ArrayList<>();
-        activeParty.addAll(covenant.getActiveParty());
+        List<Saints> activeParty = new ArrayList<>(covenant.getActiveParty());
 
         if (activeParty.isEmpty()) return events;
-        // (condition ? ifTrue : ifFalse) Sets the chance for a random event dependent on difficulty selected
         double chance = BASE_EVENT_CHANCE + (hardMode ? HARD_BONUS : 0);
 
         /**
@@ -96,6 +106,13 @@ public class PostCrusadeService {
         return events;
     }
 
+    /**
+     * Apply stat.
+     *
+     * @param saint  the saint
+     * @param amount the amount
+     * @param stat   the stat
+     */
     public void applyStat(Saints saint, int amount, StatType stat) {
         switch(stat) {
             case STRENGTH -> saint.changeStrength(amount);

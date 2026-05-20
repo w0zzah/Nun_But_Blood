@@ -57,8 +57,9 @@ public class Covenant {
      * Rewards faith, applies upkeep, updates score,
      * advances crusade count, and refreshes saint stamina.
      *
-     * @param reward Faith earned from the crusade
+     * @param reward      Faith earned from the crusade
      * @param scoreReward Score earned from the crusade
+     * @param isVictory   the is victory
      */
     public void postCrusade(int reward, int scoreReward, boolean isVictory) {
         bank.addFaith(reward);
@@ -138,6 +139,7 @@ public class Covenant {
     public DemonService getDemonService() {
         return this.demonService;
     }
+
     /**
      * Gets the current covenant score.
      *

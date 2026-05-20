@@ -15,14 +15,39 @@ import java.util.Map;
 public class AudioService {
 
 
+    /**
+     * The enum Clip.
+     */
     public enum Clip {
-        CRITICAL_SUCCESS, SUCCESS, FAIL, CRITICAL_FAIL, ROLLING
+        /**
+         * Critical success clip.
+         */
+        CRITICAL_SUCCESS,
+        /**
+         * Success clip.
+         */
+        SUCCESS,
+        /**
+         * Fail clip.
+         */
+        FAIL,
+        /**
+         * Critical fail clip.
+         */
+        CRITICAL_FAIL,
+        /**
+         * Rolling clip.
+         */
+        ROLLING
     }
 
     // Create an EnumMap to call each audio clip of o(1)
     private final Map<Clip, AudioClip> clips = new EnumMap<>(Clip.class);
     private boolean enabled = true; // To disable audio
 
+    /**
+     * Instantiates a new Audio service.
+     */
     public AudioService() {
         // Load assets into memory to prevent pulling each time
         load(Clip.CRITICAL_SUCCESS, "/audio/critical_success.wav");
@@ -32,6 +57,11 @@ public class AudioService {
         load(Clip.ROLLING,          "/audio/rolling.wav");
     }
 
+    /**
+     * Play.
+     *
+     * @param clip the clip
+     */
     public void play(Clip clip) {
         // check if audio is enabled or if the clip exists
         if (!enabled || !clips.containsKey(clip)) return;
@@ -41,6 +71,11 @@ public class AudioService {
         clips.get(clip).play(volumeFor(clip));
     }
 
+    /**
+     * Stop.
+     *
+     * @param clip the clip
+     */
     public void stop(Clip clip) {
         if (clips.containsKey(clip)) clips.get(clip).stop();
     }

@@ -56,6 +56,12 @@ public class SetupController {
     private final ToggleGroup diffGroup = new ToggleGroup();
 
 
+    /**
+     * Init.
+     *
+     * @param stage     the stage
+     * @param navigator the navigator
+     */
     public void init(Stage stage, ScreenNavigator navigator) {
         this.stage = stage;
         this.navigator = navigator;

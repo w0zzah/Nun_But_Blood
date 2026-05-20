@@ -5,8 +5,18 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+/**
+ * The type Alert box.
+ */
 public final class AlertBox {
 
+    /**
+     * Show alert.
+     *
+     * @param statusLabel the status label
+     * @param alertBox    the alert box
+     * @param alert       the alert
+     */
     public static void showAlert(Label statusLabel, Pane alertBox, String alert) {
 
         // Set text & show box

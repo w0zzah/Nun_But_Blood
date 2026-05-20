@@ -25,8 +25,8 @@ public class MarketService {
     /**
      * Contructs new Marketservice and performs the initial refresh
      *
+     * @param random the random
      */
-
     public MarketService(Random random) {
         this.random = new Random();
         this.availableSaints = new ArrayList<>();
@@ -38,8 +38,9 @@ public class MarketService {
     /**
      * Refresh the market stock. Called initially and after every crusade.
      * Longer game time leads to stronger Saints
+     *
+     * @param crusadeNumber the crusade number
      */
-
     public void refresh(int crusadeNumber) {
 
         // Clear both list's
@@ -67,8 +68,9 @@ public class MarketService {
     /**
      * Hire a Saint from the shop
      *
-     * @param saint The saint to be hired
+     * @param saint    The saint to be hired
      * @param covenant The Covenant purchasing the saint
+     * @return the boolean
      */
     public boolean buySaint(Saints saint, Covenant covenant) {
         if (availableSaints.contains(saint) && covenant.spendFaith(saint.getCost())) {
@@ -83,8 +85,9 @@ public class MarketService {
     /**
      * Sells a Saint back to the market for half of their original purchase price
      *
-     * @param saint The Saint to be sold
+     * @param saint    The Saint to be sold
      * @param covenant The Covenant sell the saint
+     * @return the boolean
      */
     public boolean sellSaint(Saints saint, Covenant covenant) {
         if (!covenant.retireSaint(saint)) return false;
@@ -95,8 +98,9 @@ public class MarketService {
     /**
      * Purchase an item for the covenant
      *
-     * @param item Item the covenant is attempting to buy
+     * @param item     Item the covenant is attempting to buy
      * @param covenant Covenant attempting to buy items
+     * @return the boolean
      */
     public boolean buyItem(Item item, Covenant covenant) {
         if (!availableItems.contains(item)) return false;
@@ -108,10 +112,11 @@ public class MarketService {
 
     /**
      * Sells the back to the market from covenant
-     * @param item Item the covenant is attempting to sell
+     *
+     * @param item     Item the covenant is attempting to sell
      * @param covenant Covenant attempting to sell the item
+     * @return the boolean
      */
-
     public boolean sellItem(Item item, Covenant covenant) {
         if (!covenant.removeItem(item)) return false;
         covenant.addFaith(item.getCost() / 2);
@@ -121,12 +126,21 @@ public class MarketService {
 
 
     // getters
-    /** @return List of available saints for sale*/
+
+    /**
+     * Gets available saints.
+     *
+     * @return List of available saints for sale
+     */
     public List<Saints> getAvailableSaints() {
         return availableSaints;
     }
-    /** @return List of available items for sale */
 
+    /**
+     * Gets available items.
+     *
+     * @return List of available items for sale
+     */
     public List<Item> getAvailableItems() {
         return availableItems;
     }

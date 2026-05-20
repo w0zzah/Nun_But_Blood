@@ -30,6 +30,7 @@ public class Demon {
      * Creates a Demon with the given combat attributes.
      *
      * @param name             display name of the demon
+     * @param portraitKey      the portrait key
      * @param difficultyRating combat difficulty (higher = harder)
      * @param weakness         stat type this demon is weak to ("STR", "WIS", "DEX")
      * @param faithReward      faith awarded on defeat
@@ -87,6 +88,11 @@ public class Demon {
         return Math.random() < curseChance;
     }
 
+    /**
+     * Gets portrait key.
+     *
+     * @return the portrait key
+     */
     public String getPortraitKey() {
         return this.portraitKey;
     }
@@ -96,6 +102,5 @@ public class Demon {
      *
      * @return weakness stat type ("STR", "WIS", or "DEX")
      */
-
     public StatType getWeakness() { return weakness; }
 }

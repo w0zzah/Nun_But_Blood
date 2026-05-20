@@ -2,16 +2,25 @@ package seng201.nunbutblood.models;
 
 /**
  * Inquisitor — Extend's Apostle's, Primary stat is Strength
- *
+ * <p>
  * When Constructor is called :
+ *
  * @strength has a bonus of +5 clamped at 20 for balance, Math.min(20, strength + 5)
  * @calcHireCost set's the hire cost, (strength + 5, wisdom, dexterity)
- * @calcUpKeep set's the upkeep cost, (strength + 5, wisdom, dexterity)
- *
- * Constructor to be called in market area for further random stat's
+ * @calcUpKeep set's the upkeep cost, (strength + 5, wisdom, dexterity) Constructor to be called in market area for further random stat's
  */
 public class Inquisitor extends Saints {
 
+    /**
+     * Instantiates a new Inquisitor.
+     *
+     * @param name       the name
+     * @param portraitID the portrait id
+     * @param strength   the strength
+     * @param wisdom     the wisdom
+     * @param dexterity  the dexterity
+     * @param stamina    the stamina
+     */
     public Inquisitor(String name, String portraitID, int strength, int wisdom, int dexterity, int stamina){
         super(name, portraitID,
                 strength,
@@ -41,10 +50,11 @@ public class Inquisitor extends Saints {
 
     /**
      * Sum
-     * @param strength
-     * @param wisdom
-     * @param dexterity
-     * @return
+     *
+     * @param strength  the strength
+     * @param wisdom    the wisdom
+     * @param dexterity the dexterity
+     * @return the int
      */
     static int calcUpKeep(int strength, int wisdom, int dexterity) {
         return 15 + (strength + wisdom + dexterity) / 5;

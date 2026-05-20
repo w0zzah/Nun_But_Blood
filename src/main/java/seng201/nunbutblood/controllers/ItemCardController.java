@@ -13,16 +13,16 @@ import java.io.InputStream;
  * Generate item Card Display.
  * Takes information from {@link seng201.nunbutblood.models.Item} , and links the data such as
  * Name, Stats, PortraitID, Rarity to create a unique card for each item. <br>
- *
+ * <p>
  * {@link #createItemCard(Item, Node, boolean)} : Creates a distinct card for the item with a button to purchase the item <br>
-
  */
 public class ItemCardController {
     /**
      * Creates the cards that display's items information.
-     * @param item
-     * @param actionNode
-     * @return
+     *
+     * @param item       the item
+     * @param actionNode the action node
+     * @return the v box
      */
     public static VBox createItemCard(Item item, Node actionNode) {
 

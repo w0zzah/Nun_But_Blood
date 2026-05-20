@@ -7,7 +7,6 @@ package seng201.nunbutblood.models;
  *
  * @author pgi33
  */
-
 public class Item implements Purchasable {
 
     /**
@@ -15,11 +14,17 @@ public class Item implements Purchasable {
      * Determines how applyEffect() behaves.
      */
     public enum ItemType {
-        /** One-time permanent stat boost, consumed on use. */
+        /**
+         * One-time permanent stat boost, consumed on use.
+         */
         UPGRADE,
-        /** Equippable item that boosts stats while held. */
+        /**
+         * Equippable item that boosts stats while held.
+         */
         EQUIPMENT,
-        /** Grants the apostle a named special ability, consumed on use. */
+        /**
+         * Grants the apostle a named special ability, consumed on use.
+         */
         SKILL_TOME
     }
     /** Display name of item. */
@@ -52,7 +57,7 @@ public class Item implements Purchasable {
      * @param bonusValue      amount added to the affected stat
      * @param cost            faith cost to purchase
      * @param itemDescription description shown in market and inventory
-     * @param portraitKey      Item Portrait
+     * @param portraitKey     Item Portrait
      */
     public Item(String itemName, ItemType type, String statAffected, int bonusValue, int cost, String itemDescription, String portraitKey){
         this.itemName = itemName;
@@ -89,29 +94,37 @@ public class Item implements Purchasable {
 
     /**
      * Returns the display name of this item.
+     *
      * @return item name
      */
-
     public String getPortraitKey() {return portraitKey; }
 
+    /**
+     * Get item name string.
+     *
+     * @return the string
+     */
     public String getItemName(){return String.format("[%s] %s",
             type, itemName);
     }
 
     /**
      * Returns the functional type of this item.
+     *
      * @return item type
      */
     public ItemType getType() { return type; }
 
     /**
      * Returns the stat this item affects.
+     *
      * @return stat identifier string
      */
     public String getStatAffected(){ return statAffected; }
 
     /**
      * Returns the stat bonus amount this item provides.
+     *
      * @return bonus value
      */
     public int getBonusValue(){ return bonusValue; }

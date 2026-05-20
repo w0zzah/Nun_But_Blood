@@ -10,6 +10,9 @@ import seng201.nunbutblood.services.PostCrusadeService;
 
 import java.util.List;
 
+/**
+ * The type End screen controller.
+ */
 public class EndScreenController {
 
 
@@ -28,6 +31,16 @@ public class EndScreenController {
     @FXML private ListView<String> eventsList;
 
 
+    /**
+     * Init.
+     *
+     * @param stage           the stage
+     * @param screenNavigator the screen navigator
+     * @param covenant        the covenant
+     * @param market          the market
+     * @param isVictory       the is victory
+     * @param gameOver        the game over
+     */
     public void init(Stage stage, ScreenNavigator screenNavigator, Covenant covenant, MarketService market,
                      boolean isVictory, boolean gameOver) {
 
@@ -39,6 +52,13 @@ public class EndScreenController {
         result(isVictory, gameOver);
 
     }
+
+    /**
+     * Result.
+     *
+     * @param isVictory the is victory
+     * @param gameOver  the game over
+     */
     public void result(boolean isVictory, boolean gameOver){
         if (gameOver) {
             crusadesCompleted.setText("You Completed: " + covenant.getCurrentCrusade() + " / " + covenant.getTotalCrusades() + " Crusade's");

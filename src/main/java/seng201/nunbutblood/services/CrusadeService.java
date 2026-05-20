@@ -18,7 +18,7 @@ public class CrusadeService {
     private int currentStep = 0;
     // expedition length
     private final int totalSteps = 3;
-    private final StringBuilder logHistory = new StringBuilder("Click 'Exorcise' to roll the die. Roll higher 5 times and you win!\n");
+    private final StringBuilder logHistory = new StringBuilder("Click 'ROLL' to roll the die. Roll higher 3 times and you win!\n");
     private final Random random = new Random();
 
     /**
@@ -34,6 +34,11 @@ public class CrusadeService {
 
     /**
      * Executes one "turn" of the crusade.
+     *
+     * @param saint the saint
+     * @param demon the demon
+     * @param party the party
+     * @param stat  the stat
      * @return A StepResult containing all data needed for the animation and UI update.
      */
     public StepResult performStep(Saints saint, Demon demon, List<Saints> party, StatType stat) {
@@ -73,30 +78,65 @@ public class CrusadeService {
         return new StepResult(roll, type, narrative, logEntry, roll < 10);
     }
 
+    /**
+     * Check victory boolean.
+     *
+     * @return the boolean
+     */
     public boolean checkVictory() {
         return currentStep >= totalSteps;
     }
 
+    /**
+     * Check game over boolean.
+     *
+     * @param party the party
+     * @return the boolean
+     */
     public boolean checkGameOver(List<Saints> party) {
         // Game is over if all party members are below the required stamina to act
         return party.stream().allMatch(s -> s.getCurrentStamina() < 5);
     }
 
+    /**
+     * Demon reward int.
+     *
+     * @param demon the demon
+     * @return the int
+     */
     public int demonReward(Demon demon) {
         // Simple loot logic based on difficulty
         return demon.getDifficultyRating() * 10;
     }
 
+    /**
+     * Advance step.
+     */
     public void advanceStep() {
         currentStep++;
     }
 
 
+    /**
+     * Gets current step.
+     *
+     * @return the current step
+     */
     public int getCurrentStep() { return currentStep; }
 
+    /**
+     * Gets total steps.
+     *
+     * @return the total steps
+     */
     public int getTotalSteps() { return totalSteps; }
 
 
+    /**
+     * Gets log.
+     *
+     * @return the log
+     */
     public String getLog() { return logHistory.toString(); }
 
     private void addToLog(String message) {
@@ -108,11 +148,14 @@ public class CrusadeService {
 
     /**
      * Rolls for a mid-crusade random event. Call this from the controller
+     *
+     * @param activeParty the active party
+     * @return the optional
      */
-    public Optional<CrusadeEvent> rollMidCrusadeEvent(List<Saints> party) {
-        if (party.isEmpty() || random.nextDouble() > 0.5) return Optional.empty();
+    public Optional<CrusadeEvent> rollMidCrusadeEvent(List<Saints> activeParty) {
+        if (activeParty.isEmpty() || random.nextDouble() > 0.5) return Optional.empty();
 
-        Saints target = party.get(random.nextInt(party.size()));
+        Saints target = activeParty.get(random.nextInt(activeParty.size()));
         boolean isBuff = random.nextBoolean();
 
         StatType[] stats = StatType.values();

@@ -45,6 +45,9 @@ package seng201.nunbutblood.models;
 
 import java.util.Objects;
 
+/**
+ * The type Saints.
+ */
 public abstract class Saints implements Purchasable {
 
     /*
@@ -90,20 +93,21 @@ public abstract class Saints implements Purchasable {
     private String portraitKey;
 
     private Rarity rarity;
+
     /**
      * Constructor for Apostle's. To be generated through market which pull's on each respective class
      * for base additions. Market -> Executioner -> Apostle's. Will build this way to so itterate's over
      * game state. Longer game goes on, better stat's for Apostle's in market
      *
-     * @param name           Name for Apostle
-     * @param stamina        maxStamina and currentStamina for the apostle
-     * @param strength       Strength for Apostle, int 0-20 which is modified in class get as (strength - 10 / 2)
-     * @param wisdom         Wisdom for Apostle, int 0-20 which is modified in class get as (wisdom - 10 / 2)
-     * @param dexterity      Dexterity for Apostle, int 0-20 which is modified in class get as (dexterity - 10 / 2)
-     * @param perception     Perception for Apostle, serve's as the chance to find Item's
-     * @param hireCost       Cost to hire the Apostle, (500 to 1000 faith) - >  calculation is ((each stat - 10 / 2) * 25) + 500.
-     * @param upKeep         Cost per expedition for apostle, (-240 to 240) -> calculation is (each stat - 10 / 2) * 12
-     * @param portraitKey       Portrait of the Apostle generated in market
+     * @param name        Name for Apostle
+     * @param portraitKey Portrait of the Apostle generated in market
+     * @param strength    Strength for Apostle, int 0-20 which is modified in class get as (strength - 10 / 2)
+     * @param wisdom      Wisdom for Apostle, int 0-20 which is modified in class get as (wisdom - 10 / 2)
+     * @param dexterity   Dexterity for Apostle, int 0-20 which is modified in class get as (dexterity - 10 / 2)
+     * @param stamina     maxStamina and currentStamina for the apostle
+     * @param perception  Perception for Apostle, serve's as the chance to find Item's
+     * @param hireCost    Cost to hire the Apostle, (500 to 1000 faith) - >  calculation is ((each stat - 10 / 2) * 25) + 500.
+     * @param upKeep      Cost per expedition for apostle, (-240 to 240) -> calculation is (each stat - 10 / 2) * 12
      */
     public Saints(String name, String portraitKey, int strength, int wisdom, int dexterity,
                   int stamina, int perception, int hireCost, int upKeep) {
@@ -142,45 +146,99 @@ public abstract class Saints implements Purchasable {
 
 
     // ----- GETTERS (APOSTLE'S CLASS) ----------------------------------------------------------------
-    /** @return display name */
+
+    /**
+     * Gets name.
+     *
+     * @return display name
+     */
     public String getName() { return name; }
 
-    /** @return maximum stamina */
+    /**
+     * Gets max stamina.
+     *
+     * @return maximum stamina
+     */
     public int getMaxStamina() { return maxStamina; }
 
-    /** @return current stamina */
+    /**
+     * Gets current stamina.
+     *
+     * @return current stamina
+     */
     public int getCurrentStamina() { return currentStamina; }
 
-    /** @return Strength */
+    /**
+     * Gets strength.
+     *
+     * @return Strength
+     */
     public int getStrength() { return strength;}
 
-    /** @return Wisdom */
+    /**
+     * Gets wisdom.
+     *
+     * @return Wisdom
+     */
     public int getWisdom() { return wisdom;}
 
-    /** @return Dexterity */
+    /**
+     * Gets dexterity.
+     *
+     * @return Dexterity
+     */
     public int getDexterity() { return dexterity;}
 
-    /** @return perception stat */
+    /**
+     * Gets perception.
+     *
+     * @return perception stat
+     */
     public int getPerception() { return perception; }
 
-    /** @return Returns the combined total of strength, wisdom and dexterity */
+    /**
+     * Gets stat total.
+     *
+     * @return Returns the combined total of strength, wisdom and dexterity
+     */
     public int getStatTotal() {
         return strength + wisdom + dexterity;
     }
 
-    /** @return daily pay per expedition */
+    /**
+     * Gets up keep.
+     *
+     * @return daily pay per expedition
+     */
     public int getUpKeep() { return upKeep; }
 
-    /** @return special ability name, or empty string if none */
+    /**
+     * Gets special ability.
+     *
+     * @return special ability name, or empty string if none
+     */
     public String getSpecialAbility() { return specialAbility; }
 
 
-    /** @return number of consecutive crusades without rest */
+    /**
+     * Gets portrait key.
+     *
+     * @return number of consecutive crusades without rest
+     */
     public String getPortraitKey() { return portraitKey; }
 
-    /** @return Saints rarity*/
+    /**
+     * Gets rarity.
+     *
+     * @return Saints rarity
+     */
     public Rarity getRarity() { return rarity; }
 
+    /**
+     * Gets crusade count.
+     *
+     * @return the crusade count
+     */
     public int getCrusadeCount() {return  crusadeCount; }
 
     @Override
@@ -203,6 +261,7 @@ public abstract class Saints implements Purchasable {
 
     /**
      * Returns the short stat-type identifier, ('STR', 'WIS', 'DEX')
+     *
      * @return stat type string
      */
     public abstract String getStatType();
@@ -222,7 +281,7 @@ public abstract class Saints implements Purchasable {
      * change the strength of Apostle (Max 20)
      * Refresh rarity to adjust for stat change
      *
-     *  @param amount stat change
+     * @param amount stat change
      */
     public void changeStrength(int amount) {
         this.strength = Math.clamp(this.strength + amount, 0, 20); // Math.clamp(Value, min, max)
@@ -233,7 +292,7 @@ public abstract class Saints implements Purchasable {
      * change the wisdom of Apostle (Max 20)
      * Refresh rarity to adjust for stat change
      *
-     *  @param amount stat change
+     * @param amount stat change
      */
     public void changeWisdom(int amount) {
         this.wisdom = Math.clamp(this.wisdom + amount, 0, 20);
@@ -244,7 +303,7 @@ public abstract class Saints implements Purchasable {
      * change the dexterity of Apostle (Max 20)
      * Refresh rarity to adjust for stat change
      *
-     *  @param amount stat change
+     * @param amount stat change
      */
     public void changeDexterity(int amount) {
         this.dexterity = Math.clamp(this.dexterity + amount, 0, 20);
@@ -254,15 +313,16 @@ public abstract class Saints implements Purchasable {
     /**
      * Consume's Stamina. If it's below 0, return 0
      *
-     * @param amount
+     * @param amount the amount
      */
     public void consumeStamina(int amount) {
         this.currentStamina = Math.max(0, this.currentStamina - amount); // Math.max return's the higher of two value's, not aloowing current stamina to go below 0
     }
+
     /**
      * Restores stamina to maximum, called after crusade.
      *
-     * */
+     */
     public void restoreStamina() {
         this.currentStamina = this.maxStamina;
     }
@@ -295,7 +355,12 @@ public abstract class Saints implements Purchasable {
         this.specialAbility = abilityName;
     }
 
-    /** @return primary combat stat value */
+    /**
+     * Get attribute value int.
+     *
+     * @param stat the stat
+     * @return primary combat stat value
+     */
     public int getAttributeValue(StatType stat){
         if (stat == StatType.STRENGTH) {
             return (this.strength);
@@ -305,6 +370,11 @@ public abstract class Saints implements Purchasable {
 
     }
 
+    /**
+     * Gets main stat.
+     *
+     * @return the main stat
+     */
     public String getMainStat() {
         if (strength >= wisdom && strength >= dexterity) {
             return "strength";
@@ -315,6 +385,14 @@ public abstract class Saints implements Purchasable {
         }
     }
 
+    /**
+     * Calc hire cost int.
+     *
+     * @param strength  the strength
+     * @param wisdom    the wisdom
+     * @param dexterity the dexterity
+     * @return the int
+     */
     static int calcHireCost(int strength, int wisdom, int dexterity) {
         return 500 + ((strength - 10) + (wisdom - 10) + (dexterity - 10)) * 25;
     }

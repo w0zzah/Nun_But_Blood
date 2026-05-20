@@ -71,6 +71,13 @@ public class CrusadeController {
     private String result;
 
 
+    /**
+     * Init.
+     *
+     * @param covenant  the covenant
+     * @param demon     the demon
+     * @param navigator the navigator
+     */
     public void init(Covenant covenant, Demon demon, ScreenNavigator navigator) {
         this.covenant = covenant;
         this.currentDemon = demon;

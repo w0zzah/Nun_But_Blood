@@ -9,12 +9,12 @@ import java.util.Random;
 
 /**
  * To serve as a List containing all information for the group of Saints.
- *
+ * <p>
  * Every Apostle has their own strength, wisdom and dex, which when summed, display the rarity @Rarity
- *
+ * <p>
  * There rarity of each doesn't determine their inherent usefulness however as using lower stat's will
  * be rewarded with more money in the early game to encourage different playstyles.
- *
+ * <p>
  * The different Class's get a bonus to their determined stat (+3)
  *
  *
@@ -23,8 +23,8 @@ public final class SaintsRoster {
 
     /**
      * record documentation for reference see <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Record.html">here</a>
-     *  Record containing the format for the Apostle's. The list is immutable so it is parsed in as the element type
-     *  in a List (to be used similar to interface.)
+     * Record containing the format for the Apostle's. The list is immutable so it is parsed in as the element type
+     * in a List (to be used similar to interface.)
      *
      * @param name        unique display name
      * @param portraitKey CSS key matching {@code .portrait-<key>} in style.css
@@ -101,7 +101,7 @@ public final class SaintsRoster {
         saintRecord.add(new Entry("Tsundere", "Tsundere.png", "INQ", 5, 6, 8, 20));
 
         // Rare
-        saintRecord.add(new Entry("Issac", "Issac.png", "INQ", 6, 5, 14, 20));
+        saintRecord.add(new Entry("Issac", "Issac.png", "INQ", 8, 5, 14, 20));
         saintRecord.add(new Entry("Rukia", "Rukia.png", "EXE", 15, 6, 9, 20));
         saintRecord.add(new Entry("Krac", "Krac.png", "ORA", 8, 14, 10, 20));
         saintRecord.add(new Entry("Kai'Sa", "KaiSa.png", "ORA", 11, 16, 12, 20));

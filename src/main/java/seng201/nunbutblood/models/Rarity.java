@@ -3,26 +3,34 @@ package seng201.nunbutblood.models;
 /**
  * Represents the rarity tier of an Apostle based on sum of stat's
  * Strength, Wisdom, and Dexterity stats. <br><br>
- *
+ * <p>
  * Rarity thresholds (statTotal = STR + WIS + DEX):<br><br>
- *
- *   COMMON     — statTotal between 0 and 30<br>
- *   RARE       — statTotal between 31 and 40<br>
- *   EPIC       — statTotal between 41 and 50<br>
- *   LEGENDARY  — statTotal between 51 and 60
+ * <p>
+ * COMMON     — statTotal between 0 and 30<br>
+ * RARE       — statTotal between 31 and 40<br>
+ * EPIC       — statTotal between 41 and 50<br>
+ * LEGENDARY  — statTotal between 51 and 60
  */
 public enum Rarity {
 
-    /** stat total 1–30 (Green) */
+    /**
+     * stat total 1–30 (Green)
+     */
     COMMON("Common", "#4CBB17"),
 
-    /** stat total 31–40 (Blue) */
+    /**
+     * stat total 31–40 (Blue)
+     */
     RARE("Rare", "#079bdb"),
 
-    /** stat total 41–50 (Purple) */
+    /**
+     * stat total 41–50 (Purple)
+     */
     EPIC("Epic", "#9A5BD4"),
 
-    /** stat total 51–60 (Pink) */
+    /**
+     * stat total 51–60 (Pink)
+     */
     LEGENDARY("Legendary", "#ff00a2");
 
     /** Rarity String */
@@ -62,12 +70,20 @@ public enum Rarity {
 
     // GETTERS (Label, Colour)
 
-    /** @return display rarity label, (Common, Rare, Epic, Legendary) */
+    /**
+     * Gets label.
+     *
+     * @return display rarity label, (Common, Rare, Epic, Legendary)
+     */
     public String getLabel() {
         return label;
     }
 
-    /** @return primary hex colour string, (Green, Blue, Purple, Pink) */
+    /**
+     * Gets colour.
+     *
+     * @return primary hex colour string, (Green, Blue, Purple, Pink)
+     */
     public String getColour() {
         return colour;
     }

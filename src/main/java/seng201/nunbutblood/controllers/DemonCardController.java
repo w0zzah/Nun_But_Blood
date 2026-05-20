@@ -7,8 +7,19 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import seng201.nunbutblood.models.Demon;
 
+/**
+ * The type Demon card controller.
+ */
 public class DemonCardController {
 
+    /**
+     * Build demon card v box.
+     *
+     * @param demon      the demon
+     * @param actionNode the action node
+     * @param isCompact  the is compact
+     * @return the v box
+     */
     public static VBox buildDemonCard(Demon demon, Button actionNode, boolean isCompact) {
 
 

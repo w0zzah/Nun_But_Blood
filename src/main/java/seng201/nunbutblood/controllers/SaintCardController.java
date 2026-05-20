@@ -13,17 +13,19 @@ import javafx.scene.layout.HBox;
  * Generate Saint Card Display.
  * Takes information from {@link seng201.nunbutblood.models.SaintsRoster} , and links the data such as
  * Name, Stats, PortraitID, Rarity to create a unique card for each Saint. <br>
- *
+ * <p>
  * {@link #createSaintCard(Saints, Node, boolean)} : Creates a distinct card for the Saint with a button to purchase the saint <br>
  * {@link #buildStatBars(Saints, boolean)} : Creates 3 rounded rectangles for each stat type <br>
- * {@link #buildStatRow(String ,int ,boolean ,String ,boolean ))} : Assigns stats to each Saint card
+ * {@link #buildStatRow(String, int, boolean, String, boolean))} : Assigns stats to each Saint card
  */
 public class SaintCardController {
     /**
      * Creates the cards that display's Saints information.
-     * @param saint
-     * @param actionNode
-     * @return
+     *
+     * @param saint      the saint
+     * @param actionNode the action node
+     * @param isCompact  the is compact
+     * @return the v box
      */
     public static VBox createSaintCard(Saints saint, Node actionNode, boolean isCompact) {
 

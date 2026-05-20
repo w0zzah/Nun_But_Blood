@@ -27,6 +27,7 @@ public class MainWindow extends Application {
 
         primaryStage.show();
     }
+
     /**
      * Launches the JavaFX application. Must be called from a non-JavaFX class.
      *

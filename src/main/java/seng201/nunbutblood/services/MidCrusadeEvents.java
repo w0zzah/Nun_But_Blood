@@ -6,22 +6,36 @@ import seng201.nunbutblood.models.StatType;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * The type Mid crusade events.
+ */
 public class MidCrusadeEvents {
 
     private final Random random = new Random();
 
+    /**
+     * The type Choice.
+     */
     public record Choice(
             String text,
             StatType stat,
             int amount
     ) {}
 
+    /**
+     * The type Event.
+     */
     public record Event(
             String description,
             Choice choiceA,
             Choice choiceB
     ) {}
 
+    /**
+     * Gets random event.
+     *
+     * @return the random event
+     */
     public Event getRandomEvent() {
         return switch (random.nextInt(5)) {
             case 0 -> new Event(
@@ -56,6 +70,13 @@ public class MidCrusadeEvents {
         };
     }
 
+    /**
+     * Apply choice string.
+     *
+     * @param party  the party
+     * @param choice the choice
+     * @return the string
+     */
     public String applyChoice(List<Saints> party, Choice choice) {
         if (party.isEmpty()) {
             return "No saints were affected.";

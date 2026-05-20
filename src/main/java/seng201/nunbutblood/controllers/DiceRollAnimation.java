@@ -9,6 +9,9 @@ import seng201.nunbutblood.services.AudioService;
 import java.util.Random;
 
 
+/**
+ * The type Dice roll animation.
+ */
 public class DiceRollAnimation {
     private final StackPane diceContainer;
     private final int bonus;
@@ -17,6 +20,15 @@ public class DiceRollAnimation {
     private final AudioService audio;
     private final Random random = new Random();
 
+    /**
+     * Instantiates a new Dice roll animation.
+     *
+     * @param diceContainer the dice container
+     * @param dieLabel      the die label
+     * @param outcomeLabel  the outcome label
+     * @param audio         the audio
+     * @param bonus         the bonus
+     */
     public DiceRollAnimation(StackPane diceContainer, Label dieLabel, Label outcomeLabel, AudioService audio, int bonus) {
         this.diceContainer = diceContainer;
         this.dieLabel = dieLabel;
@@ -25,6 +37,14 @@ public class DiceRollAnimation {
         this.bonus = bonus;
     }
 
+    /**
+     * Play.
+     *
+     * @param finalValue     the final value
+     * @param resultType     the result type
+     * @param attributeValue the attribute value
+     * @param onComplete     the on complete
+     */
     public void play(int finalValue, String resultType, int attributeValue, Runnable onComplete) {
 
         // Reset Phase

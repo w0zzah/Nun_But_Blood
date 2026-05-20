@@ -9,6 +9,9 @@ import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.services.DemonService;
 import seng201.nunbutblood.services.CovenantService;
 
+/**
+ * The type Crusade select controller.
+ */
 public class CrusadeSelectController {
     @FXML private Label crusadeLabel;
     @FXML private HBox demonCardBox;
@@ -21,6 +24,14 @@ public class CrusadeSelectController {
     private DemonService demonService;
     private Demon selectedDemon;
 
+    /**
+     * Init.
+     *
+     * @param stage        the stage
+     * @param navigator    the navigator
+     * @param covenant     the covenant
+     * @param demonService the demon service
+     */
     public void init(Stage stage, ScreenNavigator navigator, Covenant covenant, DemonService demonService) {
         this.stage = stage;
         this.navigator = navigator;
@@ -34,6 +45,9 @@ public class CrusadeSelectController {
         renderDemonCards();
     }
 
+    /**
+     * Render demon cards.
+     */
     public void renderDemonCards() {
         demonCardBox.getChildren().clear();
         for (Demon demon : demonService.getCurrentOptions()) {

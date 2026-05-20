@@ -2,6 +2,7 @@ package seng201.nunbutblood.services;
 
 import seng201.nunbutblood.models.*;
 
+
 /**
  * <h1>BankService handles the faith of the Coven.
  * <br>
@@ -13,11 +14,6 @@ import seng201.nunbutblood.models.*;
  * {@link #spendFaith(int)} -> Spends faith if the Covenant has enough <br>
  * {@link #payUpKeep(int)} -> Pays all Saints who are on the activeParty <br>
  * </p>
- */
-
-/**
- * Handles all faith-related economy systems.
- * Manages spending, earning, and tracking total faith.
  */
 
 

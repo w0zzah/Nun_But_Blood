@@ -43,6 +43,13 @@ public class HubController {
     private ScreenNavigator navigator;
     private Covenant covenant;
 
+    /**
+     * Init.
+     *
+     * @param stage     the stage
+     * @param navigator the navigator
+     * @param covenant  the covenant
+     */
     public void init(Stage stage, ScreenNavigator navigator, Covenant covenant) {
         this.stage = stage;
         this.navigator = navigator;

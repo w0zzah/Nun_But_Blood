@@ -1,4 +1,8 @@
 package seng201.nunbutblood.models;
+
+/**
+ * The interface Purchasable.
+ */
 /*
 
 Last Edited 0412 02/04/26 @author cwi184 - "Interface for Market interactions"
@@ -11,17 +15,17 @@ Last Edited 0412 02/04/26 @author cwi184 - "Interface for Market interactions"
 public interface Purchasable {
 
     /**
-    Return the Faith cost of Apostle's and Item's
-
-    @return cost of target
+     * Return the Faith cost of Apostle's and Item's
+     *
+     * @return cost of target
      */
     int getCost();
 
 
     /**
-    Return's the description of Apostle's and Item's
-
-    @return description of target
+     * Return's the description of Apostle's and Item's
+     *
+     * @return description of target
      */
     String getDescription();
 
