@@ -10,9 +10,7 @@ import java.util.Map;
 
 
 /**
- * Audio Service: *
- * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/media/MediaPlayer.html
- * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/media/AudioClip.html
+ * <h1>Audio Service: * </h1>
  *
  * <p>Creates an Enum where all audio clips are found for shorter sound effects such as dice roll.</p>
  * <p>(can be disabled with setting enabled to false)</p>
@@ -47,8 +45,8 @@ public class AudioService {
     }
 
     public enum Track {
-        HUB,
-        CRUSADE
+        CRUSADE,
+        HUB
     }
 
     // Create an EnumMap to call each audio clip of o(1)
@@ -103,6 +101,8 @@ public class AudioService {
      * @param path target path to the resource file
      */
     private void load(Clip key, String path) {
+
+    }
     public void playMusic(Track track) {
         if (!enabled) return;
         if (currentTrack == track && currentMusicPlayer != null) return;
