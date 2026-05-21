@@ -531,6 +531,7 @@
     -fx-font-weight: bold;
     -fx-wrap-text: true;
 }
+
 .item-card-desc {
     -fx-font-size: 20px;
 }

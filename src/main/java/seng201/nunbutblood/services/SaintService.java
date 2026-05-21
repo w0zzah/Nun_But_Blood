@@ -150,12 +150,6 @@ public class SaintService {
     }
 
     private void applyStat(Saint saint, StatType stat, int amount) {
-        switch (stat) {
-            case STRENGTH -> saint.changeStrength(amount);
-            case WISDOM -> saint.changeWisdom(amount);
-            case DEXTERITY -> saint.changeDexterity(amount);
-            case PERCEPTION -> saint.changePerception(amount);
-            case STAMINA -> saint.changeMaxStamina(amount);
-        }
+        Saint.applyStat(saint, stat, amount);
     }
 }

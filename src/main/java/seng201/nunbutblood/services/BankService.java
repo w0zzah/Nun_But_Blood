@@ -59,15 +59,11 @@ public class BankService {
      * Also updates total faith earned.
      *
      * @param faithIncrease Amount of faith to add
-     * @return Updated faith total
-     * @throws IllegalArgumentException If value is negative
      */
     public void addFaith(int faithIncrease) {
         if (faithIncrease >= 0) {
             faith += faithIncrease;
             totalFaithEarned += faithIncrease;
-        } else {
-            throw new IllegalArgumentException("Value of faith to add is negative");
         }
     }
 

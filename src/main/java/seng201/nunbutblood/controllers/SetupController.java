@@ -10,7 +10,6 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import seng201.nunbutblood.models.*;
-import seng201.nunbutblood.services.DemonService;
 import seng201.nunbutblood.services.MarketService;
 
 import java.util.ArrayList;
@@ -149,11 +148,11 @@ public class SetupController {
     /**
      * Toggle's through saint dispositions during assignation (ass)
      *
-     * @param clickedSaint
-     * @param card
-     * @param btn
+     * @param clickedSaint Saint Selected
+     * @param card The Saint card,  contains all information including HireButton
+     * @param SelectBtn When clicked adds Saint to the selectedSaints
      */
-    private void toggleSaintSelection(Saint clickedSaint, VBox card, Button btn) {
+    private void toggleSaintSelection(Saint clickedSaint, VBox card, Button SelectBtn) {
 
         // Check if the current selected list of saints contains clickedSaint
         if (selectedSaints.contains(clickedSaint)) {
@@ -161,7 +160,7 @@ public class SetupController {
             // if so remove it from the list of selected saints and reset the style
             selectedSaints.remove(clickedSaint);
             card.getStyleClass().remove("saint-card-active");
-            btn.setText("SELECT");
+            SelectBtn.setText("SELECT");
 
             // If clickedSaint is not in the selectedSaints list
         } else {
@@ -174,7 +173,7 @@ public class SetupController {
             // Else, assign clickedSaint to selectedSaints
             selectedSaints.add(clickedSaint);
             card.getStyleClass().add("saint-card-active");
-            btn.setText("CHOSEN");
+            SelectBtn.setText("CHOSEN");
         }
         // update selectedSaints UX
         saintSelectLabel.setText(selectedSaints.size() + " / 3 selected");

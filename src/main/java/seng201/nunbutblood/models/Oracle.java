@@ -31,8 +31,6 @@ public class Oracle extends Saint {
                 Saint.calcHireCost(strength, wisdom, dexterity),
                 calcUpKeep(strength, wisdom, dexterity));
     }
-
-
     @Override
     public int getStatBonus() {
         return getWisdom();
@@ -43,15 +41,4 @@ public class Oracle extends Saint {
         return "WIS";
     }
 
-    /**
-     * Sum
-     *
-     * @param strength  the strength
-     * @param wisdom    the wisdom
-     * @param dexterity the dexterity
-     * @return the int
-     */
-    static int calcUpKeep(int strength, int wisdom, int dexterity) {
-        return 15 + (strength + wisdom + dexterity) / 5;
-    }
 }

@@ -32,11 +32,6 @@ public class Inquisitor extends Saint {
                 calcUpKeep(strength, wisdom, dexterity));
     }
 
-    // APOSTLES CLASS
-
-
-    // PURCHASABLE INTERFACE
-
     @Override
     public int getStatBonus() {
         return getDexterity();
@@ -47,16 +42,4 @@ public class Inquisitor extends Saint {
         return "DEX";
     }
 
-
-    /**
-     * Sum
-     *
-     * @param strength  the strength
-     * @param wisdom    the wisdom
-     * @param dexterity the dexterity
-     * @return the int
-     */
-    static int calcUpKeep(int strength, int wisdom, int dexterity) {
-        return 15 + (strength + wisdom + dexterity) / 5;
-    }
 }

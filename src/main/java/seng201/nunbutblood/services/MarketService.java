@@ -177,34 +177,6 @@ public class MarketService {
      *
      */
     private Rarity rollRarity(int crusadeNumber) {
-        int roll = random.nextInt(100);
-        if (crusadeNumber <= 2) {
-            if (roll < 60) return Rarity.COMMON;
-            if (roll < 80) return Rarity.RARE;
-            return Rarity.EPIC;
-        }
-        else if (crusadeNumber <= 4) {
-            if (roll < 50) return Rarity.COMMON;
-            if (roll < 70) return Rarity.RARE;
-            if (roll < 85) return Rarity.EPIC;
-            return Rarity.LEGENDARY;
-        }
-        else if (crusadeNumber <= 6) {
-            if (roll < 40) return Rarity.COMMON;
-            if (roll < 65) return Rarity.RARE;
-            if (roll < 80) return Rarity.EPIC;
-            return Rarity.LEGENDARY;
-        }
-        else if (crusadeNumber <= 10) {
-            if (roll < 30) return Rarity.COMMON;
-            if (roll < 50) return Rarity.RARE;
-            if (roll < 70) return Rarity.EPIC;
-            return Rarity.LEGENDARY;
-        }
-        else {
-            if (roll < 30) return Rarity.RARE;
-            if (roll < 60) return Rarity.EPIC;
-            return Rarity.LEGENDARY;
-        }
+        return Rarity.rollFromCrusade(random, crusadeNumber);
     }
 }

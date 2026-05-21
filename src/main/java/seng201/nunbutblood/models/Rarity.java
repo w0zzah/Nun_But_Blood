@@ -1,5 +1,7 @@
 package seng201.nunbutblood.models;
 
+import java.util.Random;
+
 /**
  * Represents the rarity tier of an Apostle based on sum of stat's
  * Strength, Wisdom, and Dexterity stats. <br><br>
@@ -70,6 +72,66 @@ public enum Rarity {
 
     // GETTERS (Label, Colour)
 
+    public static Rarity rollFromCrusade(Random random, int crusadeNumber) {
+
+        int roll = random.nextInt(100);
+
+        int commonChance;
+        int rareChance;
+        int epicChance;
+        // Increase chance
+        switch (crusadeNumber) {
+            case 0 -> {
+                commonChance = 100; // Common
+                rareChance = 0;     // Rare
+                epicChance = 0;     // Epic
+                // LegendaryChance is whatever 100 - (common + rare + epic)
+            }
+            // Legendary Chance = 0
+            case 1, 2 -> {
+                commonChance = 60;
+                rareChance = 35;
+                epicChance = 5;
+            }
+            // Legendary Chance = 5
+            case 3, 4 -> {
+                commonChance = 50;
+                rareChance = 30;
+                epicChance = 15;
+            }
+
+            // Legendary Chance = 10
+            case 5, 6 -> {
+                commonChance = 40;
+                rareChance = 30;
+                epicChance = 20;
+            }
+
+            // Legendary Chance = 20
+            case 7, 8, 9, 10 -> {
+                commonChance = 30;
+                rareChance = 25;
+                epicChance = 25;
+            }
+
+            // Legendary Chance = 30
+            default -> {
+                commonChance = 0;
+                rareChance = 40;
+                epicChance = 30;
+            }
+        }
+
+        if (roll < commonChance) return COMMON;
+        roll -= commonChance;
+
+        if (roll < rareChance) return RARE;
+        roll -= rareChance;
+
+        if (roll < epicChance) return EPIC;
+
+        return LEGENDARY;
+    }
     /**
      * Gets label.
      *

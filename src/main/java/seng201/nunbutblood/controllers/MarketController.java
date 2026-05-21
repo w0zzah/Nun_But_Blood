@@ -103,6 +103,9 @@ public class MarketController {
         }
     }
 
+    /**
+     * Populate sell items.
+     */
     public void populateSellItems() {
         for (Item playerItem : covenant.getInventory()) {
             Button sellBtn = new Button("Sell");
@@ -119,6 +122,9 @@ public class MarketController {
 
     }
 
+    /**
+     * Populate buy saints.
+     */
     public void populateBuySaints() {
         // purchase logic for the Saint
         for (Saint saint : marketService.getAvailableSaints()) {
@@ -132,6 +138,10 @@ public class MarketController {
             saintPane.getChildren().add(card);
         }
     }
+
+    /**
+     * Populate sell saints.
+     */
     public void populateSellSaints() {
         for (Saint saint : covenant.getOwnedSaints()) {
 

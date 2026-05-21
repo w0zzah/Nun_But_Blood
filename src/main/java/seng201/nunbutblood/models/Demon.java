@@ -1,5 +1,7 @@
 package seng201.nunbutblood.models;
 
+import java.util.Random;
+
 /**
  * Represents a demon enemy encountered during a crusade.
  * Each demon has a stat weakness that apostles can exploit for a bonus roll,
@@ -25,6 +27,8 @@ public class Demon {
 
     /** Probability of the curse triggering after combat, between 0.0 and 1.0. */
     private double curseChance = 0.20; // Default 20% chance
+
+    private final Random random = new Random();
 
     /**
      * Creates a Demon with the given combat attributes.
@@ -85,7 +89,7 @@ public class Demon {
      * @return true if the curse triggers, false otherwise
      */
     public boolean applyCurse() {
-        return Math.random() < curseChance;
+        return random.nextDouble() < curseChance;
     }
 
     /**

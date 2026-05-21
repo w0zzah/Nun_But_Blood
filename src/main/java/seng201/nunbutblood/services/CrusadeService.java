@@ -161,7 +161,7 @@ public class CrusadeService {
         StatType[] stats = StatType.values();
         StatType randomStat = stats[random.nextInt(stats.length)];
         int change = isBuff ? (random.nextInt(3) + 2) : -(random.nextInt(3) + 1);
-        applyStat(target, randomStat, change);
+        Saint.applyStat(target, randomStat, change);
         String description = String.format("%s's %s changes by %d", target.getName(), randomStat.label, change);
 
         addToLog(description);
@@ -176,20 +176,10 @@ public class CrusadeService {
      */
     public void revertEvents() {
         for (CrusadeEvent event : activeEvents) {
-            applyStat(event.target(), event.stat(), -event.change());
+            Saint.applyStat(event.target(), event.stat(), -event.change());
         }
         activeEvents.clear();
     }
 
-
-    private void applyStat(Saint saint, StatType stat, int amount) {
-        switch (stat) {
-            case STRENGTH   -> saint.changeStrength(amount);
-            case WISDOM     -> saint.changeWisdom(amount);
-            case DEXTERITY  -> saint.changeDexterity(amount);
-            case PERCEPTION -> saint.changePerception(amount);
-            case STAMINA    -> saint.changeMaxStamina(amount);
-        }
-    }
 
 }

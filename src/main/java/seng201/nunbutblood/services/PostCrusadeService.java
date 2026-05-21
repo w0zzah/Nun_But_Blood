@@ -102,20 +102,5 @@ public class PostCrusadeService {
         return events;
     }
 
-    /**
-     * Apply stat.
-     *
-     * @param saint  the saint
-     * @param amount the amount
-     * @param stat   the stat
-     */
-    public void applyStat(Saint saint, int amount, StatType stat) {
-        switch(stat) {
-            case STRENGTH -> saint.changeStrength(amount);
-            case WISDOM -> saint.changeWisdom(amount);
-            case DEXTERITY -> saint.changeDexterity(amount);
-            case STAMINA -> saint.changeMaxStamina(amount);
-            case PERCEPTION -> saint.changePerception(amount);
-        }
-    }
+
 }

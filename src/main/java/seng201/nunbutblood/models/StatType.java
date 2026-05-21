@@ -55,4 +55,12 @@ public enum StatType {
         }
         return stats[RANDOM.nextInt(stats.length)];
     }
+
+    public String getKey() {
+        return key;
+    }
+
+    public String getLabel() {
+        return label;
+    }
 }

@@ -1,48 +1,5 @@
 package seng201.nunbutblood.models;
 
-/*
-
-        Code Summary : "Form's the base which all character's will be built."
-
-          Hold's 13 unique attributes which hold information about
-
-            ~ Profile, (name, portraitKey)
-            ~ Stamina, (maxStamina, currentStamina)
-            ~ Stat's,  (Strength, Wisdom, Dexterity)
-            ~ Unique   (Perception, primaryStat, ability)
-            ~ Cost     (hireCost, upKeep)
-
-           Methods:
-            ~ getCost() : PURCHASABLE INTERFACE
-            ~ getDescription() : PURCHASABLE INTERFACE
-            ~ getName() :
-            ~ getMaxStamina() :
-            ~ getCurrentStamina() :
-            ~ getStrength() :
-            ~ getWisdom() :
-            ~ getDexterity() :
-            ~ getPerception() :
-            ~ getStatTotal() : (strength + wisdom + dexterity)
-            ~ getUpKeep() :
-            ~ getSpecialAbility() :
-            ~ getPortraitKey() :
-            ~ getRarity() :
-            ~ getStatBonus() :
-            ~ getStatType() :
-            ~ refreshRarity() :
-            ~ changeStrength() :
-            ~ changeWisom() :
-            ~ changeDexterity() :
-            ~ consumeStamina() : consume after attack 2 for nat 1
-            ~ restoreStamina() : upon return, restore all stamina
-            ~ changeMaxStamina() :
-            ~ changePerception() :
-            ~ setSpecialAbility() :
-            ~ incrementCrusadeCount() :
-            ~ resetCrusadeCount():
-
-*/
-
 /**
  * The type Saint.
  */
@@ -84,10 +41,10 @@ public abstract class Saint implements Purchasable {
     // Keep total of how many crusade's the apostle has been through
     private int crusadeCount;
 
-    // Abilit
+    // Ability for Saint
     private String specialAbility = "";
 
-    // Portrait of Crusader - May not implement, here as placeholder
+    // Portrait of Crusader
     private String portraitKey;
 
     private Rarity rarity;
@@ -121,6 +78,10 @@ public abstract class Saint implements Purchasable {
         this.upKeep = upKeep;
         this.rarity = Rarity.fromStatTotal(this.strength + this.wisdom + this.dexterity);
         this.crusadeCount = 0;
+    }
+
+    protected static int calcUpKeep(int strength, int wisdom, int dexterity) {
+        return 15 + (strength + wisdom + dexterity) / 5;
     }
 
     // ----- GETTERS (PURCHASABLE) ----------------------------------------------------------------
@@ -221,7 +182,7 @@ public abstract class Saint implements Purchasable {
     /**
      * Gets portrait key.
      *
-     * @return number of consecutive crusades without rest
+     * @return the name of the portrait in resources/images/Saints/...
      */
     public String getPortraitKey() { return portraitKey; }
 
@@ -395,7 +356,21 @@ public abstract class Saint implements Purchasable {
         return 500 + ((strength - 10) + (wisdom - 10) + (dexterity - 10)) * 25;
     }
 
-
+    /**
+     *
+     * @param saint Saint to change the stat of
+     * @param stat Stat to be changed
+     * @param amount The amount the stat will be changed
+     */
+    public static void applyStat(Saint saint, StatType stat, int amount) {
+        switch (stat) {
+            case STRENGTH   -> saint.changeStrength(amount);
+            case WISDOM     -> saint.changeWisdom(amount);
+            case DEXTERITY  -> saint.changeDexterity(amount);
+            case PERCEPTION -> saint.changePerception(amount);
+            case STAMINA    -> saint.changeMaxStamina(amount);
+        }
+    }
 
 
     // ----- METHODS (STAT CHANGES) END --------------------------------------------------------------------------
