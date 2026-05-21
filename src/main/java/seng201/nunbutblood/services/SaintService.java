@@ -8,15 +8,15 @@ import java.util.List;
 
 /**
  * Service class responsible for managing the roster of Saints.
- * Handles operations involving the active party, reserves, party transitions,
- * and roster-wide stat or status updates.
+ * Handles ops involving the active party, reserves, party transitions,
+ * and all of the stat or status updates.
  */
 public class SaintService {
 
-    /** Active party of apostles going on the next crusade. Max 5.*/
+    /** Active party of saints going on the next crusade. Max 5.*/
     private final List<Saint> activeParty = new ArrayList<>();
 
-    /** Reserve apostles not used in the upcoming crusade. Max 5.     */
+    /** Reserve saints not used in the upcoming crusade. Max 5.     */
     private final List<Saint> reserves = new ArrayList<>();
 
     /**
@@ -34,8 +34,10 @@ public class SaintService {
     public List<Saint> getReserves() { return reserves;}
 
     /**
-     * Adds a new Saint to the roster. The Saint is placed into the active party
-     * if space permits; otherwise, they are placed into reserves if space permits.
+     * Adds a new Saint to the roster
+     *
+     * Try to put in the activeParty first, and if not enough space, check reserves.
+     * Then if not enough space in either, return false
      *
      * @param saint the Saint to be added to the roster
      * @return true if the Saint was successfully added to either the active party
@@ -55,12 +57,10 @@ public class SaintService {
     }
 
     /**
-     * Moves a Saint from the reserves list into the active party, provided there is
-     * available space in the active party and the Saint is actually in reserves.
+     * Moves a Saint from the reserves list into the active party, if there is space
      *
      * @param saint the Saint to activate
-     * @return true if the transfer was successful, false if the active party is full
-     *         or the Saint was not found in reserves
+     * @return true if the transferred, else false
      */
     public boolean activateSaint(Saint saint) {
         if (activeParty.size() >= 5 || !reserves.contains(saint)) return false;
@@ -70,12 +70,10 @@ public class SaintService {
     }
 
     /**
-     * Moves a Saint from the active party list down to the reserves list, provided
-     * there is available space in reserves and the Saint is currently active.
+     * Moves a Saint from the active party into the reserves list, if there is space
      *
      * @param saint the Saint to move to reserves
-     * @return true if the transfer was successful, false if reserves are full
-     *         or the Saint was not found in the active party
+     * @return true if the transferred, else false
      */
     public boolean benchSaint(Saint saint) {
         if (reserves.size() >= 5 || !activeParty.contains(saint)) return false;
@@ -86,13 +84,11 @@ public class SaintService {
 
     /**
      * Permanently removes a Saint from the roster (either active or reserve).
-     * To prevent a completely empty roster, removal will fail if the total number
+     * To prevent a completely empty roster, will fail if the total number
      * of owned Saints is 1 or fewer.
      *
      * @param saint the Saint to retire from service
-     * @return true if the Saint was successfully removed from the roster, false
-     *         if the total roster size is less than or equal to 1 or the Saint
-     *         did not exist in the roster
+     * @return true if the Saint was successfully removed from the roster, else false
      */
     public boolean retireSaint(Saint saint) {
         if ((activeParty.size() + reserves.size() <= 1)) return false;

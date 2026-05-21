@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
-  </span>
-  <span class="absValue">
-    (3/6)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/4)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
     66.7%
   </span>
   <span class="absValue">
-    (10/15)
+    (4/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (2/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (12/15)
   </span>
 </td>
 </tr>
@@ -92,7 +92,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.util.Random;
 &nbsp;
 &nbsp;/**
-&nbsp; * The enum Stat type.
+&nbsp; * Defines core attributes used by characters for crusade event checks and scaling.
 &nbsp; */
 <b class="fc">&nbsp;public enum StatType {</b>
 &nbsp;    /**
@@ -124,7 +124,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * The Label.
 &nbsp;     */
 &nbsp;    public final String label;  // used in UI display
-&nbsp;    
+&nbsp;
 <b class="fc">&nbsp;    StatType(String key, String label) {</b>
 <b class="fc">&nbsp;        this.key = key;</b>
 <b class="fc">&nbsp;        this.label = label;</b>
@@ -139,16 +139,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return the random of
 &nbsp;     */
 &nbsp;    public static StatType getRandomOf(StatType... stats) {
-<b class="nc">&nbsp;        if (stats == null || stats.length == 0) {</b>
+<b class="pc">&nbsp;        if (stats == null || stats.length == 0) {</b>
 <b class="nc">&nbsp;            throw new IllegalArgumentException(&quot;Must provide at least one StatType option.&quot;);</b>
 &nbsp;        }
-<b class="nc">&nbsp;        return stats[RANDOM.nextInt(stats.length)];</b>
+<b class="fc">&nbsp;        return stats[RANDOM.nextInt(stats.length)];</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the system reference key.
+&nbsp;     *
+&nbsp;     * @return internal reference string
+&nbsp;     */
 &nbsp;    public String getKey() {
 <b class="nc">&nbsp;        return key;</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the abbreviated UI string.
+&nbsp;     *
+&nbsp;     * @return display label shorthand
+&nbsp;     */
 &nbsp;    public String getLabel() {
 <b class="nc">&nbsp;        return label;</b>
 &nbsp;    }
@@ -176,7 +186,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

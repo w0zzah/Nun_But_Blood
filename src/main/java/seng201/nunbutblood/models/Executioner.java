@@ -1,25 +1,20 @@
 package seng201.nunbutblood.models;
 
 /**
- * Executioner — Extend's Apostle's, Primary stat is Strength
- * <p>
- * When Constructor is called :
- *
- * @strength has a bonus of +5 clamped at 20 for balance, Math.min(20, strength + 5)
- * @calcHireCost set's the hire cost, (strength + 5, wisdom, dexterity)
- * @calcUpKeep set's the upkeep cost, (strength + 5, wisdom, dexterity) Constructor to be called in market area for further random stat's
+ * Executioner — Extends Saint, specializing in heavy offensive capabilities.
+ * Primary scaling attribute is Strength (STR).
  */
 public class Executioner extends Saint {
 
     /**
-     * Instantiates a new Executioner.
+     * Instantiates a new Executioner with offensive scaling parameters.
      *
-     * @param name       the name
-     * @param portraitID the portrait id
-     * @param strength   the strength
-     * @param wisdom     the wisdom
-     * @param dexterity  the dexterity
-     * @param sanity    the sanity
+     * @param name       the unique display name
+     * @param portraitID asset reference path for UI layout rendering
+     * @param strength   raw physical attribute value
+     * @param wisdom     raw spiritual attribute value
+     * @param dexterity  raw reflex attribute value
+     * @param sanity     maximum reserve pool for mechanical tracking
      */
     public Executioner(String name, String portraitID, int strength, int wisdom, int dexterity, int sanity){
         super(name, portraitID,
@@ -32,16 +27,24 @@ public class Executioner extends Saint {
                 calcUpKeep(strength, wisdom, dexterity));
     }
 
+    /**
+     * Extracts operational combat values matching internal class archetype specifications.
+     *
+     * @return current active strength pool modifications
+     */
     @Override
     public int getStatBonus() {
         return getStrength();
     }
 
+    /**
+     * Returns system lookup handles referencing localized layout attributes.
+     *
+     * @return static signature shorthand "STR"
+     */
     @Override
     public String getStatType() {
         return "STR";
     }
 
 }
-
-

@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">MarketController</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/16)
+    (16/16)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    75%
   </span>
   <span class="absValue">
-    (0/16)
+    (12/16)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    93.9%
   </span>
   <span class="absValue">
-    (0/66)
+    (62/66)
   </span>
 </td>
 </tr>
@@ -106,7 +106,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;/**
 &nbsp; * The type Market controller.
 &nbsp; */
-<b class="nc">&nbsp;public class MarketController {</b>
+<b class="fc">&nbsp;public class MarketController {</b>
 &nbsp;
 &nbsp;    @FXML private Label faithLabel;
 &nbsp;    @FXML private Label statusLabel;
@@ -130,64 +130,64 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param marketService the market service
 &nbsp;     */
 &nbsp;    public void init(Stage stage, ScreenNavigator navigator, Covenant covenant, MarketService marketService) {
-<b class="nc">&nbsp;        this.stage = stage;</b>
-<b class="nc">&nbsp;        this.navigator = navigator;</b>
-<b class="nc">&nbsp;        this.covenant = covenant;</b>
-<b class="nc">&nbsp;        this.marketService = marketService;</b>
-<b class="nc">&nbsp;        refresh();</b>
+<b class="fc">&nbsp;        this.stage = stage;</b>
+<b class="fc">&nbsp;        this.navigator = navigator;</b>
+<b class="fc">&nbsp;        this.covenant = covenant;</b>
+<b class="fc">&nbsp;        this.marketService = marketService;</b>
+<b class="fc">&nbsp;        refresh();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    private void refresh() {
-<b class="nc">&nbsp;        faithLabel.setText(&quot;Faith: &quot; + covenant.getFaith());</b>
+<b class="fc">&nbsp;        faithLabel.setText(&quot;Faith: &quot; + covenant.getFaith());</b>
 &nbsp;
-<b class="nc">&nbsp;        clearAllPanes();</b>
-<b class="nc">&nbsp;        populateBuyItems();</b>
-<b class="nc">&nbsp;        populateSellItems();</b>
-<b class="nc">&nbsp;        populateBuySaints();</b>
-<b class="nc">&nbsp;        populateSellSaints();</b>
+<b class="fc">&nbsp;        clearAllPanes();</b>
+<b class="fc">&nbsp;        populateBuyItems();</b>
+<b class="fc">&nbsp;        populateSellItems();</b>
+<b class="fc">&nbsp;        populateBuySaints();</b>
+<b class="fc">&nbsp;        populateSellSaints();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    private Button getHireBtn(Saint saint) {
-<b class="nc">&nbsp;        Button hireBtn = new Button(&quot;HIRE (&quot; + saint.getCost() + &quot; faith)&quot;);</b>
+<b class="fc">&nbsp;        Button hireBtn = new Button(&quot;HIRE (&quot; + saint.getCost() + &quot; faith)&quot;);</b>
 &nbsp;
 &nbsp;        // Define Market Logic
-<b class="nc">&nbsp;        hireBtn.setOnAction(e -&gt; {</b>
-<b class="nc">&nbsp;            if (!marketService.buySaint(saint, covenant)) {</b>
+<b class="fc">&nbsp;        hireBtn.setOnAction(e -&gt; {</b>
+<b class="pc">&nbsp;            if (!marketService.buySaint(saint, covenant)) {</b>
 <b class="nc">&nbsp;                AlertBox.showAlert(statusLabel, alertBox, &quot;Unable to hire, you lack faith!&quot;);</b>
 &nbsp;            } else {
-<b class="nc">&nbsp;                AlertBox.showAlert(statusLabel, alertBox, saint.getName() + &quot; hired for &quot; + saint.getCost() + &quot;faith!&quot;);</b>
-<b class="nc">&nbsp;                refresh();</b>
+<b class="fc">&nbsp;                AlertBox.showAlert(statusLabel, alertBox, saint.getName() + &quot; hired for &quot; + saint.getCost() + &quot;faith!&quot;);</b>
+<b class="fc">&nbsp;                refresh();</b>
 &nbsp;            }
 &nbsp;        });
-<b class="nc">&nbsp;        return hireBtn;</b>
+<b class="fc">&nbsp;        return hireBtn;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    private void clearAllPanes() {
-<b class="nc">&nbsp;        saintPane.getChildren().clear();</b>
-<b class="nc">&nbsp;        sellSaintPane.getChildren().clear();</b>
-<b class="nc">&nbsp;        itemPane.getChildren().clear();</b>
-<b class="nc">&nbsp;        sellItemPane.getChildren().clear();</b>
+<b class="fc">&nbsp;        saintPane.getChildren().clear();</b>
+<b class="fc">&nbsp;        sellSaintPane.getChildren().clear();</b>
+<b class="fc">&nbsp;        itemPane.getChildren().clear();</b>
+<b class="fc">&nbsp;        sellItemPane.getChildren().clear();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Populate buy items.
 &nbsp;     */
 &nbsp;    public void populateBuyItems() {
-<b class="nc">&nbsp;        for (Item item : marketService.getAvailableItems()) {</b>
-<b class="nc">&nbsp;            Button buyBtn = new Button(&quot;Buy (&quot; + item.getCost() + &quot; Faith)&quot;);</b>
+<b class="fc">&nbsp;        for (Item item : marketService.getAvailableItems()) {</b>
+<b class="fc">&nbsp;            Button buyBtn = new Button(&quot;Buy (&quot; + item.getCost() + &quot; Faith)&quot;);</b>
 &nbsp;
-<b class="nc">&nbsp;            buyBtn.setOnAction(e -&gt; {</b>
-<b class="nc">&nbsp;                if (!marketService.buyItem(item, covenant)) {</b>
+<b class="fc">&nbsp;            buyBtn.setOnAction(e -&gt; {</b>
+<b class="pc">&nbsp;                if (!marketService.buyItem(item, covenant)) {</b>
 <b class="nc">&nbsp;                    AlertBox.showAlert(statusLabel, alertBox, &quot;Not enough Faith&quot;);</b>
 &nbsp;                } else {
-<b class="nc">&nbsp;                    AlertBox.showAlert(statusLabel, alertBox, item.getItemName() + &quot; purchased!&quot;);</b>
-<b class="nc">&nbsp;                    refresh();</b>
+<b class="fc">&nbsp;                    AlertBox.showAlert(statusLabel, alertBox, item.getItemName() + &quot; purchased!&quot;);</b>
+<b class="fc">&nbsp;                    refresh();</b>
 &nbsp;                }
 &nbsp;            });
 &nbsp;
 &nbsp;            // Create the item
-<b class="nc">&nbsp;            VBox itemCard = ItemCardController.createItemCard(item, buyBtn);</b>
-<b class="nc">&nbsp;            itemPane.getChildren().add(itemCard);</b>
+<b class="fc">&nbsp;            VBox itemCard = ItemCardController.createItemCard(item, buyBtn);</b>
+<b class="fc">&nbsp;            itemPane.getChildren().add(itemCard);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -195,17 +195,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Populate sell items.
 &nbsp;     */
 &nbsp;    public void populateSellItems() {
-<b class="nc">&nbsp;        for (Item playerItem : covenant.getInventory()) {</b>
-<b class="nc">&nbsp;            Button sellBtn = new Button(&quot;Sell&quot;);</b>
+<b class="fc">&nbsp;        for (Item playerItem : covenant.getInventory()) {</b>
+<b class="fc">&nbsp;            Button sellBtn = new Button(&quot;Sell&quot;);</b>
 &nbsp;
-<b class="nc">&nbsp;            sellBtn.setOnAction(e -&gt; {</b>
-<b class="nc">&nbsp;                marketService.sellItem(playerItem, covenant);</b>
-<b class="nc">&nbsp;                AlertBox.showAlert(statusLabel, alertBox, playerItem.getItemName() + &quot; sold!&quot;);</b>
-<b class="nc">&nbsp;                refresh();</b>
+<b class="fc">&nbsp;            sellBtn.setOnAction(e -&gt; {</b>
+<b class="fc">&nbsp;                marketService.sellItem(playerItem, covenant);</b>
+<b class="fc">&nbsp;                AlertBox.showAlert(statusLabel, alertBox, playerItem.getItemName() + &quot; sold!&quot;);</b>
+<b class="fc">&nbsp;                refresh();</b>
 &nbsp;            });
 &nbsp;
-<b class="nc">&nbsp;            VBox itemCard = ItemCardController.createItemCard(playerItem, sellBtn);</b>
-<b class="nc">&nbsp;            sellItemPane.getChildren().add(itemCard);</b>
+<b class="fc">&nbsp;            VBox itemCard = ItemCardController.createItemCard(playerItem, sellBtn);</b>
+<b class="fc">&nbsp;            sellItemPane.getChildren().add(itemCard);</b>
 &nbsp;        }
 &nbsp;
 &nbsp;    }
@@ -215,15 +215,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public void populateBuySaints() {
 &nbsp;        // purchase logic for the Saint
-<b class="nc">&nbsp;        for (Saint saint : marketService.getAvailableSaints()) {</b>
-<b class="nc">&nbsp;            Button hireBtn = getHireBtn(saint);</b>
+<b class="fc">&nbsp;        for (Saint saint : marketService.getAvailableSaints()) {</b>
+<b class="fc">&nbsp;            Button hireBtn = getHireBtn(saint);</b>
 &nbsp;
 &nbsp;            // Create HBox containing hire button
-<b class="nc">&nbsp;            HBox action = new HBox(1);</b>
-<b class="nc">&nbsp;            action.getChildren().add(hireBtn);</b>
+<b class="fc">&nbsp;            HBox action = new HBox(1);</b>
+<b class="fc">&nbsp;            action.getChildren().add(hireBtn);</b>
 &nbsp;
-<b class="nc">&nbsp;            VBox card = SaintCardController.createSaintCard(saint, action, true);</b>
-<b class="nc">&nbsp;            saintPane.getChildren().add(card);</b>
+<b class="fc">&nbsp;            VBox card = SaintCardController.createSaintCard(saint, action, true);</b>
+<b class="fc">&nbsp;            saintPane.getChildren().add(card);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -231,24 +231,24 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Populate sell saints.
 &nbsp;     */
 &nbsp;    public void populateSellSaints() {
-<b class="nc">&nbsp;        for (Saint saint : covenant.getOwnedSaints()) {</b>
+<b class="fc">&nbsp;        for (Saint saint : covenant.getOwnedSaints()) {</b>
 &nbsp;
-<b class="nc">&nbsp;            Button sellBtn = new Button(&quot;Sell (&quot; + (saint.getCost() / 2) + &quot; faith)&quot;);</b>
+<b class="fc">&nbsp;            Button sellBtn = new Button(&quot;Sell (&quot; + (saint.getCost() / 2) + &quot; faith)&quot;);</b>
 &nbsp;
-<b class="nc">&nbsp;            sellBtn.setOnAction(e -&gt; {</b>
-<b class="nc">&nbsp;                if (!marketService.sellSaint(saint, covenant)) {</b>
+<b class="fc">&nbsp;            sellBtn.setOnAction(e -&gt; {</b>
+<b class="pc">&nbsp;                if (!marketService.sellSaint(saint, covenant)) {</b>
 <b class="nc">&nbsp;                    AlertBox.showAlert(statusLabel, alertBox, &quot;You can&#39;t sell your last Saint!&quot;);</b>
 &nbsp;                } else {
-<b class="nc">&nbsp;                    AlertBox.showAlert(statusLabel, alertBox, saint.getName() + &quot; sold for &quot; + (saint.getCost() / 2) + &quot;faith!&quot;);</b>
-<b class="nc">&nbsp;                    refresh();}</b>
+<b class="fc">&nbsp;                    AlertBox.showAlert(statusLabel, alertBox, saint.getName() + &quot; sold for &quot; + (saint.getCost() / 2) + &quot;faith!&quot;);</b>
+<b class="fc">&nbsp;                    refresh();}</b>
 &nbsp;            });
 &nbsp;
 &nbsp;            // Create HBox containing hire button
-<b class="nc">&nbsp;            HBox action = new HBox(1);</b>
-<b class="nc">&nbsp;            action.getChildren().add(sellBtn);</b>
+<b class="fc">&nbsp;            HBox action = new HBox(1);</b>
+<b class="fc">&nbsp;            action.getChildren().add(sellBtn);</b>
 &nbsp;
-<b class="nc">&nbsp;            VBox card = SaintCardController.createSaintCard(saint, action, true);</b>
-<b class="nc">&nbsp;            sellSaintPane.getChildren().add(card);</b>
+<b class="fc">&nbsp;            VBox card = SaintCardController.createSaintCard(saint, action, true);</b>
+<b class="fc">&nbsp;            sellSaintPane.getChildren().add(card);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -256,21 +256,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    @FXML
 &nbsp;    private void handleBack() {
-<b class="nc">&nbsp;        navigator.goToHub();</b>
+<b class="fc">&nbsp;        navigator.goToHub();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @FXML
 &nbsp;    private void shopRefresh() {
-<b class="nc">&nbsp;        if (covenant.spendFaith(50)) {</b>
+<b class="pc">&nbsp;        if (covenant.spendFaith(50)) {</b>
 &nbsp;
-<b class="nc">&nbsp;            AlertBox.showAlert(statusLabel, alertBox, &quot;Refreshing...!&quot;);</b>
-<b class="nc">&nbsp;            marketService.refresh(covenant.getCurrentCrusade());</b>
-<b class="nc">&nbsp;            PauseTransition refresh = new PauseTransition(Duration.seconds(2));</b>
-<b class="nc">&nbsp;            refresh.setOnFinished(e -&gt; {</b>
-<b class="nc">&nbsp;                navigator.goToMarket();</b>
+<b class="fc">&nbsp;            AlertBox.showAlert(statusLabel, alertBox, &quot;Refreshing...!&quot;);</b>
+<b class="fc">&nbsp;            marketService.refresh(covenant.getCurrentCrusade());</b>
+<b class="fc">&nbsp;            PauseTransition refresh = new PauseTransition(Duration.seconds(2));</b>
+<b class="fc">&nbsp;            refresh.setOnFinished(e -&gt; {</b>
+<b class="fc">&nbsp;                navigator.goToMarket();</b>
 &nbsp;            });
 &nbsp;
-<b class="nc">&nbsp;            refresh.play();</b>
+<b class="fc">&nbsp;            refresh.play();</b>
 &nbsp;        } else {
 <b class="nc">&nbsp;            AlertBox.showAlert(statusLabel, alertBox, &quot;Not enough Faith!&quot;);</b>
 &nbsp;        }
@@ -299,7 +299,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

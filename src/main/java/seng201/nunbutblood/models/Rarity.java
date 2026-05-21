@@ -47,8 +47,8 @@ public enum Rarity {
      * colour change's font and outline
      * badgeBackground change's the background
      *
-     * @param label
-     * @param colour
+     * @param label  Text tag for the tier
+     * @param colour Target UI hex color code
      */
     Rarity(String label, String colour) {
         this.label           = label;
@@ -70,8 +70,14 @@ public enum Rarity {
         return COMMON;
     }
 
-    // GETTERS (Label, Colour)
-
+    /**
+     * Calculates a drop tier outcome rolling against dynamically adjusted weight matrices
+     * based on campaign progression milestones.
+     *
+     * @param random        Shared processing weight seed
+     * @param crusadeNumber Current sequential campaign counter
+     * @return Evaluated rarity tier assignment
+     */
     public static Rarity rollFromCrusade(Random random, int crusadeNumber) {
 
         int roll = random.nextInt(100);
@@ -132,6 +138,7 @@ public enum Rarity {
 
         return LEGENDARY;
     }
+
     /**
      * Gets label.
      *

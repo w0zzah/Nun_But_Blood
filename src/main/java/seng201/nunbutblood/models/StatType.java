@@ -3,7 +3,7 @@ package seng201.nunbutblood.models;
 import java.util.Random;
 
 /**
- * The enum Stat type.
+ * Defines core attributes used by characters for crusade event checks and scaling.
  */
 public enum StatType {
     /**
@@ -35,7 +35,7 @@ public enum StatType {
      * The Label.
      */
     public final String label;  // used in UI display
-    
+
     StatType(String key, String label) {
         this.key = key;
         this.label = label;
@@ -56,10 +56,20 @@ public enum StatType {
         return stats[RANDOM.nextInt(stats.length)];
     }
 
+    /**
+     * Gets the system reference key.
+     *
+     * @return internal reference string
+     */
     public String getKey() {
         return key;
     }
 
+    /**
+     * Gets the abbreviated UI string.
+     *
+     * @return display label shorthand
+     */
     public String getLabel() {
         return label;
     }

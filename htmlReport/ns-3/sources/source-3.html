@@ -56,10 +56,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    12.5%
+    75%
   </span>
   <span class="absValue">
-    (1/8)
+    (6/8)
   </span>
 </td>
 <td class="coverageStat">
@@ -72,10 +72,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    50%
+    81.2%
   </span>
   <span class="absValue">
-    (8/16)
+    (13/16)
   </span>
 </td>
 </tr>
@@ -103,6 +103,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    /** Display name of the demon. */
 &nbsp;    private final String name;
 &nbsp;
+&nbsp;    /** Resource asset lookup key for rendering enemy portraits in the GUI context. */
 &nbsp;    private final String portraitKey;
 &nbsp;
 &nbsp;    /** Combat difficulty, used to scale encounter frequency and rewards. */
@@ -117,6 +118,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    /** Probability of the curse triggering after combat, between 0.0 and 1.0. */
 <b class="fc">&nbsp;    private double curseChance = 0.20; // Default 20% chance</b>
 &nbsp;
+&nbsp;    /** Internal random number generator engine used for evaluation rolls. */
 <b class="fc">&nbsp;    private final Random random = new Random();</b>
 &nbsp;
 &nbsp;    /**
@@ -141,21 +143,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     *
 &nbsp;     * @return name of the demon
 &nbsp;     */
-<b class="nc">&nbsp;    public String getName() { return name; }</b>
+<b class="fc">&nbsp;    public String getName() { return name; }</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Returns the difficulty rating of this demon.
 &nbsp;     *
 &nbsp;     * @return difficulty rating
 &nbsp;     */
-<b class="nc">&nbsp;    public int getDifficultyRating() { return difficultyRating; }</b>
+<b class="fc">&nbsp;    public int getDifficultyRating() { return difficultyRating; }</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Returns the faith reward for defeating this demon.
 &nbsp;     *
 &nbsp;     * @return faith reward amount
 &nbsp;     */
-<b class="nc">&nbsp;    public int getFaithReward() { return faithReward; }</b>
+<b class="fc">&nbsp;    public int getFaithReward() { return faithReward; }</b>
 &nbsp;
 &nbsp;
 &nbsp;    /**
@@ -187,7 +189,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return the portrait key
 &nbsp;     */
 &nbsp;    public String getPortraitKey() {
-<b class="nc">&nbsp;        return this.portraitKey;</b>
+<b class="fc">&nbsp;        return this.portraitKey;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -195,7 +197,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     *
 &nbsp;     * @return weakness stat type (&quot;STR&quot;, &quot;WIS&quot;, or &quot;DEX&quot;)
 &nbsp;     */
-<b class="nc">&nbsp;    public StatType getWeakness() { return weakness; }</b>
+<b class="fc">&nbsp;    public StatType getWeakness() { return weakness; }</b>
 &nbsp;}
 </code>
 </pre>
@@ -220,7 +222,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

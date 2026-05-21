@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 /**
- * <h1>Audio Service: * </h1>
+ * Audio Service: *
  *
  * <p>Creates an Enum where all audio clips are found for shorter sound effects such as dice roll.</p>
  * <p>(can be disabled with setting enabled to false)</p>
@@ -80,6 +80,12 @@ public class AudioService {
         if (clips.containsKey(clip)) clips.get(clip).stop();
     }
 
+    /**
+     * Finds and caches the audio asset from resources if it exists.
+     *
+     * @param key the designated clip identifier
+     * @param path target path to the resource file
+     */
     private void load(Clip key, String path) {
         URL url = getClass().getResource(path);
         // Check the audio exists, if so assign the EnumMap key to audio wav
@@ -88,6 +94,12 @@ public class AudioService {
         }
     }
 
+    /**
+     * Controls mixing levels for specific sound effects.
+     *
+     * @param clip the clip being played
+     * @return double value between 0.0 and 1.0 representing relative gain
+     */
     private double volumeFor(Clip clip) {
         // Balance the audio, may add setting for fx music etc.
         return switch(clip) {
@@ -96,4 +108,4 @@ public class AudioService {
             case CRITICAL_FAIL, CRITICAL_SUCCESS -> 1;
         };
     }
- }
+}

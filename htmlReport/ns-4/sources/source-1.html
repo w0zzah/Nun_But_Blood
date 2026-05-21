@@ -45,26 +45,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">AudioService</td>
 <td class="coverageStat">
   <span class="percent">
-    40%
+    100%
   </span>
   <span class="absValue">
-    (2/5)
+    (5/5)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    7.7%
+    61.5%
   </span>
   <span class="absValue">
-    (1/13)
+    (8/13)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    57.9%
+    100%
   </span>
   <span class="absValue">
-    (11/19)
+    (19/19)
   </span>
 </td>
 </tr>
@@ -91,26 +91,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name"><strong>Total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    57.1%
+    100%
   </span>
   <span class="absValue">
-    (4/7)
+    (7/7)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    7.7%
+    61.5%
   </span>
   <span class="absValue">
-    (1/13)
+    (8/13)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    68%
+    100%
   </span>
   <span class="absValue">
-    (17/25)
+    (25/25)
   </span>
 </td>
 </tr>
@@ -130,7 +130,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;
 &nbsp;/**
-&nbsp; * &lt;h1&gt;Audio Service: * &lt;/h1&gt;
+&nbsp; * Audio Service: *
 &nbsp; *
 &nbsp; * &lt;p&gt;Creates an Enum where all audio clips are found for shorter sound effects such as dice roll.&lt;/p&gt;
 &nbsp; * &lt;p&gt;(can be disabled with setting enabled to false)&lt;/p&gt;
@@ -187,11 +187,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public void play(Clip clip) {
 &nbsp;        // check if audio is enabled or if the clip exists
-<b class="nc">&nbsp;        if (!enabled || !clips.containsKey(clip)) return;</b>
+<b class="pc">&nbsp;        if (!enabled || !clips.containsKey(clip)) return;</b>
 &nbsp;
 &nbsp;        // Stop&#39;s overlap of audio
-<b class="nc">&nbsp;        clips.get(clip).stop();</b>
-<b class="nc">&nbsp;        clips.get(clip).play(volumeFor(clip));</b>
+<b class="fc">&nbsp;        clips.get(clip).stop();</b>
+<b class="fc">&nbsp;        clips.get(clip).play(volumeFor(clip));</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -200,9 +200,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param clip the clip
 &nbsp;     */
 &nbsp;    public void stop(Clip clip) {
-<b class="nc">&nbsp;        if (clips.containsKey(clip)) clips.get(clip).stop();</b>
+<b class="pc">&nbsp;        if (clips.containsKey(clip)) clips.get(clip).stop();</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    /**
+&nbsp;     * Finds and caches the audio asset from resources if it exists.
+&nbsp;     *
+&nbsp;     * @param key the designated clip identifier
+&nbsp;     * @param path target path to the resource file
+&nbsp;     */
 &nbsp;    private void load(Clip key, String path) {
 <b class="fc">&nbsp;        URL url = getClass().getResource(path);</b>
 &nbsp;        // Check the audio exists, if so assign the EnumMap key to audio wav
@@ -211,15 +217,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
+&nbsp;    /**
+&nbsp;     * Controls mixing levels for specific sound effects.
+&nbsp;     *
+&nbsp;     * @param clip the clip being played
+&nbsp;     * @return double value between 0.0 and 1.0 representing relative gain
+&nbsp;     */
 &nbsp;    private double volumeFor(Clip clip) {
 &nbsp;        // Balance the audio, may add setting for fx music etc.
-<b class="nc">&nbsp;        return switch(clip) {</b>
-<b class="nc">&nbsp;            default -&gt; 0.7;</b>
-<b class="nc">&nbsp;            case ROLLING -&gt; 0.5;</b>
-<b class="nc">&nbsp;            case CRITICAL_FAIL, CRITICAL_SUCCESS -&gt; 1;</b>
+<b class="pc">&nbsp;        return switch(clip) {</b>
+<b class="fc">&nbsp;            default -&gt; 0.7;</b>
+<b class="fc">&nbsp;            case ROLLING -&gt; 0.5;</b>
+<b class="fc">&nbsp;            case CRITICAL_FAIL, CRITICAL_SUCCESS -&gt; 1;</b>
 &nbsp;        };
 &nbsp;    }
-&nbsp; }
+&nbsp;}
 </code>
 </pre>
 </div>
@@ -243,7 +255,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

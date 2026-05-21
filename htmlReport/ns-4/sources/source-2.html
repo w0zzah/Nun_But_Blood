@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    33.3%
+    83.3%
   </span>
   <span class="absValue">
-    (2/6)
+    (5/6)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    12.5%
+    62.5%
   </span>
   <span class="absValue">
-    (1/8)
+    (5/8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    30.8%
+    84.6%
   </span>
   <span class="absValue">
-    (4/13)
+    (11/13)
   </span>
 </td>
 </tr>
@@ -93,9 +93,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;
 &nbsp;/**
-&nbsp; * &lt;h1&gt;BankService handles the faith of the Coven.
+&nbsp; * BankService handles the faith of the Coven.
 &nbsp; * &lt;br&gt;
-&nbsp; * FUNCTIONS: &lt;/h1&gt;
+&nbsp; * FUNCTIONS:
 &nbsp; * &lt;p&gt;
 &nbsp; * {@link #getFaith()} -&gt; Get the CovensFaith &lt;br&gt;
 &nbsp; * {@link #getTotalFaithEarned()} -&gt; Get the total faith earned over the game &lt;br&gt;
@@ -121,7 +121,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param difficulty Selected game difficulty
 &nbsp;     */
 <b class="fc">&nbsp;    public BankService(String difficulty) {</b>
-<b class="pc">&nbsp;        this.faith = difficulty.equals(&quot;Hard&quot;) ? 100 : 300;</b>
+<b class="fc">&nbsp;        this.faith = difficulty.equals(&quot;Hard&quot;) ? 100 : 300;</b>
 <b class="fc">&nbsp;        this.totalFaithEarned = 0;</b>
 &nbsp;    }
 &nbsp;
@@ -150,9 +150,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param faithIncrease Amount of faith to add
 &nbsp;     */
 &nbsp;    public void addFaith(int faithIncrease) {
-<b class="nc">&nbsp;        if (faithIncrease &gt;= 0) {</b>
-<b class="nc">&nbsp;            faith += faithIncrease;</b>
-<b class="nc">&nbsp;            totalFaithEarned += faithIncrease;</b>
+<b class="pc">&nbsp;        if (faithIncrease &gt;= 0) {</b>
+<b class="fc">&nbsp;            faith += faithIncrease;</b>
+<b class="fc">&nbsp;            totalFaithEarned += faithIncrease;</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -164,9 +164,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return True if purchase succeeds
 &nbsp;     */
 &nbsp;    public boolean spendFaith(int cost) {
-<b class="nc">&nbsp;        if (cost &gt; 0 &amp;&amp; faith &gt;= cost) {</b>
-<b class="nc">&nbsp;            faith -= cost;</b>
-<b class="nc">&nbsp;            return true;</b>
+<b class="pc">&nbsp;        if (cost &gt; 0 &amp;&amp; faith &gt;= cost) {</b>
+<b class="fc">&nbsp;            faith -= cost;</b>
+<b class="fc">&nbsp;            return true;</b>
 &nbsp;        } else {
 <b class="nc">&nbsp;            return false;</b>
 &nbsp;        }
@@ -178,7 +178,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param amount Upkeep amount to pay
 &nbsp;     */
 &nbsp;    public void payUpKeep(int amount) {
-<b class="nc">&nbsp;        faith -= amount;</b>
+<b class="fc">&nbsp;        faith -= amount;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -204,7 +204,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

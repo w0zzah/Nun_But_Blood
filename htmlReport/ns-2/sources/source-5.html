@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">EndScreenController</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/5)
+    (5/5)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/8)
+    (8/8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/21)
+    (21/21)
   </span>
 </td>
 </tr>
@@ -102,7 +102,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;/**
 &nbsp; * The type End screen controller.
 &nbsp; */
-<b class="nc">&nbsp;public class EndScreenController {</b>
+<b class="fc">&nbsp;public class EndScreenController {</b>
 &nbsp;
 &nbsp;
 &nbsp;    private Covenant covenant;
@@ -131,12 +131,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    public void init(Stage stage, ScreenNavigator screenNavigator, Covenant covenant, MarketService market,
 &nbsp;                     SaintService saintService, boolean isVictory, boolean gameOver) {
 &nbsp;
-<b class="nc">&nbsp;        this.covenant = covenant;</b>
-<b class="nc">&nbsp;        this.navigator = screenNavigator;</b>
-<b class="nc">&nbsp;        this.isVictory = isVictory;</b>
-<b class="nc">&nbsp;        this.market = market;</b>
-<b class="nc">&nbsp;        this.postCrusadeEvents = new PostCrusadeService(covenant.getDifficulty());</b>
-<b class="nc">&nbsp;        result(isVictory, gameOver);</b>
+<b class="fc">&nbsp;        this.covenant = covenant;</b>
+<b class="fc">&nbsp;        this.navigator = screenNavigator;</b>
+<b class="fc">&nbsp;        this.isVictory = isVictory;</b>
+<b class="fc">&nbsp;        this.market = market;</b>
+<b class="fc">&nbsp;        this.postCrusadeEvents = new PostCrusadeService(covenant.getDifficulty());</b>
+<b class="fc">&nbsp;        result(isVictory, gameOver);</b>
 &nbsp;
 &nbsp;    }
 &nbsp;
@@ -147,31 +147,31 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param gameOver  the game over
 &nbsp;     */
 &nbsp;    public void result(boolean isVictory, boolean gameOver){
-<b class="nc">&nbsp;        if (gameOver || covenant.hasLost()) {</b>
-<b class="nc">&nbsp;            crusadesCompleted.setText(&quot;You Completed: &quot; + covenant.getCurrentCrusade() + &quot; / &quot; + covenant.getTotalCrusades() + &quot; Crusade&#39;s&quot;);</b>
-<b class="nc">&nbsp;            goNext.setText(&quot;Play Again?&quot;);</b>
-<b class="nc">&nbsp;            goNext.setOnAction(e -&gt; goToSetup());</b>
-<b class="nc">&nbsp;            score.setText(&quot;Score: &quot; + covenant.getScore());</b>
-<b class="nc">&nbsp;            result.setText(isVictory ? covenant.getName() + &quot;Has pushed the Demons back to Hell!&quot; : covenant.getName() + &quot;falls...&quot;);</b>
+<b class="fc">&nbsp;        if (gameOver || covenant.hasLost()) {</b>
+<b class="fc">&nbsp;            crusadesCompleted.setText(&quot;You Completed: &quot; + covenant.getCurrentCrusade() + &quot; / &quot; + covenant.getTotalCrusades() + &quot; Crusade&#39;s&quot;);</b>
+<b class="fc">&nbsp;            goNext.setText(&quot;Play Again?&quot;);</b>
+<b class="fc">&nbsp;            goNext.setOnAction(e -&gt; goToSetup());</b>
+<b class="fc">&nbsp;            score.setText(&quot;Score: &quot; + covenant.getScore());</b>
+<b class="fc">&nbsp;            result.setText(isVictory ? covenant.getName() + &quot;Has pushed the Demons back to Hell!&quot; : covenant.getName() + &quot;falls...&quot;);</b>
 &nbsp;        } else {
-<b class="nc">&nbsp;            goNext.setText(&quot;Back to Covenant&quot;);</b>
-<b class="nc">&nbsp;            market.refresh(covenant.getCurrentCrusade());</b>
-<b class="nc">&nbsp;            goNext.setOnAction(e -&gt; goToHub());</b>
-<b class="nc">&nbsp;            result.setText(isVictory ? &quot;Demon Vanquished&quot; : &quot;The Demon Flee&#39;s...&quot;);</b>
-<b class="nc">&nbsp;            List&lt;String&gt; events = postCrusadeEvents.triggerEvents(covenant);</b>
-<b class="nc">&nbsp;            eventsList.getItems().setAll(events);</b>
+<b class="fc">&nbsp;            goNext.setText(&quot;Back to Covenant&quot;);</b>
+<b class="fc">&nbsp;            market.refresh(covenant.getCurrentCrusade());</b>
+<b class="fc">&nbsp;            goNext.setOnAction(e -&gt; goToHub());</b>
+<b class="fc">&nbsp;            result.setText(isVictory ? &quot;Demon Vanquished&quot; : &quot;The Demon Flee&#39;s...&quot;);</b>
+<b class="fc">&nbsp;            List&lt;String&gt; events = postCrusadeEvents.triggerEvents(covenant);</b>
+<b class="fc">&nbsp;            eventsList.getItems().setAll(events);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
 &nbsp;
 &nbsp;    @FXML
 &nbsp;    private void goToSetup() {
-<b class="nc">&nbsp;        navigator.goToSetup();</b>
+<b class="fc">&nbsp;        navigator.goToSetup();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @FXML
 &nbsp;    private void goToHub() {
-<b class="nc">&nbsp;        navigator.goToHub();}</b>
+<b class="fc">&nbsp;        navigator.goToHub();}</b>
 &nbsp;
 &nbsp;}
 </code>
@@ -197,7 +197,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

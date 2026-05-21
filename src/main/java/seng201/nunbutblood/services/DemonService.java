@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * The type Demon service.
+ * Service class that manages generating and providing enemy Demon encounters.
  */
 public class DemonService {
 
@@ -16,9 +16,10 @@ public class DemonService {
     private List<Demon> currentOptions = new ArrayList<>();
 
     /**
-     * Generates 3 random demons based on the current crusade difficulty.  @param currentCrusade the current crusade
+     * Generates 3 random demons based on the current crusade difficulty.
      *
-     * @param difficulty the difficulty
+     * @param currentCrusade the current crusade index
+     * @param difficulty the chosen game difficulty (e.g., "Normal" or "Hard")
      */
     public void generateNewOptions(int currentCrusade, String difficulty) {
 

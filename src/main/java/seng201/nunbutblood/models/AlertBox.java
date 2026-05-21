@@ -6,16 +6,20 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 /**
- * The type Alert box.
+ * Utility class providing self-dismissing notification banners within the game's UI layout context.
+ * Uses automated transition threads to cleanly manage visual layout opacity.
  */
 public final class AlertBox {
 
+    // Private constructor to prevent instantiation of utility class
+    private AlertBox() {}
+
     /**
-     * Show alert.
+     * Renders a temporary notification message on screen and handles its automated fade transition.
      *
-     * @param statusLabel the status label
-     * @param alertBox    the alert box
-     * @param alert       the alert
+     * @param statusLabel target JavaFX Label element where the messaging text string will display
+     * @param alertBox    parent container Layout wrapper managing the notification's visibility state
+     * @param alert       the raw notification string message to pass into the display tree
      */
     public static void showAlert(Label statusLabel, Pane alertBox, String alert) {
 

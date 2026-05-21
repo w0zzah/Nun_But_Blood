@@ -1,7 +1,8 @@
 package seng201.nunbutblood.services;
 
 /**
- * The type Covenant service.
+ * Service class that tracks overall game progression
+ * and core crusade progression status.
  */
 public class CovenantService {
 

@@ -17,7 +17,7 @@ import java.util.Random;
  *
  * Javadocs:
  * Image: https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/image/Image.html
- *
+ * COntroller for handling the setup of the game
  */
 public class SetupController {
 

@@ -102,6 +102,7 @@ public class ScreenNavigator {
 
     /**
      * Step 2: The actual battle/dice roll screen  @param chosenDemon the chosen demon
+     * @param chosenDemon The demon chosen from the player
      */
     public void goToCrusade(Demon chosenDemon) {
         loadScreen("/fxml/CrusadeInterface.fxml", controller -> {
@@ -115,6 +116,7 @@ public class ScreenNavigator {
      * Final Score / Game Over Screen  @param isVictory the is victory
      *
      * @param isGameOver the is game over
+     * @param isVictory is the currentCrusade a victory
      */
     public void goToEndScreen(boolean isVictory, boolean isGameOver) {
         loadScreen("/fxml/EndScreen.fxml", controller -> {

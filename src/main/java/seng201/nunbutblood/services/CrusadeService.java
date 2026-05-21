@@ -98,23 +98,6 @@ public class CrusadeService {
         return party.stream().allMatch(s -> s.getCurrentSanity() < 5);
     }
 
-    /**
-     * Demon reward int.
-     *
-     * @param demon the demon
-     * @return the int
-     */
-    public int demonReward(Demon demon) {
-        // Simple loot logic based on difficulty
-        return demon.getDifficultyRating() * 10;
-    }
-
-    /**
-     * Advance step.
-     */
-    public void advanceStep() {
-        currentStep++;
-    }
 
 
     /**
@@ -142,20 +125,5 @@ public class CrusadeService {
     private void addToLog(String message) {
         logHistory.insert(0, message + "\n"); // Newest messages at the top
     }
-
-    private final List<CrusadeEvent> activeEvents = new ArrayList<>();
-
-
-
-    /**
-     * reverse changes
-     */
-    public void revertEvents() {
-        for (CrusadeEvent event : activeEvents) {
-            Saint.applyStat(event.target(), event.stat(), -event.change());
-        }
-        activeEvents.clear();
-    }
-
 
 }

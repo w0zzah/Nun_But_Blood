@@ -45,48 +45,29 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">Item</td>
 <td class="coverageStat">
   <span class="percent">
-    11.1%
+    100%
   </span>
   <span class="absValue">
-    (1/9)
+    (9/9)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/8)
+    (2/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    33.3%
+    100%
   </span>
   <span class="absValue">
-    (8/24)
+    (19/19)
   </span>
 </td>
 </tr>
-  <tr>
-    <td class="name">Item$1</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/1)
-  </span>
-</td>
-  </tr>
   <tr>
     <td class="name">Item$ItemType</td>
 <td class="coverageStat">
@@ -102,7 +83,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (4/4)
+    (3/3)
   </span>
 </td>
   </tr>
@@ -110,26 +91,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name"><strong>Total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    25%
+    100%
   </span>
   <span class="absValue">
-    (3/12)
+    (11/11)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/8)
+    (2/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    41.4%
+    100%
   </span>
   <span class="absValue">
-    (12/29)
+    (22/22)
   </span>
 </td>
 </tr>
@@ -163,11 +144,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        /**
 &nbsp;         * Equippable item that boosts stats while held.
 &nbsp;         */
-<b class="fc">&nbsp;        EQUIPMENT,</b>
-&nbsp;        /**
-&nbsp;         * Grants the apostle a named special ability, consumed on use.
-&nbsp;         */
-<b class="fc">&nbsp;        SKILL_TOME</b>
+<b class="fc">&nbsp;        EQUIPMENT</b>
 &nbsp;    }
 &nbsp;    /** Display name of item. */
 &nbsp;    private final String itemName;
@@ -194,7 +171,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Creates an Item with the given attributes.
 &nbsp;     *
 &nbsp;     * @param itemName        display name of the item
-&nbsp;     * @param type            functional category (CONSUMABLE, EQUIPMENT, SKILL_TOME)
+&nbsp;     * @param type            functional category (CONSUMABLE, EQUIPMENT)
 &nbsp;     * @param statAffected    stat this item affects (&quot;STR&quot;, &quot;WIS&quot;, &quot;DEX&quot;, &quot;STA&quot;, &quot;PER&quot;)
 &nbsp;     * @param bonusValue      amount added to the affected stat
 &nbsp;     * @param cost            faith cost to purchase
@@ -219,17 +196,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param saint the apostle to apply the effect to
 &nbsp;     */
 &nbsp;    public void applyEffect(Saint saint) {
-<b class="nc">&nbsp;        switch (type) {</b>
-&nbsp;            case CONSUMABLE, EQUIPMENT -&gt; {
-<b class="nc">&nbsp;                switch (statAffected) {</b>
-<b class="nc">&nbsp;                    case STRENGTH -&gt; saint.changeStrength(bonusValue);</b>
-<b class="nc">&nbsp;                    case WISDOM -&gt; saint.changeWisdom(bonusValue);</b>
-<b class="nc">&nbsp;                    case DEXTERITY -&gt; saint.changeDexterity(bonusValue);</b>
-<b class="nc">&nbsp;                    case SANITY-&gt; saint.changeMaxSanity(bonusValue);</b>
-<b class="nc">&nbsp;                    case PERCEPTION -&gt; saint.changePerception(bonusValue);</b>
-&nbsp;                }
-&nbsp;            }
-<b class="nc">&nbsp;            case SKILL_TOME -&gt; saint.setSpecialAbility(itemDescription);</b>
+<b class="fc">&nbsp;        Saint.applyStat(saint, this.statAffected, this.bonusValue);</b>
+&nbsp;
+&nbsp;        // If it&#39;s a potion, sign it up to be automatically reversed post-crusade
+<b class="fc">&nbsp;        if (this.type == ItemType.CONSUMABLE) {</b>
+<b class="fc">&nbsp;            saint.registerConsumable(this);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -239,14 +210,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     *
 &nbsp;     * @return item name
 &nbsp;     */
-<b class="nc">&nbsp;    public String getPortraitKey() {return portraitKey; }</b>
+<b class="fc">&nbsp;    public String getPortraitKey() {return portraitKey; }</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Get item name string.
 &nbsp;     *
 &nbsp;     * @return the string
 &nbsp;     */
-<b class="nc">&nbsp;    public String getItemName(){return String.format(&quot;[%s] %s&quot;,</b>
+<b class="fc">&nbsp;    public String getItemName(){return String.format(&quot;[%s] %s&quot;,</b>
 &nbsp;            type, itemName);
 &nbsp;    }
 &nbsp;
@@ -255,28 +226,28 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     *
 &nbsp;     * @return item type
 &nbsp;     */
-<b class="nc">&nbsp;    public ItemType getType() { return type; }</b>
+<b class="fc">&nbsp;    public ItemType getType() { return type; }</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Returns the stat this item affects.
 &nbsp;     *
 &nbsp;     * @return stat identifier string
 &nbsp;     */
-<b class="nc">&nbsp;    public StatType getStatAffected(){ return statAffected; }</b>
+<b class="fc">&nbsp;    public StatType getStatAffected(){ return statAffected; }</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Returns the stat bonus amount this item provides.
 &nbsp;     *
 &nbsp;     * @return bonus value
 &nbsp;     */
-<b class="nc">&nbsp;    public int getBonusValue(){ return bonusValue; }</b>
+<b class="fc">&nbsp;    public int getBonusValue(){ return bonusValue; }</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Returns the faith cost to purchase this item.
 &nbsp;     * @return cost in faith
 &nbsp;     */
 &nbsp;    @Override
-<b class="nc">&nbsp;    public int getCost() { return cost; }</b>
+<b class="fc">&nbsp;    public int getCost() { return cost; }</b>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Returns a formatted description for market and inventory display.
@@ -284,8 +255,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    @Override
 &nbsp;    public String getDescription() {
-<b class="nc">&nbsp;        return String.format(&quot;+%d %s | Cost: %d Faith | %s&quot;,</b>
-<b class="nc">&nbsp;                bonusValue, statAffected, cost, itemDescription);</b>
+<b class="fc">&nbsp;        return String.format(&quot;+%d %s | Cost: %d Faith | %s&quot;,</b>
+<b class="fc">&nbsp;                bonusValue, statAffected, cost, itemDescription);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -311,7 +282,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

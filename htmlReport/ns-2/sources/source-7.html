@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">ItemCardController</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    50%
   </span>
   <span class="absValue">
-    (0/2)
+    (1/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    75%
   </span>
   <span class="absValue">
-    (0/6)
+    (3/4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    91.7%
   </span>
   <span class="absValue">
-    (0/26)
+    (22/24)
   </span>
 </td>
 </tr>
@@ -115,45 +115,41 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    public static VBox createItemCard(Item item, Node actionNode) {
 &nbsp;
 &nbsp;
-<b class="nc">&nbsp;        VBox card = new VBox(2);</b>
+<b class="fc">&nbsp;        VBox card = new VBox(2);</b>
 &nbsp;        // add CSS link dependent on rarity of card
-<b class="nc">&nbsp;        card.getStyleClass().addAll(&quot;item-card&quot;);</b>
-<b class="nc">&nbsp;        card.setPrefWidth(500);</b>
-<b class="nc">&nbsp;        card.setPrefHeight(100);</b>
+<b class="fc">&nbsp;        card.getStyleClass().addAll(&quot;item-card&quot;);</b>
+<b class="fc">&nbsp;        card.setPrefWidth(500);</b>
+<b class="fc">&nbsp;        card.setPrefHeight(100);</b>
 &nbsp;
 &nbsp;
 &nbsp;        // Assign the portrait image to a new stack pane within card
-<b class="nc">&nbsp;        StackPane portrait = new StackPane();</b>
-<b class="nc">&nbsp;        portrait.getStyleClass().add(&quot;item-portrait&quot;);</b>
+<b class="fc">&nbsp;        StackPane portrait = new StackPane();</b>
+<b class="fc">&nbsp;        portrait.getStyleClass().add(&quot;item-portrait&quot;);</b>
 &nbsp;
-<b class="nc">&nbsp;        String imagePath = &quot;/images/items/&quot; + item.getPortraitKey();</b>
-<b class="nc">&nbsp;        InputStream stream = ItemCardController.class.getResourceAsStream(imagePath);</b>
+<b class="fc">&nbsp;        String imagePath = &quot;/images/items/&quot; + item.getPortraitKey();</b>
+<b class="fc">&nbsp;        InputStream stream = ItemCardController.class.getResourceAsStream(imagePath);</b>
 &nbsp;
 &nbsp;        // Try to find the image (if not print cant find img)
-<b class="nc">&nbsp;        if (stream != null) {</b>
-<b class="nc">&nbsp;            Image img = new Image(stream, 100, 75, true, false);</b>
-<b class="nc">&nbsp;            ImageView portraitView = new ImageView(img);</b>
-<b class="nc">&nbsp;            portraitView.setPreserveRatio(true);</b>
-<b class="nc">&nbsp;            portrait.getChildren().add(portraitView);</b>
+<b class="pc">&nbsp;        if (stream != null) {</b>
+<b class="fc">&nbsp;            Image img = new Image(stream, 100, 75, true, false);</b>
+<b class="fc">&nbsp;            ImageView portraitView = new ImageView(img);</b>
+<b class="fc">&nbsp;            portraitView.setPreserveRatio(true);</b>
+<b class="fc">&nbsp;            portrait.getChildren().add(portraitView);</b>
 &nbsp;        } else {
 <b class="nc">&nbsp;            System.err.println(&quot;Could not find image: &quot; + imagePath);</b>
 &nbsp;        }
 &nbsp;
-<b class="nc">&nbsp;        Label name = new Label(item.getItemName());</b>
-<b class="nc">&nbsp;        if (item.getType() == Item.ItemType.EQUIPMENT) {</b>
-<b class="nc">&nbsp;            card.getStyleClass().add(&quot;item-card-equipment&quot;);</b>
-<b class="nc">&nbsp;        } else if (item.getType() == Item.ItemType.CONSUMABLE) {</b>
-<b class="nc">&nbsp;            card.getStyleClass().add(&quot;item-card-potion&quot;);</b>
-<b class="nc">&nbsp;        } else { card.getStyleClass().add(&quot;item-card-skill&quot;);}</b>
+<b class="fc">&nbsp;        Label name = new Label(item.getItemName());</b>
+<b class="fc">&nbsp;        if (item.getType() == Item.ItemType.EQUIPMENT) {</b>
+<b class="fc">&nbsp;            card.getStyleClass().add(&quot;item-card-equipment&quot;);</b>
+<b class="fc">&nbsp;        } else { card.getStyleClass().add(&quot;item-card-potion&quot;);}</b>
 &nbsp;
+<b class="fc">&nbsp;        Label descLabel = new Label(item.getDescription());</b>
+<b class="fc">&nbsp;        descLabel.getStyleClass().add(&quot;item-card-desc&quot;);</b>
+<b class="fc">&nbsp;        actionNode.getStyleClass().add(&quot;item-card-btn&quot;);</b>
 &nbsp;
-&nbsp;
-<b class="nc">&nbsp;        Label descLabel = new Label(item.getDescription());</b>
-<b class="nc">&nbsp;        descLabel.getStyleClass().add(&quot;item-card-desc&quot;);</b>
-<b class="nc">&nbsp;        actionNode.getStyleClass().add(&quot;item-card-btn&quot;);</b>
-&nbsp;
-<b class="nc">&nbsp;        card.getChildren().addAll(name, portrait, descLabel, actionNode);</b>
-<b class="nc">&nbsp;        return card;</b>
+<b class="fc">&nbsp;        card.getChildren().addAll(name, portrait, descLabel, actionNode);</b>
+<b class="fc">&nbsp;        return card;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -179,7 +175,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

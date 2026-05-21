@@ -15,7 +15,7 @@ import java.util.Random;
 
 
 /**
- * <h1>Crusade Controller manages core gameplay loop.</h1>
+ * Crusade Controller manages core gameplay loop.
  * <br>
  * <h2>FUNCTIONS : </h2>
  * <br>

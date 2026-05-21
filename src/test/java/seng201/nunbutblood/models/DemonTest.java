@@ -51,7 +51,7 @@ class DemonTest {
     }
 
     @Test
-    void applyCurse() {
+    void testCurseRolls() {
 
         // Since randomness is involved,
         // just ensure method executes safely.
