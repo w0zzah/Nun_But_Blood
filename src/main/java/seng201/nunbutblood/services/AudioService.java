@@ -13,6 +13,7 @@ import java.util.Map;
  * Audio Service: *
  * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/media/MediaPlayer.html
  * https://docs.oracle.com/javase/8/javafx/api/javafx/scene/media/AudioClip.html
+ *
  * <p>Creates an Enum where all audio clips are found for shorter sound effects such as dice roll.</p>
  * <p>(can be disabled with setting enabled to false)</p>
  */
@@ -95,6 +96,13 @@ public class AudioService {
         if (clips.containsKey(clip)) clips.get(clip).stop();
     }
 
+    /**
+     * Finds and caches the audio asset from resources if it exists.
+     *
+     * @param key the designated clip identifier
+     * @param path target path to the resource file
+     */
+    private void load(Clip key, String path) {
     public void playMusic(Track track) {
         if (!enabled) return;
         if (currentTrack == track && currentMusicPlayer != null) return;
@@ -150,9 +158,9 @@ public class AudioService {
     private double volumeFor(Clip clip) {
         // Balance the audio, may add setting for fx music etc.
         return switch(clip) {
+            default -> 0.7;
             case ROLLING -> 0.5;
             case CRITICAL_FAIL, CRITICAL_SUCCESS -> 1;
-            default -> 0.7;
         };
     }
-}
+ }
