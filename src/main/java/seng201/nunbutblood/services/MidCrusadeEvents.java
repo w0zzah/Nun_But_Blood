@@ -1,6 +1,6 @@
 package seng201.nunbutblood.services;
 
-import seng201.nunbutblood.models.Saints;
+import seng201.nunbutblood.models.Saint;
 import seng201.nunbutblood.models.StatType;
 
 import java.util.List;
@@ -77,12 +77,12 @@ public class MidCrusadeEvents {
      * @param choice the choice
      * @return the string
      */
-    public String applyChoice(List<Saints> party, Choice choice) {
+    public String applyChoice(List<Saint> party, Choice choice) {
         if (party.isEmpty()) {
             return "No saints were affected.";
         }
 
-        Saints target = party.get(random.nextInt(party.size()));
+        Saint target = party.get(random.nextInt(party.size()));
         applyStat(target, choice.stat(), choice.amount());
 
         String changeText = choice.amount() > 0 ? "+" + choice.amount() : String.valueOf(choice.amount());
@@ -90,7 +90,7 @@ public class MidCrusadeEvents {
         return target.getName() + "'s " + choice.stat().label + " changed by " + changeText + ".";
     }
 
-    private void applyStat(Saints saint, StatType stat, int amount) {
+    private void applyStat(Saint saint, StatType stat, int amount) {
         switch (stat) {
             case STRENGTH -> saint.changeStrength(amount);
             case WISDOM -> saint.changeWisdom(amount);

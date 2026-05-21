@@ -1,15 +1,13 @@
 package seng201.nunbutblood.controllers;
 
-import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import seng201.nunbutblood.models.AlertBox;
-import seng201.nunbutblood.models.Saints;
+import seng201.nunbutblood.models.Saint;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Item;
 import javafx.scene.control.Button;
@@ -22,7 +20,7 @@ import java.util.Optional;
 /**
  * Controller for the Church Management (hub) screen.
  * Displays the active party, reserves, and inventory. Allows the player to:
- * bench/activate Saints, retire Saints, equip or use items, navigate to
+ * bench/activate Saint, retire Saint, equip or use items, navigate to
  * the Market, or begin the next Crusade.
  */
 public class HubController {
@@ -75,7 +73,7 @@ public class HubController {
         // Clears the pane
         reservePane.getChildren().clear();
         //
-        for (Saints saint : covenant.getReserves()) {
+        for (Saint saint : covenant.getReserves()) {
             Button activateBtn = new Button("ACTIVATE");
             activateBtn.setOnAction(e -> {
                 if (!covenant.activateApostle(saint)) {
@@ -101,7 +99,7 @@ public class HubController {
 
     private void refreshActiveParty() {
         activePane.getChildren().clear();
-        for (Saints saint : covenant.getActiveParty()) {
+        for (Saint saint : covenant.getActiveParty()) {
             Button benchBtn = new Button("BENCH");
             benchBtn.setOnAction(e -> {
                 if (!covenant.benchApostle(saint)) {
@@ -147,19 +145,19 @@ public class HubController {
     private void handleUseItemDialog(Item item) {
 
 
-        List<Saints> allSaints = covenant.getOwnedSaints();
+        List<Saint> allSaints = covenant.getOwnedSaints();
 
         if (allSaints.isEmpty()) {
-            statusLabel.setText("You have no Saints to use this on.");
+            statusLabel.setText("You have no Saint to use this on.");
             return;
         }
 
-        ChoiceDialog<Saints> dialog = new ChoiceDialog<>(allSaints.getFirst(), allSaints);
+        ChoiceDialog<Saint> dialog = new ChoiceDialog<>(allSaints.getFirst(), allSaints);
         dialog.setTitle("Use Item");
         dialog.setHeaderText("Applying: " + item.getItemName());
         dialog.setContentText("Select a Saint to use this on:");
 
-        Optional<Saints> result = dialog.showAndWait();
+        Optional<Saint> result = dialog.showAndWait();
         result.ifPresent(saint -> {
             item.applyEffect(saint);
             covenant.removeItem(item);

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SaintsTest {
+class SaintTest {
 
     private Executioner executioner;
     private Oracle oracle;

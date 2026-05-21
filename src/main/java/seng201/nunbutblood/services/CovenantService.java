@@ -1,5 +1,4 @@
 package seng201.nunbutblood.services;
-import seng201.nunbutblood.services.SaintsService;
 
 /**
  * The type Covenant service.
@@ -9,7 +8,7 @@ public class CovenantService {
     private int score;
     private int currentCrusade;
     private final int totalCrusades;
-    private SaintsService saintsService;
+    private SaintService saintService;
 
     /**
      * Instantiates a new Covenant service.

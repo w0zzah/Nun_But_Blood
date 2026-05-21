@@ -59,7 +59,7 @@ class CovenantTest {
     }
 
     @Test
-    void addSaints() {
+    void addSaint() {
     }
 
     @Test

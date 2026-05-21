@@ -43,12 +43,10 @@ package seng201.nunbutblood.models;
 
 */
 
-import java.util.Objects;
-
 /**
- * The type Saints.
+ * The type Saint.
  */
-public abstract class Saints implements Purchasable {
+public abstract class Saint implements Purchasable {
 
     /*
         The Apostle class serve's as a base for our hero's.
@@ -109,8 +107,8 @@ public abstract class Saints implements Purchasable {
      * @param hireCost    Cost to hire the Apostle, (500 to 1000 faith) - >  calculation is ((each stat - 10 / 2) * 25) + 500.
      * @param upKeep      Cost per expedition for apostle, (-240 to 240) -> calculation is (each stat - 10 / 2) * 12
      */
-    public Saints(String name, String portraitKey, int strength, int wisdom, int dexterity,
-                  int stamina, int perception, int hireCost, int upKeep) {
+    public Saint(String name, String portraitKey, int strength, int wisdom, int dexterity,
+                 int stamina, int perception, int hireCost, int upKeep) {
         this.portraitKey = portraitKey;
         this.name        = name;
         this.strength    = Math.clamp(strength, 0, 20);
@@ -230,7 +228,7 @@ public abstract class Saints implements Purchasable {
     /**
      * Gets rarity.
      *
-     * @return Saints rarity
+     * @return Saint rarity
      */
     public Rarity getRarity() { return rarity; }
 

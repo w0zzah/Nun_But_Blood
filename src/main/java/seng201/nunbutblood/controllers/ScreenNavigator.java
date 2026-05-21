@@ -24,6 +24,7 @@ public class ScreenNavigator {
     private PostCrusadeService randomService;
     private final DemonService demonService;
     private final AudioService audioService;
+    private final SaintService saintService;
     private CovenantService covenantService;
 
     /**
@@ -33,6 +34,7 @@ public class ScreenNavigator {
      */
     public ScreenNavigator(Stage stage) {
         this.stage = stage;
+        this.saintService = new SaintService();
         this.demonService = new DemonService();
         this.audioService = new AudioService();
 
@@ -121,7 +123,7 @@ public class ScreenNavigator {
     public void goToEndScreen(boolean isVictory, boolean isGameOver) {
         loadScreen("/fxml/EndScreen.fxml", controller -> {
             if (controller instanceof EndScreenController ec) {
-                ec.init(stage, this, covenant, marketService, isVictory, isGameOver);
+                ec.init(stage, this, covenant, marketService, saintService, isVictory, isGameOver);
             }
         });
     }
@@ -139,7 +141,6 @@ public class ScreenNavigator {
             injector.inject(controller);
 
             scene.setRoot(root);
-
             stage.setFullScreen(true);
         } catch (IOException e) {
             throw new RuntimeException("CRITICAL: Failed to load FXML: " + fxmlPath, e);

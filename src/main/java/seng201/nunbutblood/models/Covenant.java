@@ -2,7 +2,7 @@ package seng201.nunbutblood.models;
 
 import seng201.nunbutblood.services.BankService;
 import seng201.nunbutblood.services.CovenantService;
-import seng201.nunbutblood.services.SaintsService;
+import seng201.nunbutblood.services.SaintService;
 import seng201.nunbutblood.services.DemonService;
 
 
@@ -19,7 +19,7 @@ public class Covenant {
     private final String name;
 
     /** Handles saint roster management. */
-    private final SaintsService roster;
+    private final SaintService roster;
 
     /** Handles faith and economy logic. */
     private final BankService bank;
@@ -43,7 +43,7 @@ public class Covenant {
      */
     public Covenant(String name, int totalCrusades, String difficulty) {
         this.name = name;
-        this.roster = new SaintsService();
+        this.roster = new SaintService();
         this.bank = new BankService(difficulty);
         this.covenantService = new CovenantService(totalCrusades);
         this.rawInventory = new java.util.ArrayList<>();
@@ -83,7 +83,10 @@ public class Covenant {
      * @return True if game is lost
      */
     public boolean hasLost() {
-        return roster.isEmpty() && bank.getFaith() <= 0;
+        boolean outOfStaminaSaints = roster.allSaintsExhausted();
+        boolean cannotAffordNewSaint = bank.getFaith() <= 200;
+
+        return outOfStaminaSaints && cannotAffordNewSaint;
     }
 
     /**
@@ -163,7 +166,7 @@ public class Covenant {
      *
      * @return Active party list
      */
-    public List<Saints> getActiveParty() {
+    public List<Saint> getActiveParty() {
         return roster.getActiveParty();
     }
 
@@ -172,7 +175,7 @@ public class Covenant {
      *
      * @return Reserve saint list
      */
-    public List<Saints> getReserves() {
+    public List<Saint> getReserves() {
         return roster.getReserves();
     }
 
@@ -181,7 +184,7 @@ public class Covenant {
      *
      * @return List of all owned saints
      */
-    public List<Saints> getOwnedSaints() {
+    public List<Saint> getOwnedSaints() {
         return roster.getOwnedSaints();
     }
 
@@ -197,10 +200,10 @@ public class Covenant {
     /**
      * Adds a saint to the covenant roster.
      *
-     * @param saints Saint to add
+     * @param saint Saint to add
      */
-    public void addSaints(Saints saints) {
-        roster.addSaints(saints);
+    public void addSaint(Saint saint) {
+        roster.addSaint(saint);
     }
 
     /**
@@ -209,7 +212,7 @@ public class Covenant {
      * @param apostle Saint to activate
      * @return True if activation succeeds
      */
-    public boolean activateApostle(Saints apostle) {
+    public boolean activateApostle(Saint apostle) {
         return roster.activateSaint(apostle);
     }
 
@@ -219,7 +222,7 @@ public class Covenant {
      * @param apostle Saint to bench
      * @return True if benching succeeds
      */
-    public boolean benchApostle(Saints apostle) {
+    public boolean benchApostle(Saint apostle) {
         return roster.benchSaint(apostle);
     }
 
@@ -229,7 +232,7 @@ public class Covenant {
      * @param apostle Saint to retire
      * @return True if retirement succeeds
      */
-    public boolean retireSaint(Saints apostle) {
+    public boolean retireSaint(Saint apostle) {
         return roster.retireSaint(apostle);
     }
 

@@ -2,24 +2,20 @@ package seng201.nunbutblood.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seng201.nunbutblood.models.Executioner;
-import seng201.nunbutblood.models.Saints;
 
-import static org.junit.jupiter.api.Assertions.*;
+class SaintServiceTest {
 
-class SaintsServiceTest {
-
-    private SaintsService saintsService;
+    private SaintService saintService;
 
     @BeforeEach
     void setUp() {
-        this.saintsService = new SaintsService();
+        this.saintService = new SaintService();
 
     }
     @Test
     void testMaxSaints() {
-        int reserves = saintsService.getReserves().size();
-        int active = saintsService.getActiveParty().size();
+        int reserves = saintService.getReserves().size();
+        int active = saintService.getActiveParty().size();
 
     }
 
@@ -28,7 +24,7 @@ class SaintsServiceTest {
     }
 
     @Test
-    void addSaints() {
+    void addSaint() {
     }
 
     @Test

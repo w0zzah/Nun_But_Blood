@@ -3,8 +3,6 @@ package seng201.nunbutblood.services;
 
  */
 import seng201.nunbutblood.models.*;
-import javafx.animation.FadeTransition;
-import seng201.nunbutblood.services.CovenantService;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,7 +13,7 @@ import java.util.stream.Collectors;
 public class MarketService {
 
     /** List of available saints */
-    private List<Saints> availableSaints;
+    private List<Saint> availableSaints;
 
     /** List of available items */
     private final List<Item> availableItems;
@@ -37,7 +35,7 @@ public class MarketService {
 
     /**
      * Refresh the market stock. Called initially and after every crusade.
-     * Longer game time leads to stronger Saints
+     * Longer game time leads to stronger Saint
      *
      * @param crusadeNumber the crusade number
      */
@@ -72,10 +70,10 @@ public class MarketService {
      * @param covenant The Covenant purchasing the saint
      * @return the boolean
      */
-    public boolean buySaint(Saints saint, Covenant covenant) {
+    public boolean buySaint(Saint saint, Covenant covenant) {
         if (availableSaints.contains(saint) && covenant.spendFaith(saint.getCost())) {
             availableSaints.remove(saint);
-            covenant.addSaints(saint);
+            covenant.addSaint(saint);
             return true;
         }
         return false;
@@ -89,7 +87,7 @@ public class MarketService {
      * @param covenant The Covenant sell the saint
      * @return the boolean
      */
-    public boolean sellSaint(Saints saint, Covenant covenant) {
+    public boolean sellSaint(Saint saint, Covenant covenant) {
         if (!covenant.retireSaint(saint)) return false;
         covenant.addFaith(saint.getCost() / 2);
         return true;
@@ -132,7 +130,7 @@ public class MarketService {
      *
      * @return List of available saints for sale
      */
-    public List<Saints> getAvailableSaints() {
+    public List<Saint> getAvailableSaints() {
         return availableSaints;
     }
 
@@ -154,24 +152,24 @@ public class MarketService {
      * @param crusadeNumber current crusade number
      * @return a new Saint from the roster
      */
-    private Saints generateRandomSaint(int crusadeNumber) {
+    private Saint generateRandomSaint(int crusadeNumber) {
 
         Rarity targetRarity = rollRarity(crusadeNumber);
 
         // Filter the roster to best fit the current crusade number
-        List<SaintsRoster.Entry> candidates = SaintsRoster.getAllSaints().stream()
-                .filter(saint -> SaintsRoster.create(saint).getRarity() == targetRarity)
+        List<SaintRoster.Entry> candidates = SaintRoster.getAllSaints().stream()
+                .filter(saint -> SaintRoster.create(saint).getRarity() == targetRarity)
                 .collect(Collectors.toList());
 
 
         // If the filter is unable to produce any saints for the shop, then make a new list anyway
         if (candidates.isEmpty()) {
-            candidates = new ArrayList<>(SaintsRoster.getAllSaints());
+            candidates = new ArrayList<>(SaintRoster.getAllSaints());
         }
 
         // Select a random Saint based on candidates
-        SaintsRoster.Entry entry = candidates.get(random.nextInt(candidates.size()));
-        return SaintsRoster.create(entry);
+        SaintRoster.Entry entry = candidates.get(random.nextInt(candidates.size()));
+        return SaintRoster.create(entry);
     }
 
     /**

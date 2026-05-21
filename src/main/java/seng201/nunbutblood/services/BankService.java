@@ -12,7 +12,7 @@ import seng201.nunbutblood.models.*;
  * {@link #getTotalFaithEarned()} -> Get the total faith earned over the game <br>
  * {@link #addFaith(int)} -> Adds faith to the Covenant <br>
  * {@link #spendFaith(int)} -> Spends faith if the Covenant has enough <br>
- * {@link #payUpKeep(int)} -> Pays all Saints who are on the activeParty <br>
+ * {@link #payUpKeep(int)} -> Pays all Saint who are on the activeParty <br>
  * </p>
  */
 
