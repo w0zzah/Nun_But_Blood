@@ -6,28 +6,29 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import seng201.nunbutblood.models.Saints;
+import seng201.nunbutblood.models.Saint;
 import javafx.scene.layout.HBox;
+import seng201.nunbutblood.models.SaintRoster;
 
 /**
  * Generate Saint Card Display.
- * Takes information from {@link seng201.nunbutblood.models.SaintsRoster} , and links the data such as
+ * Takes information from {@link SaintRoster} , and links the data such as
  * Name, Stats, PortraitID, Rarity to create a unique card for each Saint. <br>
  * <p>
- * {@link #createSaintCard(Saints, Node, boolean)} : Creates a distinct card for the Saint with a button to purchase the saint <br>
- * {@link #buildStatBars(Saints, boolean)} : Creates 3 rounded rectangles for each stat type <br>
+ * {@link #createSaintCard(Saint, Node, boolean)} : Creates a distinct card for the Saint with a button to purchase the saint <br>
+ * {@link #buildStatBars(Saint, boolean)} : Creates 3 rounded rectangles for each stat type <br>
  * {@link #buildStatRow(String, int, boolean, String, boolean))} : Assigns stats to each Saint card
  */
 public class SaintCardController {
     /**
-     * Creates the cards that display's Saints information.
+     * Creates the cards that display's Saint information.
      *
      * @param saint      the saint
      * @param actionNode the action node
      * @param isCompact  the is compact
      * @return the v box
      */
-    public static VBox createSaintCard(Saints saint, Node actionNode, boolean isCompact) {
+    public static VBox createSaintCard(Saint saint, Node actionNode, boolean isCompact) {
 
         int cardWidth = isCompact ? 180 : 200;
         int cardHeight = isCompact ? 150 : 100;
@@ -50,7 +51,7 @@ public class SaintCardController {
         // Try to find the image (if not print cant find img)
         try {
 
-            // Assign image path to distinct portrait in SaintsRoster
+            // Assign image path to distinct portrait in SaintRoster
             String imagePath = "/images/Saints/" + saint.getPortraitKey();
             Image img = new Image(SaintCardController.class.getResourceAsStream(imagePath), 300, 0, true, true);
 
@@ -82,7 +83,7 @@ public class SaintCardController {
         return card;
     }
 
-    private static VBox buildStatBars(Saints saint, boolean isCompact) {
+    private static VBox buildStatBars(Saint saint, boolean isCompact) {
         VBox bars = new VBox(3);
         bars.getStyleClass().add("stat-bars");
         bars.getChildren().addAll(

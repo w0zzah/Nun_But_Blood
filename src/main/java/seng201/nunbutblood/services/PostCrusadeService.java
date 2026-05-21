@@ -1,8 +1,7 @@
 package seng201.nunbutblood.services;
 
 import seng201.nunbutblood.models.Covenant;
-import seng201.nunbutblood.models.Item;
-import seng201.nunbutblood.models.Saints;
+import seng201.nunbutblood.models.Saint;
 import seng201.nunbutblood.models.StatType;
 
 import java.util.ArrayList;
@@ -34,10 +33,8 @@ public class PostCrusadeService {
      * Instantiates a new Post crusade service.
      *
      * @param difficulty the difficulty
-     * @param score      the score
-     * @param reward     the reward
      */
-    public PostCrusadeService(String difficulty, int score, int reward) {
+    public PostCrusadeService(String difficulty) {
         this.random = new Random();
         this.hardMode = "Hard".equals(difficulty);
 
@@ -52,7 +49,7 @@ public class PostCrusadeService {
     public List<String> triggerEvents(Covenant covenant) {
 
         List<String> events = new ArrayList<>();
-        List<Saints> activeParty = new ArrayList<>(covenant.getActiveParty());
+        List<Saint> activeParty = new ArrayList<>(covenant.getActiveParty());
 
         if (activeParty.isEmpty()) return events;
         double chance = BASE_EVENT_CHANCE + (hardMode ? HARD_BONUS : 0);
@@ -62,7 +59,7 @@ public class PostCrusadeService {
          */
         if (random.nextDouble() < chance) {
             // Pick random saint
-            Saints target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));
+            Saint target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));
 
             // set the change to either +3 or -2
             int change = random.nextBoolean() ? 3 : -2;
@@ -71,7 +68,6 @@ public class PostCrusadeService {
             StatType randomStat = stats[random.nextInt(stats.length)];
 
             // Apply the Change
-            applyStat(target, change, randomStat);
 
             String direction = change > 0 ? "gained" : "lost";
             String type = change > 0 ? "divine" : "cursed";
@@ -83,7 +79,7 @@ public class PostCrusadeService {
 
         // Random skill event
         if (random.nextDouble() < chance * 0.5) {
-            Saints target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));
+            Saint target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));
             if (target.getSpecialAbility().isEmpty()) {
                 String skill = SKILLS[random.nextInt(SKILLS.length)];
                 target.setSpecialAbility(skill);
@@ -91,7 +87,7 @@ public class PostCrusadeService {
             }
         }
         // Chance for saints to retire
-        for (Saints saint : activeParty) {
+        for (Saint saint : activeParty) {
             double retireChance = 0.02 + (saint.getCrusadeCount() * 0.03);
             if (random.nextDouble() < retireChance) {
                 int total = covenant.getActiveParty().size() + covenant.getReserves().size();
@@ -113,7 +109,7 @@ public class PostCrusadeService {
      * @param amount the amount
      * @param stat   the stat
      */
-    public void applyStat(Saints saint, int amount, StatType stat) {
+    public void applyStat(Saint saint, int amount, StatType stat) {
         switch(stat) {
             case STRENGTH -> saint.changeStrength(amount);
             case WISDOM -> saint.changeWisdom(amount);

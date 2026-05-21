@@ -12,7 +12,6 @@ import javafx.util.Duration;
 import seng201.nunbutblood.models.*;
 import seng201.nunbutblood.services.DemonService;
 import seng201.nunbutblood.services.MarketService;
-import seng201.nunbutblood.services.PostCrusadeService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,10 +46,10 @@ public class SetupController {
     private ScreenNavigator navigator;
 
     // The first 6 Saint, 2 of each class
-    private final List<Saints> saintsList = new ArrayList<>();
+    private final List<Saint> saintList = new ArrayList<>();
 
-    // The list of chosen Saints
-    private final List<Saints> selectedSaints = new ArrayList<>();
+    // The list of chosen Saint
+    private final List<Saint> selectedSaints = new ArrayList<>();
 
     // Toggle difficulty select
     private final ToggleGroup diffGroup = new ToggleGroup();
@@ -93,22 +92,22 @@ public class SetupController {
      *
      */
     private void setupSlider() {
-        expeditionSlider.valueProperty().addListener((obs, old, val) -> {
-            int v = val.intValue();
+        expeditionSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int v = oldValue.intValue();
             expeditionSlider.setValue(v);
             expeditionValue.setText(String.valueOf(v));
         });
     }
 
     private void buildSaintsList() {
-        saintsList.clear();
+        saintList.clear();
 
-        List<SaintsRoster.Entry> commonEntries = SaintsRoster.getAllSaints().stream()
-                .filter(entry -> SaintsRoster.create(entry).getRarity() == Rarity.COMMON)
+        List<SaintRoster.Entry> commonEntries = SaintRoster.getAllSaints().stream()
+                .filter(entry -> SaintRoster.create(entry).getRarity() == Rarity.COMMON)
                 .limit(6).toList();
 
-        for (SaintsRoster.Entry entry : commonEntries) {
-            saintsList.add(SaintsRoster.create(entry));
+        for (SaintRoster.Entry entry : commonEntries) {
+            saintList.add(SaintRoster.create(entry));
         }
     }
 
@@ -130,8 +129,8 @@ public class SetupController {
 
     private void createSaintCards() {
         saintsGrid.getChildren().clear();
-        for (int i = 0; i < saintsList.size(); i++) {
-            Saints currentSaint = saintsList.get(i);
+        for (int i = 0; i < saintList.size(); i++) {
+            Saint currentSaint = saintList.get(i);
 
             // Define the button for Setup
             Button btn = new Button("SELECT");
@@ -154,7 +153,7 @@ public class SetupController {
      * @param card
      * @param btn
      */
-    private void toggleSaintSelection(Saints clickedSaint, VBox card, Button btn) {
+    private void toggleSaintSelection(Saint clickedSaint, VBox card, Button btn) {
 
         // Check if the current selected list of saints contains clickedSaint
         if (selectedSaints.contains(clickedSaint)) {
@@ -168,7 +167,7 @@ public class SetupController {
         } else {
             // If SelectedSaints is greater than 3 throw error message and return
             if (selectedSaints.size() >= 3) {
-                AlertBox.showAlert(statusLabel, alertBox, "You can only choose 3 starting Saints.");
+                AlertBox.showAlert(statusLabel, alertBox, "You can only choose 3 starting Saint.");
                 return;
             }
 
@@ -206,7 +205,7 @@ public class SetupController {
         }
 
         if (selectedSaints.size() != 3) {
-              AlertBox.showAlert(statusLabel, alertBox,"Please select exactly 3 Saints");
+              AlertBox.showAlert(statusLabel, alertBox,"Please select exactly 3 Saint");
             return;
         }
 
@@ -215,12 +214,11 @@ public class SetupController {
         String difficulty = hardMode.isSelected() ? "Hard" : "Easy";
 
         Covenant covenant = new Covenant(name, crusades, difficulty);
-        for (Saints a : selectedSaints) {
-            covenant.addSaints(a);
+        for (Saint a : selectedSaints) {
+            covenant.addSaint(a);
         }
 
         MarketService market = new MarketService(new Random());
-        DemonService demonService = new DemonService();
         navigator.startCovenant(covenant, market);
     }
 

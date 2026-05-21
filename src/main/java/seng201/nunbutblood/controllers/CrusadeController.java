@@ -3,11 +3,9 @@ package seng201.nunbutblood.controllers;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
-import seng201.nunbutblood.models.Saints;
+import seng201.nunbutblood.models.Saint;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.models.StatType;
@@ -26,7 +24,7 @@ import java.util.Random;
  * <br>
  * <p><b>refreshUI() - </b> Updates the Saint's stamina after roll, the {@link #crusadeProgressBar}, and the {@link #eventLog}</p>
  * <br>
- * <p><b>handleRoll(Saints) - </b> Rolls the dice, plays the animation, and checks for a success.
+ * <p><b>handleRoll(Saint) - </b> Rolls the dice, plays the animation, and checks for a success.
  * Sets {@link  #rollResultLabel} and {@link #narrativeLabel}. Then checks for if the game is over.</p>
  * <br>
  * <p><b>showEndDialog(String, String, boolean) -</b>  Transitions out of the screen declaring victory or defeat.</p>
@@ -52,7 +50,6 @@ public class CrusadeController {
     @FXML private VBox eventBox;
     @FXML private Button choiceAButton;
     @FXML private Button choiceBButton;
-    @FXML private Button none;
     @FXML private Label statTypeLabel;
 
 
@@ -99,8 +96,8 @@ public class CrusadeController {
     }
 
     private void setupDemonDisplay() {
-        Button none = new Button("");
-        VBox card = DemonCardController.buildDemonCard(currentDemon, none, false);
+        Button emptyDemonButton = new Button("");
+        VBox card = DemonCardController.buildDemonCard(currentDemon, emptyDemonButton, false);
         HBox.setHgrow(card, Priority.ALWAYS);
         demonContainer.getChildren().add(card);
         demonName.setText(currentDemon.getName());
@@ -155,14 +152,13 @@ public class CrusadeController {
         fade.setOnFinished(event -> {
             eventBox.setVisible(false);
         });
-        fade.play(); // FIX: fade.play() was missing — the animation never ran before
-
+        fade.play();
         refreshUI();
     }
 
     private void refreshUI() {
         partyContainer.getChildren().clear();
-        for (Saints saint : covenant.getActiveParty()) {
+        for (Saint saint : covenant.getActiveParty()) {
             Button rollBtn = new Button("ROLL");
             rollBtn.setDisable(saint.getCurrentStamina() < 5);
             rollBtn.setOnAction(e -> handleRoll(saint));
@@ -184,7 +180,7 @@ public class CrusadeController {
         eventLog.setScrollTop(Double.MAX_VALUE);
     }
 
-    private void handleRoll(Saints selectedSaint) {
+    private void handleRoll(Saint selectedSaint) {
         partyContainer.setDisable(true);
 
         if (currentDemon.getWeakness().equals(rollStatType)) {

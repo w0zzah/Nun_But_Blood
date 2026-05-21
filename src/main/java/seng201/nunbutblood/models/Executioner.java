@@ -9,7 +9,7 @@ package seng201.nunbutblood.models;
  * @calcHireCost set's the hire cost, (strength + 5, wisdom, dexterity)
  * @calcUpKeep set's the upkeep cost, (strength + 5, wisdom, dexterity) Constructor to be called in market area for further random stat's
  */
-public class Executioner extends Saints {
+public class Executioner extends Saint {
 
     /**
      * Instantiates a new Executioner.
@@ -28,7 +28,7 @@ public class Executioner extends Saints {
                 dexterity,
                 stamina,
                 20,
-                Saints.calcHireCost(strength, wisdom, dexterity),
+                Saint.calcHireCost(strength, wisdom, dexterity),
                 calcUpKeep(strength, wisdom, dexterity));
     }
 

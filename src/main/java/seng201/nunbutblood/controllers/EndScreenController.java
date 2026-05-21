@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.services.MarketService;
 import seng201.nunbutblood.services.PostCrusadeService;
+import seng201.nunbutblood.services.SaintService;
 
 import java.util.List;
 
@@ -42,13 +43,13 @@ public class EndScreenController {
      * @param gameOver        the game over
      */
     public void init(Stage stage, ScreenNavigator screenNavigator, Covenant covenant, MarketService market,
-                     boolean isVictory, boolean gameOver) {
+                     SaintService saintService, boolean isVictory, boolean gameOver) {
 
         this.covenant = covenant;
         this.navigator = screenNavigator;
         this.isVictory = isVictory;
         this.market = market;
-        this.postCrusadeEvents = new PostCrusadeService(covenant.getDifficulty(), covenant.getScore(), covenant.getFaith());
+        this.postCrusadeEvents = new PostCrusadeService(covenant.getDifficulty());
         result(isVictory, gameOver);
 
     }
@@ -60,12 +61,12 @@ public class EndScreenController {
      * @param gameOver  the game over
      */
     public void result(boolean isVictory, boolean gameOver){
-        if (gameOver) {
+        if (gameOver || covenant.hasLost()) {
             crusadesCompleted.setText("You Completed: " + covenant.getCurrentCrusade() + " / " + covenant.getTotalCrusades() + " Crusade's");
             goNext.setText("Play Again?");
             goNext.setOnAction(e -> goToSetup());
-            score.setText("Score: " + covenant.getScore() + "\n Total Faith Earned: " + covenant.getTotalFaithEarned());
-            result.setText(isVictory ? covenant.getName() + "Has pushed the Demons back to Hell!" : covenant.getName() + "Has been Destroyed \n DEMONS REIGN!");
+            score.setText("Score: " + covenant.getScore());
+            result.setText(isVictory ? covenant.getName() + "Has pushed the Demons back to Hell!" : covenant.getName() + "falls...");
         } else {
             goNext.setText("Back to Covenant");
             market.refresh(covenant.getCurrentCrusade());

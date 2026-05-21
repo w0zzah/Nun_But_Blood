@@ -1,5 +1,4 @@
 package seng201.nunbutblood.controllers;
-import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,7 +11,7 @@ import javafx.util.Duration;
 import seng201.nunbutblood.models.AlertBox;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Item;
-import seng201.nunbutblood.models.Saints;
+import seng201.nunbutblood.models.Saint;
 import seng201.nunbutblood.services.MarketService;
 
 /**
@@ -53,13 +52,39 @@ public class MarketController {
     private void refresh() {
         faithLabel.setText("Faith: " + covenant.getFaith());
 
+        clearAllPanes();
+        populateBuyItems();
+        populateSellItems();
+        populateBuySaints();
+        populateSellSaints();
+    }
+
+    private Button getHireBtn(Saint saint) {
+        Button hireBtn = new Button("HIRE (" + saint.getCost() + " faith)");
+
+        // Define Market Logic
+        hireBtn.setOnAction(e -> {
+            if (!marketService.buySaint(saint, covenant)) {
+                AlertBox.showAlert(statusLabel, alertBox, "Unable to hire, you lack faith!");
+            } else {
+                AlertBox.showAlert(statusLabel, alertBox, saint.getName() + " hired for " + saint.getCost() + "faith!");
+                refresh();
+            }
+        });
+        return hireBtn;
+    }
+
+    private void clearAllPanes() {
         saintPane.getChildren().clear();
         sellSaintPane.getChildren().clear();
         itemPane.getChildren().clear();
         sellItemPane.getChildren().clear();
+    }
 
-
-        // Purchase logic for the items
+    /**
+     * Populate buy items.
+     */
+    public void populateBuyItems() {
         for (Item item : marketService.getAvailableItems()) {
             Button buyBtn = new Button("Buy (" + item.getCost() + " Faith)");
 
@@ -76,9 +101,9 @@ public class MarketController {
             VBox itemCard = ItemCardController.createItemCard(item, buyBtn);
             itemPane.getChildren().add(itemCard);
         }
+    }
 
-
-
+    public void populateSellItems() {
         for (Item playerItem : covenant.getInventory()) {
             Button sellBtn = new Button("Sell");
 
@@ -92,21 +117,12 @@ public class MarketController {
             sellItemPane.getChildren().add(itemCard);
         }
 
+    }
 
-
-        // purchase logic for the Saints
-        for (Saints saint : marketService.getAvailableSaints()) {
-            Button hireBtn = new Button("HIRE (" + saint.getCost() + " faith)");
-
-            // Define Market Logic
-            hireBtn.setOnAction(e -> {
-                if (!marketService.buySaint(saint, covenant)) {
-                    AlertBox.showAlert(statusLabel, alertBox, "Unable to hire, you lack faith!");
-                } else {
-                    AlertBox.showAlert(statusLabel, alertBox, saint.getName() + " hired for " + saint.getCost() + "faith!");
-                    refresh();
-                }
-            });
+    public void populateBuySaints() {
+        // purchase logic for the Saint
+        for (Saint saint : marketService.getAvailableSaints()) {
+            Button hireBtn = getHireBtn(saint);
 
             // Create HBox containing hire button
             HBox action = new HBox(1);
@@ -114,13 +130,14 @@ public class MarketController {
 
             VBox card = SaintCardController.createSaintCard(saint, action, true);
             saintPane.getChildren().add(card);
-            }
+        }
+    }
+    public void populateSellSaints() {
+        for (Saint saint : covenant.getOwnedSaints()) {
 
-        for (Saints saint : covenant.getOwnedSaints()) {
+            Button sellBtn = new Button("Sell (" + (saint.getCost() / 2) + " faith)");
 
-            Button sellbtn = new Button("Sell (" + (saint.getCost() / 2) + " faith)");
-
-            sellbtn.setOnAction(e -> {
+            sellBtn.setOnAction(e -> {
                 if (!marketService.sellSaint(saint, covenant)) {
                     AlertBox.showAlert(statusLabel, alertBox, "You can't sell your last Saint!");
                 } else {
@@ -130,12 +147,13 @@ public class MarketController {
 
             // Create HBox containing hire button
             HBox action = new HBox(1);
-            action.getChildren().add(sellbtn);
+            action.getChildren().add(sellBtn);
 
             VBox card = SaintCardController.createSaintCard(saint, action, true);
             sellSaintPane.getChildren().add(card);
         }
     }
+
 
 
     @FXML

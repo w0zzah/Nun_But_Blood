@@ -1,7 +1,7 @@
 package seng201.nunbutblood.services;
 
 import seng201.nunbutblood.models.Demon;
-import seng201.nunbutblood.models.Saints;
+import seng201.nunbutblood.models.Saint;
 import seng201.nunbutblood.models.StatType;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class CrusadeService {
      * @param stat  the stat
      * @return A StepResult containing all data needed for the animation and UI update.
      */
-    public StepResult performStep(Saints saint, Demon demon, List<Saints> party, StatType stat) {
+    public StepResult performStep(Saint saint, Demon demon, List<Saint> party, StatType stat) {
         //  Calculate the Roll
         int roll = random.nextInt(20) + 1;
         int bonus = saint.getAttributeValue(stat);
@@ -93,7 +93,7 @@ public class CrusadeService {
      * @param party the party
      * @return the boolean
      */
-    public boolean checkGameOver(List<Saints> party) {
+    public boolean checkGameOver(List<Saint> party) {
         // Game is over if all party members are below the required stamina to act
         return party.stream().allMatch(s -> s.getCurrentStamina() < 5);
     }
@@ -152,10 +152,10 @@ public class CrusadeService {
      * @param activeParty the active party
      * @return the optional
      */
-    public Optional<CrusadeEvent> rollMidCrusadeEvent(List<Saints> activeParty) {
+    public Optional<CrusadeEvent> rollMidCrusadeEvent(List<Saint> activeParty) {
         if (activeParty.isEmpty() || random.nextDouble() > 0.5) return Optional.empty();
 
-        Saints target = activeParty.get(random.nextInt(activeParty.size()));
+        Saint target = activeParty.get(random.nextInt(activeParty.size()));
         boolean isBuff = random.nextBoolean();
 
         StatType[] stats = StatType.values();
@@ -182,7 +182,7 @@ public class CrusadeService {
     }
 
 
-    private void applyStat(Saints saint, StatType stat, int amount) {
+    private void applyStat(Saint saint, StatType stat, int amount) {
         switch (stat) {
             case STRENGTH   -> saint.changeStrength(amount);
             case WISDOM     -> saint.changeWisdom(amount);

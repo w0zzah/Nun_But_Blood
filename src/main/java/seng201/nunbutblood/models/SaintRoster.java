@@ -8,7 +8,7 @@ import java.util.Random;
 
 
 /**
- * To serve as a List containing all information for the group of Saints.
+ * To serve as a List containing all information for the group of Saint.
  * <p>
  * Every Apostle has their own strength, wisdom and dex, which when summed, display the rarity @Rarity
  * <p>
@@ -19,7 +19,7 @@ import java.util.Random;
  *
  *
  */
-public final class SaintsRoster {
+public final class SaintRoster {
 
     /**
      * record documentation for reference see <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Record.html">here</a>
@@ -47,7 +47,7 @@ public final class SaintsRoster {
      * @return shuffled list of roster entries
      */
     public static List<Entry> pickRandom(int count, Random random) {
-        // Set's List 'shuffled' = to a temporary ArrayList that contains all Saints
+        // Set's List 'shuffled' = to a temporary ArrayList that contains all Saint
         List<Entry> shuffled = new ArrayList<>(allSaints);
         // Collections.shuffle shuffles element's in an ArrayList (Element, Method)
         Collections.shuffle(shuffled, random);
@@ -70,7 +70,7 @@ public final class SaintsRoster {
      * @param entry the roster entry to instantiate
      * @return a new Apostle object of the appropriate subclass
      */
-    public static Saints create(Entry entry) {
+    public static Saint create(Entry entry) {
         return switch (entry.type()) {
             case "EXE" -> new Executioner(entry.name(), entry.portraitKey(),
                     entry.baseStr(), entry.baseWis(), entry.baseDex(), entry.stamina);
@@ -82,7 +82,7 @@ public final class SaintsRoster {
     }
 
     /**
-     * Builds all possible Saints with unique identifiers. <br>
+     * Builds all possible Saint with unique identifiers. <br>
      * (6 Common, 6 Rare, 4 Epic, 2 Legendary)
      * <br>
      *
@@ -101,7 +101,7 @@ public final class SaintsRoster {
         saintRecord.add(new Entry("Tsundere", "Tsundere.png", "INQ", 5, 6, 8, 20));
 
         // Rare
-        saintRecord.add(new Entry("Issac", "Issac.png", "INQ", 8, 5, 14, 20));
+        saintRecord.add(new Entry("Issac", "Issac.png", "INQ", 8, 8, 16, 20));
         saintRecord.add(new Entry("Rukia", "Rukia.png", "EXE", 15, 6, 9, 20));
         saintRecord.add(new Entry("Krac", "Krac.png", "ORA", 8, 14, 10, 20));
         saintRecord.add(new Entry("Kai'Sa", "KaiSa.png", "ORA", 11, 16, 12, 20));
