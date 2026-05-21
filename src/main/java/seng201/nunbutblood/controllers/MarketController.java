@@ -26,7 +26,6 @@ public class MarketController {
     @FXML private VBox sellItemPane;
     @FXML private FlowPane sellSaintPane;
     @FXML private HBox alertBox;
-    @FXML private Button refresh;
 
     private Stage stage;
     private ScreenNavigator navigator;

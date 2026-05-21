@@ -3,9 +3,6 @@ package seng201.nunbutblood.controllers;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -33,13 +30,9 @@ public class SetupController {
     @FXML private ToggleButton hardMode;
     @FXML private GridPane saintsGrid;
     @FXML private Label saintSelectLabel;
-    @FXML private Button startButton;
-    @FXML private Label diffError;
     @FXML private HBox alertBox;
     @FXML private Label statusLabel;
-    @FXML private Button enter;
     @FXML private VBox entryBox;
-
     private Stage stage;
 
     private ScreenNavigator navigator;

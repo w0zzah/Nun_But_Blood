@@ -14,7 +14,6 @@ import java.io.InputStream;
  * Takes information from {@link seng201.nunbutblood.models.Item} , and links the data such as
  * Name, Stats, PortraitID, Rarity to create a unique card for each item. <br>
  * <p>
- * {@link #createItemCard(Item, Node, boolean)} : Creates a distinct card for the item with a button to purchase the item <br>
  */
 public class ItemCardController {
     /**

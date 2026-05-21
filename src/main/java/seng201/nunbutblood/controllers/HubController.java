@@ -10,7 +10,6 @@ import seng201.nunbutblood.models.AlertBox;
 import seng201.nunbutblood.models.Saint;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Item;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 
@@ -76,7 +75,7 @@ public class HubController {
         for (Saint saint : covenant.getReserves()) {
             Button activateBtn = new Button("ACTIVATE");
             activateBtn.setOnAction(e -> {
-                if (!covenant.activateApostle(saint)) {
+                if (!covenant.activateSaint(saint)) {
                     AlertBox.showAlert(statusLabel, alertBox, "Active party is full \n (max 5).");
                 }
                 refresh();
@@ -102,7 +101,7 @@ public class HubController {
         for (Saint saint : covenant.getActiveParty()) {
             Button benchBtn = new Button("BENCH");
             benchBtn.setOnAction(e -> {
-                if (!covenant.benchApostle(saint)) {
+                if (!covenant.benchSaint(saint)) {
                     statusLabel.setText("Cannot bench: party must keep at least one Saint, or reserves are full.");
                 } else {
                     statusLabel.setText(saint.getName() + " moved to reserves.");

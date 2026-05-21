@@ -208,21 +208,21 @@ public class Covenant {
     /**
      * Moves a saint into the active party.
      *
-     * @param apostle Saint to activate
+     * @param saint Saint to activate
      * @return True if activation succeeds
      */
-    public boolean activateApostle(Saint apostle) {
-        return roster.activateSaint(apostle);
+    public boolean activateSaint(Saint saint) {
+        return roster.activateSaint(saint);
     }
 
     /**
      * Moves a saint out of the active party.
      *
-     * @param apostle Saint to bench
+     * @param saint Saint to bench
      * @return True if benching succeeds
      */
-    public boolean benchApostle(Saint apostle) {
-        return roster.benchSaint(apostle);
+    public boolean benchSaint(Saint saint) {
+        return roster.benchSaint(saint);
     }
 
     /**

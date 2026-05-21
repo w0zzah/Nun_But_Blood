@@ -31,18 +31,6 @@
                                  <Label fx:id="nameError" styleClass="error-label" text=" " wrapText="true" />
                               </children>
                            </VBox>
-                           <VBox alignment="CENTER" styleClass="form-section-part" HBox.hgrow="SOMETIMES">
-                              <children>
-                                 <Label styleClass="section-label" text="DIFFICULTY" />
-                                 <HBox spacing="16" style="-fx-padding: 4 0;">
-                                    <children>
-                                       <ToggleButton fx:id="easyMode" maxWidth="Infinity" styleClass="diff-btn" text="I'm afraid" HBox.hgrow="ALWAYS" />
-                                       <ToggleButton fx:id="hardMode" maxWidth="Infinity" styleClass="diff-btn" text="Hurt me plenty&#10;" HBox.hgrow="ALWAYS" />
-                                    </children>
-                                 </HBox>
-                                 <Label fx:id="nameError1" styleClass="error-label" text=" " wrapText="true" />
-                              </children>
-                           </VBox>
                            <VBox alignment="TOP_CENTER" spacing="6" styleClass="form-section-part" HBox.hgrow="SOMETIMES">
                               <children>
                                  <Label styleClass="section-label" text="NUMBER OF CRUSADES" />
@@ -56,6 +44,18 @@
                                        <Label fx:id="expeditionValue" alignment="CENTER" contentDisplay="TOP" minWidth="30" styleClass="stat-value" text="10" />
                                     </children>
                                  </HBox>
+                              </children>
+                           </VBox>
+                           <VBox alignment="CENTER" styleClass="form-section-part" HBox.hgrow="SOMETIMES">
+                              <children>
+                                 <Label styleClass="section-label" text="DIFFICULTY" />
+                                 <HBox spacing="16" style="-fx-padding: 4 0;">
+                                    <children>
+                                       <ToggleButton fx:id="easyMode" maxWidth="Infinity" styleClass="diff-btn" text="I'm afraid" HBox.hgrow="ALWAYS" />
+                                       <ToggleButton fx:id="hardMode" maxWidth="Infinity" styleClass="diff-btn" text="Hurt me plenty&#10;" HBox.hgrow="ALWAYS" />
+                                    </children>
+                                 </HBox>
+                                 <Label fx:id="nameError1" styleClass="error-label" text=" " wrapText="true" />
                               </children>
                            </VBox>
                         </children>

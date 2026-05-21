@@ -20,7 +20,7 @@ class ItemTest {
         Item item = new Item(
                 "Holy Water",
                 Item.ItemType.UPGRADE,
-                "strength",
+                StatType.STRENGTH,
                 5,
                 20,
                 "Increases strength",
@@ -46,7 +46,7 @@ class ItemTest {
         Item item = new Item(
                 "Tome of Fire",
                 Item.ItemType.SKILL_TOME,
-                "wisdom",
+                StatType.WISDOM,
                 0,
                 30,
                 "Fire Blast",
@@ -63,7 +63,7 @@ class ItemTest {
         Item item = new Item(
                 "Holy Water",
                 Item.ItemType.UPGRADE,
-                "strength",
+                StatType.STRENGTH,
                 5,
                 20,
                 "Increases strength",
@@ -78,7 +78,7 @@ class ItemTest {
         Item item = new Item(
                 "Holy Water",
                 Item.ItemType.UPGRADE,
-                "strength",
+                StatType.STRENGTH,
                 5,
                 20,
                 "Increases strength",
@@ -93,7 +93,7 @@ class ItemTest {
         Item item = new Item(
                 "Holy Water",
                 Item.ItemType.UPGRADE,
-                "strength",
+                StatType.STRENGTH,
                 5,
                 20,
                 "Increases strength",
@@ -108,14 +108,14 @@ class ItemTest {
         Item item = new Item(
                 "Holy Water",
                 Item.ItemType.UPGRADE,
-                "strength",
+                StatType.STRENGTH,
                 5,
                 20,
                 "Increases strength",
                 "holywater.png"
         );
 
-        assertEquals("strength", item.getStatAffected());
+        assertEquals(StatType.STRENGTH, item.getStatAffected());
     }
 
     @Test
@@ -123,7 +123,7 @@ class ItemTest {
         Item item = new Item(
                 "Holy Water",
                 Item.ItemType.UPGRADE,
-                "strength",
+                StatType.STRENGTH,
                 5,
                 20,
                 "Increases strength",
@@ -138,7 +138,7 @@ class ItemTest {
         Item item = new Item(
                 "Holy Water",
                 Item.ItemType.UPGRADE,
-                "strength",
+                StatType.STRENGTH,
                 5,
                 20,
                 "Increases strength",
@@ -153,7 +153,7 @@ class ItemTest {
         Item item = new Item(
                 "Holy Water",
                 Item.ItemType.UPGRADE,
-                "strength",
+                StatType.STRENGTH,
                 5,
                 20,
                 "Increases strength",

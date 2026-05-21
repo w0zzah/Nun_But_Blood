@@ -34,7 +34,7 @@ public class Item implements Purchasable {
     private final ItemType type;
 
     /** The stat this item affects — one of "STR", "WIS", "DEX", "STA", "PER". */
-    private final String statAffected;
+    private final StatType statAffected;
 
     /** The amount added to the affected stat. */
     private final int bonusValue;
@@ -59,7 +59,7 @@ public class Item implements Purchasable {
      * @param itemDescription description shown in market and inventory
      * @param portraitKey     Item Portrait
      */
-    public Item(String itemName, ItemType type, String statAffected, int bonusValue, int cost, String itemDescription, String portraitKey){
+    public Item(String itemName, ItemType type, StatType statAffected, int bonusValue, int cost, String itemDescription, String portraitKey){
         this.itemName = itemName;
         this.type = type;
         this.statAffected = statAffected;
@@ -80,11 +80,11 @@ public class Item implements Purchasable {
         switch (type) {
             case UPGRADE, EQUIPMENT -> {
                 switch (statAffected) {
-                    case "strength" -> saint.changeStrength(bonusValue);
-                    case "wisdom" -> saint.changeWisdom(bonusValue);
-                    case "dexterity" -> saint.changeDexterity(bonusValue);
-                    case "stamina" -> saint.changeMaxStamina(bonusValue);
-                    case "perception" -> saint.changePerception(bonusValue);
+                    case STRENGTH -> saint.changeStrength(bonusValue);
+                    case WISDOM -> saint.changeWisdom(bonusValue);
+                    case DEXTERITY -> saint.changeDexterity(bonusValue);
+                    case STAMINA-> saint.changeMaxStamina(bonusValue);
+                    case PERCEPTION -> saint.changePerception(bonusValue);
                 }
             }
             case SKILL_TOME -> saint.setSpecialAbility(itemDescription);
@@ -120,7 +120,7 @@ public class Item implements Purchasable {
      *
      * @return stat identifier string
      */
-    public String getStatAffected(){ return statAffected; }
+    public StatType getStatAffected(){ return statAffected; }
 
     /**
      * Returns the stat bonus amount this item provides.

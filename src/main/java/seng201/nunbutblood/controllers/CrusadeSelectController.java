@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Demon;
 import seng201.nunbutblood.services.DemonService;
-import seng201.nunbutblood.services.CovenantService;
 
 /**
  * The type Crusade select controller.

@@ -21,10 +21,8 @@ public class ScreenNavigator {
 
     private Covenant covenant;
     private MarketService marketService;
-    private PostCrusadeService randomService;
     private final AudioService audioService;
     private final SaintService saintService;
-    private CovenantService covenantService;
 
     /**
      * Instantiates a new Screen navigator.
