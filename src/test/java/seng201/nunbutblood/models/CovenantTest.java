@@ -72,7 +72,7 @@ class CovenantTest {
     @Test
     void addItem() {
         Covenant covenant = new Covenant("Blood Covenant", 5, "Normal");
-        Item item = ItemCatalog.HOLY_WATER.create();
+        Item item = ItemCatalog.BLOOD_VIAL.create();
 
         covenant.addItem(item);
 
@@ -82,7 +82,7 @@ class CovenantTest {
     @Test
     void removeItem() {
         Covenant covenant = new Covenant("Blood Covenant", 5, "Normal");
-        Item item = ItemCatalog.HOLY_WATER.create();
+        Item item = ItemCatalog.BLOOD_VIAL.create();
 
         covenant.addItem(item);
         boolean removed = covenant.removeItem(item);
@@ -96,7 +96,7 @@ class CovenantTest {
         Covenant covenant = new Covenant("Blood Covenant", 5, "Normal");
 
         assertThrows(UnsupportedOperationException.class, () -> {
-            covenant.getInventory().add(ItemCatalog.HOLY_WATER.create());
+            covenant.getInventory().add(ItemCatalog.BLOOD_VIAL.create());
         });
     }
 

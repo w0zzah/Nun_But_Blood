@@ -2,7 +2,7 @@ package seng201.nunbutblood.models;
 
 /**
  * Represents a purchasable item that can be applied to an apostle.
- * Items are either consumed on use (UPGRADE, SKILL_TOME) or
+ * Items are either consumed on use (CONSUMABLE, SKILL_TOME) or
  * persist while equipped (EQUIPMENT).
  *
  * @author pgi33
@@ -17,15 +17,11 @@ public class Item implements Purchasable {
         /**
          * One-time permanent stat boost, consumed on use.
          */
-        UPGRADE,
+        CONSUMABLE,
         /**
          * Equippable item that boosts stats while held.
          */
-        EQUIPMENT,
-        /**
-         * Grants the apostle a named special ability, consumed on use.
-         */
-        SKILL_TOME
+        EQUIPMENT
     }
     /** Display name of item. */
     private final String itemName;
@@ -52,7 +48,7 @@ public class Item implements Purchasable {
      * Creates an Item with the given attributes.
      *
      * @param itemName        display name of the item
-     * @param type            functional category (UPGRADE, EQUIPMENT, SKILL_TOME)
+     * @param type            functional category (CONSUMABLE, EQUIPMENT)
      * @param statAffected    stat this item affects ("STR", "WIS", "DEX", "STA", "PER")
      * @param bonusValue      amount added to the affected stat
      * @param cost            faith cost to purchase
@@ -71,23 +67,17 @@ public class Item implements Purchasable {
 
     /**
      * Applies this item's effect to the given apostle.
-     * UPGRADE and SKILL_TOME are consumed on use.
+     * CONSUMABLE and SKILL_TOME are consumed on use.
      * EQUIPMENT persists and should be tracked on the apostle separately.
      *
      * @param saint the apostle to apply the effect to
      */
     public void applyEffect(Saint saint) {
-        switch (type) {
-            case UPGRADE, EQUIPMENT -> {
-                switch (statAffected) {
-                    case STRENGTH -> saint.changeStrength(bonusValue);
-                    case WISDOM -> saint.changeWisdom(bonusValue);
-                    case DEXTERITY -> saint.changeDexterity(bonusValue);
-                    case STAMINA-> saint.changeMaxStamina(bonusValue);
-                    case PERCEPTION -> saint.changePerception(bonusValue);
-                }
-            }
-            case SKILL_TOME -> saint.setSpecialAbility(itemDescription);
+        Saint.applyStat(saint, this.statAffected, this.bonusValue);
+
+        // If it's a potion, sign it up to be automatically reversed post-crusade
+        if (this.type == ItemType.CONSUMABLE) {
+            saint.registerTemporaryPotion(this);
         }
     }
 

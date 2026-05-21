@@ -34,7 +34,7 @@ public final class SaintRoster {
      * @param baseDex     base Dexterity before class bonus
      */
     public record Entry(String name, String portraitKey, String type,
-                        int baseStr, int baseWis, int baseDex, int stamina) {}
+                        int baseStr, int baseWis, int baseDex, int sanity) {}
     
     private static final List<Entry> allSaints = buildRoster();
 
@@ -73,11 +73,11 @@ public final class SaintRoster {
     public static Saint create(Entry entry) {
         return switch (entry.type()) {
             case "EXE" -> new Executioner(entry.name(), entry.portraitKey(),
-                    entry.baseStr(), entry.baseWis(), entry.baseDex(), entry.stamina);
+                    entry.baseStr(), entry.baseWis(), entry.baseDex(), entry.sanity);
             case "ORA" -> new Oracle(entry.name(), entry.portraitKey(),
-                    entry.baseStr(), entry.baseWis(), entry.baseDex(), entry.stamina);
+                    entry.baseStr(), entry.baseWis(), entry.baseDex(), entry.sanity);
             default    -> new Inquisitor(entry.name(), entry.portraitKey(),
-                    entry.baseStr(), entry.baseWis(), entry.baseDex(), entry.stamina);
+                    entry.baseStr(), entry.baseWis(), entry.baseDex(), entry.sanity);
         };
     }
 

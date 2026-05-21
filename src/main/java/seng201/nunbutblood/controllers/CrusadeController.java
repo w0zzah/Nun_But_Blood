@@ -22,7 +22,7 @@ import java.util.Random;
  * <p><b>setupDemonDisplay() - </b>  Takes the selected demons stats + portrait
  * and creates a relevant info into {@link #demonContainer}</p>
  * <br>
- * <p><b>refreshUI() - </b> Updates the Saint's stamina after roll, the {@link #crusadeProgressBar}, and the {@link #eventLog}</p>
+ * <p><b>refreshUI() - </b> Updates the Saint's sanity after roll, the {@link #crusadeProgressBar}, and the {@link #eventLog}</p>
  * <br>
  * <p><b>handleRoll(Saint) - </b> Rolls the dice, plays the animation, and checks for a success.
  * Sets {@link  #rollResultLabel} and {@link #narrativeLabel}. Then checks for if the game is over.</p>
@@ -118,7 +118,7 @@ public class CrusadeController {
         eventBox.setVisible(true);
 
         // Set's current event to be a random record containing description, choiceA, choiceB
-        currentEvent = midCrusadeEvents.getRandomEvent();
+        currentEvent = midCrusadeEvents.getRandomEvent(covenant.getActiveParty());
 
         // Set desc + button names
         eventQuestion.setText(currentEvent.description());
@@ -160,7 +160,7 @@ public class CrusadeController {
         partyContainer.getChildren().clear();
         for (Saint saint : covenant.getActiveParty()) {
             Button rollBtn = new Button("ROLL");
-            rollBtn.setDisable(saint.getCurrentStamina() < 5);
+            rollBtn.setDisable(saint.getCurrentSanity() < 5);
             rollBtn.setOnAction(e -> handleRoll(saint));
 
             VBox saintCard = SaintCardController.createSaintCard(saint, rollBtn, true);
@@ -188,11 +188,6 @@ public class CrusadeController {
         } else {bonus = selectedSaint.getAttributeValue(rollStatType);}
 
         CrusadeService.StepResult stepResult = crusadeService.performStep(selectedSaint, currentDemon, covenant.getActiveParty(), rollStatType);
-
-        if (stepResult.hasDemonEvent()) {
-            crusadeService.rollMidCrusadeEvent(covenant.getActiveParty())
-                    .ifPresent(event -> eventLog.setText(event.description()));
-        }
 
         diceAnimation.play(stepResult.roll(), stepResult.type(), bonus, () -> {
             rollResultLabel.setText(stepResult.roll() +" + " + bonus);

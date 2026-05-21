@@ -19,7 +19,7 @@ class ItemTest {
 
         Item item = new Item(
                 "Holy Water",
-                Item.ItemType.UPGRADE,
+                Item.ItemType.CONSUMABLE,
                 StatType.STRENGTH,
                 5,
                 20,
@@ -62,7 +62,7 @@ class ItemTest {
     void getPortraitKey() {
         Item item = new Item(
                 "Holy Water",
-                Item.ItemType.UPGRADE,
+                Item.ItemType.CONSUMABLE,
                 StatType.STRENGTH,
                 5,
                 20,
@@ -77,7 +77,7 @@ class ItemTest {
     void getItemName() {
         Item item = new Item(
                 "Holy Water",
-                Item.ItemType.UPGRADE,
+                Item.ItemType.CONSUMABLE,
                 StatType.STRENGTH,
                 5,
                 20,
@@ -85,14 +85,14 @@ class ItemTest {
                 "holywater.png"
         );
 
-        assertEquals("[UPGRADE] Holy Water", item.getItemName());
+        assertEquals("[CONSUMABLE] Holy Water", item.getItemName());
     }
 
     @Test
     void getType() {
         Item item = new Item(
                 "Holy Water",
-                Item.ItemType.UPGRADE,
+                Item.ItemType.CONSUMABLE,
                 StatType.STRENGTH,
                 5,
                 20,
@@ -100,14 +100,14 @@ class ItemTest {
                 "holywater.png"
         );
 
-        assertEquals(Item.ItemType.UPGRADE, item.getType());
+        assertEquals(Item.ItemType.CONSUMABLE, item.getType());
     }
 
     @Test
     void getStatAffected() {
         Item item = new Item(
                 "Holy Water",
-                Item.ItemType.UPGRADE,
+                Item.ItemType.CONSUMABLE,
                 StatType.STRENGTH,
                 5,
                 20,
@@ -122,7 +122,7 @@ class ItemTest {
     void getBonusValue() {
         Item item = new Item(
                 "Holy Water",
-                Item.ItemType.UPGRADE,
+                Item.ItemType.CONSUMABLE,
                 StatType.STRENGTH,
                 5,
                 20,
@@ -137,7 +137,7 @@ class ItemTest {
     void getCost() {
         Item item = new Item(
                 "Holy Water",
-                Item.ItemType.UPGRADE,
+                Item.ItemType.CONSUMABLE,
                 StatType.STRENGTH,
                 5,
                 20,
@@ -152,7 +152,7 @@ class ItemTest {
     void getDescription() {
         Item item = new Item(
                 "Holy Water",
-                Item.ItemType.UPGRADE,
+                Item.ItemType.CONSUMABLE,
                 StatType.STRENGTH,
                 5,
                 20,

@@ -142,13 +142,13 @@ class SaintServiceTest {
     }
 
     @Test
-    void refreshStamina() {
+    void refreshSanity() {
         saintService.addSaint(saint1);
 
-        saint1.consumeStamina(10);
-        saintService.refreshStamina();
+        saint1.consumeSanity(10);
+        saintService.refreshSanity();
 
-        assertEquals(saint1.getMaxStamina(), saint1.getCurrentStamina());
+        assertEquals(saint1.getMaxSanity(), saint1.getCurrentSanity());
     }
 
     @Test

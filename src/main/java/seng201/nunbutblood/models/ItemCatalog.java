@@ -6,63 +6,70 @@ package seng201.nunbutblood.models;
  */
 public enum ItemCatalog {
 
-    // --- UPGRADES ---
+// --- CONSUMABLES ---
 
     /**
-     * The Holy water.
+     * The Blood vial.
      */
-    HOLY_WATER("Holy Water", Item.ItemType.UPGRADE, StatType.WISDOM, 5, 200,
-            "Cleanses the mind and grants divine insight.", "circlet.png"),
+    BLOOD_VIAL("Blood Vial", Item.ItemType.CONSUMABLE, StatType.STRENGTH, 4, 150,
+            "Thick, vital fluid that causes a burst of unholy power.", "bloodVial.png"),
 
     /**
-     * The Martyrs blood.
+     * The Calcified heart.
      */
-    MARTYRS_BLOOD("Martyr's Blood", Item.ItemType.UPGRADE, StatType.STAMINA, 10, 400,
-            "Bolsters the spirit for the long crusade.", "bloodvial.png"),
+    CALCIFIED_HEART("Calcified Heart", Item.ItemType.CONSUMABLE, StatType.SANITY, 8, 250,
+            "A petrified heart that temporarily numbs terror.", "calcifiedHeart.png"),
 
     /**
-     * The Crown of ashes.
+     * The Eye candy.
      */
-    CROWN_OF_ASHES("Crown of Ashes", Item.ItemType.UPGRADE,
-            StatType.DEXTERITY, 7, 300,
-            "The burden of sacrifice sharpens holy judgment.", "crown.png"),
-
-    // --- EQUIPMENT ---
+    EYE_CANDY("Eye Candy", Item.ItemType.CONSUMABLE, StatType.PERCEPTION, 5, 200,
+            "A vibrant sweet that allows the consumer to spot hidden blessings.", "eyeCandy.png"),
 
     /**
-     * The Silver crucifix.
+     * The Flambe stew.
      */
-    SILVER_CRUCIFIX("Silver Crucifix", Item.ItemType.EQUIPMENT, StatType.STAMINA, 5, 200,
-            "A heavy cross that burns demons on touch.", "chestPlate.png"),
+    FLAMBE_STEW("Flambé Stew", Item.ItemType.CONSUMABLE, StatType.DEXTERITY, 4, 150,
+            "A searing broth that sets the nerves on fire, quickening movements.", "flambeStew.png"),
 
     /**
-     * The Reliquary blade.
+     * The Shriek juice.
      */
-    RELIQUARY_BLADE("Reliquary Blade", Item.ItemType.EQUIPMENT,
-            StatType.STRENGTH, 5, 200,
-            "A consecrated sword sealed with saintly relics.", "reliquaryblade.png"),
+    SHRIEK_JUICE("Shriek Juice", Item.ItemType.CONSUMABLE, StatType.WISDOM, 4, 180,
+            "An agonizing brew that forces the mind to perceive cosmic echoes.", "shriekJuice.png"),
+
+// --- EQUIPMENT ---
 
     /**
-     * The Penitents chain.
+     * The Circlet.
      */
-    PENITENTS_CHAIN("Penitent's Chain", Item.ItemType.EQUIPMENT,
-            StatType.STAMINA, 15, 800,
-            "Heavy chains carried in devotion strengthen resolve.", "chain.png"),
-
-    // --- SKILL TOMES ---
+    CIRCLET("Sacred Circlet", Item.ItemType.EQUIPMENT, StatType.WISDOM, 3, 250,
+            "A woven headband that focuses divine thoughts permanently.", "circlet.png"),
 
     /**
-     * The Scripture of flames.
+     * The Prayer tome.
      */
-    SCRIPTURE_OF_FLAMES("Scripture of Flames", Item.ItemType.SKILL_TOME,
-            StatType.WISDOM, 5, 200,
-            "Holy Inferno", "flametome.png"),
+    PRAYER_TOME("Prayer Tome", Item.ItemType.EQUIPMENT, StatType.SANITY, 12, 600,
+            "A well-worn scripture providing permanent spiritual resilience.", "prayerTome.png"),
 
     /**
-     * The Tome of smiting.
+     * The Skull candle.
      */
-    TOME_OF_SMITING("Tome of Smiting", Item.ItemType.SKILL_TOME, StatType.STRENGTH, 5, 200,
-            "Divine Smite", "tome.png");
+    SKULL_CANDLE("Skull Candle", Item.ItemType.EQUIPMENT, StatType.PERCEPTION, 3, 300,
+            "Its eerie flickering flame uncovers secret artifacts in the dark.", "skullCandle.png"),
+
+    /**
+     * The Tome.
+     */
+    TOME("Ancient Tome", Item.ItemType.EQUIPMENT, StatType.WISDOM, 5, 500,
+            "Heavy text detailing lost defensive incantations.", "tome.png"),
+
+    /**
+     * The VooDool.
+     */
+    VOO_DOOL("Voodoo Doll", Item.ItemType.EQUIPMENT, StatType.STRENGTH, 3, 350,
+            "A cursed doll whose needles redirect physical pain back outward.", "vooDool.png"),
+    ;
 
 
     // Enum fields matching the Item constructor

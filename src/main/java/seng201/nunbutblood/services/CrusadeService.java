@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
- * The brain of the Crusade. Handles the math, stamina costs, and
+ * The brain of the Crusade. Handles the math, sanity costs, and
  * progression logic, returning data for the UI to display.
  */
 public class CrusadeService {
@@ -54,8 +54,8 @@ public class CrusadeService {
             default -> isSuccess ? "success" : "fail";
         };
 
-        // Every roll costs stamina, regardless of success
-        saint.consumeStamina(5);
+        // Every roll costs sanity, regardless of success
+        saint.consumeSanity(5);
 
         String narrative;
         if (type.equals("critical-success")) {
@@ -94,8 +94,8 @@ public class CrusadeService {
      * @return the boolean
      */
     public boolean checkGameOver(List<Saint> party) {
-        // Game is over if all party members are below the required stamina to act
-        return party.stream().allMatch(s -> s.getCurrentStamina() < 5);
+        // Game is over if all party members are below the required sanity to act
+        return party.stream().allMatch(s -> s.getCurrentSanity() < 5);
     }
 
     /**
@@ -146,30 +146,6 @@ public class CrusadeService {
     private final List<CrusadeEvent> activeEvents = new ArrayList<>();
 
 
-    /**
-     * Rolls for a mid-crusade random event. Call this from the controller
-     *
-     * @param activeParty the active party
-     * @return the optional
-     */
-    public Optional<CrusadeEvent> rollMidCrusadeEvent(List<Saint> activeParty) {
-        if (activeParty.isEmpty() || random.nextDouble() > 0.5) return Optional.empty();
-
-        Saint target = activeParty.get(random.nextInt(activeParty.size()));
-        boolean isBuff = random.nextBoolean();
-
-        StatType[] stats = StatType.values();
-        StatType randomStat = stats[random.nextInt(stats.length)];
-        int change = isBuff ? (random.nextInt(3) + 2) : -(random.nextInt(3) + 1);
-        Saint.applyStat(target, randomStat, change);
-        String description = String.format("%s's %s changes by %d", target.getName(), randomStat.label, change);
-
-        addToLog(description);
-
-        CrusadeEvent event = new CrusadeEvent(target, randomStat, change, description);
-        activeEvents.add(event);
-        return Optional.of(event);
-    }
 
     /**
      * reverse changes

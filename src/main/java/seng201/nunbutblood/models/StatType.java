@@ -19,9 +19,9 @@ public enum StatType {
      */
     DEXTERITY("dexterity", "DEX"),
     /**
-     * Stamina stat type.
+     * Sanity stat type.
      */
-    STAMINA("stamina", "STA"),
+    SANITY("sanity", "STA"),
     /**
      * Perception stat type.
      */

@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The type Saint service.
+ * Service class responsible for managing the roster of Saints.
+ * Handles operations involving the active party, reserves, party transitions,
+ * and roster-wide stat or status updates.
  */
 public class SaintService {
 
@@ -18,24 +20,26 @@ public class SaintService {
     private final List<Saint> reserves = new ArrayList<>();
 
     /**
-     * Gets active party.
+     * Gets the current list of active party members.
      *
-     * @return the active party
+     * @return a list containing the active Saints
      */
     public List<Saint> getActiveParty() { return activeParty;}
 
     /**
-     * Gets reserves.
+     * Gets the current list of reserve party members.
      *
-     * @return the reserves
+     * @return a list containing the reserve Saints
      */
     public List<Saint> getReserves() { return reserves;}
 
     /**
-     * Add saint boolean.
+     * Adds a new Saint to the roster. The Saint is placed into the active party
+     * if space permits; otherwise, they are placed into reserves if space permits.
      *
-     * @param saint the saint
-     * @return the boolean
+     * @param saint the Saint to be added to the roster
+     * @return true if the Saint was successfully added to either the active party
+     *         or reserves, false if both groups are completely full
      */
     public boolean addSaint(Saint saint) {
         if (activeParty.size() < 5) {
@@ -51,10 +55,12 @@ public class SaintService {
     }
 
     /**
-     * Activate saint boolean.
+     * Moves a Saint from the reserves list into the active party, provided there is
+     * available space in the active party and the Saint is actually in reserves.
      *
-     * @param saint the saint
-     * @return the boolean
+     * @param saint the Saint to activate
+     * @return true if the transfer was successful, false if the active party is full
+     *         or the Saint was not found in reserves
      */
     public boolean activateSaint(Saint saint) {
         if (activeParty.size() >= 5 || !reserves.contains(saint)) return false;
@@ -64,10 +70,12 @@ public class SaintService {
     }
 
     /**
-     * Bench saint boolean.
+     * Moves a Saint from the active party list down to the reserves list, provided
+     * there is available space in reserves and the Saint is currently active.
      *
-     * @param saint the saint
-     * @return the boolean
+     * @param saint the Saint to move to reserves
+     * @return true if the transfer was successful, false if reserves are full
+     *         or the Saint was not found in the active party
      */
     public boolean benchSaint(Saint saint) {
         if (reserves.size() >= 5 || !activeParty.contains(saint)) return false;
@@ -77,10 +85,14 @@ public class SaintService {
     }
 
     /**
-     * Retire saint boolean.
+     * Permanently removes a Saint from the roster (either active or reserve).
+     * To prevent a completely empty roster, removal will fail if the total number
+     * of owned Saints is 1 or fewer.
      *
-     * @param saint the saint
-     * @return the boolean
+     * @param saint the Saint to retire from service
+     * @return true if the Saint was successfully removed from the roster, false
+     *         if the total roster size is less than or equal to 1 or the Saint
+     *         did not exist in the roster
      */
     public boolean retireSaint(Saint saint) {
         if ((activeParty.size() + reserves.size() <= 1)) return false;
@@ -101,7 +113,7 @@ public class SaintService {
      * <br>
      * .stream() <b>(Line them up)</b>-> mapToInt(Saint::getUpKeep) <b>Pickout each Saint UpKeep) -</b>(> .sum() <b>(Add them all together)</b>
      *
-     * @return the int
+     * @return the total upkeep cost of all active party members combined
      */
     public int calculateUpKeep() {
         return activeParty.stream().mapToInt(Saint::getUpKeep).sum();
@@ -109,39 +121,48 @@ public class SaintService {
 
 
     /**
-     * Refresh stamina.
+     * Refreshes and restores the sanity of all active party members.
      */
-    public void refreshStamina() {
-        activeParty.forEach(Saint::restoreStamina);
+    public void refreshSanity() {
+        activeParty.forEach(Saint::restoreSanity);
     }
 
+    /**
+     * Checks whether all currently owned Saints (both active and reserves) are completely exhausted.
+     * A Saint is considered exhausted if their current sanity falls below 5.
+     *
+     * @return true if the entire roster is empty or if every owned Saint has less than 5 sanity,
+     *         false if there is at least one Saint with 5 or more sanity remaining
+     */
     public boolean allSaintsExhausted() {
         List<Saint> allSaints = getOwnedSaints();
         if (allSaints.isEmpty()) {
             return true;
         }
-        return allSaints.stream().allMatch(saints -> saints.getCurrentStamina() < 5);
+        return allSaints.stream().allMatch(saints -> saints.getCurrentSanity() < 5);
     }
+
     /**
-     * Increment crusade counts.
+     * Increments the total crusade completion count for all active party members.
      */
     public void incrementCrusadeCounts() {
         activeParty.forEach(Saint::incrementCrusadeCount);
     }
 
     /**
-     * Is empty boolean.
+     * Checks if the service has no Saints allocated anywhere.
      *
-     * @return the boolean
+     * @return true if both active party and reserves are completely empty, false otherwise
      */
     public boolean isEmpty() {
         return activeParty.isEmpty() && reserves.isEmpty();
     }
 
     /**
-     * Gets owned saints.
+     * Aggregates and retrieves all Saints currently managed by the service.
+     * Combines both active party members and reserve members into a unified list.
      *
-     * @return the owned saints
+     * @return a new list containing all active and reserve Saints
      */
     public List<Saint> getOwnedSaints() {
         List<Saint> allSaints = new ArrayList<>(activeParty);
@@ -149,6 +170,13 @@ public class SaintService {
         return allSaints;
     }
 
+    /**
+     * Internal helper method to modify a specific statistic value of a given Saint.
+     *
+     * @param saint  the Saint whose stat is to be adjusted
+     * @param stat   the type of statistic being targeted
+     * @param amount the numerical amount to apply (positive or negative)
+     */
     private void applyStat(Saint saint, StatType stat, int amount) {
         Saint.applyStat(saint, stat, amount);
     }

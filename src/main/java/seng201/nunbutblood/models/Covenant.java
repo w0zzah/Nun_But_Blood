@@ -55,7 +55,7 @@ public class Covenant {
     /**
      * Handles all end-of-crusade updates.
      * Rewards faith, applies upkeep, updates score,
-     * advances crusade count, and refreshes saint stamina.
+     * advances crusade count, and refreshes saint sanity.
      *
      * @param reward      Faith earned from the crusade
      * @param scoreReward Score earned from the crusade
@@ -67,9 +67,14 @@ public class Covenant {
         bank.payUpKeep(upkeepCost);
         covenantService.changeScore(scoreReward);
         roster.incrementCrusadeCounts();
+
+        for(Saint saint : roster.getOwnedSaints()) {
+            saint.clearTemporaryPotions();
+        }
+
         if (isVictory) {
             covenantService.advanceCrusade();
-            roster.refreshStamina();
+            roster.refreshSanity();
         }
         demonService.generateNewOptions(covenantService.getCurrentCrusade(), difficulty);
 
@@ -82,10 +87,10 @@ public class Covenant {
      * @return True if game is lost
      */
     public boolean hasLost() {
-        boolean outOfStaminaSaints = roster.allSaintsExhausted();
+        boolean outOfSanitySaints = roster.allSaintsExhausted();
         boolean cannotAffordNewSaint = bank.getFaith() <= 200;
 
-        return outOfStaminaSaints && cannotAffordNewSaint;
+        return outOfSanitySaints && cannotAffordNewSaint;
     }
 
     /**

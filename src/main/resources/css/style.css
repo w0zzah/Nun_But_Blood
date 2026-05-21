@@ -3,7 +3,10 @@
     Key difference from web CSS: all properties prefixed with -fx-
     Colors use HSV not HSL — use a picker to verify: https://www.google.com/search?q=color+picker
 */
+@font-face {
 
+
+}
 @import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
 
 .root {
@@ -263,7 +266,7 @@
     -fx-border-width: 1;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(37, 37, 37, 0.4), 8, 0.4, 0, 0);
-    -fx-wrap-text: true;
+    -fx-wrap-text: pretty;
     -fx-text-alignment: center;
 }
 
@@ -323,12 +326,13 @@
     -fx-padding: 4 0 2 0;
 }
 .stat-track {
-    -fx-background-color: #1a1a1a;
+    -fx-background-color: rgba(16, 16, 16, 0.4);
     -fx-background-radius: 4;
     -fx-min-height: 8;
     -fx-max-height: 8;
     -fx-pref-height: 8;
     -fx-pref-width: 10;
+    -fx-border-width: 1;
 }
 .stat-label {
     -fx-text-fill: #e1e1e1;
@@ -336,9 +340,8 @@
     -fx-min-width: 100%;
 }
 .stat-label-primary {
-    -fx-text-fill: #ffece5;
-    -fx-font-size: 15;
-    -fx-font-weight: bold;
+    -fx-text-fill: #f8df9f;
+    -fx-font-size: 12;
     -fx-min-width: 100%;
 }
 .stat-value-small {
@@ -487,6 +490,7 @@
     -fx-text-fill: -chrome;
     -fx-font-size: 35px;
     -fx-font-weight: bold;
+    -fx-wrap-text: true;
 }
 /* ---------------------------------------------------------------------------------------------------------*/
 
@@ -512,21 +516,14 @@
     -fx-alignment: center;
 }
 .item-card-potion {
-    -fx-effect: dropshadow(gaussian, rgb(13, 210, 0 , 0.65), 6, 0.3, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(182, 0, 255, 0.65), 6, 0.3, 0, 0);
     -fx-font-size: 30px;
     -fx-font-weight: bold;
     -fx-wrap-text: true;
 }
 
 .item-card-equipment {
-    -fx-effect: dropshadow(gaussian, rgba(68,136,255,0.65), 6, 0.3, 0, 0);
-    -fx-font-size: 30px;
-    -fx-font-weight: bold;
-    -fx-wrap-text: true;
-}
-
-.item-card-skill {
-    -fx-effect: dropshadow(gaussian, rgba(204,68,255,0.65), 6, 0.3, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(202, 0, 0, 0.65), 6, 0.3, 0, 0);
     -fx-font-size: 30px;
     -fx-font-weight: bold;
     -fx-wrap-text: true;

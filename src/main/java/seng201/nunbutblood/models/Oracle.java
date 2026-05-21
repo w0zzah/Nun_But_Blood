@@ -19,14 +19,14 @@ public class Oracle extends Saint {
      * @param strength   the strength
      * @param wisdom     the wisdom
      * @param dexterity  the dexterity
-     * @param stamina    the stamina
+     * @param sanity    the sanity
      */
-    public Oracle(String name, String portraitID, int strength, int wisdom, int dexterity, int stamina){
+    public Oracle(String name, String portraitID, int strength, int wisdom, int dexterity, int sanity){
         super(name, portraitID,
                 strength,
                 wisdom,
                 dexterity,
-                stamina,
+                sanity,
                 20,
                 Saint.calcHireCost(strength, wisdom, dexterity),
                 calcUpKeep(strength, wisdom, dexterity));

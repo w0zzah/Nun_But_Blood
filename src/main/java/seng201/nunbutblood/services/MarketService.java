@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Market service manage's Item sold in the matkey
+ * Manages buying, selling, and rolling random generation for items and saints in the shop.
  */
 public class MarketService {
 
@@ -175,6 +175,8 @@ public class MarketService {
     /**
      * Rolls the rarity based on crusade count
      *
+     * @param crusadeNumber current crusade sequence index
+     * @return rolled Rarity tier
      */
     private Rarity rollRarity(int crusadeNumber) {
         return Rarity.rollFromCrusade(random, crusadeNumber);

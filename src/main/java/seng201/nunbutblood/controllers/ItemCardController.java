@@ -53,11 +53,7 @@ public class ItemCardController {
         Label name = new Label(item.getItemName());
         if (item.getType() == Item.ItemType.EQUIPMENT) {
             card.getStyleClass().add("item-card-equipment");
-        } else if (item.getType() == Item.ItemType.UPGRADE) {
-            card.getStyleClass().add("item-card-potion");
-        } else { card.getStyleClass().add("item-card-skill");}
-
-
+        } else { card.getStyleClass().add("item-card-potion");}
 
         Label descLabel = new Label(item.getDescription());
         descLabel.getStyleClass().add("item-card-desc");

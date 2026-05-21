@@ -1,5 +1,8 @@
 package seng201.nunbutblood.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The type Saint.
  */
@@ -7,7 +10,7 @@ public abstract class Saint implements Purchasable {
 
     /*
         The Apostle class serve's as a base for our hero's.
-        Apostle's have a name, main stat, stamina, perception, hiring cost and up keep cost
+        Apostle's have a name, main stat, sanity, perception, hiring cost and up keep cost
         The name will be randomly generated String
         The main stat will be either Strength, Wisdom or Dexterity
         Perception will be a
@@ -16,9 +19,9 @@ public abstract class Saint implements Purchasable {
     // Names character
     private String name;
 
-    //  Stamina decrease's on use of attack
-    private int maxStamina;
-    private int currentStamina;
+    //  Sanity decrease's on use of attack
+    private int maxSanity;
+    private int currentSanity;
 
     // Base Strength, Wisdom, and Dexterity
     private int strength;
@@ -49,6 +52,8 @@ public abstract class Saint implements Purchasable {
 
     private Rarity rarity;
 
+    private final List<Item> activePotions = new ArrayList<>();
+
     /**
      * Constructor for Apostle's. To be generated through market which pull's on each respective class
      * for base additions. Market -> Executioner -> Apostle's. Will build this way to so itterate's over
@@ -59,20 +64,20 @@ public abstract class Saint implements Purchasable {
      * @param strength    Strength for Apostle, int 0-20 which is modified in class get as (strength - 10 / 2)
      * @param wisdom      Wisdom for Apostle, int 0-20 which is modified in class get as (wisdom - 10 / 2)
      * @param dexterity   Dexterity for Apostle, int 0-20 which is modified in class get as (dexterity - 10 / 2)
-     * @param stamina     maxStamina and currentStamina for the apostle
+     * @param sanity     maxSanity and currentSanity for the apostle
      * @param perception  Perception for Apostle, serve's as the chance to find Item's
      * @param hireCost    Cost to hire the Apostle, (500 to 1000 faith) - >  calculation is ((each stat - 10 / 2) * 25) + 500.
      * @param upKeep      Cost per expedition for apostle, (-240 to 240) -> calculation is (each stat - 10 / 2) * 12
      */
     public Saint(String name, String portraitKey, int strength, int wisdom, int dexterity,
-                 int stamina, int perception, int hireCost, int upKeep) {
+                 int sanity, int perception, int hireCost, int upKeep) {
         this.portraitKey = portraitKey;
         this.name        = name;
         this.strength    = Math.clamp(strength, 0, 20);
         this.wisdom      = Math.clamp(wisdom, 0, 20);
         this.dexterity   = Math.clamp(dexterity, 0, 20);
-        this.maxStamina      = stamina;
-        this.currentStamina  = stamina;
+        this.maxSanity      = sanity;
+        this.currentSanity  = sanity;
         this.perception      = perception;
         this.hireCost = hireCost;
         this.upKeep = upKeep;
@@ -93,10 +98,10 @@ public abstract class Saint implements Purchasable {
     @Override
     public String getDescription() {
         return String.format(
-                "[%s] %s | %s | STR %d  WIS %d  DEX %d | Stamina %d/%d | Pay %d/round",
+                "[%s] %s | %s | STR %d  WIS %d  DEX %d | Sanity %d/%d | Pay %d/round",
                 rarity.getLabel(), name, getStatType(),
                 strength, wisdom, dexterity,
-                currentStamina, maxStamina,
+                currentSanity, maxSanity,
                 upKeep
         );
     }
@@ -114,18 +119,18 @@ public abstract class Saint implements Purchasable {
     public String getName() { return name; }
 
     /**
-     * Gets max stamina.
+     * Gets max sanity.
      *
-     * @return maximum stamina
+     * @return maximum sanity
      */
-    public int getMaxStamina() { return maxStamina; }
+    public int getMaxSanity() { return maxSanity; }
 
     /**
-     * Gets current stamina.
+     * Gets current sanity.
      *
-     * @return current stamina
+     * @return current sanity
      */
-    public int getCurrentStamina() { return currentStamina; }
+    public int getCurrentSanity() { return currentSanity; }
 
     /**
      * Gets strength.
@@ -270,30 +275,30 @@ public abstract class Saint implements Purchasable {
     }
 
     /**
-     * Consume's Stamina. If it's below 0, return 0
+     * Consume's Sanity. If it's below 0, return 0
      *
      * @param amount the amount
      */
-    public void consumeStamina(int amount) {
-        this.currentStamina = Math.max(0, this.currentStamina - amount); // Math.max return's the higher of two value's, not aloowing current stamina to go below 0
+    public void consumeSanity(int amount) {
+        this.currentSanity = Math.max(0, this.currentSanity - amount); // Math.max return's the higher of two value's, not aloowing current sanity to go below 0
     }
 
     /**
-     * Restores stamina to maximum, called after crusade.
+     * Restores sanity to maximum, called after crusade.
      *
      */
-    public void restoreStamina() {
-        this.currentStamina = this.maxStamina;
+    public void restoreSanity() {
+        this.currentSanity = this.maxSanity;
     }
 
     /**
-     * Permanently changes maximum stamina, through Item's
+     * Permanently changes maximum sanity, through Item's
      *
-     * @param amount stamina change
+     * @param amount sanity change
      */
-    public void changeMaxStamina(int amount) {
-        this.maxStamina += amount;
-        this.currentStamina = Math.min(this.currentStamina + amount, this.maxStamina);
+    public void changeMaxSanity(int amount) {
+        this.maxSanity += amount;
+        this.currentSanity = Math.min(this.currentSanity + amount, this.maxSanity);
     }
 
     /**
@@ -368,11 +373,22 @@ public abstract class Saint implements Purchasable {
             case WISDOM     -> saint.changeWisdom(amount);
             case DEXTERITY  -> saint.changeDexterity(amount);
             case PERCEPTION -> saint.changePerception(amount);
-            case STAMINA    -> saint.changeMaxStamina(amount);
+            case SANITY    -> saint.changeMaxSanity(amount);
         }
     }
 
+    public void registerTemporaryPotion(Item potion) {
+        this.activePotions.add(potion);
+    }
 
+
+    public void clearTemporaryPotions() {
+        for (Item potion : activePotions) {
+            Saint.applyStat(this, potion.getStatAffected(), -potion.getBonusValue());
+        }
+
+        this.activePotions.clear();
+    }
     // ----- METHODS (STAT CHANGES) END --------------------------------------------------------------------------
 
     // ----- CRUSADE COUNTER -----------------------------------------------------------------------------------

@@ -47,15 +47,15 @@ class SaintTest {
     }
 
     @Test
-    void getMaxStamina() {
-        assertTrue(executioner.getMaxStamina() > 0);
+    void getMaxSanity() {
+        assertTrue(executioner.getMaxSanity() > 0);
     }
 
     @Test
-    void getCurrentStamina() {
+    void getCurrentSanity() {
         assertEquals(
-                executioner.getMaxStamina(),
-                executioner.getCurrentStamina()
+                executioner.getMaxSanity(),
+                executioner.getCurrentSanity()
         );
     }
 
@@ -131,33 +131,33 @@ class SaintTest {
     }
 
     @Test
-    void consumeStamina() {
-        int before = executioner.getCurrentStamina();
+    void consumeSanity() {
+        int before = executioner.getCurrentSanity();
 
-        executioner.consumeStamina(5);
+        executioner.consumeSanity(5);
 
-        assertEquals(before - 5, executioner.getCurrentStamina());
+        assertEquals(before - 5, executioner.getCurrentSanity());
     }
 
     @Test
-    void restoreStamina() {
-        executioner.consumeStamina(10);
+    void restoreSanity() {
+        executioner.consumeSanity(10);
 
-        executioner.restoreStamina();
+        executioner.restoreSanity();
 
         assertEquals(
-                executioner.getMaxStamina(),
-                executioner.getCurrentStamina()
+                executioner.getMaxSanity(),
+                executioner.getCurrentSanity()
         );
     }
 
     @Test
-    void changeMaxStamina() {
-        int before = executioner.getMaxStamina();
+    void changeMaxSanity() {
+        int before = executioner.getMaxSanity();
 
-        executioner.changeMaxStamina(5);
+        executioner.changeMaxSanity(5);
 
-        assertEquals(before + 5, executioner.getMaxStamina());
+        assertEquals(before + 5, executioner.getMaxSanity());
     }
 
     @Test

@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -76,20 +75,21 @@
          </VBox>
       <VBox fx:id="eventBox" alignment="CENTER" style="-fx-background-image: url(&quot;/images/background/hands.png&quot;); -fx-background-size: stretch;" visible="false" StackPane.alignment="CENTER">
          <children>
-            <Label fx:id="eventQuestion" style="-fx-font-size: 70px; -fx-text-fill: -crimson;" styleClass="title-label" text="Question" VBox.vgrow="ALWAYS">
+            <Label fx:id="eventQuestion" style="-fx-font-size: 70px; -fx-text-fill: -crimson;" styleClass="title-label" text="Question" wrapText="true" VBox.vgrow="ALWAYS">
                <padding>
                   <Insets bottom="30.0" />
                </padding></Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
-                  <Button fx:id="choiceAButton" alignment="CENTER" mnemonicParsing="false" styleClass="btn-mkt" text="Button">
+                  <Button fx:id="choiceAButton" alignment="CENTER" mnemonicParsing="false" styleClass="btn-mkt" text="Button" wrapText="true" HBox.hgrow="SOMETIMES">
                      <padding>
                         <Insets right="15.0" />
                      </padding></Button>
-                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
-                  <Button fx:id="choiceBButton" alignment="CENTER" mnemonicParsing="false" styleClass="btn-mkt" text="Button" />
-                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="SOMETIMES" />
+                  <Button fx:id="choiceBButton" alignment="CENTER" mnemonicParsing="false" styleClass="btn-mkt" text="Button" wrapText="true">
+                     <padding>
+                        <Insets right="15.0" />
+                     </padding>
+                  </Button>
                </children>
             </HBox>
             <Label fx:id="statChange" style="-fx-font-size: 70;" styleClass="title-label" VBox.vgrow="SOMETIMES" />

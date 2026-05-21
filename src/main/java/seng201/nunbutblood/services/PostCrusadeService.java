@@ -9,30 +9,34 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * The type Post crusade service.
+ * Service class responsible for handling post-crusade processing.
+ * Triggers random sequence events, stat mutations, ability acquisitions,
+ * and handles progressive retirement tracking for Saints based on game difficulty.
  */
 public class PostCrusadeService {
 
     /** Base probability of a random event after a crusade **/
     private static final double BASE_EVENT_CHANCE = 0.40;
-    
+
     /** Difficulty increase for probability **/
     private static final double HARD_BONUS = 0.20;
-    
+
     /** Skill's that can be learned after battle. */
     private static final String[] SKILLS = {
             "Holy Blessing", "Devout Survivor", "Covered in Blood"
     };
-    
-    
+
+    /** Random number generator utilized for evaluation of event checks. */
     private final Random random;
-    
+
+    /** Flag indicating whether the game session is configured to Hard difficulty. */
     private final boolean hardMode;
 
     /**
-     * Instantiates a new Post crusade service.
+     * Instantiates a new Post crusade service with configured difficulty mechanics.
+     * Evaluates whether hard mode bonus percentages should apply to event processing checks.
      *
-     * @param difficulty the difficulty
+     * @param difficulty the chosen game difficulty string (e.g., "Normal" or "Hard")
      */
     public PostCrusadeService(String difficulty) {
         this.random = new Random();
@@ -41,10 +45,11 @@ public class PostCrusadeService {
     }
 
     /**
-     * Creates random events after the crusade
+     * Evaluates and updates state for unpredictable occurrences targeting active Saints after a crusade.
+     * Processes potential stat swings, passive skill allocations, and voluntary retirements.
      *
-     * @param covenant the covenant
-     * @return the list
+     * @param covenant the player's active Covenant structure containing the full roster
+     * @return a list of user-facing event description strings summarizing what transpired
      */
     public List<String> triggerEvents(Covenant covenant) {
 

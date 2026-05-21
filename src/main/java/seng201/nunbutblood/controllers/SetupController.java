@@ -84,11 +84,9 @@ public class SetupController {
      *
      */
     private void setupSlider() {
-        expeditionSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            int v = oldValue.intValue();
-            expeditionSlider.setValue(v);
-            expeditionValue.setText(String.valueOf(v));
-        });
+        expeditionSlider.valueProperty().addListener((obs, oldVal, newVal) ->
+                expeditionValue.setText(String.valueOf(newVal.intValue()))
+        );
     }
 
     private void buildSaintsList() {
