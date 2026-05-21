@@ -1,0 +1,271 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SaintService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.services</a>
+</div>
+
+<h1>Coverage Summary for Class: SaintService (seng201.nunbutblood.services)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SaintService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    28.6%
+  </span>
+  <span class="absValue">
+    (4/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    4.5%
+  </span>
+  <span class="absValue">
+    (1/22)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    23.5%
+  </span>
+  <span class="absValue">
+    (8/34)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.services;
+&nbsp;
+&nbsp;import seng201.nunbutblood.models.Saint;
+&nbsp;import seng201.nunbutblood.models.StatType;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * The type Saint service.
+&nbsp; */
+<b class="fc">&nbsp;public class SaintService {</b>
+&nbsp;
+&nbsp;    /** Active party of apostles going on the next crusade. Max 5.*/
+<b class="fc">&nbsp;    private final List&lt;Saint&gt; activeParty = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;    /** Reserve apostles not used in the upcoming crusade. Max 5.     */
+<b class="fc">&nbsp;    private final List&lt;Saint&gt; reserves = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets active party.
+&nbsp;     *
+&nbsp;     * @return the active party
+&nbsp;     */
+<b class="fc">&nbsp;    public List&lt;Saint&gt; getActiveParty() { return activeParty;}</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets reserves.
+&nbsp;     *
+&nbsp;     * @return the reserves
+&nbsp;     */
+<b class="fc">&nbsp;    public List&lt;Saint&gt; getReserves() { return reserves;}</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Add saint boolean.
+&nbsp;     *
+&nbsp;     * @param saint the saint
+&nbsp;     * @return the boolean
+&nbsp;     */
+&nbsp;    public boolean addSaint(Saint saint) {
+<b class="pc">&nbsp;        if (activeParty.size() &lt; 5) {</b>
+<b class="fc">&nbsp;            activeParty.add(saint);</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else if (reserves.size() &lt; 5) {</b>
+<b class="nc">&nbsp;            reserves.add(saint);</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Activate saint boolean.
+&nbsp;     *
+&nbsp;     * @param saint the saint
+&nbsp;     * @return the boolean
+&nbsp;     */
+&nbsp;    public boolean activateSaint(Saint saint) {
+<b class="nc">&nbsp;        if (activeParty.size() &gt;= 5 || !reserves.contains(saint)) return false;</b>
+<b class="nc">&nbsp;        reserves.remove(saint);</b>
+<b class="nc">&nbsp;        activeParty.add(saint);</b>
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Bench saint boolean.
+&nbsp;     *
+&nbsp;     * @param saint the saint
+&nbsp;     * @return the boolean
+&nbsp;     */
+&nbsp;    public boolean benchSaint(Saint saint) {
+<b class="nc">&nbsp;        if (reserves.size() &gt;= 5 || !activeParty.contains(saint)) return false;</b>
+<b class="nc">&nbsp;        activeParty.remove(saint);</b>
+<b class="nc">&nbsp;        reserves.add(saint);</b>
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Retire saint boolean.
+&nbsp;     *
+&nbsp;     * @param saint the saint
+&nbsp;     * @return the boolean
+&nbsp;     */
+&nbsp;    public boolean retireSaint(Saint saint) {
+<b class="nc">&nbsp;        if ((activeParty.size() + reserves.size() &lt;= 1)) return false;</b>
+<b class="nc">&nbsp;        return activeParty.remove(saint) || reserves.remove(saint);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * &lt;b&gt;Stream -&gt;&lt;/b&gt;Stream  Return&#39;s the Active party one by one so that we can talk to each of them (sequential list)&lt;br&gt;
+&nbsp;     * &lt;b&gt;mapToInt -&gt;&lt;/b&gt;  Return Int values of the object (faster than objects for computing)&lt;br&gt;
+&nbsp;     * &lt;b&gt;Saint::getUpKeep -&gt;&lt;/b&gt;  Pick&#39;s out each saints upKeep&lt;br&gt;
+&nbsp;     * &lt;b&gt;sum() -&gt; &lt;/b&gt; add&#39;s everything up &lt;br&gt;
+&nbsp;     * &lt;br&gt;
+&nbsp;     * &lt;p&gt;
+&nbsp;     * This serves as a conveyer belt system where we line up all our Saint and slowly
+&nbsp;     * pick out the ones we want, and the things we need, then what we want to do with it.
+&nbsp;     * &lt;/p&gt;
+&nbsp;     * &lt;br&gt;
+&nbsp;     * &lt;br&gt;
+&nbsp;     * .stream() &lt;b&gt;(Line them up)&lt;/b&gt;-&gt; mapToInt(Saint::getUpKeep) &lt;b&gt;Pickout each Saint UpKeep) -&lt;/b&gt;(&gt; .sum() &lt;b&gt;(Add them all together)&lt;/b&gt;
+&nbsp;     *
+&nbsp;     * @return the int
+&nbsp;     */
+&nbsp;    public int calculateUpKeep() {
+<b class="nc">&nbsp;        return activeParty.stream().mapToInt(Saint::getUpKeep).sum();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Refresh sanity.
+&nbsp;     */
+&nbsp;    public void refreshSanity() {
+<b class="nc">&nbsp;        activeParty.forEach(Saint::restoreSanity);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean allSaintsExhausted() {
+<b class="nc">&nbsp;        List&lt;Saint&gt; allSaints = getOwnedSaints();</b>
+<b class="nc">&nbsp;        if (allSaints.isEmpty()) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return allSaints.stream().allMatch(saints -&gt; saints.getCurrentSanity() &lt; 5);</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Increment crusade counts.
+&nbsp;     */
+&nbsp;    public void incrementCrusadeCounts() {
+<b class="nc">&nbsp;        activeParty.forEach(Saint::incrementCrusadeCount);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Is empty boolean.
+&nbsp;     *
+&nbsp;     * @return the boolean
+&nbsp;     */
+&nbsp;    public boolean isEmpty() {
+<b class="nc">&nbsp;        return activeParty.isEmpty() &amp;&amp; reserves.isEmpty();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets owned saints.
+&nbsp;     *
+&nbsp;     * @return the owned saints
+&nbsp;     */
+&nbsp;    public List&lt;Saint&gt; getOwnedSaints() {
+<b class="nc">&nbsp;        List&lt;Saint&gt; allSaints = new ArrayList&lt;&gt;(activeParty);</b>
+<b class="nc">&nbsp;        allSaints.addAll(reserves);</b>
+<b class="nc">&nbsp;        return allSaints;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void applyStat(Saint saint, StatType stat, int amount) {
+<b class="nc">&nbsp;        Saint.applyStat(saint, stat, amount);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

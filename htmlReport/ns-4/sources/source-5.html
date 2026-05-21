@@ -1,0 +1,335 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CrusadeService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.services</a>
+</div>
+
+<h1>Coverage Summary for Class: CrusadeService (seng201.nunbutblood.services)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CrusadeService</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/53)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CrusadeService$StepResult</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/54)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.services;
+&nbsp;
+&nbsp;import seng201.nunbutblood.models.Demon;
+&nbsp;import seng201.nunbutblood.models.Saint;
+&nbsp;import seng201.nunbutblood.models.StatType;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;/**
+&nbsp; * The brain of the Crusade. Handles the math, sanity costs, and
+&nbsp; * progression logic, returning data for the UI to display.
+&nbsp; */
+<b class="nc">&nbsp;public class CrusadeService {</b>
+&nbsp;
+<b class="nc">&nbsp;    private int currentStep = 0;</b>
+&nbsp;    // expedition length
+<b class="nc">&nbsp;    private final int totalSteps = 3;</b>
+<b class="nc">&nbsp;    private final StringBuilder logHistory = new StringBuilder(&quot;Click &#39;ROLL&#39; to roll the die. Roll higher 3 times and you win!\n&quot;);</b>
+<b class="nc">&nbsp;    private final Random random = new Random();</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Data carrier for the Controller and Animation.
+&nbsp;     */
+<b class="nc">&nbsp;    public record StepResult(</b>
+&nbsp;            int roll,
+&nbsp;            String type,
+&nbsp;            String narrative,
+&nbsp;            String logMessage,
+&nbsp;            boolean hasDemonEvent
+&nbsp;    ) {}
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Executes one &quot;turn&quot; of the crusade.
+&nbsp;     *
+&nbsp;     * @param saint the saint
+&nbsp;     * @param demon the demon
+&nbsp;     * @param party the party
+&nbsp;     * @param stat  the stat
+&nbsp;     * @return A StepResult containing all data needed for the animation and UI update.
+&nbsp;     */
+&nbsp;    public StepResult performStep(Saint saint, Demon demon, List&lt;Saint&gt; party, StatType stat) {
+&nbsp;        //  Calculate the Roll
+<b class="nc">&nbsp;        int roll = random.nextInt(20) + 1;</b>
+<b class="nc">&nbsp;        int bonus = saint.getAttributeValue(stat);</b>
+<b class="nc">&nbsp;        int total = roll + bonus;</b>
+<b class="nc">&nbsp;        boolean isSuccess = total &gt;= demon.getDifficultyRating();</b>
+&nbsp;
+<b class="nc">&nbsp;        String type = switch(roll) {</b>
+<b class="nc">&nbsp;            case 20 -&gt; &quot;critical-success&quot;;</b>
+<b class="nc">&nbsp;            case 1 -&gt; &quot;critical-fail&quot;;</b>
+<b class="nc">&nbsp;            default -&gt; isSuccess ? &quot;success&quot; : &quot;fail&quot;;</b>
+<b class="nc">&nbsp;        };</b>
+&nbsp;
+&nbsp;        // Every roll costs sanity, regardless of success
+<b class="nc">&nbsp;        saint.consumeSanity(5);</b>
+&nbsp;
+&nbsp;        String narrative;
+<b class="nc">&nbsp;        if (type.equals(&quot;critical-success&quot;)) {</b>
+<b class="nc">&nbsp;            currentStep += 2;</b>
+<b class="nc">&nbsp;            narrative = &quot;CRITICAL SUCCESS&quot;;</b>
+<b class="nc">&nbsp;        } else if (isSuccess) {</b>
+<b class="nc">&nbsp;            currentStep += 1;</b>
+<b class="nc">&nbsp;            narrative = &quot;SUCCESS&quot;;</b>
+<b class="nc">&nbsp;        } else if (type.equals(&quot;critical-fail&quot;)){</b>
+<b class="nc">&nbsp;            currentStep -= 1;</b>
+<b class="nc">&nbsp;            narrative = &quot;CRITICAL FAIL&quot;;</b>
+<b class="nc">&nbsp;        } else { narrative = &quot;FAIL&quot;; }</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        String logEntry = String.format(&quot;[Roll : %d] (%d+%d) %s used %s. Result: %s&quot;,</b>
+<b class="nc">&nbsp;                (roll + bonus), roll, bonus, saint.getName(), stat, type.toUpperCase());</b>
+<b class="nc">&nbsp;        addToLog(logEntry);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        return new StepResult(roll, type, narrative, logEntry, roll &lt; 10);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check victory boolean.
+&nbsp;     *
+&nbsp;     * @return the boolean
+&nbsp;     */
+&nbsp;    public boolean checkVictory() {
+<b class="nc">&nbsp;        return currentStep &gt;= totalSteps;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check game over boolean.
+&nbsp;     *
+&nbsp;     * @param party the party
+&nbsp;     * @return the boolean
+&nbsp;     */
+&nbsp;    public boolean checkGameOver(List&lt;Saint&gt; party) {
+&nbsp;        // Game is over if all party members are below the required sanity to act
+<b class="nc">&nbsp;        return party.stream().allMatch(s -&gt; s.getCurrentSanity() &lt; 5);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Demon reward int.
+&nbsp;     *
+&nbsp;     * @param demon the demon
+&nbsp;     * @return the int
+&nbsp;     */
+&nbsp;    public int demonReward(Demon demon) {
+&nbsp;        // Simple loot logic based on difficulty
+<b class="nc">&nbsp;        return demon.getDifficultyRating() * 10;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Advance step.
+&nbsp;     */
+&nbsp;    public void advanceStep() {
+<b class="nc">&nbsp;        currentStep++;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets current step.
+&nbsp;     *
+&nbsp;     * @return the current step
+&nbsp;     */
+<b class="nc">&nbsp;    public int getCurrentStep() { return currentStep; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets total steps.
+&nbsp;     *
+&nbsp;     * @return the total steps
+&nbsp;     */
+<b class="nc">&nbsp;    public int getTotalSteps() { return totalSteps; }</b>
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets log.
+&nbsp;     *
+&nbsp;     * @return the log
+&nbsp;     */
+<b class="nc">&nbsp;    public String getLog() { return logHistory.toString(); }</b>
+&nbsp;
+&nbsp;    private void addToLog(String message) {
+<b class="nc">&nbsp;        logHistory.insert(0, message + &quot;\n&quot;); // Newest messages at the top</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    private final List&lt;CrusadeEvent&gt; activeEvents = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Rolls for a mid-crusade random event. Call this from the controller
+&nbsp;     *
+&nbsp;     * @param activeParty the active party
+&nbsp;     * @return the optional
+&nbsp;     */
+&nbsp;    public Optional&lt;CrusadeEvent&gt; rollMidCrusadeEvent(List&lt;Saint&gt; activeParty) {
+<b class="nc">&nbsp;        if (activeParty.isEmpty() || random.nextDouble() &gt; 0.5) return Optional.empty();</b>
+&nbsp;
+<b class="nc">&nbsp;        Saint target = activeParty.get(random.nextInt(activeParty.size()));</b>
+<b class="nc">&nbsp;        boolean isBuff = random.nextBoolean();</b>
+&nbsp;
+<b class="nc">&nbsp;        StatType[] stats = StatType.values();</b>
+<b class="nc">&nbsp;        StatType randomStat = stats[random.nextInt(stats.length)];</b>
+<b class="nc">&nbsp;        int change = isBuff ? (random.nextInt(3) + 2) : -(random.nextInt(3) + 1);</b>
+<b class="nc">&nbsp;        Saint.applyStat(target, randomStat, change);</b>
+<b class="nc">&nbsp;        String description = String.format(&quot;%s&#39;s %s changes by %d&quot;, target.getName(), randomStat.label, change);</b>
+&nbsp;
+<b class="nc">&nbsp;        addToLog(description);</b>
+&nbsp;
+<b class="nc">&nbsp;        CrusadeEvent event = new CrusadeEvent(target, randomStat, change, description);</b>
+<b class="nc">&nbsp;        activeEvents.add(event);</b>
+<b class="nc">&nbsp;        return Optional.of(event);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * reverse changes
+&nbsp;     */
+&nbsp;    public void revertEvents() {
+<b class="nc">&nbsp;        for (CrusadeEvent event : activeEvents) {</b>
+<b class="nc">&nbsp;            Saint.applyStat(event.target(), event.stat(), -event.change());</b>
+&nbsp;        }
+<b class="nc">&nbsp;        activeEvents.clear();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

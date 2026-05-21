@@ -1,0 +1,350 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CrusadeController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: CrusadeController (seng201.nunbutblood.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CrusadeController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/83)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.controllers;
+&nbsp;
+&nbsp;import javafx.animation.FadeTransition;
+&nbsp;import javafx.fxml.FXML;
+&nbsp;import javafx.scene.control.*;
+&nbsp;import javafx.scene.layout.*;
+&nbsp;import javafx.util.Duration;
+&nbsp;import seng201.nunbutblood.models.Saint;
+&nbsp;import seng201.nunbutblood.models.Covenant;
+&nbsp;import seng201.nunbutblood.models.Demon;
+&nbsp;import seng201.nunbutblood.models.StatType;
+&nbsp;import seng201.nunbutblood.services.*;
+&nbsp;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;
+&nbsp;/**
+&nbsp; * &lt;h1&gt;Crusade Controller manages core gameplay loop.&lt;/h1&gt;
+&nbsp; * &lt;br&gt;
+&nbsp; * &lt;h2&gt;FUNCTIONS : &lt;/h2&gt;
+&nbsp; * &lt;br&gt;
+&nbsp; * &lt;p&gt;&lt;b&gt;setupDemonDisplay() - &lt;/b&gt;  Takes the selected demons stats + portrait
+&nbsp; * and creates a relevant info into {@link #demonContainer}&lt;/p&gt;
+&nbsp; * &lt;br&gt;
+&nbsp; * &lt;p&gt;&lt;b&gt;refreshUI() - &lt;/b&gt; Updates the Saint&#39;s sanity after roll, the {@link #crusadeProgressBar}, and the {@link #eventLog}&lt;/p&gt;
+&nbsp; * &lt;br&gt;
+&nbsp; * &lt;p&gt;&lt;b&gt;handleRoll(Saint) - &lt;/b&gt; Rolls the dice, plays the animation, and checks for a success.
+&nbsp; * Sets {@link  #rollResultLabel} and {@link #narrativeLabel}. Then checks for if the game is over.&lt;/p&gt;
+&nbsp; * &lt;br&gt;
+&nbsp; * &lt;p&gt;&lt;b&gt;showEndDialog(String, String, boolean) -&lt;/b&gt;  Transitions out of the screen declaring victory or defeat.&lt;/p&gt;
+&nbsp; */
+<b class="nc">&nbsp;public class CrusadeController {</b>
+&nbsp;
+&nbsp;    @FXML private FlowPane partyContainer;
+&nbsp;    @FXML private VBox demonContainer;
+&nbsp;    @FXML private Label rollResultLabel;
+&nbsp;    @FXML private Label narrativeLabel;
+&nbsp;    @FXML private ProgressBar crusadeProgressBar;
+&nbsp;    @FXML private TextArea eventLog;
+&nbsp;    @FXML private Label demonName;
+&nbsp;
+&nbsp;
+&nbsp;    // Dice Animation Fields
+&nbsp;    @FXML private StackPane diceBox;
+&nbsp;    @FXML private Label diceLabel;
+&nbsp;    @FXML private Label outcomeLabel;
+&nbsp;
+&nbsp;    @FXML private Label statChange;
+&nbsp;    @FXML private Label eventQuestion;
+&nbsp;    @FXML private VBox eventBox;
+&nbsp;    @FXML private Button choiceAButton;
+&nbsp;    @FXML private Button choiceBButton;
+&nbsp;    @FXML private Label statTypeLabel;
+&nbsp;
+&nbsp;
+&nbsp;    private DiceRollAnimation diceAnimation;
+&nbsp;    private CrusadeService crusadeService;
+&nbsp;    private Covenant covenant;
+&nbsp;    private Demon currentDemon;
+&nbsp;    private ScreenNavigator navigator;
+&nbsp;    private int bonus;
+&nbsp;    private AudioService audio;
+&nbsp;    private MidCrusadeEvents midCrusadeEvents;
+&nbsp;    private MidCrusadeEvents.Event currentEvent;
+<b class="nc">&nbsp;    private final Random random = new Random();</b>
+&nbsp;    private StatType rollStatType;
+&nbsp;    // Stores the narrative result of the last adventure choice, displayed at the top of the next event
+&nbsp;    private String result;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Init.
+&nbsp;     *
+&nbsp;     * @param covenant  the covenant
+&nbsp;     * @param demon     the demon
+&nbsp;     * @param navigator the navigator
+&nbsp;     */
+&nbsp;    public void init(Covenant covenant, Demon demon, ScreenNavigator navigator) {
+<b class="nc">&nbsp;        this.covenant = covenant;</b>
+<b class="nc">&nbsp;        this.currentDemon = demon;</b>
+<b class="nc">&nbsp;        this.navigator = navigator;</b>
+<b class="nc">&nbsp;        this.crusadeService = new CrusadeService();</b>
+<b class="nc">&nbsp;        this.audio = new AudioService();</b>
+<b class="nc">&nbsp;        this.midCrusadeEvents = new MidCrusadeEvents();</b>
+&nbsp;
+<b class="nc">&nbsp;        this.diceAnimation = new DiceRollAnimation(</b>
+&nbsp;                diceBox,
+&nbsp;                diceLabel,
+&nbsp;                outcomeLabel,
+<b class="nc">&nbsp;                navigator.getAudioService(),</b>
+&nbsp;                bonus
+&nbsp;        );
+&nbsp;
+<b class="nc">&nbsp;        setupDemonDisplay();</b>
+<b class="nc">&nbsp;        refreshUI();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void setupDemonDisplay() {
+<b class="nc">&nbsp;        Button emptyDemonButton = new Button(&quot;&quot;);</b>
+<b class="nc">&nbsp;        VBox card = DemonCardController.buildDemonCard(currentDemon, emptyDemonButton, false);</b>
+<b class="nc">&nbsp;        HBox.setHgrow(card, Priority.ALWAYS);</b>
+<b class="nc">&nbsp;        demonContainer.getChildren().add(card);</b>
+<b class="nc">&nbsp;        demonName.setText(currentDemon.getName());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Shows the next adventure event panel.
+&nbsp;     * Displays the result of the previous choice (if any) in the status label,
+&nbsp;     * then loads a new random event with its two choices.
+&nbsp;     */
+&nbsp;    private void showNextAdventureEvent() {
+&nbsp;
+&nbsp;        // Set for nullPointer
+<b class="nc">&nbsp;        eventQuestion.setText(result != null ? result : &quot;&quot;);</b>
+<b class="nc">&nbsp;        statChange.setText(&quot;&quot;);</b>
+&nbsp;        // Set to be visible
+<b class="nc">&nbsp;        eventBox.setOpacity(1);</b>
+<b class="nc">&nbsp;        eventBox.setVisible(true);</b>
+&nbsp;
+&nbsp;        // Set&#39;s current event to be a random record containing description, choiceA, choiceB
+<b class="nc">&nbsp;        currentEvent = midCrusadeEvents.getRandomEvent(covenant.getActiveParty());</b>
+&nbsp;
+&nbsp;        // Set desc + button names
+<b class="nc">&nbsp;        eventQuestion.setText(currentEvent.description());</b>
+<b class="nc">&nbsp;        choiceAButton.setText(currentEvent.choiceA().text());</b>
+<b class="nc">&nbsp;        choiceBButton.setText(currentEvent.choiceB().text());</b>
+&nbsp;
+&nbsp;        // Set onAction for each button
+<b class="nc">&nbsp;        choiceAButton.setOnAction(e -&gt; handleAdventureChoice(currentEvent.choiceA()));</b>
+<b class="nc">&nbsp;        choiceBButton.setOnAction(e -&gt; handleAdventureChoice(currentEvent.choiceB()));</b>
+&nbsp;
+<b class="nc">&nbsp;        refreshUI();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Applies the player&#39;s chosen adventure choice, stores the result narrative,
+&nbsp;     * logs it, then fades out the event panel before loading the next event.
+&nbsp;     */
+&nbsp;    private void handleAdventureChoice(MidCrusadeEvents.Choice choice) {
+&nbsp;        // Store result into the class field (not a local variable) so showNextAdventureEvent can read it
+<b class="nc">&nbsp;        result = midCrusadeEvents.applyChoice(</b>
+<b class="nc">&nbsp;                covenant.getActiveParty(),</b>
+&nbsp;                choice
+&nbsp;        );
+&nbsp;
+<b class="nc">&nbsp;        eventLog.insertText(0, result + &quot;\n&quot;);</b>
+<b class="nc">&nbsp;        statChange.setText(result);</b>
+<b class="nc">&nbsp;        FadeTransition fade = new FadeTransition(Duration.seconds(1), eventBox);</b>
+<b class="nc">&nbsp;        fade.setFromValue(1);</b>
+<b class="nc">&nbsp;        fade.setToValue(0);</b>
+<b class="nc">&nbsp;        fade.setDelay(Duration.seconds(1));</b>
+<b class="nc">&nbsp;        fade.setOnFinished(event -&gt; {</b>
+<b class="nc">&nbsp;            eventBox.setVisible(false);</b>
+&nbsp;        });
+<b class="nc">&nbsp;        fade.play();</b>
+<b class="nc">&nbsp;        refreshUI();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void refreshUI() {
+<b class="nc">&nbsp;        partyContainer.getChildren().clear();</b>
+<b class="nc">&nbsp;        for (Saint saint : covenant.getActiveParty()) {</b>
+<b class="nc">&nbsp;            Button rollBtn = new Button(&quot;ROLL&quot;);</b>
+<b class="nc">&nbsp;            rollBtn.setDisable(saint.getCurrentSanity() &lt; 5);</b>
+<b class="nc">&nbsp;            rollBtn.setOnAction(e -&gt; handleRoll(saint));</b>
+&nbsp;
+<b class="nc">&nbsp;            VBox saintCard = SaintCardController.createSaintCard(saint, rollBtn, true);</b>
+<b class="nc">&nbsp;            partyContainer.getChildren().add(saintCard);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        double stepsLeft = (double) (crusadeService.getTotalSteps() - crusadeService.getCurrentStep());</b>
+<b class="nc">&nbsp;        double progress = stepsLeft / crusadeService.getTotalSteps();</b>
+<b class="nc">&nbsp;        progress = Math.max(0.0, Math.min(1.0, progress));</b>
+&nbsp;
+&nbsp;        // Next Stat type to check n set label
+<b class="nc">&nbsp;        rollStatType = StatType.getRandomOf(StatType.STRENGTH, StatType.WISDOM, StatType.DEXTERITY);</b>
+<b class="nc">&nbsp;        statTypeLabel.setText(&quot;NEXT ROLL TYPE:\n&quot; + rollStatType);</b>
+<b class="nc">&nbsp;        crusadeProgressBar.setProgress(progress);</b>
+&nbsp;
+<b class="nc">&nbsp;        eventLog.setText(crusadeService.getLog());</b>
+<b class="nc">&nbsp;        eventLog.setScrollTop(Double.MAX_VALUE);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void handleRoll(Saint selectedSaint) {
+<b class="nc">&nbsp;        partyContainer.setDisable(true);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (currentDemon.getWeakness().equals(rollStatType)) {</b>
+<b class="nc">&nbsp;            bonus = selectedSaint.getAttributeValue(rollStatType) + 3;</b>
+<b class="nc">&nbsp;        } else {bonus = selectedSaint.getAttributeValue(rollStatType);}</b>
+&nbsp;
+<b class="nc">&nbsp;        CrusadeService.StepResult stepResult = crusadeService.performStep(selectedSaint, currentDemon, covenant.getActiveParty(), rollStatType);</b>
+&nbsp;
+<b class="nc">&nbsp;        if (stepResult.hasDemonEvent()) {</b>
+<b class="nc">&nbsp;            crusadeService.rollMidCrusadeEvent(covenant.getActiveParty())</b>
+<b class="nc">&nbsp;                    .ifPresent(event -&gt; eventLog.setText(event.description()));</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        diceAnimation.play(stepResult.roll(), stepResult.type(), bonus, () -&gt; {</b>
+<b class="nc">&nbsp;            rollResultLabel.setText(stepResult.roll() +&quot; + &quot; + bonus);</b>
+<b class="nc">&nbsp;            refreshUI();</b>
+<b class="nc">&nbsp;            narrativeLabel.setText(stepResult.narrative());</b>
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;            if (crusadeService.checkVictory()) {</b>
+<b class="nc">&nbsp;                postCrusade(true);</b>
+<b class="nc">&nbsp;            } else if (crusadeService.checkGameOver(covenant.getActiveParty())) {</b>
+<b class="nc">&nbsp;                postCrusade(false);</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                partyContainer.setDisable(false);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if (random.nextInt(10) &lt; 5 ) {</b>
+<b class="nc">&nbsp;                showNextAdventureEvent();</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private void giveUp() {
+<b class="nc">&nbsp;        covenant.postCrusade(0,0,false);</b>
+<b class="nc">&nbsp;        navigator.goToEndScreen(false, false);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void postCrusade(boolean won) {
+<b class="nc">&nbsp;        if (won) {</b>
+<b class="nc">&nbsp;            int reward = currentDemon.getFaithReward();</b>
+<b class="nc">&nbsp;            int score = currentDemon.getDifficultyRating() * 10;</b>
+<b class="nc">&nbsp;            covenant.postCrusade(reward, score, true);</b>
+<b class="nc">&nbsp;            navigator.goToEndScreen(true, covenant.isGameComplete());</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            covenant.postCrusade(0, 0, false);</b>
+<b class="nc">&nbsp;            navigator.goToEndScreen(false, covenant.isGameComplete());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

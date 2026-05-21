@@ -1,0 +1,149 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Inquisitor</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.models</a>
+</div>
+
+<h1>Coverage Summary for Class: Inquisitor (seng201.nunbutblood.models)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Inquisitor</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (2/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.models;
+&nbsp;
+&nbsp;/**
+&nbsp; * Inquisitor — Extend&#39;s Apostle&#39;s, Primary stat is Strength
+&nbsp; * &lt;p&gt;
+&nbsp; * When Constructor is called :
+&nbsp; *
+&nbsp; * @strength has a bonus of +5 clamped at 20 for balance, Math.min(20, strength + 5)
+&nbsp; * @calcHireCost set&#39;s the hire cost, (strength + 5, wisdom, dexterity)
+&nbsp; * @calcUpKeep set&#39;s the upkeep cost, (strength + 5, wisdom, dexterity) Constructor to be called in market area for further random stat&#39;s
+&nbsp; */
+&nbsp;public class Inquisitor extends Saint {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instantiates a new Inquisitor.
+&nbsp;     *
+&nbsp;     * @param name       the name
+&nbsp;     * @param portraitID the portrait id
+&nbsp;     * @param strength   the strength
+&nbsp;     * @param wisdom     the wisdom
+&nbsp;     * @param dexterity  the dexterity
+&nbsp;     * @param sanity    the sanity
+&nbsp;     */
+&nbsp;    public Inquisitor(String name, String portraitID, int strength, int wisdom, int dexterity, int sanity){
+<b class="fc">&nbsp;        super(name, portraitID,</b>
+&nbsp;                strength,
+&nbsp;                wisdom,
+&nbsp;                dexterity,
+&nbsp;                sanity,
+&nbsp;                20,
+<b class="fc">&nbsp;                Saint.calcHireCost(strength, wisdom, dexterity),</b>
+<b class="fc">&nbsp;                calcUpKeep(strength, wisdom, dexterity));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getStatBonus() {
+<b class="nc">&nbsp;        return getDexterity();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String getStatType() {
+<b class="fc">&nbsp;        return &quot;DEX&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

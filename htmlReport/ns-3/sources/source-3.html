@@ -1,0 +1,226 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Demon</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.models</a>
+</div>
+
+<h1>Coverage Summary for Class: Demon (seng201.nunbutblood.models)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Demon</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    12.5%
+  </span>
+  <span class="absValue">
+    (1/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (8/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.models;
+&nbsp;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents a demon enemy encountered during a crusade.
+&nbsp; * Each demon has a stat weakness that apostles can exploit for a bonus roll,
+&nbsp; * and a curse chance that can negatively affect the party after combat.
+&nbsp; *
+&nbsp; * @author pgi33
+&nbsp; */
+&nbsp;public class Demon {
+&nbsp;
+&nbsp;    /** Display name of the demon. */
+&nbsp;    private final String name;
+&nbsp;
+&nbsp;    private final String portraitKey;
+&nbsp;
+&nbsp;    /** Combat difficulty, used to scale encounter frequency and rewards. */
+&nbsp;    private final int difficultyRating;
+&nbsp;
+&nbsp;    /** Stat type this demon is weak to — one of &quot;STR&quot;, &quot;WIS&quot;, or &quot;DEX&quot;. */
+&nbsp;    private final StatType weakness;
+&nbsp;
+&nbsp;    /** Faith awarded to the covenant upon defeating this demon. */
+&nbsp;    private final int faithReward;
+&nbsp;
+&nbsp;    /** Probability of the curse triggering after combat, between 0.0 and 1.0. */
+<b class="fc">&nbsp;    private double curseChance = 0.20; // Default 20% chance</b>
+&nbsp;
+<b class="fc">&nbsp;    private final Random random = new Random();</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a Demon with the given combat attributes.
+&nbsp;     *
+&nbsp;     * @param name             display name of the demon
+&nbsp;     * @param portraitKey      the portrait key
+&nbsp;     * @param difficultyRating combat difficulty (higher = harder)
+&nbsp;     * @param weakness         stat type this demon is weak to (&quot;STR&quot;, &quot;WIS&quot;, &quot;DEX&quot;)
+&nbsp;     * @param faithReward      faith awarded on defeat
+&nbsp;     */
+<b class="fc">&nbsp;    public Demon(String name, String portraitKey, int difficultyRating, StatType weakness, int faithReward){</b>
+<b class="fc">&nbsp;        this.name = name;</b>
+<b class="fc">&nbsp;        this.portraitKey = portraitKey;</b>
+<b class="fc">&nbsp;        this.difficultyRating = difficultyRating;</b>
+<b class="fc">&nbsp;        this.weakness = weakness;</b>
+<b class="fc">&nbsp;        this.faithReward = faithReward;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the demon&#39;s display name.
+&nbsp;     *
+&nbsp;     * @return name of the demon
+&nbsp;     */
+<b class="nc">&nbsp;    public String getName() { return name; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the difficulty rating of this demon.
+&nbsp;     *
+&nbsp;     * @return difficulty rating
+&nbsp;     */
+<b class="nc">&nbsp;    public int getDifficultyRating() { return difficultyRating; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the faith reward for defeating this demon.
+&nbsp;     *
+&nbsp;     * @return faith reward amount
+&nbsp;     */
+<b class="nc">&nbsp;    public int getFaithReward() { return faithReward; }</b>
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns a formatted summary of this demon&#39;s attributes
+&nbsp;     * for display in the GUI before a crusade.
+&nbsp;     *
+&nbsp;     * @return formatted description string
+&nbsp;     */
+&nbsp;    public String getDescription() {
+<b class="nc">&nbsp;        return String.format(</b>
+&nbsp;                &quot;%s | Difficulty %d | Weak to %s | Reward: %d Faith | Curse chance: %.0f%%&quot;,
+<b class="nc">&nbsp;                name, difficultyRating, weakness, faithReward, curseChance * 100</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Rolls against the curse chance to determine if this demon curses the party.
+&nbsp;     * Called after combat resolves, regardless of win or loss.
+&nbsp;     *
+&nbsp;     * @return true if the curse triggers, false otherwise
+&nbsp;     */
+&nbsp;    public boolean applyCurse() {
+<b class="nc">&nbsp;        return random.nextDouble() &lt; curseChance;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets portrait key.
+&nbsp;     *
+&nbsp;     * @return the portrait key
+&nbsp;     */
+&nbsp;    public String getPortraitKey() {
+<b class="nc">&nbsp;        return this.portraitKey;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the stat type this demon is weak to.
+&nbsp;     *
+&nbsp;     * @return weakness stat type (&quot;STR&quot;, &quot;WIS&quot;, or &quot;DEX&quot;)
+&nbsp;     */
+<b class="nc">&nbsp;    public StatType getWeakness() { return weakness; }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

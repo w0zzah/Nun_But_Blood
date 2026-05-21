@@ -1,0 +1,194 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CovenantService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.services</a>
+</div>
+
+<h1>Coverage Summary for Class: CovenantService (seng201.nunbutblood.services)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CovenantService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    42.9%
+  </span>
+  <span class="absValue">
+    (3/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (6/12)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.services;
+&nbsp;
+&nbsp;/**
+&nbsp; * The type Covenant service.
+&nbsp; */
+&nbsp;public class CovenantService {
+&nbsp;
+&nbsp;    private int score;
+&nbsp;    private int currentCrusade;
+&nbsp;    private final int totalCrusades;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instantiates a new Covenant service.
+&nbsp;     *
+&nbsp;     * @param totalCrusades the total crusades
+&nbsp;     */
+<b class="fc">&nbsp;    public CovenantService(int totalCrusades) {</b>
+<b class="fc">&nbsp;        this.score = 0;</b>
+<b class="fc">&nbsp;        this.currentCrusade = 0;</b>
+<b class="fc">&nbsp;        this.totalCrusades = totalCrusades;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets score.
+&nbsp;     *
+&nbsp;     * @return the score
+&nbsp;     */
+&nbsp;    public int getScore() {
+<b class="nc">&nbsp;        return score;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets total crusades.
+&nbsp;     *
+&nbsp;     * @return the total crusades
+&nbsp;     */
+&nbsp;    public int getTotalCrusades() {
+<b class="fc">&nbsp;        return totalCrusades;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets current crusade.
+&nbsp;     *
+&nbsp;     * @return the current crusade
+&nbsp;     */
+&nbsp;    public int getCurrentCrusade() {
+<b class="fc">&nbsp;        return currentCrusade;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Change score.
+&nbsp;     *
+&nbsp;     * @param points the points
+&nbsp;     */
+&nbsp;// Can go negative
+&nbsp;    public void changeScore(int points) {
+<b class="nc">&nbsp;        score += points;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Advance crusade.
+&nbsp;     */
+&nbsp;    public void advanceCrusade() {
+<b class="nc">&nbsp;        if (currentCrusade &lt; totalCrusades) {</b>
+<b class="nc">&nbsp;            currentCrusade += 1;</b>
+<b class="nc">&nbsp;        } else { throw new IllegalStateException(&quot;currentCrusades cannot be greater than totalCrusades&quot;); }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Is game complete boolean.
+&nbsp;     *
+&nbsp;     * @return the boolean
+&nbsp;     */
+&nbsp;    public boolean isGameComplete() {
+<b class="nc">&nbsp;        return currentCrusade &gt;= totalCrusades;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

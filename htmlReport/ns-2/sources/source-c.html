@@ -1,0 +1,333 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SetupController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: SetupController (seng201.nunbutblood.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SetupController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90.9%
+  </span>
+  <span class="absValue">
+    (10/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    58.3%
+  </span>
+  <span class="absValue">
+    (14/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86.4%
+  </span>
+  <span class="absValue">
+    (57/66)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.controllers;
+&nbsp;
+&nbsp;import javafx.animation.FadeTransition;
+&nbsp;import javafx.fxml.FXML;
+&nbsp;import javafx.scene.control.*;
+&nbsp;import javafx.scene.layout.*;
+&nbsp;import javafx.stage.Stage;
+&nbsp;import javafx.util.Duration;
+&nbsp;import seng201.nunbutblood.models.*;
+&nbsp;import seng201.nunbutblood.services.MarketService;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;/**
+&nbsp; *
+&nbsp; * Javadocs:
+&nbsp; * Image: https://openjfx.io/javadoc/11/javafx.graphics/javafx/scene/image/Image.html
+&nbsp; *
+&nbsp; */
+<b class="fc">&nbsp;public class SetupController {</b>
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private Label defaultLabel;
+&nbsp;    @FXML private TextField nameField;
+&nbsp;    @FXML private Slider expeditionSlider;
+&nbsp;    @FXML private Label expeditionValue;
+&nbsp;    @FXML private ToggleButton easyMode;
+&nbsp;    @FXML private ToggleButton hardMode;
+&nbsp;    @FXML private GridPane saintsGrid;
+&nbsp;    @FXML private Label saintSelectLabel;
+&nbsp;    @FXML private HBox alertBox;
+&nbsp;    @FXML private Label statusLabel;
+&nbsp;    @FXML private VBox entryBox;
+&nbsp;    private Stage stage;
+&nbsp;
+&nbsp;    private ScreenNavigator navigator;
+&nbsp;
+&nbsp;    // The first 6 Saint, 2 of each class
+<b class="fc">&nbsp;    private final List&lt;Saint&gt; saintList = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;    // The list of chosen Saint
+<b class="fc">&nbsp;    private final List&lt;Saint&gt; selectedSaints = new ArrayList&lt;&gt;();</b>
+&nbsp;
+&nbsp;    // Toggle difficulty select
+<b class="fc">&nbsp;    private final ToggleGroup diffGroup = new ToggleGroup();</b>
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Init.
+&nbsp;     *
+&nbsp;     * @param stage     the stage
+&nbsp;     * @param navigator the navigator
+&nbsp;     */
+&nbsp;    public void init(Stage stage, ScreenNavigator navigator) {
+<b class="fc">&nbsp;        this.stage = stage;</b>
+<b class="fc">&nbsp;        this.navigator = navigator;</b>
+<b class="fc">&nbsp;        setupDifficultyToggle();</b>
+<b class="fc">&nbsp;        setupSlider();</b>
+<b class="fc">&nbsp;        buildSaintsList();</b>
+<b class="fc">&nbsp;        createSaintCards();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    private void setupDifficultyToggle() {
+<b class="fc">&nbsp;        easyMode.setToggleGroup(diffGroup);</b>
+<b class="fc">&nbsp;        hardMode.setToggleGroup(diffGroup);</b>
+<b class="fc">&nbsp;        easyMode.setSelected(true);</b>
+&nbsp;
+&nbsp;        // Enforce that at least one difficulty is always selected
+<b class="fc">&nbsp;        diffGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -&gt; {</b>
+<b class="nc">&nbsp;            if (newValue == null) {</b>
+<b class="nc">&nbsp;                oldValue.setSelected(true);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set&#39;s up the amount of expeditions the player will play through with a slider.
+&nbsp;     * The lambda expression takes The observable value / the property of the slider at current. The old value (original)
+&nbsp;     * and then the new value, the final value the player leaves it on.
+&nbsp;     *
+&nbsp;     *
+&nbsp;     */
+&nbsp;    private void setupSlider() {
+<b class="fc">&nbsp;        expeditionSlider.valueProperty().addListener((observable, oldValue, newValue) -&gt; {</b>
+<b class="fc">&nbsp;                int v = oldValue.intValue();</b>
+<b class="fc">&nbsp;            expeditionSlider.setValue(v);</b>
+<b class="fc">&nbsp;            expeditionValue.setText(String.valueOf(v));</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    private void buildSaintsList() {
+<b class="fc">&nbsp;        saintList.clear();</b>
+&nbsp;
+<b class="fc">&nbsp;        List&lt;SaintRoster.Entry&gt; commonEntries = SaintRoster.getAllSaints().stream()</b>
+<b class="pc">&nbsp;                .filter(entry -&gt; SaintRoster.create(entry).getRarity() == Rarity.COMMON)</b>
+<b class="fc">&nbsp;                .limit(6).toList();</b>
+&nbsp;
+<b class="fc">&nbsp;        for (SaintRoster.Entry entry : commonEntries) {</b>
+<b class="fc">&nbsp;            saintList.add(SaintRoster.create(entry));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private void enter() {
+<b class="fc">&nbsp;        entryBox.setOpacity(1);</b>
+<b class="fc">&nbsp;        entryBox.setVisible(true);</b>
+&nbsp;
+&nbsp;        // Fade transition
+<b class="fc">&nbsp;        FadeTransition fade = new FadeTransition(Duration.millis(1000), entryBox);</b>
+<b class="fc">&nbsp;        fade.setFromValue(1.0); fade.setToValue(0.0);</b>
+&nbsp;
+&nbsp;        // Once finished make invisible so you can still interact
+<b class="fc">&nbsp;        fade.setOnFinished(event -&gt; entryBox.setVisible(false));</b>
+&nbsp;
+&nbsp;        // Play the scene
+<b class="fc">&nbsp;        fade.play();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void createSaintCards() {
+<b class="fc">&nbsp;        saintsGrid.getChildren().clear();</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; saintList.size(); i++) {</b>
+<b class="fc">&nbsp;            Saint currentSaint = saintList.get(i);</b>
+&nbsp;
+&nbsp;            // Define the button for Setup
+<b class="fc">&nbsp;            Button btn = new Button(&quot;SELECT&quot;);</b>
+<b class="fc">&nbsp;            HBox action = new HBox(1);</b>
+<b class="fc">&nbsp;            action.getChildren().add(btn);</b>
+&nbsp;
+<b class="fc">&nbsp;            VBox card = SaintCardController.createSaintCard(currentSaint, action, false);</b>
+&nbsp;
+<b class="fc">&nbsp;            btn.setOnAction(e -&gt; toggleSaintSelection(currentSaint, card, btn));</b>
+&nbsp;
+<b class="fc">&nbsp;            saintsGrid.add(card, i, 0);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Toggle&#39;s through saint dispositions during assignation (ass)
+&nbsp;     *
+&nbsp;     * @param clickedSaint Saint Selected
+&nbsp;     * @param card The Saint card,  contains all information including HireButton
+&nbsp;     * @param SelectBtn When clicked adds Saint to the selectedSaints
+&nbsp;     */
+&nbsp;    private void toggleSaintSelection(Saint clickedSaint, VBox card, Button SelectBtn) {
+&nbsp;
+&nbsp;        // Check if the current selected list of saints contains clickedSaint
+<b class="pc">&nbsp;        if (selectedSaints.contains(clickedSaint)) {</b>
+&nbsp;
+&nbsp;            // if so remove it from the list of selected saints and reset the style
+<b class="nc">&nbsp;            selectedSaints.remove(clickedSaint);</b>
+<b class="nc">&nbsp;            card.getStyleClass().remove(&quot;saint-card-active&quot;);</b>
+<b class="nc">&nbsp;            SelectBtn.setText(&quot;SELECT&quot;);</b>
+&nbsp;
+&nbsp;            // If clickedSaint is not in the selectedSaints list
+&nbsp;        } else {
+&nbsp;            // If SelectedSaints is greater than 3 throw error message and return
+<b class="pc">&nbsp;            if (selectedSaints.size() &gt;= 3) {</b>
+<b class="nc">&nbsp;                AlertBox.showAlert(statusLabel, alertBox, &quot;You can only choose 3 starting Saint.&quot;);</b>
+&nbsp;                return;
+&nbsp;            }
+&nbsp;
+&nbsp;            // Else, assign clickedSaint to selectedSaints
+<b class="fc">&nbsp;            selectedSaints.add(clickedSaint);</b>
+<b class="fc">&nbsp;            card.getStyleClass().add(&quot;saint-card-active&quot;);</b>
+<b class="fc">&nbsp;            SelectBtn.setText(&quot;CHOSEN&quot;);</b>
+&nbsp;        }
+&nbsp;        // update selectedSaints UX
+<b class="fc">&nbsp;        saintSelectLabel.setText(selectedSaints.size() + &quot; / 3 selected&quot;);</b>
+<b class="fc">&nbsp;        statusLabel.setText(&quot; &quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks all relevant info before the start of the game.
+&nbsp;     * - Checks if name is between 3-15, and only letters numbers or spaces
+&nbsp;     * - Checks if 3 starting saints have been selected
+&nbsp;     * - Checks between 5-15 expeditions have been selected
+&nbsp;     * - Checks difficulty
+&nbsp;     *
+&nbsp;     */
+&nbsp;
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private void handleStart() {
+&nbsp;
+<b class="fc">&nbsp;        String name = nameField.getText().trim();</b>
+<b class="pc">&nbsp;        if (name.length() &lt; 3 || name.length() &gt; 15) {</b>
+<b class="nc">&nbsp;              AlertBox.showAlert(statusLabel, alertBox,&quot;Name must be 3-15 characters&quot;);</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="pc">&nbsp;        if (!name.matches(&quot;^[a-zA-Z0-9 ]+$&quot;)) {</b>
+<b class="nc">&nbsp;              AlertBox.showAlert(statusLabel, alertBox,&quot;Only letters, numbers and spaces allowed&quot;);</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="pc">&nbsp;        if (selectedSaints.size() != 3) {</b>
+<b class="nc">&nbsp;              AlertBox.showAlert(statusLabel, alertBox,&quot;Please select exactly 3 Saint&quot;);</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        int crusades = (int) expeditionSlider.getValue();</b>
+&nbsp;
+<b class="pc">&nbsp;        String difficulty = hardMode.isSelected() ? &quot;Hard&quot; : &quot;Easy&quot;;</b>
+&nbsp;
+<b class="fc">&nbsp;        Covenant covenant = new Covenant(name, crusades, difficulty);</b>
+<b class="fc">&nbsp;        for (Saint a : selectedSaints) {</b>
+<b class="fc">&nbsp;            covenant.addSaint(a);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        MarketService market = new MarketService(new Random());</b>
+<b class="fc">&nbsp;        navigator.startCovenant(covenant, market);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

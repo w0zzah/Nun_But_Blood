@@ -1,0 +1,273 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > DiceRollAnimation</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: DiceRollAnimation (seng201.nunbutblood.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DiceRollAnimation</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/58)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.controllers;
+&nbsp;
+&nbsp;import javafx.animation.*;
+&nbsp;import javafx.scene.control.Label;
+&nbsp;import javafx.scene.layout.StackPane;
+&nbsp;import javafx.util.Duration;
+&nbsp;import seng201.nunbutblood.services.AudioService;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;
+&nbsp;/**
+&nbsp; * The type Dice roll animation.
+&nbsp; */
+&nbsp;public class DiceRollAnimation {
+&nbsp;    private final StackPane diceContainer;
+&nbsp;    private final int bonus;
+&nbsp;    private final Label dieLabel;
+&nbsp;    private final Label outcomeLabel;
+&nbsp;    private final AudioService audio;
+<b class="nc">&nbsp;    private final Random random = new Random();</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instantiates a new Dice roll animation.
+&nbsp;     *
+&nbsp;     * @param diceContainer the dice container
+&nbsp;     * @param dieLabel      the die label
+&nbsp;     * @param outcomeLabel  the outcome label
+&nbsp;     * @param audio         the audio
+&nbsp;     * @param bonus         the bonus
+&nbsp;     */
+<b class="nc">&nbsp;    public DiceRollAnimation(StackPane diceContainer, Label dieLabel, Label outcomeLabel, AudioService audio, int bonus) {</b>
+<b class="nc">&nbsp;        this.diceContainer = diceContainer;</b>
+<b class="nc">&nbsp;        this.dieLabel = dieLabel;</b>
+<b class="nc">&nbsp;        this.outcomeLabel = outcomeLabel;</b>
+<b class="nc">&nbsp;        this.audio = audio;</b>
+<b class="nc">&nbsp;        this.bonus = bonus;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Play.
+&nbsp;     *
+&nbsp;     * @param finalValue     the final value
+&nbsp;     * @param resultType     the result type
+&nbsp;     * @param attributeValue the attribute value
+&nbsp;     * @param onComplete     the on complete
+&nbsp;     */
+&nbsp;    public void play(int finalValue, String resultType, int attributeValue, Runnable onComplete) {
+&nbsp;
+&nbsp;        // Reset Phase
+<b class="nc">&nbsp;        String[] styleClasses = {&quot;dice-success&quot;, &quot;dice-fail&quot;, &quot;dice-critical-success&quot;, &quot;dice-critical-fail&quot;};</b>
+&nbsp;
+<b class="nc">&nbsp;        dieLabel.getStyleClass().removeAll(styleClasses);</b>
+<b class="nc">&nbsp;        outcomeLabel.getStyleClass().removeAll(styleClasses);</b>
+<b class="nc">&nbsp;        outcomeLabel.setText(&quot;&quot;);</b>
+<b class="nc">&nbsp;        outcomeLabel.setOpacity(0.0);</b>
+&nbsp;
+<b class="nc">&nbsp;        audio.play(AudioService.Clip.ROLLING);</b>
+&nbsp;
+&nbsp;        // Creates an empty animation timeline where we will map out specific events at specific milliseconds
+<b class="nc">&nbsp;        Timeline cycling = new Timeline();</b>
+&nbsp;        // How many times the number will change
+<b class="nc">&nbsp;        int totalFrames = 25;</b>
+&nbsp;        // running timer that increases the longer it rolls
+<b class="nc">&nbsp;        double currentDelayMs = 1;</b>
+&nbsp;        // Starting Duration between numbers
+<b class="nc">&nbsp;        double frameDuration = 15;</b>
+&nbsp;        // How fast the dice slows down, (1.5 means it takes 50% longer than the one before)
+<b class="nc">&nbsp;        double slowdownFactor = 1.14;</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        for (int i = 0; i &lt; totalFrames; i++) {</b>
+&nbsp;            // Calculate number and toggle the shake direction (up on even frames, down on odd)
+<b class="nc">&nbsp;            int val = (i == totalFrames - 1) ? finalValue : random.nextInt(20) + 1;</b>
+<b class="nc">&nbsp;            int shakeOffset = (i % 2 == 0) ? 10 : -10;</b>
+&nbsp;
+<b class="nc">&nbsp;            cycling.getKeyFrames().add(new KeyFrame(</b>
+<b class="nc">&nbsp;                    Duration.millis(currentDelayMs),</b>
+&nbsp;                    e -&gt; {
+<b class="nc">&nbsp;                        dieLabel.setText(String.valueOf(val));</b>
+<b class="nc">&nbsp;                        diceContainer.setTranslateY(shakeOffset); // Synced perfectly with the numbers!</b>
+&nbsp;                    }
+&nbsp;            ));
+&nbsp;
+<b class="nc">&nbsp;            frameDuration *= slowdownFactor;</b>
+<b class="nc">&nbsp;            currentDelayMs += frameDuration;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // 4. Completion Phase
+<b class="nc">&nbsp;        cycling.setOnFinished(e -&gt; {</b>
+<b class="nc">&nbsp;            diceContainer.setTranslateY(0);</b>
+<b class="nc">&nbsp;            audio.stop(AudioService.Clip.ROLLING);</b>
+<b class="nc">&nbsp;            applyLandingEffect(resultType, onComplete, attributeValue);</b>
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        cycling.play();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Once dice finished rolling make the dice bigger for impact then set colour to desired
+&nbsp;     * (red for failure, green success), then fade out the outcome and return
+&nbsp;     * @param type
+&nbsp;     * @param onComplete
+&nbsp;     */
+&nbsp;    private void applyLandingEffect(String type, Runnable onComplete, int bonus) {
+&nbsp;
+<b class="nc">&nbsp;        ScaleTransition pop = new ScaleTransition(Duration.millis(350), diceContainer);</b>
+&nbsp;        // Increase size of dice when finished to add more oomph + play sound
+<b class="nc">&nbsp;        switch (type) {</b>
+&nbsp;
+&nbsp;            case &quot;critical-success&quot;:
+<b class="nc">&nbsp;                audio.play(AudioService.Clip.CRITICAL_SUCCESS);</b>
+<b class="nc">&nbsp;                pop.setFromX(1.0); pop.setToX(1.5);pop.setFromY(1.0); pop.setToY(1.5);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case &quot;critical-fail&quot;:
+<b class="nc">&nbsp;                audio.play(AudioService.Clip.CRITICAL_FAIL);</b>
+<b class="nc">&nbsp;                pop.setFromX(1.0); pop.setToX(1.5);pop.setFromY(1.0); pop.setToY(1.5);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case &quot;success&quot;:
+<b class="nc">&nbsp;                audio.play(AudioService.Clip.SUCCESS);</b>
+<b class="nc">&nbsp;                pop.setFromX(1.0); pop.setToX(1.3);pop.setFromY(1.0); pop.setToY(1.3);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case &quot;fail&quot;:
+<b class="nc">&nbsp;                audio.play(AudioService.Clip.FAIL);</b>
+<b class="nc">&nbsp;                pop.setFromX(1.0); pop.setToX(1.3);pop.setFromY(1.0); pop.setToY(1.3);</b>
+&nbsp;                break;
+&nbsp;        }
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        pop.setAutoReverse(true);</b>
+<b class="nc">&nbsp;        pop.setCycleCount(2);</b>
+&nbsp;
+<b class="nc">&nbsp;        String[] styleClasses = {&quot;dice-success&quot;, &quot;dice-fail&quot;, &quot;dice-critical-success&quot;, &quot;dice-critical-fail&quot;};</b>
+<b class="nc">&nbsp;        outcomeLabel.getStyleClass().removeAll(styleClasses);</b>
+&nbsp;
+<b class="nc">&nbsp;        dieLabel.getStyleClass().add(&quot;dice-&quot; + type);</b>
+<b class="nc">&nbsp;        outcomeLabel.getStyleClass().add(&quot;dice-&quot; + type);</b>
+&nbsp;
+<b class="nc">&nbsp;        String readableType = type.replace(&quot;-&quot;, &quot; &quot;).toUpperCase();</b>
+<b class="nc">&nbsp;        outcomeLabel.setText(&quot;Bonus : &quot; + bonus + &quot;\n&quot; + readableType);</b>
+<b class="nc">&nbsp;        outcomeLabel.setOpacity(1.0);</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        pop.setOnFinished(e -&gt; {</b>
+<b class="nc">&nbsp;            FadeTransition fade = new FadeTransition(Duration.millis(500), outcomeLabel);</b>
+<b class="nc">&nbsp;            fade.setFromValue(1.0); fade.setToValue(0.0);</b>
+<b class="nc">&nbsp;            fade.setDelay(Duration.millis(400)); // quick pause b4 fade</b>
+&nbsp;
+<b class="nc">&nbsp;            fade.setOnFinished(event -&gt; onComplete.run());</b>
+<b class="nc">&nbsp;            fade.play();</b>
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        pop.play();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

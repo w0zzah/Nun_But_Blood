@@ -1,0 +1,298 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > HubController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: HubController (seng201.nunbutblood.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HubController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    42.9%
+  </span>
+  <span class="absValue">
+    (6/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (4/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    38.9%
+  </span>
+  <span class="absValue">
+    (28/72)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.controllers;
+&nbsp;
+&nbsp;import javafx.fxml.FXML;
+&nbsp;import javafx.scene.control.*;
+&nbsp;import javafx.scene.layout.FlowPane;
+&nbsp;import javafx.scene.layout.HBox;
+&nbsp;import javafx.scene.layout.VBox;
+&nbsp;import javafx.stage.Stage;
+&nbsp;import seng201.nunbutblood.models.AlertBox;
+&nbsp;import seng201.nunbutblood.models.Saint;
+&nbsp;import seng201.nunbutblood.models.Covenant;
+&nbsp;import seng201.nunbutblood.models.Item;
+&nbsp;import javafx.scene.control.Label;
+&nbsp;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;/**
+&nbsp; * Controller for the Church Management (hub) screen.
+&nbsp; * Displays the active party, reserves, and inventory. Allows the player to:
+&nbsp; * bench/activate Saint, retire Saint, equip or use items, navigate to
+&nbsp; * the Market, or begin the next Crusade.
+&nbsp; */
+<b class="fc">&nbsp;public class HubController {</b>
+&nbsp;
+&nbsp;    @FXML private Label covenantTitle;
+&nbsp;    @FXML private Label faithLabel;
+&nbsp;    @FXML private Label expeditionLabel;
+&nbsp;    @FXML private Label partyLabel;
+&nbsp;    @FXML private Label statusLabel;
+&nbsp;    @FXML private HBox alertBox;
+&nbsp;
+&nbsp;    // Swapped ListViews for Layout Panes to hold our custom UI Cards
+&nbsp;    @FXML private FlowPane activePane;
+&nbsp;    @FXML private FlowPane reservePane;
+&nbsp;    @FXML private HBox inventoryPane;
+&nbsp;
+&nbsp;    private Stage stage;
+&nbsp;    private ScreenNavigator navigator;
+&nbsp;    private Covenant covenant;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Init.
+&nbsp;     *
+&nbsp;     * @param stage     the stage
+&nbsp;     * @param navigator the navigator
+&nbsp;     * @param covenant  the covenant
+&nbsp;     */
+&nbsp;    public void init(Stage stage, ScreenNavigator navigator, Covenant covenant) {
+<b class="fc">&nbsp;        this.stage = stage;</b>
+<b class="fc">&nbsp;        this.navigator = navigator;</b>
+<b class="fc">&nbsp;        this.covenant = covenant;</b>
+<b class="fc">&nbsp;        refresh();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /** Refreshes all displayed data from the Covenant model. */
+&nbsp;    private void refresh() {
+<b class="fc">&nbsp;        covenantTitle.setText(covenant.getName().toUpperCase());</b>
+<b class="fc">&nbsp;        faithLabel.setText(&quot;Faith: &quot; + covenant.getFaith());</b>
+<b class="fc">&nbsp;        expeditionLabel.setText(&quot;Crusade &quot; + covenant.getCurrentCrusade()</b>
+<b class="fc">&nbsp;                + &quot; / &quot; + covenant.getTotalCrusades());</b>
+<b class="fc">&nbsp;        partyLabel.setText(&quot;Party: &quot; + covenant.getActiveParty().size() + &quot;/5&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        refreshActiveParty();</b>
+<b class="fc">&nbsp;        refreshReserves();</b>
+<b class="fc">&nbsp;        refreshInventory();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void refreshReserves() {
+&nbsp;        // Clears the pane
+<b class="fc">&nbsp;        reservePane.getChildren().clear();</b>
+&nbsp;        //
+<b class="pc">&nbsp;        for (Saint saint : covenant.getReserves()) {</b>
+<b class="nc">&nbsp;            Button activateBtn = new Button(&quot;ACTIVATE&quot;);</b>
+<b class="nc">&nbsp;            activateBtn.setOnAction(e -&gt; {</b>
+<b class="nc">&nbsp;                if (!covenant.activateSaint(saint)) {</b>
+<b class="nc">&nbsp;                    AlertBox.showAlert(statusLabel, alertBox, &quot;Active party is full \n (max 5).&quot;);</b>
+&nbsp;                }
+<b class="nc">&nbsp;                refresh();</b>
+&nbsp;            });
+&nbsp;
+<b class="nc">&nbsp;            Button retireBtn = new Button(&quot;RETIRE&quot;);</b>
+<b class="nc">&nbsp;            retireBtn.setOnAction(e -&gt; {</b>
+<b class="nc">&nbsp;                covenant.retireSaint(saint); // No restriction on retiring from reserves</b>
+<b class="nc">&nbsp;                statusLabel.setText(saint.getName() + &quot; has retired.&quot;);</b>
+<b class="nc">&nbsp;                refresh();</b>
+&nbsp;            });
+&nbsp;
+<b class="nc">&nbsp;            VBox actions = new VBox(5, activateBtn, retireBtn);</b>
+<b class="nc">&nbsp;            actions.setAlignment(javafx.geometry.Pos.CENTER);</b>
+&nbsp;
+<b class="nc">&nbsp;            VBox card = SaintCardController.createSaintCard(saint, actions, true);</b>
+<b class="nc">&nbsp;            reservePane.getChildren().add(card);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void refreshActiveParty() {
+<b class="fc">&nbsp;        activePane.getChildren().clear();</b>
+<b class="fc">&nbsp;        for (Saint saint : covenant.getActiveParty()) {</b>
+<b class="fc">&nbsp;            Button benchBtn = new Button(&quot;BENCH&quot;);</b>
+<b class="fc">&nbsp;            benchBtn.setOnAction(e -&gt; {</b>
+<b class="nc">&nbsp;                if (!covenant.benchSaint(saint)) {</b>
+<b class="nc">&nbsp;                    statusLabel.setText(&quot;Cannot bench: party must keep at least one Saint, or reserves are full.&quot;);</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    statusLabel.setText(saint.getName() + &quot; moved to reserves.&quot;);</b>
+<b class="nc">&nbsp;                    refresh();</b>
+&nbsp;                }
+&nbsp;            });
+&nbsp;
+<b class="fc">&nbsp;            Button retireBtn = new Button(&quot;RETIRE&quot;);</b>
+<b class="fc">&nbsp;            retireBtn.setOnAction(e -&gt; {</b>
+<b class="nc">&nbsp;                if (!covenant.retireSaint(saint)) {</b>
+<b class="nc">&nbsp;                    AlertBox.showAlert(statusLabel, alertBox, &quot;Cannot retire the last Apostle.&quot;);</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    AlertBox.showAlert(statusLabel, alertBox, saint.getName() + &quot; has retired.&quot;);</b>
+<b class="nc">&nbsp;                    refresh();</b>
+&nbsp;                }
+&nbsp;            });
+&nbsp;
+<b class="fc">&nbsp;            VBox actions = new VBox(5);</b>
+<b class="fc">&nbsp;            actions.getChildren().addAll(benchBtn, retireBtn);</b>
+<b class="fc">&nbsp;            actions.setAlignment(javafx.geometry.Pos.CENTER);</b>
+&nbsp;
+<b class="fc">&nbsp;            VBox card = SaintCardController.createSaintCard(saint, actions, true);</b>
+<b class="fc">&nbsp;            activePane.getChildren().add(card);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void refreshInventory() {
+<b class="fc">&nbsp;        inventoryPane.getChildren().clear();</b>
+<b class="pc">&nbsp;        for (Item item : covenant.getInventory()) {</b>
+<b class="nc">&nbsp;            Button useBtn = new Button(&quot;USE / EQUIP&quot;);</b>
+<b class="nc">&nbsp;            useBtn.setOnAction(e -&gt; handleUseItemDialog(item));</b>
+<b class="nc">&nbsp;            useBtn.setStyle(&quot;-fx-font-size: 15&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;            VBox card = ItemCardController.createItemCard(item, useBtn);</b>
+<b class="nc">&nbsp;            inventoryPane.getChildren().add(card);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /** Opens a ChoiceDialog allowing the player to select which Apostle to apply the item to. */
+&nbsp;    private void handleUseItemDialog(Item item) {
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        List&lt;Saint&gt; allSaints = covenant.getOwnedSaints();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (allSaints.isEmpty()) {</b>
+<b class="nc">&nbsp;            statusLabel.setText(&quot;You have no Saint to use this on.&quot;);</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        ChoiceDialog&lt;Saint&gt; dialog = new ChoiceDialog&lt;&gt;(allSaints.getFirst(), allSaints);</b>
+<b class="nc">&nbsp;        dialog.setTitle(&quot;Use Item&quot;);</b>
+<b class="nc">&nbsp;        dialog.setHeaderText(&quot;Applying: &quot; + item.getItemName());</b>
+<b class="nc">&nbsp;        dialog.setContentText(&quot;Select a Saint to use this on:&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        Optional&lt;Saint&gt; result = dialog.showAndWait();</b>
+<b class="nc">&nbsp;        result.ifPresent(saint -&gt; {</b>
+<b class="nc">&nbsp;            item.applyEffect(saint);</b>
+<b class="nc">&nbsp;            covenant.removeItem(item);</b>
+<b class="nc">&nbsp;            statusLabel.setText(item.getItemName() + &quot; applied to &quot; + saint.getName() + &quot;!&quot;);</b>
+<b class="nc">&nbsp;            refresh();</b>
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private void handleMarket() {
+<b class="nc">&nbsp;        navigator.goToMarket();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @FXML
+&nbsp;    private void handleCrusade() {
+<b class="nc">&nbsp;        if (covenant.getActiveParty().isEmpty()) {</b>
+<b class="nc">&nbsp;            AlertBox.showAlert(statusLabel, alertBox, &quot;Active party is currently empty...&quot;);</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        navigator.goToCrusadeSelect();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

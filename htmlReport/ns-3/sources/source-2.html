@@ -1,0 +1,402 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Covenant</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.models</a>
+</div>
+
+<h1>Coverage Summary for Class: Covenant (seng201.nunbutblood.models)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Covenant</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    37.5%
+  </span>
+  <span class="absValue">
+    (9/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    40.5%
+  </span>
+  <span class="absValue">
+    (17/42)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.models;
+&nbsp;
+&nbsp;import seng201.nunbutblood.services.BankService;
+&nbsp;import seng201.nunbutblood.services.CovenantService;
+&nbsp;import seng201.nunbutblood.services.SaintService;
+&nbsp;import seng201.nunbutblood.services.DemonService;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents the player&#39;s Covenant.
+&nbsp; * Stores information about saints, faith, score, crusades, and inventory.
+&nbsp; */
+&nbsp;public class Covenant {
+&nbsp;
+&nbsp;    /** Name of the covenant. */
+&nbsp;    private final String name;
+&nbsp;
+&nbsp;    /** Handles saint roster management. */
+&nbsp;    private final SaintService roster;
+&nbsp;
+&nbsp;    /** Handles faith and economy logic. */
+&nbsp;    private final BankService bank;
+&nbsp;
+&nbsp;    /** Handles crusade progression and score tracking. */
+&nbsp;    private final CovenantService covenantService;
+&nbsp;
+&nbsp;    /** Stores all owned inventory items. */
+&nbsp;    private final List&lt;Item&gt; rawInventory;
+&nbsp;
+&nbsp;    private final String difficulty;
+&nbsp;
+&nbsp;    private final DemonService demonService;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a new covenant.
+&nbsp;     *
+&nbsp;     * @param name          Name of the covenant
+&nbsp;     * @param totalCrusades Total number of crusades in the game
+&nbsp;     * @param difficulty    Difficulty setting used for starting faith
+&nbsp;     */
+<b class="fc">&nbsp;    public Covenant(String name, int totalCrusades, String difficulty) {</b>
+<b class="fc">&nbsp;        this.name = name;</b>
+<b class="fc">&nbsp;        this.roster = new SaintService();</b>
+<b class="fc">&nbsp;        this.bank = new BankService(difficulty);</b>
+<b class="fc">&nbsp;        this.covenantService = new CovenantService(totalCrusades);</b>
+<b class="fc">&nbsp;        this.rawInventory = new java.util.ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        this.difficulty = difficulty;</b>
+<b class="fc">&nbsp;        this.demonService = new DemonService();</b>
+<b class="fc">&nbsp;        demonService.generateNewOptions(covenantService.getCurrentCrusade(), difficulty);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Handles all end-of-crusade updates.
+&nbsp;     * Rewards faith, applies upkeep, updates score,
+&nbsp;     * advances crusade count, and refreshes saint sanity.
+&nbsp;     *
+&nbsp;     * @param reward      Faith earned from the crusade
+&nbsp;     * @param scoreReward Score earned from the crusade
+&nbsp;     * @param isVictory   the is victory
+&nbsp;     */
+&nbsp;    public void postCrusade(int reward, int scoreReward, boolean isVictory) {
+<b class="nc">&nbsp;        bank.addFaith(reward);</b>
+<b class="nc">&nbsp;        int upkeepCost = roster.calculateUpKeep();</b>
+<b class="nc">&nbsp;        bank.payUpKeep(upkeepCost);</b>
+<b class="nc">&nbsp;        covenantService.changeScore(scoreReward);</b>
+<b class="nc">&nbsp;        roster.incrementCrusadeCounts();</b>
+<b class="nc">&nbsp;        if (isVictory) {</b>
+<b class="nc">&nbsp;            covenantService.advanceCrusade();</b>
+<b class="nc">&nbsp;            roster.refreshSanity();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        demonService.generateNewOptions(covenantService.getCurrentCrusade(), difficulty);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks whether the player has lost the game.
+&nbsp;     * Player loses if they have no saints and no faith.
+&nbsp;     *
+&nbsp;     * @return True if game is lost
+&nbsp;     */
+&nbsp;    public boolean hasLost() {
+<b class="nc">&nbsp;        boolean outOfSanitySaints = roster.allSaintsExhausted();</b>
+<b class="nc">&nbsp;        boolean cannotAffordNewSaint = bank.getFaith() &lt;= 200;</b>
+&nbsp;
+<b class="nc">&nbsp;        return outOfSanitySaints &amp;&amp; cannotAffordNewSaint;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the covenant name.
+&nbsp;     *
+&nbsp;     * @return Covenant name
+&nbsp;     */
+&nbsp;    public String getName() {
+<b class="fc">&nbsp;        return name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the current amount of faith.
+&nbsp;     *
+&nbsp;     * @return Current faith total
+&nbsp;     */
+&nbsp;    public int getFaith() {
+<b class="fc">&nbsp;        return bank.getFaith();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the total number of crusades in the game.
+&nbsp;     *
+&nbsp;     * @return Total crusades
+&nbsp;     */
+&nbsp;    public int getTotalCrusades() {
+<b class="fc">&nbsp;        return covenantService.getTotalCrusades();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the current crusade number.
+&nbsp;     *
+&nbsp;     * @return Current crusade
+&nbsp;     */
+&nbsp;    public int getCurrentCrusade() {
+<b class="fc">&nbsp;        return covenantService.getCurrentCrusade();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the total amount of faith earned during the game.
+&nbsp;     *
+&nbsp;     * @return Total faith earned
+&nbsp;     */
+&nbsp;    public int getTotalFaithEarned() {
+<b class="nc">&nbsp;        return bank.getTotalFaithEarned();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the demon service containing the current crusade&#39;s demon options.
+&nbsp;     *
+&nbsp;     * @return The active DemonService instance
+&nbsp;     */
+&nbsp;    public DemonService getDemonService() {
+<b class="nc">&nbsp;        return this.demonService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the current covenant score.
+&nbsp;     *
+&nbsp;     * @return Current score
+&nbsp;     */
+&nbsp;    public int getScore() {
+<b class="nc">&nbsp;        return covenantService.getScore();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks whether all crusades are complete.
+&nbsp;     *
+&nbsp;     * @return True if game is complete
+&nbsp;     */
+&nbsp;    public boolean isGameComplete() {
+<b class="nc">&nbsp;        return covenantService.isGameComplete();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets all saints currently in the active party.
+&nbsp;     *
+&nbsp;     * @return Active party list
+&nbsp;     */
+&nbsp;    public List&lt;Saint&gt; getActiveParty() {
+<b class="fc">&nbsp;        return roster.getActiveParty();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets all saints currently in reserves.
+&nbsp;     *
+&nbsp;     * @return Reserve saint list
+&nbsp;     */
+&nbsp;    public List&lt;Saint&gt; getReserves() {
+<b class="fc">&nbsp;        return roster.getReserves();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets every saint owned by the player.
+&nbsp;     *
+&nbsp;     * @return List of all owned saints
+&nbsp;     */
+&nbsp;    public List&lt;Saint&gt; getOwnedSaints() {
+<b class="nc">&nbsp;        return roster.getOwnedSaints();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the selected difficulty as a string
+&nbsp;     *
+&nbsp;     * @return Difficulty String
+&nbsp;     */
+&nbsp;    public String getDifficulty() {
+<b class="nc">&nbsp;        return difficulty;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds a saint to the covenant roster.
+&nbsp;     *
+&nbsp;     * @param saint Saint to add
+&nbsp;     */
+&nbsp;    public void addSaint(Saint saint) {
+<b class="fc">&nbsp;        roster.addSaint(saint);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Moves a saint into the active party.
+&nbsp;     *
+&nbsp;     * @param saint Saint to activate
+&nbsp;     * @return True if activation succeeds
+&nbsp;     */
+&nbsp;    public boolean activateSaint(Saint saint) {
+<b class="nc">&nbsp;        return roster.activateSaint(saint);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Moves a saint out of the active party.
+&nbsp;     *
+&nbsp;     * @param saint Saint to bench
+&nbsp;     * @return True if benching succeeds
+&nbsp;     */
+&nbsp;    public boolean benchSaint(Saint saint) {
+<b class="nc">&nbsp;        return roster.benchSaint(saint);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Permanently removes a saint from the roster.
+&nbsp;     *
+&nbsp;     * @param apostle Saint to retire
+&nbsp;     * @return True if retirement succeeds
+&nbsp;     */
+&nbsp;    public boolean retireSaint(Saint apostle) {
+<b class="nc">&nbsp;        return roster.retireSaint(apostle);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Attempts to spend faith.
+&nbsp;     *
+&nbsp;     * @param amount Amount of faith to spend
+&nbsp;     * @return True if payment succeeds
+&nbsp;     */
+&nbsp;    public boolean spendFaith(int amount) {
+<b class="nc">&nbsp;        return bank.spendFaith(amount);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds faith to the covenant bank.
+&nbsp;     *
+&nbsp;     * @param amount Amount of faith to add
+&nbsp;     */
+&nbsp;    public void addFaith(int amount) {
+<b class="nc">&nbsp;        bank.addFaith(amount);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets a read-only version of the inventory.
+&nbsp;     *
+&nbsp;     * @return Inventory item list
+&nbsp;     */
+&nbsp;    public List&lt;Item&gt; getInventory() {
+<b class="fc">&nbsp;        return java.util.Collections.unmodifiableList(rawInventory);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds an item to the inventory.
+&nbsp;     *
+&nbsp;     * @param item Item to add
+&nbsp;     */
+&nbsp;    public void addItem(Item item) {
+<b class="nc">&nbsp;        rawInventory.add(item);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Removes an item from the inventory.
+&nbsp;     *
+&nbsp;     * @param item Item to remove
+&nbsp;     * @return True if item was removed
+&nbsp;     */
+&nbsp;    public boolean removeItem(Item item) {
+<b class="nc">&nbsp;        return rawInventory.remove(item);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

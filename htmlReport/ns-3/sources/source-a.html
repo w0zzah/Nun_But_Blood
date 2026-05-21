@@ -1,0 +1,543 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Saint</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.models</a>
+</div>
+
+<h1>Coverage Summary for Class: Saint (seng201.nunbutblood.models)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Saint</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (11/33)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    35.8%
+  </span>
+  <span class="absValue">
+    (24/67)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Saint$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    32.4%
+  </span>
+  <span class="absValue">
+    (11/34)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    35.3%
+  </span>
+  <span class="absValue">
+    (24/68)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.models;
+&nbsp;
+&nbsp;/**
+&nbsp; * The type Saint.
+&nbsp; */
+&nbsp;public abstract class Saint implements Purchasable {
+&nbsp;
+&nbsp;    /*
+&nbsp;        The Apostle class serve&#39;s as a base for our hero&#39;s.
+&nbsp;        Apostle&#39;s have a name, main stat, sanity, perception, hiring cost and up keep cost
+&nbsp;        The name will be randomly generated String
+&nbsp;        The main stat will be either Strength, Wisdom or Dexterity
+&nbsp;        Perception will be a
+&nbsp;    */
+&nbsp;
+&nbsp;    // Names character
+&nbsp;    private String name;
+&nbsp;
+&nbsp;    //  Sanity decrease&#39;s on use of attack
+&nbsp;    private int maxSanity;
+&nbsp;    private int currentSanity;
+&nbsp;
+&nbsp;    // Base Strength, Wisdom, and Dexterity
+&nbsp;    private int strength;
+&nbsp;    private int wisdom;
+&nbsp;    private int dexterity;
+&nbsp;
+&nbsp;    // Chance of acquiring an Item after combat
+&nbsp;    private int perception;
+&nbsp;
+&nbsp;    // The required faith for purchase between 500 and 1000 faith  - &gt;  calculation is ((each stat - 10 / 2) * 25) + 500.
+&nbsp;    private int hireCost;
+&nbsp;
+&nbsp;    // The required faith to take Apostle on crusade between -250 and 250 faith -&gt; calculation is (each stat - 10 / 2) * 12
+&nbsp;    // A negative upKeep will reward players for using weaker apostle&#39;s
+&nbsp;    private int upKeep;
+&nbsp;
+&nbsp;    // The type stat to be used for rolling
+&nbsp;    private int primaryStat;
+&nbsp;
+&nbsp;    // Keep total of how many crusade&#39;s the apostle has been through
+&nbsp;    private int crusadeCount;
+&nbsp;
+&nbsp;    // Ability for Saint
+<b class="fc">&nbsp;    private String specialAbility = &quot;&quot;;</b>
+&nbsp;
+&nbsp;    // Portrait of Crusader
+&nbsp;    private String portraitKey;
+&nbsp;
+&nbsp;    private Rarity rarity;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor for Apostle&#39;s. To be generated through market which pull&#39;s on each respective class
+&nbsp;     * for base additions. Market -&gt; Executioner -&gt; Apostle&#39;s. Will build this way to so itterate&#39;s over
+&nbsp;     * game state. Longer game goes on, better stat&#39;s for Apostle&#39;s in market
+&nbsp;     *
+&nbsp;     * @param name        Name for Apostle
+&nbsp;     * @param portraitKey Portrait of the Apostle generated in market
+&nbsp;     * @param strength    Strength for Apostle, int 0-20 which is modified in class get as (strength - 10 / 2)
+&nbsp;     * @param wisdom      Wisdom for Apostle, int 0-20 which is modified in class get as (wisdom - 10 / 2)
+&nbsp;     * @param dexterity   Dexterity for Apostle, int 0-20 which is modified in class get as (dexterity - 10 / 2)
+&nbsp;     * @param sanity     maxSanity and currentSanity for the apostle
+&nbsp;     * @param perception  Perception for Apostle, serve&#39;s as the chance to find Item&#39;s
+&nbsp;     * @param hireCost    Cost to hire the Apostle, (500 to 1000 faith) - &gt;  calculation is ((each stat - 10 / 2) * 25) + 500.
+&nbsp;     * @param upKeep      Cost per expedition for apostle, (-240 to 240) -&gt; calculation is (each stat - 10 / 2) * 12
+&nbsp;     */
+&nbsp;    public Saint(String name, String portraitKey, int strength, int wisdom, int dexterity,
+<b class="fc">&nbsp;                 int sanity, int perception, int hireCost, int upKeep) {</b>
+<b class="fc">&nbsp;        this.portraitKey = portraitKey;</b>
+<b class="fc">&nbsp;        this.name        = name;</b>
+<b class="fc">&nbsp;        this.strength    = Math.clamp(strength, 0, 20);</b>
+<b class="fc">&nbsp;        this.wisdom      = Math.clamp(wisdom, 0, 20);</b>
+<b class="fc">&nbsp;        this.dexterity   = Math.clamp(dexterity, 0, 20);</b>
+<b class="fc">&nbsp;        this.maxSanity      = sanity;</b>
+<b class="fc">&nbsp;        this.currentSanity  = sanity;</b>
+<b class="fc">&nbsp;        this.perception      = perception;</b>
+<b class="fc">&nbsp;        this.hireCost = hireCost;</b>
+<b class="fc">&nbsp;        this.upKeep = upKeep;</b>
+<b class="fc">&nbsp;        this.rarity = Rarity.fromStatTotal(this.strength + this.wisdom + this.dexterity);</b>
+<b class="fc">&nbsp;        this.crusadeCount = 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    protected static int calcUpKeep(int strength, int wisdom, int dexterity) {
+<b class="fc">&nbsp;        return 15 + (strength + wisdom + dexterity) / 5;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // ----- GETTERS (PURCHASABLE) ----------------------------------------------------------------
+&nbsp;
+&nbsp;    /** @return Hiring Cost */
+&nbsp;    @Override
+<b class="nc">&nbsp;    public int getCost() { return hireCost;}</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String getDescription() {
+<b class="nc">&nbsp;        return String.format(</b>
+&nbsp;                &quot;[%s] %s | %s | STR %d  WIS %d  DEX %d | Sanity %d/%d | Pay %d/round&quot;,
+<b class="nc">&nbsp;                rarity.getLabel(), name, getStatType(),</b>
+<b class="nc">&nbsp;                strength, wisdom, dexterity,</b>
+<b class="nc">&nbsp;                currentSanity, maxSanity,</b>
+<b class="nc">&nbsp;                upKeep</b>
+&nbsp;        );
+&nbsp;    }
+&nbsp;
+&nbsp;    // ----- GETTERS (PURCHASABLE) END ----------------------------------------------------------------
+&nbsp;
+&nbsp;
+&nbsp;    // ----- GETTERS (APOSTLE&#39;S CLASS) ----------------------------------------------------------------
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets name.
+&nbsp;     *
+&nbsp;     * @return display name
+&nbsp;     */
+<b class="fc">&nbsp;    public String getName() { return name; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets max sanity.
+&nbsp;     *
+&nbsp;     * @return maximum sanity
+&nbsp;     */
+<b class="nc">&nbsp;    public int getMaxSanity() { return maxSanity; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets current sanity.
+&nbsp;     *
+&nbsp;     * @return current sanity
+&nbsp;     */
+<b class="fc">&nbsp;    public int getCurrentSanity() { return currentSanity; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets strength.
+&nbsp;     *
+&nbsp;     * @return Strength
+&nbsp;     */
+<b class="fc">&nbsp;    public int getStrength() { return strength;}</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets wisdom.
+&nbsp;     *
+&nbsp;     * @return Wisdom
+&nbsp;     */
+<b class="fc">&nbsp;    public int getWisdom() { return wisdom;}</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets dexterity.
+&nbsp;     *
+&nbsp;     * @return Dexterity
+&nbsp;     */
+<b class="fc">&nbsp;    public int getDexterity() { return dexterity;}</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets perception.
+&nbsp;     *
+&nbsp;     * @return perception stat
+&nbsp;     */
+<b class="nc">&nbsp;    public int getPerception() { return perception; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets stat total.
+&nbsp;     *
+&nbsp;     * @return Returns the combined total of strength, wisdom and dexterity
+&nbsp;     */
+&nbsp;    public int getStatTotal() {
+<b class="nc">&nbsp;        return strength + wisdom + dexterity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets up keep.
+&nbsp;     *
+&nbsp;     * @return daily pay per expedition
+&nbsp;     */
+<b class="fc">&nbsp;    public int getUpKeep() { return upKeep; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets special ability.
+&nbsp;     *
+&nbsp;     * @return special ability name, or empty string if none
+&nbsp;     */
+<b class="nc">&nbsp;    public String getSpecialAbility() { return specialAbility; }</b>
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets portrait key.
+&nbsp;     *
+&nbsp;     * @return the name of the portrait in resources/images/Saints/...
+&nbsp;     */
+<b class="fc">&nbsp;    public String getPortraitKey() { return portraitKey; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets rarity.
+&nbsp;     *
+&nbsp;     * @return Saint rarity
+&nbsp;     */
+<b class="fc">&nbsp;    public Rarity getRarity() { return rarity; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets crusade count.
+&nbsp;     *
+&nbsp;     * @return the crusade count
+&nbsp;     */
+<b class="nc">&nbsp;    public int getCrusadeCount() {return  crusadeCount; }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String toString() {
+<b class="nc">&nbsp;        return this.getName(); // Assuming you have a getName() method</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    // ----- GETTERS (ABSTRACT)----------------------------------------------------------------
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the subclass&#39;s primary stat value to add to a dice roll.
+&nbsp;     * This value already includes the +5 class bonus applied at construction.
+&nbsp;     *
+&nbsp;     * @return the primary stat bonus for crusade dice checks
+&nbsp;     */
+&nbsp;    public abstract int getStatBonus();
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the short stat-type identifier, (&#39;STR&#39;, &#39;WIS&#39;, &#39;DEX&#39;)
+&nbsp;     *
+&nbsp;     * @return stat type string
+&nbsp;     */
+&nbsp;    public abstract String getStatType();
+&nbsp;
+&nbsp;
+&nbsp;    // ----- GETTERS (ABSTRACT) END -----------------------------------------------------------
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    // ----- METHODS (STAT CHANGES) --------------------------------------------------------------------------
+&nbsp;
+&nbsp;    private void refreshRarity() {
+<b class="nc">&nbsp;        this.rarity = Rarity.fromStatTotal(strength + wisdom + dexterity);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * change the strength of Apostle (Max 20)
+&nbsp;     * Refresh rarity to adjust for stat change
+&nbsp;     *
+&nbsp;     * @param amount stat change
+&nbsp;     */
+&nbsp;    public void changeStrength(int amount) {
+<b class="nc">&nbsp;        this.strength = Math.clamp(this.strength + amount, 0, 20); // Math.clamp(Value, min, max)</b>
+<b class="nc">&nbsp;        refreshRarity();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * change the wisdom of Apostle (Max 20)
+&nbsp;     * Refresh rarity to adjust for stat change
+&nbsp;     *
+&nbsp;     * @param amount stat change
+&nbsp;     */
+&nbsp;    public void changeWisdom(int amount) {
+<b class="nc">&nbsp;        this.wisdom = Math.clamp(this.wisdom + amount, 0, 20);</b>
+<b class="nc">&nbsp;        refreshRarity();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * change the dexterity of Apostle (Max 20)
+&nbsp;     * Refresh rarity to adjust for stat change
+&nbsp;     *
+&nbsp;     * @param amount stat change
+&nbsp;     */
+&nbsp;    public void changeDexterity(int amount) {
+<b class="nc">&nbsp;        this.dexterity = Math.clamp(this.dexterity + amount, 0, 20);</b>
+<b class="nc">&nbsp;        refreshRarity();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Consume&#39;s Sanity. If it&#39;s below 0, return 0
+&nbsp;     *
+&nbsp;     * @param amount the amount
+&nbsp;     */
+&nbsp;    public void consumeSanity(int amount) {
+<b class="nc">&nbsp;        this.currentSanity = Math.max(0, this.currentSanity - amount); // Math.max return&#39;s the higher of two value&#39;s, not aloowing current sanity to go below 0</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Restores sanity to maximum, called after crusade.
+&nbsp;     *
+&nbsp;     */
+&nbsp;    public void restoreSanity() {
+<b class="nc">&nbsp;        this.currentSanity = this.maxSanity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Permanently changes maximum sanity, through Item&#39;s
+&nbsp;     *
+&nbsp;     * @param amount sanity change
+&nbsp;     */
+&nbsp;    public void changeMaxSanity(int amount) {
+<b class="nc">&nbsp;        this.maxSanity += amount;</b>
+<b class="nc">&nbsp;        this.currentSanity = Math.min(this.currentSanity + amount, this.maxSanity);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Permanently changes perception, through Item&#39;s or after crusade&#39;s
+&nbsp;     *
+&nbsp;     * @param amount amount to add
+&nbsp;     */
+&nbsp;    public void changePerception(int amount) {
+<b class="nc">&nbsp;        this.perception += amount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Give&#39;s A unique ability to Apostle.
+&nbsp;     *
+&nbsp;     * @param abilityName name of the ability
+&nbsp;     */
+&nbsp;    public void setSpecialAbility(String abilityName) {
+<b class="nc">&nbsp;        this.specialAbility = abilityName;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get attribute value int.
+&nbsp;     *
+&nbsp;     * @param stat the stat
+&nbsp;     * @return primary combat stat value
+&nbsp;     */
+&nbsp;    public int getAttributeValue(StatType stat){
+<b class="nc">&nbsp;        if (stat == StatType.STRENGTH) {</b>
+<b class="nc">&nbsp;            return (this.strength);</b>
+<b class="nc">&nbsp;        } else if (stat == StatType.WISDOM) {</b>
+<b class="nc">&nbsp;            return (this.wisdom);</b>
+<b class="nc">&nbsp;        } else return (this.dexterity);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets main stat.
+&nbsp;     *
+&nbsp;     * @return the main stat
+&nbsp;     */
+&nbsp;    public String getMainStat() {
+<b class="nc">&nbsp;        if (strength &gt;= wisdom &amp;&amp; strength &gt;= dexterity) {</b>
+<b class="nc">&nbsp;            return &quot;strength&quot;;</b>
+<b class="nc">&nbsp;        } else if (wisdom &gt;= strength &amp;&amp; wisdom &gt;= dexterity) {</b>
+<b class="nc">&nbsp;            return &quot;wisdom&quot;;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return &quot;dexterity&quot;;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calc hire cost int.
+&nbsp;     *
+&nbsp;     * @param strength  the strength
+&nbsp;     * @param wisdom    the wisdom
+&nbsp;     * @param dexterity the dexterity
+&nbsp;     * @return the int
+&nbsp;     */
+&nbsp;    static int calcHireCost(int strength, int wisdom, int dexterity) {
+<b class="fc">&nbsp;        return 500 + ((strength - 10) + (wisdom - 10) + (dexterity - 10)) * 25;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     * @param saint Saint to change the stat of
+&nbsp;     * @param stat Stat to be changed
+&nbsp;     * @param amount The amount the stat will be changed
+&nbsp;     */
+&nbsp;    public static void applyStat(Saint saint, StatType stat, int amount) {
+<b class="nc">&nbsp;        switch (stat) {</b>
+<b class="nc">&nbsp;            case STRENGTH   -&gt; saint.changeStrength(amount);</b>
+<b class="nc">&nbsp;            case WISDOM     -&gt; saint.changeWisdom(amount);</b>
+<b class="nc">&nbsp;            case DEXTERITY  -&gt; saint.changeDexterity(amount);</b>
+<b class="nc">&nbsp;            case PERCEPTION -&gt; saint.changePerception(amount);</b>
+<b class="nc">&nbsp;            case SANITY    -&gt; saint.changeMaxSanity(amount);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    // ----- METHODS (STAT CHANGES) END --------------------------------------------------------------------------
+&nbsp;
+&nbsp;    // ----- CRUSADE COUNTER -----------------------------------------------------------------------------------
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Add&#39;s 1 to crusade counter after every crusade.
+&nbsp;     */
+<b class="nc">&nbsp;    public void incrementCrusadeCount() { this.crusadeCount++; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Reset crusade&#39;s called on hire
+&nbsp;     */
+<b class="nc">&nbsp;    public void resetCrusadeCount() { this.crusadeCount = 0; }</b>
+&nbsp;
+&nbsp;    // ----- METHODS END ---------------------------------------------------------------------------------------
+&nbsp;
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,178 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > DemonCardController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: DemonCardController (seng201.nunbutblood.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">DemonCardController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.controllers;
+&nbsp;
+&nbsp;import javafx.scene.control.Button;
+&nbsp;import javafx.scene.control.Label;
+&nbsp;import javafx.scene.image.Image;
+&nbsp;import javafx.scene.image.ImageView;
+&nbsp;import javafx.scene.layout.VBox;
+&nbsp;import seng201.nunbutblood.models.Demon;
+&nbsp;
+&nbsp;/**
+&nbsp; * The type Demon card controller.
+&nbsp; */
+<b class="nc">&nbsp;public class DemonCardController {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Build demon card v box.
+&nbsp;     *
+&nbsp;     * @param demon      the demon
+&nbsp;     * @param actionNode the action node
+&nbsp;     * @param isCompact  the is compact
+&nbsp;     * @return the v box
+&nbsp;     */
+&nbsp;    public static VBox buildDemonCard(Demon demon, Button actionNode, boolean isCompact) {
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        String path = &quot;/images/evil/&quot; + demon.getPortraitKey();</b>
+<b class="nc">&nbsp;        var resource = DemonCardController.class.getResourceAsStream(path);</b>
+&nbsp;
+<b class="nc">&nbsp;        ImageView demonImg = new ImageView();</b>
+<b class="nc">&nbsp;        if (resource != null) {</b>
+<b class="nc">&nbsp;            demonImg.setImage(new Image(resource));</b>
+&nbsp;        }
+&nbsp;        else {
+<b class="nc">&nbsp;            System.err.println(&quot;MISSING IMAGE: Could not find demon portrait at &quot; + path);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        demonImg.setFitHeight(isCompact ? 250 : 350);</b>
+<b class="nc">&nbsp;        demonImg.setPreserveRatio(true);</b>
+<b class="nc">&nbsp;        demonImg.setSmooth(false);</b>
+&nbsp;
+<b class="nc">&nbsp;        VBox card = new VBox(3);</b>
+<b class="nc">&nbsp;        card.getStyleClass().add(&quot;demon-card&quot;);</b>
+<b class="nc">&nbsp;        card.setMaxWidth(Double.MAX_VALUE);</b>
+&nbsp;
+<b class="nc">&nbsp;        Label name = new Label(demon.getName());</b>
+<b class="nc">&nbsp;        name.getStyleClass().add(&quot;demon-card-name&quot;);</b>
+<b class="nc">&nbsp;        name.setWrapText(true);</b>
+&nbsp;
+<b class="nc">&nbsp;        Label weakness = new Label(&quot;Weak to: &quot; + demon.getWeakness());</b>
+<b class="nc">&nbsp;        weakness.getStyleClass().add(&quot;demon-card-type&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        Label difficulty = new Label(&quot;Difficulty: &quot; + demon.getDifficultyRating());</b>
+<b class="nc">&nbsp;        difficulty.getStyleClass().add(&quot;demon-card-stats&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        Label reward = new Label(&quot;Reward: &quot; + demon.getFaithReward());</b>
+<b class="nc">&nbsp;        reward.getStyleClass().add(&quot;demon-card-type&quot;);</b>
+<b class="nc">&nbsp;        if (isCompact) {</b>
+<b class="nc">&nbsp;            card.getChildren().addAll(demonImg, name, weakness, difficulty, reward, actionNode);</b>
+<b class="nc">&nbsp;        } else {card.getChildren().addAll(demonImg, weakness, difficulty); }</b>
+&nbsp;
+<b class="nc">&nbsp;        return card;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

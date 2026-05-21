@@ -1,0 +1,317 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Item</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.models</a>
+</div>
+
+<h1>Coverage Summary for Class: Item (seng201.nunbutblood.models)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Item</td>
+<td class="coverageStat">
+  <span class="percent">
+    11.1%
+  </span>
+  <span class="absValue">
+    (1/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (8/24)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Item$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Item$ItemType</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (3/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    41.4%
+  </span>
+  <span class="absValue">
+    (12/29)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.models;
+&nbsp;
+&nbsp;/**
+&nbsp; * Represents a purchasable item that can be applied to an apostle.
+&nbsp; * Items are either consumed on use (CONSUMABLE, SKILL_TOME) or
+&nbsp; * persist while equipped (EQUIPMENT).
+&nbsp; *
+&nbsp; * @author pgi33
+&nbsp; */
+&nbsp;public class Item implements Purchasable {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Defines the functional category of an item.
+&nbsp;     * Determines how applyEffect() behaves.
+&nbsp;     */
+<b class="fc">&nbsp;    public enum ItemType {</b>
+&nbsp;        /**
+&nbsp;         * One-time permanent stat boost, consumed on use.
+&nbsp;         */
+<b class="fc">&nbsp;        CONSUMABLE,</b>
+&nbsp;        /**
+&nbsp;         * Equippable item that boosts stats while held.
+&nbsp;         */
+<b class="fc">&nbsp;        EQUIPMENT,</b>
+&nbsp;        /**
+&nbsp;         * Grants the apostle a named special ability, consumed on use.
+&nbsp;         */
+<b class="fc">&nbsp;        SKILL_TOME</b>
+&nbsp;    }
+&nbsp;    /** Display name of item. */
+&nbsp;    private final String itemName;
+&nbsp;
+&nbsp;    /** Functional category that determines how the item behaves. */
+&nbsp;    private final ItemType type;
+&nbsp;
+&nbsp;    /** The stat this item affects — one of &quot;STR&quot;, &quot;WIS&quot;, &quot;DEX&quot;, &quot;STA&quot;, &quot;PER&quot;. */
+&nbsp;    private final StatType statAffected;
+&nbsp;
+&nbsp;    /** The amount added to the affected stat. */
+&nbsp;    private final int bonusValue;
+&nbsp;
+&nbsp;    /** Faith cost to purchase from the market. */
+&nbsp;    private final int cost;
+&nbsp;
+&nbsp;    /** Description shown in the market and inventory screens. */
+&nbsp;    private final String itemDescription;
+&nbsp;
+&nbsp;    private final String portraitKey;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates an Item with the given attributes.
+&nbsp;     *
+&nbsp;     * @param itemName        display name of the item
+&nbsp;     * @param type            functional category (CONSUMABLE, EQUIPMENT, SKILL_TOME)
+&nbsp;     * @param statAffected    stat this item affects (&quot;STR&quot;, &quot;WIS&quot;, &quot;DEX&quot;, &quot;STA&quot;, &quot;PER&quot;)
+&nbsp;     * @param bonusValue      amount added to the affected stat
+&nbsp;     * @param cost            faith cost to purchase
+&nbsp;     * @param itemDescription description shown in market and inventory
+&nbsp;     * @param portraitKey     Item Portrait
+&nbsp;     */
+<b class="fc">&nbsp;    public Item(String itemName, ItemType type, StatType statAffected, int bonusValue, int cost, String itemDescription, String portraitKey){</b>
+<b class="fc">&nbsp;        this.itemName = itemName;</b>
+<b class="fc">&nbsp;        this.type = type;</b>
+<b class="fc">&nbsp;        this.statAffected = statAffected;</b>
+<b class="fc">&nbsp;        this.bonusValue = bonusValue;</b>
+<b class="fc">&nbsp;        this.cost = cost;</b>
+<b class="fc">&nbsp;        this.itemDescription = itemDescription;</b>
+<b class="fc">&nbsp;        this.portraitKey = portraitKey;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Applies this item&#39;s effect to the given apostle.
+&nbsp;     * CONSUMABLE and SKILL_TOME are consumed on use.
+&nbsp;     * EQUIPMENT persists and should be tracked on the apostle separately.
+&nbsp;     *
+&nbsp;     * @param saint the apostle to apply the effect to
+&nbsp;     */
+&nbsp;    public void applyEffect(Saint saint) {
+<b class="nc">&nbsp;        switch (type) {</b>
+&nbsp;            case CONSUMABLE, EQUIPMENT -&gt; {
+<b class="nc">&nbsp;                switch (statAffected) {</b>
+<b class="nc">&nbsp;                    case STRENGTH -&gt; saint.changeStrength(bonusValue);</b>
+<b class="nc">&nbsp;                    case WISDOM -&gt; saint.changeWisdom(bonusValue);</b>
+<b class="nc">&nbsp;                    case DEXTERITY -&gt; saint.changeDexterity(bonusValue);</b>
+<b class="nc">&nbsp;                    case SANITY-&gt; saint.changeMaxSanity(bonusValue);</b>
+<b class="nc">&nbsp;                    case PERCEPTION -&gt; saint.changePerception(bonusValue);</b>
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;            case SKILL_TOME -&gt; saint.setSpecialAbility(itemDescription);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the display name of this item.
+&nbsp;     *
+&nbsp;     * @return item name
+&nbsp;     */
+<b class="nc">&nbsp;    public String getPortraitKey() {return portraitKey; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get item name string.
+&nbsp;     *
+&nbsp;     * @return the string
+&nbsp;     */
+<b class="nc">&nbsp;    public String getItemName(){return String.format(&quot;[%s] %s&quot;,</b>
+&nbsp;            type, itemName);
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the functional type of this item.
+&nbsp;     *
+&nbsp;     * @return item type
+&nbsp;     */
+<b class="nc">&nbsp;    public ItemType getType() { return type; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the stat this item affects.
+&nbsp;     *
+&nbsp;     * @return stat identifier string
+&nbsp;     */
+<b class="nc">&nbsp;    public StatType getStatAffected(){ return statAffected; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the stat bonus amount this item provides.
+&nbsp;     *
+&nbsp;     * @return bonus value
+&nbsp;     */
+<b class="nc">&nbsp;    public int getBonusValue(){ return bonusValue; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the faith cost to purchase this item.
+&nbsp;     * @return cost in faith
+&nbsp;     */
+&nbsp;    @Override
+<b class="nc">&nbsp;    public int getCost() { return cost; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns a formatted description for market and inventory display.
+&nbsp;     * @return description string
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public String getDescription() {
+<b class="nc">&nbsp;        return String.format(&quot;+%d %s | Cost: %d Faith | %s&quot;,</b>
+<b class="nc">&nbsp;                bonusValue, statAffected, cost, itemDescription);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

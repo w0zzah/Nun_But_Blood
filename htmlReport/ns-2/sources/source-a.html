@@ -1,0 +1,241 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SaintCardController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: SaintCardController (seng201.nunbutblood.controllers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SaintCardController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    96.5%
+  </span>
+  <span class="absValue">
+    (55/57)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.controllers;
+&nbsp;
+&nbsp;import javafx.geometry.Pos;
+&nbsp;import javafx.scene.Node;
+&nbsp;import javafx.scene.control.Label;
+&nbsp;import javafx.scene.image.Image;
+&nbsp;import javafx.scene.image.ImageView;
+&nbsp;import javafx.scene.layout.*;
+&nbsp;import seng201.nunbutblood.models.Saint;
+&nbsp;import javafx.scene.layout.HBox;
+&nbsp;import seng201.nunbutblood.models.SaintRoster;
+&nbsp;
+&nbsp;/**
+&nbsp; * Generate Saint Card Display.
+&nbsp; * Takes information from {@link SaintRoster} , and links the data such as
+&nbsp; * Name, Stats, PortraitID, Rarity to create a unique card for each Saint. &lt;br&gt;
+&nbsp; * &lt;p&gt;
+&nbsp; * {@link #createSaintCard(Saint, Node, boolean)} : Creates a distinct card for the Saint with a button to purchase the saint &lt;br&gt;
+&nbsp; * {@link #buildStatBars(Saint, boolean)} : Creates 3 rounded rectangles for each stat type &lt;br&gt;
+&nbsp; * {@link #buildStatRow(String, int, boolean, String, boolean))} : Assigns stats to each Saint card
+&nbsp; */
+<b class="nc">&nbsp;public class SaintCardController {</b>
+&nbsp;    /**
+&nbsp;     * Creates the cards that display&#39;s Saint information.
+&nbsp;     *
+&nbsp;     * @param saint      the saint
+&nbsp;     * @param actionNode the action node
+&nbsp;     * @param isCompact  the is compact
+&nbsp;     * @return the v box
+&nbsp;     */
+&nbsp;    public static VBox createSaintCard(Saint saint, Node actionNode, boolean isCompact) {
+&nbsp;
+<b class="fc">&nbsp;        int cardWidth = isCompact ? 180 : 200;</b>
+<b class="fc">&nbsp;        int cardHeight = isCompact ? 150 : 100;</b>
+<b class="fc">&nbsp;        int portraitBoxHeight = isCompact ? 150 : 200;</b>
+<b class="fc">&nbsp;        int imageFitHeight = isCompact ? 120 : 150;</b>
+<b class="fc">&nbsp;        int spacing = isCompact ? 2 : 3;</b>
+&nbsp;
+<b class="fc">&nbsp;        VBox card = new VBox(spacing);</b>
+&nbsp;        // add CSS link dependent on rarity of card
+<b class="fc">&nbsp;        card.getStyleClass().addAll(&quot;saint-card&quot;, &quot;rarity-&quot; + saint.getRarity().name().toLowerCase());</b>
+<b class="fc">&nbsp;        card.setPrefWidth(cardWidth);</b>
+<b class="fc">&nbsp;        card.setPrefHeight(cardHeight);</b>
+&nbsp;
+&nbsp;
+&nbsp;        // Assign the portrait image to a new stack pane within card
+<b class="fc">&nbsp;        StackPane portrait = new StackPane();</b>
+<b class="fc">&nbsp;        portrait.getStyleClass().add(&quot;Saint-portrait&quot;);</b>
+<b class="fc">&nbsp;        portrait.setPrefHeight(portraitBoxHeight);</b>
+&nbsp;
+&nbsp;        // Try to find the image (if not print cant find img)
+&nbsp;        try {
+&nbsp;
+&nbsp;            // Assign image path to distinct portrait in SaintRoster
+<b class="fc">&nbsp;            String imagePath = &quot;/images/Saints/&quot; + saint.getPortraitKey();</b>
+<b class="fc">&nbsp;            Image img = new Image(SaintCardController.class.getResourceAsStream(imagePath), 300, 0, true, true);</b>
+&nbsp;
+&nbsp;            // set to ImageView to allow for easy resizing
+<b class="fc">&nbsp;            ImageView portraitView = new ImageView(img);</b>
+<b class="fc">&nbsp;            portraitView.setFitHeight(imageFitHeight);</b>
+<b class="fc">&nbsp;            portraitView.setPreserveRatio(true);</b>
+&nbsp;
+&nbsp;            // add the image to portrait.
+<b class="fc">&nbsp;            portrait.getChildren().add(portraitView);</b>
+&nbsp;
+&nbsp;        } catch (Exception e) {
+<b class="nc">&nbsp;            System.err.println(&quot;Could not find image: &quot; + saint.getPortraitKey());</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        Label rarityBadge = new Label(saint.getRarity().getLabel().toUpperCase());</b>
+<b class="fc">&nbsp;        rarityBadge.getStyleClass().add(&quot;rarity-&quot; + saint.getRarity().getLabel().toLowerCase());</b>
+&nbsp;
+<b class="fc">&nbsp;        Label name = new Label(saint.getName());</b>
+<b class="fc">&nbsp;        name.getStyleClass().add(&quot;card-name&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        VBox statBars = buildStatBars(saint, isCompact);</b>
+&nbsp;
+<b class="fc">&nbsp;        Label costLabel = new Label(String.format(&quot;Pay: %d faith/round&quot;, saint.getUpKeep()));</b>
+<b class="fc">&nbsp;        costLabel.getStyleClass().add(&quot;card-cost&quot;);</b>
+<b class="fc">&nbsp;        actionNode.getStyleClass().add(isCompact ? &quot;card-btn-com&quot; : &quot;card-btn&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        card.getChildren().addAll(portrait, name, rarityBadge, statBars, costLabel, actionNode);</b>
+<b class="fc">&nbsp;        return card;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static VBox buildStatBars(Saint saint, boolean isCompact) {
+<b class="fc">&nbsp;        VBox bars = new VBox(3);</b>
+<b class="fc">&nbsp;        bars.getStyleClass().add(&quot;stat-bars&quot;);</b>
+<b class="fc">&nbsp;        bars.getChildren().addAll(</b>
+<b class="fc">&nbsp;                buildStatRow(&quot;STR&quot;, saint.getStrength(), saint.getStatType().equals(&quot;STR&quot;), &quot;#AF4130&quot;, isCompact),</b>
+<b class="fc">&nbsp;                buildStatRow(&quot;WIS&quot;, saint.getWisdom(), saint.getStatType().equals(&quot;WIS&quot;), &quot;#346687&quot;, isCompact),</b>
+<b class="fc">&nbsp;                buildStatRow(&quot;DEX&quot;, saint.getDexterity(), saint.getStatType().equals(&quot;DEX&quot;), &quot;#609953&quot;, isCompact),</b>
+<b class="fc">&nbsp;                buildStatRow(&quot;STA&quot;, saint.getCurrentSanity(), saint.getStatType().equals(&quot;STA&quot;), &quot;#a38934&quot;, isCompact)</b>
+&nbsp;                );
+<b class="fc">&nbsp;        return bars;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private static Node buildStatRow(String label, int value, boolean isPrimary, String colour, boolean isCompact) {
+<b class="fc">&nbsp;        int spacing = isCompact ? 2 : 6;</b>
+&nbsp;
+<b class="fc">&nbsp;        HBox row = new HBox(spacing);</b>
+<b class="fc">&nbsp;        row.setAlignment(Pos.CENTER_LEFT);</b>
+<b class="fc">&nbsp;        Label lbl = new Label(label);</b>
+<b class="fc">&nbsp;        lbl.getStyleClass().add(isPrimary ? &quot;stat-label-primary&quot; : &quot;stat-label&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        StackPane track = new StackPane();</b>
+<b class="fc">&nbsp;        track.getStyleClass().add(&quot;stat-track&quot;);</b>
+<b class="fc">&nbsp;        track.setPrefHeight(isCompact ? 4 : 8);</b>
+&nbsp;
+<b class="fc">&nbsp;        double fillPct = value / 20.0;</b>
+<b class="fc">&nbsp;        Region fill = new Region();</b>
+<b class="fc">&nbsp;        fill.maxWidthProperty().bind(track.widthProperty().multiply(fillPct));</b>
+<b class="fc">&nbsp;        fill.setStyle(String.format(&quot;-fx-background-color: %s; -fx-background-radius: 4;&quot;, colour));</b>
+&nbsp;
+<b class="fc">&nbsp;        track.getChildren().add(fill);</b>
+<b class="fc">&nbsp;        StackPane.setAlignment(fill, Pos.CENTER_LEFT);</b>
+&nbsp;
+<b class="fc">&nbsp;        Label statNum = new Label(String.valueOf(value));</b>
+<b class="fc">&nbsp;        statNum.getStyleClass().add(&quot;stat-value-small&quot;);</b>
+&nbsp;
+<b class="fc">&nbsp;        HBox.setHgrow(track, Priority.ALWAYS);</b>
+<b class="fc">&nbsp;        row.getChildren().addAll(lbl, track, statNum);</b>
+<b class="fc">&nbsp;        return row;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

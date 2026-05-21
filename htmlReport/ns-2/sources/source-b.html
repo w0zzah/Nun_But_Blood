@@ -1,0 +1,300 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ScreenNavigator</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.controllers</a>
+</div>
+
+<h1>Coverage Summary for Class: ScreenNavigator (seng201.nunbutblood.controllers)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ScreenNavigator</td>
+<td class="coverageStat">
+  <span class="percent">
+    43.8%
+  </span>
+  <span class="absValue">
+    (7/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16.7%
+  </span>
+  <span class="absValue">
+    (2/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    63.2%
+  </span>
+  <span class="absValue">
+    (24/38)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ScreenNavigator$ControllerInjector</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    43.8%
+  </span>
+  <span class="absValue">
+    (7/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16.7%
+  </span>
+  <span class="absValue">
+    (2/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    63.2%
+  </span>
+  <span class="absValue">
+    (24/38)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.controllers;
+&nbsp;
+&nbsp;import javafx.fxml.FXMLLoader;
+&nbsp;import javafx.scene.Parent;
+&nbsp;import javafx.scene.Scene;
+&nbsp;import javafx.scene.layout.Pane;
+&nbsp;import javafx.stage.Stage;
+&nbsp;import seng201.nunbutblood.models.Covenant;
+&nbsp;import seng201.nunbutblood.models.Demon;
+&nbsp;import seng201.nunbutblood.services.*;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;
+&nbsp;/**
+&nbsp; * The type Screen navigator.
+&nbsp; */
+&nbsp;public class ScreenNavigator {
+&nbsp;
+&nbsp;    private final Stage stage;
+&nbsp;    private final Scene scene;
+&nbsp;
+&nbsp;    private Covenant covenant;
+&nbsp;    private MarketService marketService;
+&nbsp;    private final AudioService audioService;
+&nbsp;    private final SaintService saintService;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Instantiates a new Screen navigator.
+&nbsp;     *
+&nbsp;     * @param stage the stage
+&nbsp;     */
+<b class="fc">&nbsp;    public ScreenNavigator(Stage stage) {</b>
+<b class="fc">&nbsp;        this.stage = stage;</b>
+<b class="fc">&nbsp;        this.saintService = new SaintService();</b>
+<b class="fc">&nbsp;        this.audioService = new AudioService();</b>
+&nbsp;
+<b class="fc">&nbsp;        this.scene = new Scene(new Pane(), 1280, 720);</b>
+&nbsp;
+<b class="fc">&nbsp;        String style = getClass().getResource(&quot;/css/style.css&quot;).toExternalForm();</b>
+<b class="fc">&nbsp;        this.scene.getStylesheets().add(style);</b>
+&nbsp;
+<b class="fc">&nbsp;        this.stage.setScene(this.scene);</b>
+<b class="fc">&nbsp;        this.stage.setTitle(&quot;Nun&#39;But Blood&quot;);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Start of the game flow
+&nbsp;     */
+&nbsp;    public void goToSetup() {
+<b class="fc">&nbsp;        loadScreen(&quot;/fxml/SetupInterface.fxml&quot;, controller -&gt; {</b>
+<b class="pc">&nbsp;            if (controller instanceof SetupController sc) {</b>
+<b class="fc">&nbsp;                sc.init(stage, this);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Initial Hub entry. Use this only once when finishing Setup
+&nbsp;     * to &quot;hook&quot; your services into the navigator.
+&nbsp;     *
+&nbsp;     * @param covenant      the covenant
+&nbsp;     * @param marketService the market service
+&nbsp;     */
+&nbsp;    public void startCovenant(Covenant covenant, MarketService marketService) {
+<b class="fc">&nbsp;        this.covenant = covenant;</b>
+<b class="fc">&nbsp;        this.marketService = marketService;</b>
+<b class="fc">&nbsp;        goToHub();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Main navigation hub
+&nbsp;     */
+&nbsp;    public void goToHub() {
+<b class="fc">&nbsp;        loadScreen(&quot;/fxml/HubInterface.fxml&quot;, controller -&gt; {</b>
+<b class="pc">&nbsp;            if (controller instanceof HubController hc) {</b>
+<b class="fc">&nbsp;                hc.init(stage, this, covenant);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Go to market.
+&nbsp;     */
+&nbsp;    public void goToMarket() {
+<b class="nc">&nbsp;        loadScreen(&quot;/fxml/ShopInterface.fxml&quot;, controller -&gt; {</b>
+<b class="nc">&nbsp;            if (controller instanceof MarketController mc) {</b>
+<b class="nc">&nbsp;                mc.init(stage, this, covenant, marketService);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Step 1: Select a Demon
+&nbsp;     */
+&nbsp;    public void goToCrusadeSelect() {
+<b class="nc">&nbsp;        loadScreen(&quot;/fxml/SelectDemonInterface.fxml&quot;, controller -&gt; {</b>
+<b class="nc">&nbsp;            if (controller instanceof CrusadeSelectController csc) {</b>
+<b class="nc">&nbsp;                csc.init(stage, this, covenant, covenant.getDemonService());</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Step 2: The actual battle/dice roll screen  @param chosenDemon the chosen demon
+&nbsp;     */
+&nbsp;    public void goToCrusade(Demon chosenDemon) {
+<b class="nc">&nbsp;        loadScreen(&quot;/fxml/CrusadeInterface.fxml&quot;, controller -&gt; {</b>
+<b class="nc">&nbsp;            if (controller instanceof CrusadeController cc) {</b>
+<b class="nc">&nbsp;                cc.init(covenant, chosenDemon, this);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Final Score / Game Over Screen  @param isVictory the is victory
+&nbsp;     *
+&nbsp;     * @param isGameOver the is game over
+&nbsp;     */
+&nbsp;    public void goToEndScreen(boolean isVictory, boolean isGameOver) {
+<b class="nc">&nbsp;        loadScreen(&quot;/fxml/EndScreen.fxml&quot;, controller -&gt; {</b>
+<b class="nc">&nbsp;            if (controller instanceof EndScreenController ec) {</b>
+<b class="nc">&nbsp;                ec.init(stage, this, covenant, marketService, saintService, isVictory, isGameOver);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     *
+&nbsp;     *
+&nbsp;     */
+&nbsp;    private void loadScreen(String fxmlPath, ControllerInjector injector) {
+&nbsp;        try {
+<b class="fc">&nbsp;            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));</b>
+<b class="fc">&nbsp;            Parent root = loader.load();</b>
+&nbsp;
+<b class="fc">&nbsp;            Object controller = loader.getController();</b>
+<b class="fc">&nbsp;            injector.inject(controller);</b>
+&nbsp;
+<b class="fc">&nbsp;            scene.setRoot(root);</b>
+<b class="fc">&nbsp;            stage.setFullScreen(true);</b>
+&nbsp;        } catch (IOException e) {
+<b class="nc">&nbsp;            throw new RuntimeException(&quot;CRITICAL: Failed to load FXML: &quot; + fxmlPath, e);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets audio service.
+&nbsp;     *
+&nbsp;     * @return the audio service
+&nbsp;     */
+&nbsp;    public AudioService getAudioService() {
+<b class="nc">&nbsp;        return this.audioService;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    @FunctionalInterface
+&nbsp;    private interface ControllerInjector {
+&nbsp;        /**
+&nbsp;         * Inject.
+&nbsp;         *
+&nbsp;         * @param controller the controller
+&nbsp;         */
+&nbsp;        void inject(Object controller);
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

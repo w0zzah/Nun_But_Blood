@@ -1,0 +1,200 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ItemCatalog</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.models</a>
+</div>
+
+<h1>Coverage Summary for Class: ItemCatalog (seng201.nunbutblood.models)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ItemCatalog</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/18)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.models;
+&nbsp;
+&nbsp;/**
+&nbsp; * A central registry of all available items in the game.
+&nbsp; * Use this enum to easily spawn predefined items.
+&nbsp; */
+<b class="fc">&nbsp;public enum ItemCatalog {</b>
+&nbsp;
+&nbsp;    // --- CONSUMABLE ---
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The Holy water.
+&nbsp;     */
+<b class="fc">&nbsp;    HOLY_WATER(&quot;Holy Water&quot;, Item.ItemType.CONSUMABLE, StatType.WISDOM, 5, 200,</b>
+&nbsp;            &quot;Cleanses the mind and grants divine insight.&quot;, &quot;circlet.png&quot;),
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The Martyrs blood.
+&nbsp;     */
+<b class="fc">&nbsp;    MARTYRS_BLOOD(&quot;Martyr&#39;s Blood&quot;, Item.ItemType.CONSUMABLE, StatType.SANITY, 10, 400,</b>
+&nbsp;            &quot;Bolsters the spirit for the long crusade.&quot;, &quot;bloodvial.png&quot;),
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The Crown of ashes.
+&nbsp;     */
+<b class="fc">&nbsp;    CROWN_OF_ASHES(&quot;Crown of Ashes&quot;, Item.ItemType.CONSUMABLE,</b>
+&nbsp;            StatType.DEXTERITY, 7, 300,
+&nbsp;            &quot;The burden of sacrifice sharpens holy judgment.&quot;, &quot;crown.png&quot;),
+&nbsp;
+&nbsp;    // --- EQUIPMENT ---
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The Silver crucifix.
+&nbsp;     */
+<b class="fc">&nbsp;    SILVER_CRUCIFIX(&quot;Silver Crucifix&quot;, Item.ItemType.EQUIPMENT, StatType.SANITY, 5, 200,</b>
+&nbsp;            &quot;A heavy cross that burns demons on touch.&quot;, &quot;chestPlate.png&quot;),
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The Reliquary blade.
+&nbsp;     */
+<b class="fc">&nbsp;    RELIQUARY_BLADE(&quot;Reliquary Blade&quot;, Item.ItemType.EQUIPMENT,</b>
+&nbsp;            StatType.STRENGTH, 5, 200,
+&nbsp;            &quot;A consecrated sword sealed with saintly relics.&quot;, &quot;reliquaryblade.png&quot;),
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The Penitents chain.
+&nbsp;     */
+<b class="fc">&nbsp;    PENITENTS_CHAIN(&quot;Penitent&#39;s Chain&quot;, Item.ItemType.EQUIPMENT,</b>
+&nbsp;            StatType.SANITY, 15, 800,
+&nbsp;            &quot;Heavy chains carried in devotion strengthen resolve.&quot;, &quot;chain.png&quot;),
+&nbsp;
+&nbsp;    // --- SKILL TOMES ---
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The Scripture of flames.
+&nbsp;     */
+<b class="fc">&nbsp;    SCRIPTURE_OF_FLAMES(&quot;Scripture of Flames&quot;, Item.ItemType.SKILL_TOME,</b>
+&nbsp;            StatType.WISDOM, 5, 200,
+&nbsp;            &quot;Holy Inferno&quot;, &quot;flametome.png&quot;),
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The Tome of smiting.
+&nbsp;     */
+<b class="fc">&nbsp;    TOME_OF_SMITING(&quot;Tome of Smiting&quot;, Item.ItemType.SKILL_TOME, StatType.STRENGTH, 5, 200,</b>
+&nbsp;            &quot;Divine Smite&quot;, &quot;tome.png&quot;);
+&nbsp;
+&nbsp;
+&nbsp;    // Enum fields matching the Item constructor
+&nbsp;    private final String itemName;
+&nbsp;    private final Item.ItemType type;
+&nbsp;    private final StatType statAffected;
+&nbsp;    private final int bonusValue;
+&nbsp;    private final int cost;
+&nbsp;    private final String itemDescription;
+&nbsp;    private final String portraitKey;
+&nbsp;
+&nbsp;    ItemCatalog(String itemName, Item.ItemType type, StatType statAffected, int bonusValue,
+<b class="fc">&nbsp;                int cost, String itemDescription, String portraitKey) {</b>
+<b class="fc">&nbsp;        this.itemName = itemName;</b>
+<b class="fc">&nbsp;        this.type = type;</b>
+<b class="fc">&nbsp;        this.statAffected = statAffected;</b>
+<b class="fc">&nbsp;        this.bonusValue = bonusValue;</b>
+<b class="fc">&nbsp;        this.cost = cost;</b>
+<b class="fc">&nbsp;        this.itemDescription = itemDescription;</b>
+<b class="fc">&nbsp;        this.portraitKey = portraitKey;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Spawns a fresh instance of this item.
+&nbsp;     *
+&nbsp;     * @return A new Item object based on these predefined stats.
+&nbsp;     */
+&nbsp;    public Item create() {
+<b class="fc">&nbsp;        return new Item(itemName, type, statAffected, bonusValue, cost, itemDescription, portraitKey);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>

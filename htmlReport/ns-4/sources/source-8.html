@@ -1,0 +1,252 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > MidCrusadeEvents</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">seng201.nunbutblood.services</a>
+</div>
+
+<h1>Coverage Summary for Class: MidCrusadeEvents (seng201.nunbutblood.services)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MidCrusadeEvents</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/18)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MidCrusadeEvents$Choice</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">MidCrusadeEvents$Event</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/20)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.services;
+&nbsp;
+&nbsp;import seng201.nunbutblood.models.Saint;
+&nbsp;import seng201.nunbutblood.models.StatType;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;/**
+&nbsp; * The type Mid crusade events.
+&nbsp; */
+<b class="nc">&nbsp;public class MidCrusadeEvents {</b>
+&nbsp;
+<b class="nc">&nbsp;    private final Random random = new Random();</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The type Choice.
+&nbsp;     */
+<b class="nc">&nbsp;    public record Choice(</b>
+&nbsp;            String text,
+&nbsp;            StatType stat,
+&nbsp;            int amount,
+&nbsp;            Saint saint) {}
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The type Event.
+&nbsp;     */
+<b class="nc">&nbsp;    public record Event(</b>
+&nbsp;            String description,
+&nbsp;            Choice choiceA,
+&nbsp;            Choice choiceB
+&nbsp;    ) {}
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets random event.
+&nbsp;     *
+&nbsp;     * @return the random event
+&nbsp;     */
+&nbsp;    public Event getRandomEvent(List&lt;Saint&gt; activeParty) {
+&nbsp;
+&nbsp;        // Possiblity for same
+<b class="nc">&nbsp;        Saint target = activeParty.get(random.nextInt(activeParty.size()));</b>
+<b class="nc">&nbsp;        Saint target2 = activeParty.get(random.nextInt(activeParty.size()));</b>
+&nbsp;
+<b class="nc">&nbsp;        return switch (random.nextInt(1)) {</b>
+<b class="nc">&nbsp;            case 0 -&gt; new Event(</b>
+&nbsp;                    &quot;The Demon&#39;s powerful stomp shakes the very earth you stand on! &quot;,
+&nbsp;
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s dives to save the team, leading them to take -%d hit&quot; +</b>
+<b class="nc">&nbsp;                            &quot; to their %s&quot;, target, 2, StatType.STRENGTH), StatType.STRENGTH, -2, target),</b>
+&nbsp;
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s dives to save the team, leading them to take -%d hit&quot; +</b>
+<b class="nc">&nbsp;                    &quot; to their %s&quot;, target2, -2, StatType.DEXTERITY), StatType.DEXTERITY, -2, target2)</b>
+&nbsp;            );
+<b class="nc">&nbsp;            default -&gt; null;</b>
+&nbsp;
+&nbsp;        };
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Apply choice string.
+&nbsp;     *
+&nbsp;     * @param party  the party
+&nbsp;     * @param choice the choice
+&nbsp;     * @return the string
+&nbsp;     */
+&nbsp;    public String applyChoice(List&lt;Saint&gt; party, Choice choice) {
+<b class="nc">&nbsp;        if (party.isEmpty()) {</b>
+<b class="nc">&nbsp;            return &quot;No saints were affected.&quot;;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Saint target = party.get(random.nextInt(party.size()));</b>
+<b class="nc">&nbsp;        applyStat(target, choice.stat(), choice.amount());</b>
+&nbsp;
+<b class="nc">&nbsp;        String changeText = choice.amount() &gt; 0 ? &quot;+&quot; + choice.amount() : String.valueOf(choice.amount());</b>
+&nbsp;
+<b class="nc">&nbsp;        return target.getName() + &quot;&#39;s &quot; + choice.stat().label + &quot; changed by &quot; + changeText + &quot;.&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void applyStat(Saint saint, StatType stat, int amount) {
+<b class="nc">&nbsp;        Saint.applyStat(saint, stat, amount);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-05-22 00:08</div>
+</div>
+</body>
+</html>
