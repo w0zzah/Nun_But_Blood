@@ -12,10 +12,10 @@ import java.util.List;
 public class SaintService {
 
     /** Active party of apostles going on the next crusade. Max 5.*/
-    private final ArrayList<Saint> activeParty = new ArrayList<>();
+    private final List<Saint> activeParty = new ArrayList<>();
 
     /** Reserve apostles not used in the upcoming crusade. Max 5.     */
-    private final ArrayList<Saint> reserves = new ArrayList<>();
+    private final List<Saint> reserves = new ArrayList<>();
 
     /**
      * Gets active party.
@@ -113,13 +113,6 @@ public class SaintService {
      */
     public void refreshStamina() {
         activeParty.forEach(Saint::restoreStamina);
-    }
-
-    /**
-     * Check party stamina.
-     */
-    public void checkPartyStamina() {
-        activeParty.forEach(Saint::getCurrentStamina);
     }
 
     public boolean allSaintsExhausted() {

@@ -28,7 +28,7 @@ public class Covenant {
     private final CovenantService covenantService;
 
     /** Stores all owned inventory items. */
-    private final java.util.ArrayList<Item> rawInventory;
+    private final List<Item> rawInventory;
 
     private final String difficulty;
 
@@ -67,7 +67,6 @@ public class Covenant {
         bank.payUpKeep(upkeepCost);
         covenantService.changeScore(scoreReward);
         roster.incrementCrusadeCounts();
-        demonService.generateNewOptions(covenantService.getCurrentCrusade(), difficulty);
         if (isVictory) {
             covenantService.advanceCrusade();
             roster.refreshStamina();

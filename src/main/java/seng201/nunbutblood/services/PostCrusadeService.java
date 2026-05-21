@@ -33,8 +33,6 @@ public class PostCrusadeService {
      * Instantiates a new Post crusade service.
      *
      * @param difficulty the difficulty
-     * @param score      the score
-     * @param reward     the reward
      */
     public PostCrusadeService(String difficulty) {
         this.random = new Random();

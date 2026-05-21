@@ -50,7 +50,6 @@ public class CrusadeController {
     @FXML private VBox eventBox;
     @FXML private Button choiceAButton;
     @FXML private Button choiceBButton;
-    @FXML private Button none;
     @FXML private Label statTypeLabel;
 
 
@@ -97,8 +96,8 @@ public class CrusadeController {
     }
 
     private void setupDemonDisplay() {
-        Button none = new Button("");
-        VBox card = DemonCardController.buildDemonCard(currentDemon, none, false);
+        Button emptyDemonButton = new Button("");
+        VBox card = DemonCardController.buildDemonCard(currentDemon, emptyDemonButton, false);
         HBox.setHgrow(card, Priority.ALWAYS);
         demonContainer.getChildren().add(card);
         demonName.setText(currentDemon.getName());
@@ -153,8 +152,7 @@ public class CrusadeController {
         fade.setOnFinished(event -> {
             eventBox.setVisible(false);
         });
-        fade.play(); // FIX: fade.play() was missing — the animation never ran before
-
+        fade.play();
         refreshUI();
     }
 

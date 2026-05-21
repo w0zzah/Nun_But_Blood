@@ -26,7 +26,7 @@ public class MarketService {
      * @param random the random
      */
     public MarketService(Random random) {
-        this.random = new Random();
+        this.random = random;
         this.availableSaints = new ArrayList<>();
         this.availableItems = new ArrayList<>();
         refresh(1);

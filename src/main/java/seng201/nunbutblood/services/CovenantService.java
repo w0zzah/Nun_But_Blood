@@ -8,7 +8,6 @@ public class CovenantService {
     private int score;
     private int currentCrusade;
     private final int totalCrusades;
-    private SaintService saintService;
 
     /**
      * Instantiates a new Covenant service.

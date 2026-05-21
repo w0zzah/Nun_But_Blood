@@ -22,7 +22,6 @@ public class ScreenNavigator {
     private Covenant covenant;
     private MarketService marketService;
     private PostCrusadeService randomService;
-    private final DemonService demonService;
     private final AudioService audioService;
     private final SaintService saintService;
     private CovenantService covenantService;
@@ -35,7 +34,6 @@ public class ScreenNavigator {
     public ScreenNavigator(Stage stage) {
         this.stage = stage;
         this.saintService = new SaintService();
-        this.demonService = new DemonService();
         this.audioService = new AudioService();
 
         this.scene = new Scene(new Pane(), 1280, 720);
@@ -99,7 +97,7 @@ public class ScreenNavigator {
     public void goToCrusadeSelect() {
         loadScreen("/fxml/SelectDemonInterface.fxml", controller -> {
             if (controller instanceof CrusadeSelectController csc) {
-                csc.init(stage, this, covenant, demonService);
+                csc.init(stage, this, covenant, covenant.getDemonService());
             }
         });
     }

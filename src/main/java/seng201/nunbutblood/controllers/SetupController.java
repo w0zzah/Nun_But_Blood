@@ -92,8 +92,8 @@ public class SetupController {
      *
      */
     private void setupSlider() {
-        expeditionSlider.valueProperty().addListener((obs, old, val) -> {
-            int v = val.intValue();
+        expeditionSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int v = oldValue.intValue();
             expeditionSlider.setValue(v);
             expeditionValue.setText(String.valueOf(v));
         });
@@ -219,7 +219,6 @@ public class SetupController {
         }
 
         MarketService market = new MarketService(new Random());
-        DemonService demonService = new DemonService();
         navigator.startCovenant(covenant, market);
     }
 
