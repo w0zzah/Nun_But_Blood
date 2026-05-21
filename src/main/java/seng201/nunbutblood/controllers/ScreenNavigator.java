@@ -49,7 +49,7 @@ public class ScreenNavigator {
     public void goToSetup() {
         loadScreen("/fxml/SetupInterface.fxml", controller -> {
             if (controller instanceof SetupController sc) {
-                sc.init(stage, this);
+                sc.init(stage, this, audioService);
             }
         });
     }
@@ -73,7 +73,7 @@ public class ScreenNavigator {
     public void goToHub() {
         loadScreen("/fxml/HubInterface.fxml", controller -> {
             if (controller instanceof HubController hc) {
-                hc.init(stage, this, covenant);
+                hc.init(stage, this, covenant, audioService);
             }
         });
     }
@@ -107,7 +107,7 @@ public class ScreenNavigator {
     public void goToCrusade(Demon chosenDemon) {
         loadScreen("/fxml/CrusadeInterface.fxml", controller -> {
             if (controller instanceof CrusadeController cc) {
-                cc.init(covenant, chosenDemon, this);
+                cc.init(covenant, chosenDemon, this, audioService);
             }
         });
     }
@@ -121,7 +121,7 @@ public class ScreenNavigator {
     public void goToEndScreen(boolean isVictory, boolean isGameOver) {
         loadScreen("/fxml/EndScreen.fxml", controller -> {
             if (controller instanceof EndScreenController ec) {
-                ec.init(stage, this, covenant, marketService, saintService, isVictory, isGameOver);
+                ec.init(stage, this, covenant, marketService, audioService, isVictory, isGameOver);
             }
         });
     }

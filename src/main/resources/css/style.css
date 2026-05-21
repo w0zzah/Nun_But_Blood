@@ -390,7 +390,7 @@
 }
 
 .cybersigil-border {
-    -fx-border-image-source: url("/images/background/border(1).png");
+    -fx-border-image-source: url("/images/background/b3.png");
     -fx-border-image-slice: 270;
     -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);
     -fx-text-fill: -chrome;

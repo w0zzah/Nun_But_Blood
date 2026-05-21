@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import seng201.nunbutblood.models.Covenant;
+import seng201.nunbutblood.services.AudioService;
 import seng201.nunbutblood.services.MarketService;
 import seng201.nunbutblood.services.PostCrusadeService;
-import seng201.nunbutblood.services.SaintService;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ public class EndScreenController {
     private boolean isVictory;
     private MarketService market;
     private PostCrusadeService postCrusadeEvents;
+    private AudioService audioService;
 
     @FXML private Label crusadesCompleted;
     @FXML private Label score;
@@ -40,13 +41,16 @@ public class EndScreenController {
      * @param gameOver        the game over
      */
     public void init(Stage stage, ScreenNavigator screenNavigator, Covenant covenant, MarketService market,
-                     SaintService saintService, boolean isVictory, boolean gameOver) {
+            AudioService audioService, boolean isVictory, boolean gameOver) {
 
         this.covenant = covenant;
         this.navigator = screenNavigator;
         this.isVictory = isVictory;
         this.market = market;
         this.postCrusadeEvents = new PostCrusadeService(covenant.getDifficulty());
+        this.audioService = audioService;
+        audioService.stopMusic();
+        audioService.playMusic(AudioService.Track.HUB);
         result(isVictory, gameOver);
 
     }

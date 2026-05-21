@@ -11,6 +11,7 @@ import seng201.nunbutblood.models.Saint;
 import seng201.nunbutblood.models.Covenant;
 import seng201.nunbutblood.models.Item;
 import javafx.scene.control.Label;
+import seng201.nunbutblood.services.AudioService;
 
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class HubController {
     private Stage stage;
     private ScreenNavigator navigator;
     private Covenant covenant;
+    private AudioService audioService;
 
     /**
      * Init.
@@ -47,10 +49,11 @@ public class HubController {
      * @param navigator the navigator
      * @param covenant  the covenant
      */
-    public void init(Stage stage, ScreenNavigator navigator, Covenant covenant) {
+    public void init(Stage stage, ScreenNavigator navigator, Covenant covenant, AudioService audioService) {
         this.stage = stage;
         this.navigator = navigator;
         this.covenant = covenant;
+        this.audioService = audioService;
         refresh();
     }
 

@@ -7,6 +7,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import seng201.nunbutblood.models.*;
+import seng201.nunbutblood.services.AudioService;
 import seng201.nunbutblood.services.MarketService;
 
 import java.util.ArrayList;
@@ -53,13 +54,14 @@ public class SetupController {
      * @param stage     the stage
      * @param navigator the navigator
      */
-    public void init(Stage stage, ScreenNavigator navigator) {
+    public void init(Stage stage, ScreenNavigator navigator, AudioService audioService) {
         this.stage = stage;
         this.navigator = navigator;
         setupDifficultyToggle();
         setupSlider();
         buildSaintsList();
         createSaintCards();
+        audioService.playMusic(AudioService.Track.HUB);
     }
 
 

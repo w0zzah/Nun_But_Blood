@@ -59,7 +59,7 @@ public class CrusadeController {
     private Demon currentDemon;
     private ScreenNavigator navigator;
     private int bonus;
-    private AudioService audio;
+    private AudioService audioService;
     private MidCrusadeEvents midCrusadeEvents;
     private MidCrusadeEvents.Event currentEvent;
     private final Random random = new Random();
@@ -75,12 +75,12 @@ public class CrusadeController {
      * @param demon     the demon
      * @param navigator the navigator
      */
-    public void init(Covenant covenant, Demon demon, ScreenNavigator navigator) {
+    public void init(Covenant covenant, Demon demon, ScreenNavigator navigator, AudioService audioService) {
         this.covenant = covenant;
         this.currentDemon = demon;
         this.navigator = navigator;
         this.crusadeService = new CrusadeService();
-        this.audio = new AudioService();
+        this.audioService = audioService;
         this.midCrusadeEvents = new MidCrusadeEvents();
 
         this.diceAnimation = new DiceRollAnimation(
@@ -90,7 +90,8 @@ public class CrusadeController {
                 navigator.getAudioService(),
                 bonus
         );
-
+        audioService.stopMusic();
+        audioService.playMusic(AudioService.Track.CRUSADE);
         setupDemonDisplay();
         refreshUI();
     }

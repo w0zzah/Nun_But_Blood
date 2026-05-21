@@ -59,7 +59,7 @@ public class DiceRollAnimation {
         // Creates an empty animation timeline where we will map out specific events at specific milliseconds
         Timeline cycling = new Timeline();
         // How many times the number will change
-        int totalFrames = 25;
+        int totalFrames = 20;
         // running timer that increases the longer it rolls
         double currentDelayMs = 1;
         // Starting Duration between numbers
