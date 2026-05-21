@@ -77,7 +77,7 @@ public class Item implements Purchasable {
 
         // If it's a potion, sign it up to be automatically reversed post-crusade
         if (this.type == ItemType.CONSUMABLE) {
-            saint.registerTemporaryPotion(this);
+            saint.registerConsumable(this);
         }
     }
 

@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    66.7%
+    100%
   </span>
   <span class="absValue">
-    (2/3)
+    (3/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    75%
+    100%
   </span>
   <span class="absValue">
-    (3/4)
+    (4/4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    94.7%
+    100%
   </span>
   <span class="absValue">
-    (18/19)
+    (19/19)
   </span>
 </td>
 </tr>
@@ -97,7 +97,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.util.List;
 &nbsp;
 &nbsp;/**
-&nbsp; * The type Demon service.
+&nbsp; * Service class that manages generating and providing enemy Demon encounters.
 &nbsp; */
 <b class="fc">&nbsp;public class DemonService {</b>
 &nbsp;
@@ -105,9 +105,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;    private List&lt;Demon&gt; currentOptions = new ArrayList&lt;&gt;();</b>
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Generates 3 random demons based on the current crusade difficulty.  @param currentCrusade the current crusade
+&nbsp;     * Generates 3 random demons based on the current crusade difficulty.
 &nbsp;     *
-&nbsp;     * @param difficulty the difficulty
+&nbsp;     * @param currentCrusade the current crusade index
+&nbsp;     * @param difficulty the chosen game difficulty (e.g., &quot;Normal&quot; or &quot;Hard&quot;)
 &nbsp;     */
 &nbsp;    public void generateNewOptions(int currentCrusade, String difficulty) {
 &nbsp;
@@ -116,7 +117,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;        // Set difficulty of demons, If its hard mode +3
 <b class="fc">&nbsp;        int difficultyBonus = currentCrusade;</b>
-<b class="pc">&nbsp;        if (difficulty.equals(&quot;Hard&quot;)){ difficultyBonus += 3;}</b>
+<b class="fc">&nbsp;        if (difficulty.equals(&quot;Hard&quot;)){ difficultyBonus += 3;}</b>
 &nbsp;
 <b class="fc">&nbsp;        List&lt;Demon&gt; masterPool = new ArrayList&lt;&gt;();</b>
 &nbsp;
@@ -142,7 +143,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return the current options
 &nbsp;     */
 &nbsp;    public List&lt;Demon&gt; getCurrentOptions() {
-<b class="nc">&nbsp;        return currentOptions;</b>
+<b class="fc">&nbsp;        return currentOptions;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -168,7 +169,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

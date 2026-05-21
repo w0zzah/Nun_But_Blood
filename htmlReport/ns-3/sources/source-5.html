@@ -78,25 +78,20 @@ Current scope:     <a href="../../index.html">all classes</a>
 <code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.models;
 &nbsp;
 &nbsp;/**
-&nbsp; * Inquisitor — Extend&#39;s Apostle&#39;s, Primary stat is Strength
-&nbsp; * &lt;p&gt;
-&nbsp; * When Constructor is called :
-&nbsp; *
-&nbsp; * @strength has a bonus of +5 clamped at 20 for balance, Math.min(20, strength + 5)
-&nbsp; * @calcHireCost set&#39;s the hire cost, (strength + 5, wisdom, dexterity)
-&nbsp; * @calcUpKeep set&#39;s the upkeep cost, (strength + 5, wisdom, dexterity) Constructor to be called in market area for further random stat&#39;s
+&nbsp; * Inquisitor — Extends Saint, specializing in high-dexterity maneuvers.
+&nbsp; * Primary scaling attribute is Dexterity (DEX).
 &nbsp; */
 &nbsp;public class Inquisitor extends Saint {
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Instantiates a new Inquisitor.
+&nbsp;     * Instantiates a new Inquisitor with balanced physical and mechanical tracking properties.
 &nbsp;     *
-&nbsp;     * @param name       the name
-&nbsp;     * @param portraitID the portrait id
-&nbsp;     * @param strength   the strength
-&nbsp;     * @param wisdom     the wisdom
-&nbsp;     * @param dexterity  the dexterity
-&nbsp;     * @param sanity    the sanity
+&nbsp;     * @param name       the unique display name
+&nbsp;     * @param portraitID asset reference path for UI layout rendering
+&nbsp;     * @param strength   raw physical attribute value
+&nbsp;     * @param wisdom     raw spiritual attribute value
+&nbsp;     * @param dexterity  raw reflex attribute value
+&nbsp;     * @param sanity     maximum reserve pool for mechanical tracking
 &nbsp;     */
 &nbsp;    public Inquisitor(String name, String portraitID, int strength, int wisdom, int dexterity, int sanity){
 <b class="fc">&nbsp;        super(name, portraitID,</b>
@@ -109,11 +104,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;                calcUpKeep(strength, wisdom, dexterity));</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    /**
+&nbsp;     * Extracts operational combat values matching internal class archetype specifications.
+&nbsp;     *
+&nbsp;     * @return current active dexterity pool modifications
+&nbsp;     */
 &nbsp;    @Override
 &nbsp;    public int getStatBonus() {
 <b class="nc">&nbsp;        return getDexterity();</b>
 &nbsp;    }
 &nbsp;
+&nbsp;    /**
+&nbsp;     * Returns system lookup handles referencing localized layout attributes.
+&nbsp;     *
+&nbsp;     * @return static signature shorthand &quot;DEX&quot;
+&nbsp;     */
 &nbsp;    @Override
 &nbsp;    public String getStatType() {
 <b class="fc">&nbsp;        return &quot;DEX&quot;;</b>
@@ -143,7 +148,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

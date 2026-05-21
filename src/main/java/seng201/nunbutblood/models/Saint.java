@@ -4,70 +4,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The type Saint.
+ * Base abstract class for all hero units (Apostles/Saints) in the Coven.
+ * Handles primary attributes, sanity tracking, financial costs, and temporary power modifications.
  */
 public abstract class Saint implements Purchasable {
 
-    /*
-        The Apostle class serve's as a base for our hero's.
-        Apostle's have a name, main stat, sanity, perception, hiring cost and up keep cost
-        The name will be randomly generated String
-        The main stat will be either Strength, Wisdom or Dexterity
-        Perception will be a
-    */
-
-    // Names character
     private String name;
-
-    //  Sanity decrease's on use of attack
     private int maxSanity;
     private int currentSanity;
-
-    // Base Strength, Wisdom, and Dexterity
     private int strength;
     private int wisdom;
     private int dexterity;
 
-    // Chance of acquiring an Item after combat
+    /** Chance of acquiring an item after combat. */
     private int perception;
 
-    // The required faith for purchase between 500 and 1000 faith  - >  calculation is ((each stat - 10 / 2) * 25) + 500.
+    /** Required faith capital to recruit this unit. */
     private int hireCost;
 
-    // The required faith to take Apostle on crusade between -250 and 250 faith -> calculation is (each stat - 10 / 2) * 12
-    // A negative upKeep will reward players for using weaker apostle's
+    /** Faith cost (or dividend, if negative) paid per expedition. */
     private int upKeep;
 
-    // The type stat to be used for rolling
     private int primaryStat;
-
-    // Keep total of how many crusade's the apostle has been through
     private int crusadeCount;
-
-    // Ability for Saint
     private String specialAbility = "";
-
-    // Portrait of Crusader
     private String portraitKey;
-
     private Rarity rarity;
-
     private final List<Item> activePotions = new ArrayList<>();
 
     /**
-     * Constructor for Apostle's. To be generated through market which pull's on each respective class
-     * for base additions. Market -> Executioner -> Apostle's. Will build this way to so itterate's over
-     * game state. Longer game goes on, better stat's for Apostle's in market
+     * Constructs a new Saint with clamped base attributes and sets initial combat metadata.
      *
-     * @param name        Name for Apostle
-     * @param portraitKey Portrait of the Apostle generated in market
-     * @param strength    Strength for Apostle, int 0-20 which is modified in class get as (strength - 10 / 2)
-     * @param wisdom      Wisdom for Apostle, int 0-20 which is modified in class get as (wisdom - 10 / 2)
-     * @param dexterity   Dexterity for Apostle, int 0-20 which is modified in class get as (dexterity - 10 / 2)
-     * @param sanity     maxSanity and currentSanity for the apostle
-     * @param perception  Perception for Apostle, serve's as the chance to find Item's
-     * @param hireCost    Cost to hire the Apostle, (500 to 1000 faith) - >  calculation is ((each stat - 10 / 2) * 25) + 500.
-     * @param upKeep      Cost per expedition for apostle, (-240 to 240) -> calculation is (each stat - 10 / 2) * 12
+     * @param name        Unique display name
+     * @param portraitKey Reference key matching assets in resources/images/Saints/
+     * @param strength    Physical damage and physical check stat (0-20)
+     * @param wisdom      Occult affinity and mystical check stat (0-20)
+     * @param dexterity   Finesse and agility check stat (0-20)
+     * @param sanity      Maximum and starting sanity pool
+     * @param perception  Chance coefficient for post-crusade looting
+     * @param hireCost    Faith cost up front to hire from the pool
+     * @param upKeep      Faith expense required per active crusade mission
      */
     public Saint(String name, String portraitKey, int strength, int wisdom, int dexterity,
                  int sanity, int perception, int hireCost, int upKeep) {
@@ -85,6 +61,14 @@ public abstract class Saint implements Purchasable {
         this.crusadeCount = 0;
     }
 
+    /**
+     * Determines default upkeep value based on absolute attributes.
+     *
+     * @param strength  base physical power
+     * @param wisdom    base mental focus
+     * @param dexterity base motor reflex
+     * @return runtime upkeep rate
+     */
     protected static int calcUpKeep(int strength, int wisdom, int dexterity) {
         return 15 + (strength + wisdom + dexterity) / 5;
     }
@@ -207,7 +191,7 @@ public abstract class Saint implements Purchasable {
 
     @Override
     public String toString() {
-        return this.getName(); // Assuming you have a getName() method
+        return this.getName();
     }
 
 
@@ -362,9 +346,10 @@ public abstract class Saint implements Purchasable {
     }
 
     /**
+     * Mutates a specific target attribute on a given unit.
      *
-     * @param saint Saint to change the stat of
-     * @param stat Stat to be changed
+     * @param saint  Saint to change the stat of
+     * @param stat   Stat to be changed
      * @param amount The amount the stat will be changed
      */
     public static void applyStat(Saint saint, StatType stat, int amount) {
@@ -377,12 +362,19 @@ public abstract class Saint implements Purchasable {
         }
     }
 
-    public void registerTemporaryPotion(Item potion) {
+    /**
+     * Places a consumable modifier item into local state to track for teardown.
+     *
+     * @param potion active temporary modifier item
+     */
+    public void registerConsumable(Item potion) {
         this.activePotions.add(potion);
     }
 
-
-    public void clearTemporaryPotions() {
+    /**
+     * Iterates through all tracked active potions and subtracts their bonus values before purging cache.
+     */
+    public void clearConsumable() {
         for (Item potion : activePotions) {
             Saint.applyStat(this, potion.getStatAffected(), -potion.getBonusValue());
         }
@@ -406,4 +398,3 @@ public abstract class Saint implements Purchasable {
     // ----- METHODS END ---------------------------------------------------------------------------------------
 
 }
-

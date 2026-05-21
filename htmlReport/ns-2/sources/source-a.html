@@ -106,7 +106,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp; * &lt;p&gt;
 &nbsp; * {@link #createSaintCard(Saint, Node, boolean)} : Creates a distinct card for the Saint with a button to purchase the saint &lt;br&gt;
 &nbsp; * {@link #buildStatBars(Saint, boolean)} : Creates 3 rounded rectangles for each stat type &lt;br&gt;
-&nbsp; * {@link #buildStatRow(String, int, boolean, String, boolean))} : Assigns stats to each Saint card
+&nbsp; * {@link #buildStatRow(String, int, boolean, String, boolean)} : Assigns stats to each Saint card
 &nbsp; */
 <b class="nc">&nbsp;public class SaintCardController {</b>
 &nbsp;    /**
@@ -176,10 +176,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;        VBox bars = new VBox(3);</b>
 <b class="fc">&nbsp;        bars.getStyleClass().add(&quot;stat-bars&quot;);</b>
 <b class="fc">&nbsp;        bars.getChildren().addAll(</b>
-<b class="fc">&nbsp;                buildStatRow(&quot;STR&quot;, saint.getStrength(), saint.getStatType().equals(&quot;STR&quot;), &quot;#AF4130&quot;, isCompact),</b>
-<b class="fc">&nbsp;                buildStatRow(&quot;WIS&quot;, saint.getWisdom(), saint.getStatType().equals(&quot;WIS&quot;), &quot;#346687&quot;, isCompact),</b>
-<b class="fc">&nbsp;                buildStatRow(&quot;DEX&quot;, saint.getDexterity(), saint.getStatType().equals(&quot;DEX&quot;), &quot;#609953&quot;, isCompact),</b>
-<b class="fc">&nbsp;                buildStatRow(&quot;STA&quot;, saint.getCurrentSanity(), saint.getStatType().equals(&quot;STA&quot;), &quot;#a38934&quot;, isCompact)</b>
+<b class="fc">&nbsp;                buildStatRow(&quot;STR&quot;, saint.getStrength(), saint.getStatType().equals(&quot;STR&quot;), &quot;#711313&quot;, isCompact),</b>
+<b class="fc">&nbsp;                buildStatRow(&quot;WIS&quot;, saint.getWisdom(), saint.getStatType().equals(&quot;WIS&quot;), &quot;#235E7F&quot;, isCompact),</b>
+<b class="fc">&nbsp;                buildStatRow(&quot;DEX&quot;, saint.getDexterity(), saint.getStatType().equals(&quot;DEX&quot;), &quot;#24551D&quot;, isCompact),</b>
+<b class="fc">&nbsp;                buildStatRow(&quot;SAN&quot;, saint.getCurrentSanity(), saint.getStatType().equals(&quot;STA&quot;), &quot;#4500AD&quot;, isCompact)</b>
 &nbsp;                );
 <b class="fc">&nbsp;        return bars;</b>
 &nbsp;    }
@@ -235,7 +235,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

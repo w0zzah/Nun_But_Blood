@@ -1,17 +1,9 @@
 package seng201.nunbutblood.models;
 
 /**
- * The interface Purchasable.
+ * Common contract for any assets that can be acquired through market interactions.
+ * Implemented by both item commodities and recruit units.
  */
-/*
-
-Last Edited 0412 02/04/26 @author cwi184 - "Interface for Market interactions"
-
-        Purchasable Interface --- Shared by Items and Apostles
-          Methods:
-            ~ getCost() : Returns price in Faith
-            ~ getDescription() : Returns stats/info for Market display
-*/
 public interface Purchasable {
 
     /**

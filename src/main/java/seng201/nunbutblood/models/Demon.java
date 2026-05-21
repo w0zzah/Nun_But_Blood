@@ -14,6 +14,7 @@ public class Demon {
     /** Display name of the demon. */
     private final String name;
 
+    /** Resource asset lookup key for rendering enemy portraits in the GUI context. */
     private final String portraitKey;
 
     /** Combat difficulty, used to scale encounter frequency and rewards. */
@@ -28,6 +29,7 @@ public class Demon {
     /** Probability of the curse triggering after combat, between 0.0 and 1.0. */
     private double curseChance = 0.20; // Default 20% chance
 
+    /** Internal random number generator engine used for evaluation rolls. */
     private final Random random = new Random();
 
     /**

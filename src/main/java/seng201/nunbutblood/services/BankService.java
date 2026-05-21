@@ -1,15 +1,12 @@
 package seng201.nunbutblood.services;
 
-import seng201.nunbutblood.models.*;
-
 
 /**
- * <h1>BankService handles the faith of the Coven.
+ * BankService handles the faith of the Coven.
  * <br>
- * FUNCTIONS: </h1>
+ * FUNCTIONS:
  * <p>
  * {@link #getFaith()} -> Get the CovensFaith <br>
- * {@link #getTotalFaithEarned()} -> Get the total faith earned over the game <br>
  * {@link #addFaith(int)} -> Adds faith to the Covenant <br>
  * {@link #spendFaith(int)} -> Spends faith if the Covenant has enough <br>
  * {@link #payUpKeep(int)} -> Pays all Saint who are on the activeParty <br>
@@ -43,15 +40,6 @@ public class BankService {
      */
     public int getFaith() {
         return faith;
-    }
-
-    /**
-     * Gets the total amount of faith earned during the game.
-     *
-     * @return Total faith earned
-     */
-    public int getTotalFaithEarned() {
-        return totalFaithEarned;
     }
 
     /**

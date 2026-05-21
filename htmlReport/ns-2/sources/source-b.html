@@ -45,26 +45,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">ScreenNavigator</td>
 <td class="coverageStat">
   <span class="percent">
-    43.8%
+    100%
   </span>
   <span class="absValue">
-    (7/16)
+    (16/16)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    16.7%
+    50%
   </span>
   <span class="absValue">
-    (2/12)
+    (6/12)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    63.2%
+    97.4%
   </span>
   <span class="absValue">
-    (24/38)
+    (37/38)
   </span>
 </td>
 </tr>
@@ -75,26 +75,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name"><strong>Total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    43.8%
+    100%
   </span>
   <span class="absValue">
-    (7/16)
+    (16/16)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    16.7%
+    50%
   </span>
   <span class="absValue">
-    (2/12)
+    (6/12)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    63.2%
+    97.4%
   </span>
   <span class="absValue">
-    (24/38)
+    (37/38)
   </span>
 </td>
 </tr>
@@ -189,9 +189,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Go to market.
 &nbsp;     */
 &nbsp;    public void goToMarket() {
-<b class="nc">&nbsp;        loadScreen(&quot;/fxml/ShopInterface.fxml&quot;, controller -&gt; {</b>
-<b class="nc">&nbsp;            if (controller instanceof MarketController mc) {</b>
-<b class="nc">&nbsp;                mc.init(stage, this, covenant, marketService);</b>
+<b class="fc">&nbsp;        loadScreen(&quot;/fxml/ShopInterface.fxml&quot;, controller -&gt; {</b>
+<b class="pc">&nbsp;            if (controller instanceof MarketController mc) {</b>
+<b class="fc">&nbsp;                mc.init(stage, this, covenant, marketService);</b>
 &nbsp;            }
 &nbsp;        });
 &nbsp;    }
@@ -200,20 +200,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Step 1: Select a Demon
 &nbsp;     */
 &nbsp;    public void goToCrusadeSelect() {
-<b class="nc">&nbsp;        loadScreen(&quot;/fxml/SelectDemonInterface.fxml&quot;, controller -&gt; {</b>
-<b class="nc">&nbsp;            if (controller instanceof CrusadeSelectController csc) {</b>
-<b class="nc">&nbsp;                csc.init(stage, this, covenant, covenant.getDemonService());</b>
+<b class="fc">&nbsp;        loadScreen(&quot;/fxml/SelectDemonInterface.fxml&quot;, controller -&gt; {</b>
+<b class="pc">&nbsp;            if (controller instanceof CrusadeSelectController csc) {</b>
+<b class="fc">&nbsp;                csc.init(stage, this, covenant, covenant.getDemonService());</b>
 &nbsp;            }
 &nbsp;        });
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Step 2: The actual battle/dice roll screen  @param chosenDemon the chosen demon
+&nbsp;     * @param chosenDemon The demon chosen from the player
 &nbsp;     */
 &nbsp;    public void goToCrusade(Demon chosenDemon) {
-<b class="nc">&nbsp;        loadScreen(&quot;/fxml/CrusadeInterface.fxml&quot;, controller -&gt; {</b>
-<b class="nc">&nbsp;            if (controller instanceof CrusadeController cc) {</b>
-<b class="nc">&nbsp;                cc.init(covenant, chosenDemon, this);</b>
+<b class="fc">&nbsp;        loadScreen(&quot;/fxml/CrusadeInterface.fxml&quot;, controller -&gt; {</b>
+<b class="pc">&nbsp;            if (controller instanceof CrusadeController cc) {</b>
+<b class="fc">&nbsp;                cc.init(covenant, chosenDemon, this);</b>
 &nbsp;            }
 &nbsp;        });
 &nbsp;    }
@@ -222,11 +223,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * Final Score / Game Over Screen  @param isVictory the is victory
 &nbsp;     *
 &nbsp;     * @param isGameOver the is game over
+&nbsp;     * @param isVictory is the currentCrusade a victory
 &nbsp;     */
 &nbsp;    public void goToEndScreen(boolean isVictory, boolean isGameOver) {
-<b class="nc">&nbsp;        loadScreen(&quot;/fxml/EndScreen.fxml&quot;, controller -&gt; {</b>
-<b class="nc">&nbsp;            if (controller instanceof EndScreenController ec) {</b>
-<b class="nc">&nbsp;                ec.init(stage, this, covenant, marketService, saintService, isVictory, isGameOver);</b>
+<b class="fc">&nbsp;        loadScreen(&quot;/fxml/EndScreen.fxml&quot;, controller -&gt; {</b>
+<b class="pc">&nbsp;            if (controller instanceof EndScreenController ec) {</b>
+<b class="fc">&nbsp;                ec.init(stage, this, covenant, marketService, saintService, isVictory, isGameOver);</b>
 &nbsp;            }
 &nbsp;        });
 &nbsp;    }
@@ -256,7 +258,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return the audio service
 &nbsp;     */
 &nbsp;    public AudioService getAudioService() {
-<b class="nc">&nbsp;        return this.audioService;</b>
+<b class="fc">&nbsp;        return this.audioService;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
@@ -294,7 +296,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

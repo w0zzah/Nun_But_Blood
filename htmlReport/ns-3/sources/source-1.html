@@ -44,26 +44,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">AlertBox</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/2)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/11)
+    (10/10)
   </span>
 </td>
 </tr>
@@ -83,35 +83,39 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import javafx.util.Duration;
 &nbsp;
 &nbsp;/**
-&nbsp; * The type Alert box.
+&nbsp; * Utility class providing self-dismissing notification banners within the game&#39;s UI layout context.
+&nbsp; * Uses automated transition threads to cleanly manage visual layout opacity.
 &nbsp; */
-<b class="nc">&nbsp;public final class AlertBox {</b>
+&nbsp;public final class AlertBox {
+&nbsp;
+&nbsp;    // Private constructor to prevent instantiation of utility class
+&nbsp;    private AlertBox() {}
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Show alert.
+&nbsp;     * Renders a temporary notification message on screen and handles its automated fade transition.
 &nbsp;     *
-&nbsp;     * @param statusLabel the status label
-&nbsp;     * @param alertBox    the alert box
-&nbsp;     * @param alert       the alert
+&nbsp;     * @param statusLabel target JavaFX Label element where the messaging text string will display
+&nbsp;     * @param alertBox    parent container Layout wrapper managing the notification&#39;s visibility state
+&nbsp;     * @param alert       the raw notification string message to pass into the display tree
 &nbsp;     */
 &nbsp;    public static void showAlert(Label statusLabel, Pane alertBox, String alert) {
 &nbsp;
 &nbsp;        // Set text &amp; show box
-<b class="nc">&nbsp;        statusLabel.setText(alert);</b>
-<b class="nc">&nbsp;        alertBox.setOpacity(1);</b>
-<b class="nc">&nbsp;        alertBox.setVisible(true);</b>
-<b class="nc">&nbsp;        statusLabel.getStyleClass().add(&quot;status-label&quot;);</b>
+<b class="fc">&nbsp;        statusLabel.setText(alert);</b>
+<b class="fc">&nbsp;        alertBox.setOpacity(1);</b>
+<b class="fc">&nbsp;        alertBox.setVisible(true);</b>
+<b class="fc">&nbsp;        statusLabel.getStyleClass().add(&quot;status-label&quot;);</b>
 &nbsp;
 &nbsp;        // Fade transition
-<b class="nc">&nbsp;        FadeTransition fade = new FadeTransition(Duration.seconds(1), alertBox);</b>
-<b class="nc">&nbsp;        fade.setFromValue(1);</b>
-<b class="nc">&nbsp;        fade.setToValue(0);</b>
-<b class="nc">&nbsp;        fade.setDelay(Duration.seconds(1));</b>
+<b class="fc">&nbsp;        FadeTransition fade = new FadeTransition(Duration.seconds(1), alertBox);</b>
+<b class="fc">&nbsp;        fade.setFromValue(1);</b>
+<b class="fc">&nbsp;        fade.setToValue(0);</b>
+<b class="fc">&nbsp;        fade.setDelay(Duration.seconds(1));</b>
 &nbsp;
 &nbsp;        // Once finished make invisible
-<b class="nc">&nbsp;        fade.setOnFinished(event -&gt; alertBox.setVisible(false));</b>
+<b class="fc">&nbsp;        fade.setOnFinished(event -&gt; alertBox.setVisible(false));</b>
 &nbsp;
-<b class="nc">&nbsp;        fade.play();</b>
+<b class="fc">&nbsp;        fade.play();</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -137,7 +141,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

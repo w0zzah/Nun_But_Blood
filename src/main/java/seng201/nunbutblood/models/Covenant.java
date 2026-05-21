@@ -5,13 +5,12 @@ import seng201.nunbutblood.services.CovenantService;
 import seng201.nunbutblood.services.SaintService;
 import seng201.nunbutblood.services.DemonService;
 
-
-
 import java.util.List;
 
 /**
  * Represents the player's Covenant.
  * Stores information about saints, faith, score, crusades, and inventory.
+ * Acts as the structural hub linking various sub-domain managers together.
  */
 public class Covenant {
 
@@ -30,8 +29,10 @@ public class Covenant {
     /** Stores all owned inventory items. */
     private final List<Item> rawInventory;
 
+    /** Configured gameplay balance difficulty setting modifier string. */
     private final String difficulty;
 
+    /** Handles generation and management of current crusade target encounter options. */
     private final DemonService demonService;
 
     /**
@@ -69,7 +70,7 @@ public class Covenant {
         roster.incrementCrusadeCounts();
 
         for(Saint saint : roster.getOwnedSaints()) {
-            saint.clearTemporaryPotions();
+            saint.clearConsumable();
         }
 
         if (isVictory) {
@@ -127,15 +128,6 @@ public class Covenant {
      */
     public int getCurrentCrusade() {
         return covenantService.getCurrentCrusade();
-    }
-
-    /**
-     * Gets the total amount of faith earned during the game.
-     *
-     * @return Total faith earned
-     */
-    public int getTotalFaithEarned() {
-        return bank.getTotalFaithEarned();
     }
 
     /**
@@ -286,6 +278,5 @@ public class Covenant {
     public boolean removeItem(Item item) {
         return rawInventory.remove(item);
     }
-
 
 }

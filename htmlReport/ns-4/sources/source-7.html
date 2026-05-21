@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    40%
+    100%
   </span>
   <span class="absValue">
-    (4/10)
+    (10/10)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    35%
+    65%
   </span>
   <span class="absValue">
-    (7/20)
+    (13/20)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    54.8%
+    95.2%
   </span>
   <span class="absValue">
-    (23/42)
+    (40/42)
   </span>
 </td>
 </tr>
@@ -97,7 +97,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.util.stream.Collectors;
 &nbsp;
 &nbsp;/**
-&nbsp; * Market service manage&#39;s Item sold in the matkey
+&nbsp; * Manages buying, selling, and rolling random generation for items and saints in the shop.
 &nbsp; */
 &nbsp;public class MarketService {
 &nbsp;
@@ -160,10 +160,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return the boolean
 &nbsp;     */
 &nbsp;    public boolean buySaint(Saint saint, Covenant covenant) {
-<b class="nc">&nbsp;        if (availableSaints.contains(saint) &amp;&amp; covenant.spendFaith(saint.getCost())) {</b>
-<b class="nc">&nbsp;            availableSaints.remove(saint);</b>
-<b class="nc">&nbsp;            covenant.addSaint(saint);</b>
-<b class="nc">&nbsp;            return true;</b>
+<b class="pc">&nbsp;        if (availableSaints.contains(saint) &amp;&amp; covenant.spendFaith(saint.getCost())) {</b>
+<b class="fc">&nbsp;            availableSaints.remove(saint);</b>
+<b class="fc">&nbsp;            covenant.addSaint(saint);</b>
+<b class="fc">&nbsp;            return true;</b>
 &nbsp;        }
 <b class="nc">&nbsp;        return false;</b>
 &nbsp;    }
@@ -177,9 +177,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return the boolean
 &nbsp;     */
 &nbsp;    public boolean sellSaint(Saint saint, Covenant covenant) {
-<b class="nc">&nbsp;        if (!covenant.retireSaint(saint)) return false;</b>
-<b class="nc">&nbsp;        covenant.addFaith(saint.getCost() / 2);</b>
-<b class="nc">&nbsp;        return true;</b>
+<b class="pc">&nbsp;        if (!covenant.retireSaint(saint)) return false;</b>
+<b class="fc">&nbsp;        covenant.addFaith(saint.getCost() / 2);</b>
+<b class="fc">&nbsp;        return true;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -190,11 +190,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return the boolean
 &nbsp;     */
 &nbsp;    public boolean buyItem(Item item, Covenant covenant) {
-<b class="nc">&nbsp;        if (!availableItems.contains(item)) return false;</b>
-<b class="nc">&nbsp;        if (!covenant.spendFaith(item.getCost())) return false;</b>
-<b class="nc">&nbsp;        availableItems.remove(item);</b>
-<b class="nc">&nbsp;        covenant.addItem(item);</b>
-<b class="nc">&nbsp;        return true;</b>
+<b class="pc">&nbsp;        if (!availableItems.contains(item)) return false;</b>
+<b class="pc">&nbsp;        if (!covenant.spendFaith(item.getCost())) return false;</b>
+<b class="fc">&nbsp;        availableItems.remove(item);</b>
+<b class="fc">&nbsp;        covenant.addItem(item);</b>
+<b class="fc">&nbsp;        return true;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -205,9 +205,9 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return the boolean
 &nbsp;     */
 &nbsp;    public boolean sellItem(Item item, Covenant covenant) {
-<b class="nc">&nbsp;        if (!covenant.removeItem(item)) return false;</b>
-<b class="nc">&nbsp;        covenant.addFaith(item.getCost() / 2);</b>
-<b class="nc">&nbsp;        return true;</b>
+<b class="pc">&nbsp;        if (!covenant.removeItem(item)) return false;</b>
+<b class="fc">&nbsp;        covenant.addFaith(item.getCost() / 2);</b>
+<b class="fc">&nbsp;        return true;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
@@ -220,7 +220,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return List of available saints for sale
 &nbsp;     */
 &nbsp;    public List&lt;Saint&gt; getAvailableSaints() {
-<b class="nc">&nbsp;        return availableSaints;</b>
+<b class="fc">&nbsp;        return availableSaints;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -229,7 +229,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @return List of available items for sale
 &nbsp;     */
 &nbsp;    public List&lt;Item&gt; getAvailableItems() {
-<b class="nc">&nbsp;        return availableItems;</b>
+<b class="fc">&nbsp;        return availableItems;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
@@ -264,6 +264,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    /**
 &nbsp;     * Rolls the rarity based on crusade count
 &nbsp;     *
+&nbsp;     * @param crusadeNumber current crusade sequence index
+&nbsp;     * @return rolled Rarity tier
 &nbsp;     */
 &nbsp;    private Rarity rollRarity(int crusadeNumber) {
 <b class="fc">&nbsp;        return Rarity.rollFromCrusade(random, crusadeNumber);</b>
@@ -292,7 +294,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 00:08</div>
+    <div style="float:right;">generated on 2026-05-22 05:43</div>
 </div>
 </body>
 </html>

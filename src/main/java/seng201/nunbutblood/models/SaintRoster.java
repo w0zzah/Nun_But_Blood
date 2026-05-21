@@ -32,10 +32,11 @@ public final class SaintRoster {
      * @param baseStr     base Strength before class bonus
      * @param baseWis     base Wisdom before class bonus
      * @param baseDex     base Dexterity before class bonus
+     * @param sanity      base Sanity total
      */
     public record Entry(String name, String portraitKey, String type,
                         int baseStr, int baseWis, int baseDex, int sanity) {}
-    
+
     private static final List<Entry> allSaints = buildRoster();
 
     /**

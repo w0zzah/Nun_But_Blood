@@ -81,6 +81,17 @@ public enum ItemCatalog {
     private final String itemDescription;
     private final String portraitKey;
 
+    /**
+     * Internal constructor setting static properties for cataloged assets.
+     *
+     * @param itemName        Display name of the commodity
+     * @param type            Classification grouping (CONSUMABLE vs EQUIPMENT)
+     * @param statAffected    Core attribute modified by the asset
+     * @param bonusValue      Numerical value applied during modification
+     * @param cost            Faith resource point cost to buy
+     * @param itemDescription Flavor and layout reference string
+     * @param portraitKey     Resource asset string for UI rendering
+     */
     ItemCatalog(String itemName, Item.ItemType type, StatType statAffected, int bonusValue,
                 int cost, String itemDescription, String portraitKey) {
         this.itemName = itemName;
