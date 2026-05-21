@@ -124,7 +124,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.models;
 &nbsp;
 &nbsp;/**
-&nbsp; * Represents a purchasable item that can be applied to an apostle.
+&nbsp; * Represents a purchasable item that can be applied to an saint.
 &nbsp; * Items are either consumed on use (CONSUMABLE, SKILL_TOME) or
 &nbsp; * persist while equipped (EQUIPMENT).
 &nbsp; *
@@ -189,11 +189,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Applies this item&#39;s effect to the given apostle.
+&nbsp;     * Applies this item&#39;s effect to the given saint.
 &nbsp;     * CONSUMABLE and SKILL_TOME are consumed on use.
-&nbsp;     * EQUIPMENT persists and should be tracked on the apostle separately.
+&nbsp;     * EQUIPMENT persists and should be tracked on the saint separately.
 &nbsp;     *
-&nbsp;     * @param saint the apostle to apply the effect to
+&nbsp;     * @param saint the saint to apply the effect to
 &nbsp;     */
 &nbsp;    public void applyEffect(Saint saint) {
 <b class="fc">&nbsp;        Saint.applyStat(saint, this.statAffected, this.bonusValue);</b>

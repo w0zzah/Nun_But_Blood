@@ -1,8 +1,6 @@
 package seng201.nunbutblood.services;
 
-import seng201.nunbutblood.models.Covenant;
-import seng201.nunbutblood.models.Saint;
-import seng201.nunbutblood.models.StatType;
+import seng201.nunbutblood.models.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,8 +85,15 @@ public class PostCrusadeService {
             Saint target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));
             if (target.getSpecialAbility().isEmpty()) {
                 String skill = SKILLS[random.nextInt(SKILLS.length)];
-                target.setSpecialAbility(skill);
-                events.add(String.format("%s has learned the new ability, %s", target, skill));
+                switch (skill) {
+                    case "Holy Blessing" -> covenant.addFaith(300);
+                    case "Devout Survivor" -> covenant.addItem(ItemCatalog.BLOOD_VIAL.create());
+                    case "Covered in Blood" -> {
+                        covenant.retireSaint(target);
+                        covenant.addSaint(SaintRoster.create(new SaintRoster.Entry("Angel", "Angel.gif", "EXE", 20,20,20,20)));
+                    }
+                }
+                events.add(String.format("%s has Channeled the ability, %s", target, skill));
             }
         }
         // Chance for saints to retire

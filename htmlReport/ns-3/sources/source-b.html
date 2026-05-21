@@ -133,7 +133,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;/**
 &nbsp; * To serve as a List containing all information for the group of Saint.
 &nbsp; * &lt;p&gt;
-&nbsp; * Every Apostle has their own strength, wisdom and dex, which when summed, display the rarity @Rarity
+&nbsp; * Every Saint has their own strength, wisdom and dex, which when summed, display the rarity @Rarity
 &nbsp; * &lt;p&gt;
 &nbsp; * There rarity of each doesn&#39;t determine their inherent usefulness however as using lower stat&#39;s will
 &nbsp; * be rewarded with more money in the early game to encourage different playstyles.
@@ -146,7 +146,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    /**
 &nbsp;     * record documentation for reference see &lt;a href=&quot;https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Record.html&quot;&gt;here&lt;/a&gt;
-&nbsp;     * Record containing the format for the Apostle&#39;s. The list is immutable so it is parsed in as the element type
+&nbsp;     * Record containing the format for the Saint&#39;s. The list is immutable so it is parsed in as the element type
 &nbsp;     * in a List (to be used similar to interface.)
 &nbsp;     *
 &nbsp;     * @param name        unique display name
@@ -189,10 +189,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Instantiates an Apostle from a roster entry.
+&nbsp;     * Instantiates an Saint from a roster entry.
 &nbsp;     *
 &nbsp;     * @param entry the roster entry to instantiate
-&nbsp;     * @return a new Apostle object of the appropriate subclass
+&nbsp;     * @return a new Saint object of the appropriate subclass
 &nbsp;     */
 &nbsp;    public static Saint create(Entry entry) {
 <b class="fc">&nbsp;        return switch (entry.type()) {</b>

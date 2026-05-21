@@ -7,7 +7,7 @@ package seng201.nunbutblood.models;
 public interface Purchasable {
 
     /**
-     * Return the Faith cost of Apostle's and Item's
+     * Return the Faith cost of Saint's and Item's
      *
      * @return cost of target
      */
@@ -15,7 +15,7 @@ public interface Purchasable {
 
 
     /**
-     * Return's the description of Apostle's and Item's
+     * Return's the description of Saint's and Item's
      *
      * @return description of target
      */

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base abstract class for all hero units (Apostles/Saints) in the Coven.
+ * Base abstract class for all hero units (Saints/Saints) in the Coven.
  * Handles primary attributes, sanity tracking, financial costs, and temporary power modifications.
  */
 public abstract class Saint implements Purchasable {
@@ -226,7 +226,7 @@ public abstract class Saint implements Purchasable {
     }
 
     /**
-     * change the strength of Apostle (Max 20)
+     * change the strength of Saint (Max 20)
      * Refresh rarity to adjust for stat change
      *
      * @param amount stat change
@@ -237,7 +237,7 @@ public abstract class Saint implements Purchasable {
     }
 
     /**
-     * change the wisdom of Apostle (Max 20)
+     * change the wisdom of Saint (Max 20)
      * Refresh rarity to adjust for stat change
      *
      * @param amount stat change
@@ -248,7 +248,7 @@ public abstract class Saint implements Purchasable {
     }
 
     /**
-     * change the dexterity of Apostle (Max 20)
+     * change the dexterity of Saint (Max 20)
      * Refresh rarity to adjust for stat change
      *
      * @param amount stat change
@@ -295,7 +295,7 @@ public abstract class Saint implements Purchasable {
     }
 
     /**
-     * Give's A unique ability to Apostle.
+     * Give's A unique ability to Saint.
      *
      * @param abilityName name of the ability
      */

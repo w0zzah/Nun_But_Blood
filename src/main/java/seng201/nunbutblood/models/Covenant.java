@@ -225,11 +225,11 @@ public class Covenant {
     /**
      * Permanently removes a saint from the roster.
      *
-     * @param apostle Saint to retire
+     * @param saint Saint to retire
      * @return True if retirement succeeds
      */
-    public boolean retireSaint(Saint apostle) {
-        return roster.retireSaint(apostle);
+    public boolean retireSaint(Saint saint) {
+        return roster.retireSaint(saint);
     }
 
     /**

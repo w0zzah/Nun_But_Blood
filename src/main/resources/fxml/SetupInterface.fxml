@@ -67,7 +67,7 @@
                         <children>
                            <Label contentDisplay="BOTTOM" styleClass="section-label" text="CHOOSE 3 STARTING APOSTLES       " />
                            <Label fx:id="saintSelectLabel" alignment="TOP_RIGHT" contentDisplay="RIGHT" styleClass="hint-label" text="0 / 3 selected" />
-                           <GridPane fx:id="saintsGrid" alignment="CENTER" hgap="10" styleClass="apostle-card" vgap="10" VBox.vgrow="ALWAYS" />
+                           <GridPane fx:id="saintsGrid" alignment="CENTER" hgap="10" styleClass="saint-card" vgap="10" VBox.vgrow="ALWAYS" />
                            <Label fx:id="statusLabel" styleClass="error-label" text=" " />
                         </children>
                      </VBox>

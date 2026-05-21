@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * Represents a demon enemy encountered during a crusade.
- * Each demon has a stat weakness that apostles can exploit for a bonus roll,
+ * Each demon has a stat weakness that saints can exploit for a bonus roll,
  * and a curse chance that can negatively affect the party after combat.
  *
  * @author pgi33

@@ -3,12 +3,10 @@
     Key difference from web CSS: all properties prefixed with -fx-
     Colors use HSV not HSL — use a picker to verify: https://www.google.com/search?q=color+picker
 */
-@font-face {
 
-
-}
 @import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
 
+/**------------------------------------- ALL BACKGROUND AND ROOTS -------------------------------------*/
 .root {
     -fx-text-fill: -chrome;
     /* Need font installed to work */
@@ -16,34 +14,47 @@
     -fx-font-size: 20px;
     -chrome: linear-gradient(to bottom, #cfcfcf 0%, #ffffff 20%, #a1a1a1 50%, #ffffff 80%, #cfcfcf 100%);
     -crimson: linear-gradient(to bottom, #af0303 0%, #ae1d1d 20%, #9e0202 50%, #cd2121 80%);
+    -darkCrimson: linear-gradient(to bottom, #640303 0%, #ae1d1d 20%, #4b0202 50%, #270000 80%);
 }
 
 .root-setup {
     -fx-background-image: url("/images/background/SetupBackground.png");
     -fx-background-size: cover;
+    -fx-font-family: "New Rocker";
+
 }
 .root-hub {
     -fx-background-image: url("/images/background/CovenantBackground.png");
     -fx-background-size: cover;
+    -fx-font-family: "New Rocker";
+
 }
 .root-market {
     -fx-background-image: url("/images/background/MarketBackground.png");
     -fx-background-size: cover;
+    -fx-font-family: "New Rocker";
+
 }
 .root-crusade {
     -fx-background-image: url("/images/background/CrusadeBackground.png");
     -fx-background-size: cover;
-}
+    -fx-font-family: "New Rocker";
 
+}
 
 .label {
     -fx-text-fill: -chrome
 }
-/* --- The Header Area (The empty space behind the tabs) --- */
+
+/**--------------------------------------------------------------------------------------------------*/
+
+
+
+
+/**--------------------------------------Tab  Pane---------------------------------------------------*/
 .tab-header-area .tab-header-background {
     -fx-background-color: transparent;
 }
-
 
 .tab-pane .tab {
     -fx-min-width: infinity;
@@ -69,19 +80,19 @@
 .tab-pane .tab:hover {
     -fx-background-color: #4a4a4a;
 }
-.title-bar {
-    -fx-background-color: linear-gradient(to top, #979797, #353535);
-    -fx-padding: 18 40 14 40;
-    -fx-border-color: -chrome;
-    -fx-border-width: 0 0 3 0;
-}
 
+/**--------------------------------------------------------------------------------------------------*/
+
+
+
+/**------------------------------- ALL GENERAL LABELS -----------------------------------------------*/
 .title-label {
     -fx-text-fill: -crimson;
     -fx-font-family: "Angel wish";
     -fx-font-size: 45px;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(gaussian, rgb(0, 0, 0), 60, 0.4, 3, 3);
+    saint-fx-wrap-text: true;
 }
 
 .status-label {
@@ -91,13 +102,7 @@
     -fx-font-weight: bold;
     -fx-effect: dropshadow(gaussian, rgba(239, 0, 0, 0.76), 10, 0.6, 0, 0);
 }
-.stat-pill {
-    -fx-text-fill: #ffddcc;
-    -fx-background-color: rgba(90, 0, 0, 0.5);
-    -fx-padding: 4 14 4 14;
-    -fx-background-radius: 12;
-    -fx-border-color: #5a0000;
-}
+
 
 .section-label {
     -fx-font-weight: bold;
@@ -113,6 +118,60 @@
     -fx-font-style: italic;
     -fx-alignment: CENTER;
 }
+
+.error-label {
+    -fx-text-fill: -crimson;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 8, 0.4, 0, 0);
+}
+/**------------------------------- ALL GENERAL LABELS -----------------------------------------------*/
+
+
+
+/**------------------------------- ALL GENERAL BUTTONS + -----------------------------------------------*/
+
+
+.cybersigil-border {
+    -fx-border-image-source: url("/images/background/b3.png");
+    -fx-border-image-slice: 270;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);
+    -fx-text-fill: -chrome;
+    -fx-border-image-width: 50px;
+    -fx-border-image-repeat: repeat;
+    saint-fx-wrap-text: true;
+}
+
+.button:hover {
+    -fx-text-fill: -darkcrimson;
+    -fx-effect: dropshadow(gaussian, rgb(207, 0, 0), 25, 0.6, 0, 0);
+}
+
+.button {
+    -fx-effect: dropshadow(gaussian, rgb(20, 0, 0, 1), 25, 0.6, 0, 0);
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: -chrome;
+    -fx-wrap-text: true;
+}
+
+.btn-mkt {
+    -fx-effect: dropshadow(gaussian, rgb(20, 0, 0, 1), 25, 0.6, 0, 0);
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: -chrome;
+    -fx-font-size: 35px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+}
+
+.try-again-button {
+    -fx-font-family: Arial;
+    -fx-font-size: 40px;
+    -fx-effect: dropshadow(gaussian, black, 5, 10, 0, 0);
+}
+
+/**---------------------------------------Form Section---------------------------------------------------*/
+
+
 .form-section {
     -fx-background-color: rgba(30, 30, 30, 0.87);
     -fx-padding: 14 16 14 16;
@@ -123,6 +182,13 @@
 .form-section-part {
     -fx-padding: 0 5;
 }
+
+
+/**---------------------------------------Form Section---------------------------------------------------*/
+
+
+
+/**-------------------------------Text Input Field  (On startup only)------------------------------------*/
 
 .input-field {
     -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);
@@ -137,9 +203,21 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 8, 0.4, 0, 0);
 }
 
-.error-label {
-    -fx-text-fill: -crimson;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 8, 0.4, 0, 0);
+/**-------------------------------Text Input Field  (On startup only)------------------------------------*/
+
+
+
+
+/**-------------------------------------------- Saint Cards ---------------------------------------------*/
+
+.saint-portrait {
+    -fx-background-radius: 4;
+    -fx-border-width: 1;
+    -fx-border-color: #333333;
+    -fx-min-height: 80;
+    -fx-pref-height: 80;
+    /* Default: dark silhouette placeholder */
+    -fx-background-color: linear-gradient(to bottom, #1a0a00, #0a0000);
 }
 
 .stat-value {
@@ -148,34 +226,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 8, 0.4, 0, 0);
 }
 
-.slider .track {
-    -fx-background-color: -chrome;
-
-}
-.slider .thumb {
-    -fx-background-image: url("/images/background/cross.png");
-    -fx-background-size: cover;
-    -fx-background-color: rgba(0,0,0,0);
-    -fx-padding: 30px;
-}
-.slider .tick-mark {
-    -fx-fill: #664444;
-}
-.slider .tick-label {
-    -fx-fill: #aa6655;
-}
-
-.diff-btn {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);
-    -fx-border-color: -chrome;
-    -fx-border-width: 2;
-    -fx-cursor: hand;
-    -fx-alignment: CENTER;
-    -fx-text-fill: -chrome;
-}
-.diff-btn:selected {
-    -fx-text-fill: -crimson;
-}
 .saint-card {
     -fx-padding: 5px;
     -fx-cursor: hand;
@@ -224,104 +274,16 @@
 .card-btn:hover {
     -fx-effect: dropshadow(gaussian, -crimson, 10, 0.5, 0, 0);
 }
-
-.saint-list {
-    -fx-background-color: #0d0000;
-    -fx-border-color: #3a0000;
-    -fx-border-width: 1;
-    -fx-control-inner-background: #0d0000;
-}
-.saint-list .list-cell {
-    -fx-background-color: transparent;
-    -fx-text-fill: #ccbbaa;
-    -fx-font-size: 12px;
-    -fx-padding: 6 10 6 10;
-    -fx-border-color: transparent transparent #1a0000 transparent;
-    -fx-border-width: 1;
-}
-.saint-list .list-cell:selected {
-    -fx-background-color: #3a0000;
-    -fx-text-fill: #ffffff;
-}
-.saint-list .list-cell:hover:selected {
-    -fx-background-color: #200000;
-}
-
-.scroll-pane {
-    -fx-background-color: transparent;
-}
-.scroll-pane > .viewport {
-    -fx-background-color: transparent;
-}
-
-
-.scroll-bar .increment-button, .scroll-bar .decrement-button, .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow, .scroll-bar,.scroll-bar .thumb {
-    -fx-background-color: transparent;
-}
-
-.button {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);
-    -fx-text-fill: -chrome;
-    -fx-border-color: -chrome;
-    -fx-border-width: 1;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(37, 37, 37, 0.4), 8, 0.4, 0, 0);
-    -fx-wrap-text: pretty;
-    -fx-text-alignment: center;
-}
-
-.button:hover {
-    -fx-text-fill: linear-gradient(to top, #000000, #cc0000);
-}
-
-.action-btn {
-    -fx-background-color: #1a0000;
-    -fx-text-fill: #cc8866;
-    -fx-font-size: 12px;
+.card-cost {
+    -fx-text-fill: #e1e1e1;
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
-    -fx-background-radius: 4;
-    -fx-border-color: #440000;
-    -fx-border-width: 1;
-    -fx-cursor: hand;
+    -fx-min-width: 100%;
 }
 
-.saint-portrait {
-    -fx-background-radius: 4;
-    -fx-border-width: 1;
-    -fx-border-color: #333333;
-    -fx-min-height: 80;
-    -fx-pref-height: 80;
-    /* Default: dark silhouette placeholder */
-    -fx-background-color: linear-gradient(to bottom, #1a0a00, #0a0000);
-}
-.rarity-common {
-    -fx-effect: dropshadow(gaussian, rgba(28, 99, 24, 0.65), 8, 0.3, 0, 0);
-    -fx-text-fill: rgb(255, 255, 255);
-    -fx-alignment: center;
-    -fx-font-size: 16px;
-    -fx-font-family: "Nexa Extra Light";
-}
-.rarity-rare {
-    -fx-effect: dropshadow(gaussian, rgba(68,136,255,0.65), 8, 0.3, 0, 0);
-    -fx-text-fill: rgba(27, 248, 248, 0.71);
-    -fx-alignment: center;
-    -fx-font-size: 17px;
-    -fx-font-family: "fantasy";
-}
-.rarity-epic {
-    -fx-effect: dropshadow(gaussian, rgba(204,68,255,0.65), 8, 0.2, 0, 0);
-    -fx-text-fill: #bb00ff;
-    -fx-alignment: center;
-    -fx-font-size: 17px;
-}
-.rarity-legendary {
-    -fx-effect: dropshadow(gaussian, rgba(255,170,0,0.65), 8, 0.55, 0, 0);
-    -fx-text-fill: -chrome;
-    -fx-alignment: center;
-    -fx-font-size: 17px;
-    -fx-font-weight: bold;
-    -fx-font-family: "Angel wish";
-}
+
+/**---------------------------- Saint Stat Bars ------------------------------------*/
+
 .stat-bars {
     -fx-padding: 4 0 2 0;
 }
@@ -349,12 +311,121 @@
     -fx-font-size: 15px;
     -fx-min-width: 100%;
 }
-.card-cost {
-    -fx-text-fill: #e1e1e1;
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
-    -fx-min-width: 100%;
+
+/**-------------------------------------- Saint Stat Bars -----------------------------------------------*/
+
+
+
+/**---------------------------- Slider Input Field  (On startup only)------------------------------------*/
+
+
+.slider .track {
+    -fx-background-color: -chrome;
+
 }
+.slider .thumb {
+    -fx-background-image: url("/images/background/cross.png");
+    -fx-background-size: cover;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-padding: 30px;
+}
+.slider .tick-mark {
+    -fx-fill: #664444;
+}
+.slider .tick-label {
+    -fx-fill: #aa6655;
+}
+
+/**---------------------------- Slider Input Field  (On startup only)------------------------------------*/
+
+
+
+
+/**---------------------------- Difficulty Button (On startup only) -------------------------------------*/
+
+.diff-btn {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);
+    -fx-border-color: -chrome;
+    -fx-border-width: 2;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER;
+    -fx-text-fill: -chrome;
+}
+.diff-btn:selected {
+    -fx-text-fill: -crimson;
+}
+
+/**---------------------------- Difficulty Button (On startup only) -------------------------------------*/
+
+
+
+
+/**-------------------------------------- Scroll Pane Style ---------------------------------------------*/
+
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+
+/**-------------------------------------- Scroll Pane Style ---------------------------------------------*/
+
+
+
+
+/**-------------------------------------- Scroll Bar - invis ---------------------------------------------*/
+
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button, .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow, .scroll-bar,.scroll-bar .thumb {
+    -fx-background-color: transparent;
+}
+
+/**-------------------------------------- Scroll Bar - invis ---------------------------------------------*/
+
+
+
+
+/**-------------------------------------- Saint Rarity Colours  ---------------------------------------------*/
+
+
+.rarity-common {
+    -fx-effect: dropshadow(gaussian, rgba(99, 0, 0, 0.65), 8, 0.3, 0, 0);
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-alignment: center;
+    -fx-font-size: 16px;
+    -fx-font-family: "Nexa Extra Light";
+}
+.rarity-rare {
+    -fx-effect: dropshadow(gaussian, rgba(175, 0, 0, 0.65), 8, 0.3, 0, 0);
+    -fx-text-fill: rgba(90, 0, 0, 0.71);
+    -fx-alignment: center;
+    -fx-font-size: 17px;
+    -fx-font-family: "fantasy";
+}
+.rarity-epic {
+    -fx-effect: dropshadow(gaussian, rgba(251, 31, 92, 0.65), 8, 0.2, 0, 0);
+    -fx-text-fill: #ff002f;
+    -fx-alignment: center;
+    -fx-font-size: 17px;
+}
+.rarity-legendary {
+    -fx-effect: dropshadow(gaussian, rgba(255,170,0,0.65), 8, 0.55, 0, 0);
+    -fx-text-fill: -chrome;
+    -fx-alignment: center;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Angel wish";
+}
+
+/**-------------------------------------- Saint Rarity Colours  ---------------------------------------------*/
+
+
+
+
+/**-------------------------------------- Demon Card --------------------------------------------------------*/
 
 .demon-card {
     -fx-padding: 5px;
@@ -384,19 +455,11 @@
 .demon-card-stats {
     -fx-text-fill: -chrome;
     -fx-font-size: 30px;
-    -fx-wrap-text: true;
+    saint-fx-wrap-text: true;
     -fx-alignment: center;
-
 }
 
-.cybersigil-border {
-    -fx-border-image-source: url("/images/background/b3.png");
-    -fx-border-image-slice: 270;
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);
-    -fx-text-fill: -chrome;
-    -fx-border-image-width: 50px;
-    -fx-border-image-repeat: repeat;
-}
+/**-------------------------------------- Demon Card --------------------------------------------------------*/
 
 
 
@@ -412,7 +475,12 @@
     -fx-background-radius: 0;
 }
 
+/* ----------------------------------- Progress Bar Customization ----------------------------------- */
+
+
+
 /* ----------------------------------- The Dice Box -----------------------------------*/
+
 .dice-box {
     -fx-background-color: radial-gradient(center 50% 50%, radius 60%, rgba(0, 0, 0), rgba(0, 0, 0, 0));;
 }
@@ -424,7 +492,10 @@
     -fx-min-width: -fx-pref-width;
 }
 
+/* ----------------------------------- The Dice Box -----------------------------------*/
+
 /*----------------------------------- Dice result colorchanger----------------------------------- */
+
 .dice-critical-success {
     -fx-text-fill: #e600ff;
     -fx-effect: dropshadow(gaussian, #712aff, 20, 0.3, 0, 0);
@@ -483,19 +554,12 @@
     -fx-effect: dropshadow(one-pass-box, black, 5, 0, 0, 0);
 }
 
-.btn-mkt {
-    -fx-effect: dropshadow(gaussian, rgb(20, 0, 0, 1), 25, 0.6, 0, 0);
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-text-fill: -chrome;
-    -fx-font-size: 35px;
-    -fx-font-weight: bold;
-    -fx-wrap-text: true;
-}
+
 /* ---------------------------------------------------------------------------------------------------------*/
 
 
 /** -----------------------------------CSS FOR LIST VIEW-------------------------------------------------*/
+
 .list-cell {
     -fx-background-color: transparent;
     -fx-alignment: center;
@@ -512,6 +576,7 @@
 
 
 /* ----------------------------------- CSS FOR ITEMS -----------------------------------*/
+
 .item-card {
     -fx-alignment: center;
 }
@@ -533,9 +598,4 @@
     -fx-font-size: 20px;
 }
 
-.try-again-button {
-    -fx-font-family: Arial;
-    -fx-font-size: 40px;
-    -fx-effect: dropshadow(gaussian, black, 5, 10, 0, 0);
-}
 /* ---------------------------------------------------------------------------------------------------*/

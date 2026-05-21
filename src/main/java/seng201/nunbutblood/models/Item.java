@@ -1,7 +1,7 @@
 package seng201.nunbutblood.models;
 
 /**
- * Represents a purchasable item that can be applied to an apostle.
+ * Represents a purchasable item that can be applied to an saint.
  * Items are either consumed on use (CONSUMABLE, SKILL_TOME) or
  * persist while equipped (EQUIPMENT).
  *
@@ -66,11 +66,11 @@ public class Item implements Purchasable {
     }
 
     /**
-     * Applies this item's effect to the given apostle.
+     * Applies this item's effect to the given saint.
      * CONSUMABLE and SKILL_TOME are consumed on use.
-     * EQUIPMENT persists and should be tracked on the apostle separately.
+     * EQUIPMENT persists and should be tracked on the saint separately.
      *
-     * @param saint the apostle to apply the effect to
+     * @param saint the saint to apply the effect to
      */
     public void applyEffect(Saint saint) {
         Saint.applyStat(saint, this.statAffected, this.bonusValue);

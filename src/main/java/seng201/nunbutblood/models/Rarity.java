@@ -3,7 +3,7 @@ package seng201.nunbutblood.models;
 import java.util.Random;
 
 /**
- * Represents the rarity tier of an Apostle based on sum of stat's
+ * Represents the rarity tier of an Saint based on sum of stat's
  * Strength, Wisdom, and Dexterity stats. <br><br>
  * <p>
  * Rarity thresholds (statTotal = STR + WIS + DEX):<br><br>
@@ -70,8 +70,9 @@ public enum Rarity {
         return COMMON;
     }
 
+
     /**
-     * Calculates a drop tier outcome rolling against dynamically adjusted weight matrices
+     * Calculates a drop tier outcome rolling against adjusted weight
      * based on campaign progression milestones.
      *
      * @param random        Shared processing weight seed

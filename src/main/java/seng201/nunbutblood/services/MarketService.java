@@ -145,7 +145,7 @@ public class MarketService {
 
 
     /**
-     * Generate's a random Saint drawn from ApostleRoster
+     * Generate's a random Saint drawn from SaintRoster
      *
      * Rarity scales with the crusade number, increasing the chance of
      * stronger saints based on the crusade count

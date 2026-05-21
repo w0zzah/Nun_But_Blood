@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 
 /**
  * To serve as a List containing all information for the group of Saint.
  * <p>
- * Every Apostle has their own strength, wisdom and dex, which when summed, display the rarity @Rarity
+ * Every Saint has their own strength, wisdom and dex, which when summed, display the rarity @Rarity
  * <p>
  * There rarity of each doesn't determine their inherent usefulness however as using lower stat's will
  * be rewarded with more money in the early game to encourage different playstyles.
@@ -21,9 +22,10 @@ import java.util.Random;
  */
 public final class SaintRoster {
 
+    private Random random;
     /**
      * record documentation for reference see <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Record.html">here</a>
-     * Record containing the format for the Apostle's. The list is immutable so it is parsed in as the element type
+     * Record containing the format for the Saint's. The list is immutable so it is parsed in as the element type
      * in a List (to be used similar to interface.)
      *
      * @param name        unique display name
@@ -66,10 +68,10 @@ public final class SaintRoster {
     }
 
     /**
-     * Instantiates an Apostle from a roster entry.
+     * Instantiates an Saint from a roster entry.
      *
      * @param entry the roster entry to instantiate
-     * @return a new Apostle object of the appropriate subclass
+     * @return a new Saint object of the appropriate subclass
      */
     public static Saint create(Entry entry) {
         return switch (entry.type()) {

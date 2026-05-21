@@ -115,7 +115,7 @@ public class HubController {
             Button retireBtn = new Button("RETIRE");
             retireBtn.setOnAction(e -> {
                 if (!covenant.retireSaint(saint)) {
-                    AlertBox.showAlert(statusLabel, alertBox, "Cannot retire the last Apostle.");
+                    AlertBox.showAlert(statusLabel, alertBox, "Cannot retire the last Saint.");
                 } else {
                     AlertBox.showAlert(statusLabel, alertBox, saint.getName() + " has retired.");
                     refresh();
@@ -143,7 +143,7 @@ public class HubController {
         }
     }
 
-    /** Opens a ChoiceDialog allowing the player to select which Apostle to apply the item to. */
+    /** Opens a ChoiceDialog allowing the player to select which Saint to apply the item to. */
     private void handleUseItemDialog(Item item) {
 
 
@@ -158,7 +158,6 @@ public class HubController {
         dialog.setTitle("Use Item");
         dialog.setHeaderText("Applying: " + item.getItemName());
         dialog.setContentText("Select a Saint to use this on:");
-
         Optional<Saint> result = dialog.showAndWait();
         result.ifPresent(saint -> {
             item.applyEffect(saint);
