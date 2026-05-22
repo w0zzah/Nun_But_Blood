@@ -24,7 +24,7 @@ class SaintRosterTest {
         List<SaintRoster.Entry> allSaints = SaintRoster.getAllSaints();
 
         assertFalse(allSaints.isEmpty());
-        assertEquals(17, allSaints.size());
+        assertEquals(18, allSaints.size());
     }
 
     @Test
