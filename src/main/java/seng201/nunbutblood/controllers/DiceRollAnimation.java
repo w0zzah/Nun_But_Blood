@@ -70,13 +70,13 @@ public class DiceRollAnimation {
 
         for (int i = 0; i < totalFrames; i++) {
             // Calculate number and toggle the shake direction (up on even frames, down on odd)
-            int val = (i == totalFrames - 1) ? finalValue : random.nextInt(20) + 1;
+            String val = String.valueOf((i == totalFrames - 1) ? finalValue  : random.nextInt(20) + 1);
             int shakeOffset = (i % 2 == 0) ? 10 : -10;
 
             cycling.getKeyFrames().add(new KeyFrame(
                     Duration.millis(currentDelayMs),
                     e -> {
-                        dieLabel.setText(String.valueOf(val));
+                        dieLabel.setText(val);
                         diceContainer.setTranslateY(shakeOffset); // Synced perfectly with the numbers!
                     }
             ));

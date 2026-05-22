@@ -24,7 +24,9 @@
     -chrome: linear-gradient(to bottom, #cfcfcf 0%, #ffffff 20%, #a1a1a1 50%, #ffffff 80%, #cfcfcf 100%);
     -crimson: linear-gradient(to bottom, #af0303 0%, #ae1d1d 20%, #9e0202 50%, #cd2121 80%);
     -darkCrimson: linear-gradient(to bottom, #640303 0%, #ae1d1d 20%, #4b0202 50%, #270000 80%);
-    -gold: linear-gradient(to bottom, #c59f42 0%, #fff3a1 20%, #8a6421 50%, #ffffff 80%, #c59f42 100%);
+    -gold: linear-gradient(to bottom, #c59f42 0%, #dc9a38 20%, #8a6421 50%, #f6a242 80%, #8a6421 100%);
+    -redLinear: linear-gradient(to top, rgba(80, 0, 0, .9) 0%, rgba(80, 0, 0, .4) 40%, rgba(80, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0) 80%);
+    -blackLinear: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.2) 60%), rgba(0, 0, 0, 0) 80%);
 }
 
 .root-setup {
@@ -148,20 +150,10 @@
     saint-fx-wrap-text: true;
 }
 
-.button:hover {
-    -fx-effect: dropshadow(gaussian, rgb(57, 0, 0), 25, 0.6, 0, 0);
-}
 
-.button {
-    -fx-effect: dropshadow(gaussian, rgb(20, 0, 0, 1), 25, 0.6, 0, 0);
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-text-fill: -chrome;
-    -fx-wrap-text: true;
-}
 
-.btn-mkt {
-    -fx-effect: dropshadow(gaussian, rgb(20, 0, 0, 1), 25, 0.6, 0, 0);
+.button-drop {
+    -fx-effect: dropshadow(gaussian, rgb(44, 0, 0), 50, 0.6, 0, 0);
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-text-fill: -chrome;
@@ -170,6 +162,41 @@
     -fx-wrap-text: true;
 }
 
+.button-drop:hover {
+    -fx-effect: dropshadow(gaussian, rgb(92, 0, 0), 50, 0.6, 0, 0);
+    -fx-border-color: transparent;
+    -fx-font-size: 35px;
+    -fx-font-weight: bold;
+    -fx-wrap-text: true;
+}
+
+.button-linear:hover {
+    -fx-background-color: linear-gradient(to top, rgba(80, 0, 0, 0.64), rgba(248, 198, 198, 0));
+    cursor: pointer;
+}
+
+.button-linear {
+    -fx-effect: dropshadow(gaussian, rgb(20, 0, 0, 1), 25, 0.6, 0, 0);
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: -chrome;
+    -fx-wrap-text: true;
+}
+
+.button-begin {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 50%, rgba(60, 0, 0, 0), rgba(0, 0, 0, 0.6));
+    -fx-border-image-source: url("/images/background/b3.png");
+    -fx-border-image-slice: 270;
+    -fx-text-fill: -chrome;
+    -fx-border-image-width: 50px;
+    -fx-border-image-repeat: repeat;
+    saint-fx-wrap-text: true;
+}
+
+.button-begin:hover {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 50%, rgba(60, 0, 0, 0), rgba(60, 0, 0, 0.6));
+    -fx-text-fill: -darkCrimson;
+}
 .try-again-button {
     -fx-font-family: Arial;
     -fx-font-size: 40px;
@@ -198,13 +225,17 @@
 /**-------------------------------Text Input Field  (On startup only)------------------------------------*/
 
 .input-field {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);
-    -fx-text-fill: -crimson;
-    -fx-border-color: -chrome;
+    -fx-background-color: linear-gradient(to top, #500000, rgba(248, 198, 198, 0)); /* Blood red gradient */
     -fx-border-width: 2;
     -fx-background-radius: 4;
     -fx-padding: 8 12 8 12;
     -fx-prompt-text-fill: -chrome;
+    -fx-border-image-source: url("/images/background/borderLower.png");
+    -fx-border-image-slice: 270;
+    -fx-text-fill: -chrome;
+    -fx-border-image-width: 20px;
+    -fx-border-image-repeat: repeat;
+    saint-fx-wrap-text: true;
 }
 .input-field:focused {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 8, 0.4, 0, 0);
@@ -240,9 +271,10 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-text-fill: -chrome;
+    -fx-font-family: "New Rocker";
 }
 .saint-card-active {
-    -fx-background-color: linear-gradient(to top, rgba(67, 67, 67, 0.1) 30%, rgba(0,0,0,0));
+    -fx-background-color: linear-gradient(to top, rgba(35, 35, 35, 0.3) 30%, rgba(0,0,0,0));
     -fx-background-radius: 35;
     -fx-text-fill: -crimson;
 
@@ -288,6 +320,15 @@
     -fx-min-width: 100%;
 }
 
+.saint-button {
+    -fx-border-image-slice: 270;
+    -fx-text-fill: -chrome;
+    -fx-border-image-width: 5px;
+    -fx-border-image-repeat: repeat;
+    saint-fx-wrap-text: true;
+    -fx-effect: None;
+    -fx-background-color: linear-gradient(to top, rgba(80, 0, 0, .9) 0%, rgba(80, 0, 0, .4) 20%, rgba(80, 0, 0, .2) 50%, rgba(0, 0, 0, 0) 80%); /* Blood red gradient fading faster */
+}
 .saint-button-fight {
     -fx-font-size: 35px;
     -fx-text-fill: -chrome;
@@ -324,7 +365,7 @@
 }
 .stat-value-small {
     -fx-text-fill: #e1e1e1;
-    -fx-font-size: 15px;
+    -fx-font-size: 13px;
     -fx-min-width: 100%;
 }
 
@@ -360,15 +401,21 @@
 /**---------------------------- Difficulty Button (On startup only) -------------------------------------*/
 
 .diff-btn {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);
     -fx-border-color: -chrome;
     -fx-border-width: 2;
     -fx-cursor: hand;
     -fx-alignment: CENTER;
     -fx-text-fill: -chrome;
+    -fx-border-image-source: url("/images/background/b3t.png");
+    -fx-border-image-slice: 270;
+    -fx-background-color: -blackLinear;
+    -fx-border-image-width: 20px;
+    -fx-border-image-repeat: repeat;
+    saint-fx-wrap-text: true;
 }
 .diff-btn:selected {
     -fx-text-fill: -crimson;
+    -fx-background-color: -redLinear;
 }
 
 /**---------------------------- Difficulty Button (On startup only) -------------------------------------*/
@@ -412,7 +459,6 @@
     -fx-text-fill: rgb(255, 255, 255);
     -fx-alignment: center;
     -fx-font-size: 16px;
-    -fx-font-family: "Nexa Extra Light";
 }
 .rarity-rare {
     -fx-effect: dropshadow(gaussian, rgba(175, 0, 0, 0.65), 8, 0.3, 0, 0);
@@ -433,7 +479,6 @@
     -fx-alignment: center;
     -fx-font-size: 17px;
     -fx-font-weight: bold;
-    -fx-font-family: "Angel wish";
 }
 
 /**-------------------------------------- Saint Rarity Colours  ---------------------------------------------*/
@@ -478,7 +523,7 @@
 .demon-select {
     -fx-font-size: 50;
     -fx-font-family: "Angel wish";
-    -fx-text-fill: -darkcrimson;
+    -fx-text-fill: -darkCrimson;
 }
 .demon-select:hover {
     -fx-text-fill: -crimson;
@@ -522,22 +567,22 @@
 
 .dice-critical-success {
     -fx-text-fill: -gold;
-    -fx-effect: dropshadow(gaussian, #ffaa44, 40, 0.5, 0, 0);
+    -fx-effect: dropshadow(gaussian, #ffffff, 100, 0.5, 0, 0);
 }
 
 .dice-success {
     -fx-text-fill: -chrome;
-    -fx-effect: dropshadow(gaussian, #d1aa62, 40, 0.5, 0, 0);
+    -fx-effect: dropshadow(gaussian, #bdae8f, 100, 0.5, 0, 0);
 }
 
 .dice-fail {
     -fx-text-fill: -chrome;
-    -fx-effect: dropshadow(gaussian, #b10707, 40, 0.5, 0, 0);
+    -fx-effect: dropshadow(gaussian, #b10707, 100, 0.5, 0, 0);
 }
 
 .dice-critical-fail {
-    -fx-text-fill: -chrome;
-    -fx-effect: dropshadow(gaussian, #fa0000, 40, 0.5, 0, 0);
+    -fx-text-fill: -crimson;
+    -fx-effect: dropshadow(gaussian, #fa0000, 100, 0.5, 0, 0);
 }
 
 

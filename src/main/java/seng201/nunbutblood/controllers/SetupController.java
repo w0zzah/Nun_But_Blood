@@ -128,7 +128,7 @@ public class SetupController {
             Button btn = new Button("SELECT");
             HBox action = new HBox(1);
             action.getChildren().add(btn);
-
+            btn.getStyleClass().add("saint-button");
             VBox card = SaintCardController.createSaintCard(currentSaint, action, false);
 
             btn.setOnAction(e -> toggleSaintSelection(currentSaint, card, btn));

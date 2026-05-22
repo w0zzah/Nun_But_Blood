@@ -20,7 +20,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <VBox alignment="CENTER" prefWidth="450.0" spacing="15.0" styleClass="cybersigil-border" HBox.hgrow="SOMETIMES">
+                        <VBox alignment="CENTER" minWidth="500.0" spacing="15.0" styleClass="cybersigil-border" HBox.hgrow="SOMETIMES">
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -35,15 +35,15 @@
                            <Insets />
                         </HBox.margin>
                         </VBox>
-                        <VBox alignment="CENTER" fillWidth="false" prefWidth="400.0" spacing="15.0" styleClass="cybersigil-border" HBox.hgrow="NEVER">
+                        <VBox alignment="CENTER" fillWidth="false" minWidth="300.0" prefWidth="400.0" spacing="15.0" styleClass="cybersigil-border" HBox.hgrow="NEVER">
                         <Label style="-fx-font-size: 50;" styleClass="title-label" text="NEXT ROLL" />
                         <Label fx:id="statTypeLabel" alignment="TOP_CENTER" prefWidth="200.0" styleClass="section-label" text="statType">
                            <VBox.margin>
                               <Insets bottom="20.0" />
                            </VBox.margin></Label>
-                           <VBox alignment="CENTER" spacing="10.0">
-                              <StackPane fx:id="diceBox" maxHeight="200.0" maxWidth="200.0" prefHeight="150.0" prefWidth="150.0" styleClass="dice-box">
-                                 <Label fx:id="diceLabel" styleClass="dice-label" text="?" />
+                           <VBox alignment="CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
+                              <StackPane fx:id="diceBox" maxHeight="200.0" maxWidth="200.0" prefHeight="150.0" prefWidth="150.0" styleClass="dice-box" VBox.vgrow="ALWAYS">
+                                 <Label fx:id="diceLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="186.0" styleClass="dice-label" text="?" textAlignment="CENTER" StackPane.alignment="CENTER" />
                               <opaqueInsets>
                                  <Insets />
                               </opaqueInsets>
@@ -52,6 +52,9 @@
                               </VBox.margin>
                               </StackPane>
                               <Label fx:id="outcomeLabel" opacity="0.0" styleClass="outcome-flash" text="OUTCOME" />
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                            </VBox>
                            <VBox alignment="CENTER" spacing="5.0" styleClass="section-label">
                               <HBox alignment="BOTTOM_CENTER" spacing="10.0">
