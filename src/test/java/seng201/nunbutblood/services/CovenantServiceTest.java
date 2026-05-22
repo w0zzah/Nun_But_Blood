@@ -7,26 +7,48 @@ import static org.junit.jupiter.api.Assertions.*;
 class CovenantServiceTest {
 
     @Test
-    void getScore() {
+    void scoreStartsAtZero() {
+        CovenantService service = new CovenantService(5);
+
+        assertEquals(0, service.getScore());
     }
 
     @Test
-    void getTotalCrusades() {
+    void totalCrusadesMatchesConstructorValue() {
+        CovenantService service = new CovenantService(7);
+
+        assertEquals(7, service.getTotalCrusades());
     }
 
     @Test
-    void getCurrentCrusade() {
+    void currentCrusadeStartsAtZero() {
+        CovenantService service = new CovenantService(4);
+
+        assertEquals(0, service.getCurrentCrusade());
     }
 
     @Test
-    void changeScore() {
+    void changeScoreAddsPointsCorrectly() {
+        CovenantService service = new CovenantService(3);
+
+        service.changeScore(25);
+
+        assertEquals(25, service.getScore());
     }
 
     @Test
-    void advanceCrusade() {
+    void advanceCrusadeIncreasesCurrentCrusade() {
+        CovenantService service = new CovenantService(3);
+
+        service.advanceCrusade();
+
+        assertEquals(1, service.getCurrentCrusade());
     }
 
     @Test
-    void isGameComplete() {
+    void gameIsNotCompleteAtStart() {
+        CovenantService service = new CovenantService(2);
+
+        assertFalse(service.isGameComplete());
     }
 }
