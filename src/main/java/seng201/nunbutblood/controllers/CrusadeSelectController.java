@@ -50,7 +50,7 @@ public class CrusadeSelectController {
         for (Demon demon : demonService.getCurrentOptions()) {
 
             Button selectDemon = new Button("EXORCISE");
-
+            selectDemon.getStyleClass().add("demon-card-button");
             VBox card = DemonCardController.buildDemonCard(demon, selectDemon, true);
 
             HBox.setHgrow(card, Priority.ALWAYS);

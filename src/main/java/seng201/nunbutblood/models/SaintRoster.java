@@ -119,6 +119,7 @@ public final class SaintRoster {
         saintRecord.add(new Entry("Flamme'", "Flamme.png", "ORA", 17, 20, 18, 20));
         saintRecord.add(new Entry("Crystalis", "Crystalis.png", "INQ", 18, 19, 20, 20));
         saintRecord.add(new Entry("Crystolis", "Crystolis.png", "EXE", 20, 18, 19, 20));
+        saintRecord.add(new Entry("Mother", "Mother.png", "Ora", 20, 20, 20, 20));
 
         return saintRecord;
     }

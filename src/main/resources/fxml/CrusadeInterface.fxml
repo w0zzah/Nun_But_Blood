@@ -36,7 +36,7 @@
                         </HBox.margin>
                         </VBox>
                         <VBox alignment="CENTER" fillWidth="false" minWidth="300.0" prefWidth="400.0" spacing="15.0" styleClass="cybersigil-border" HBox.hgrow="NEVER">
-                        <Label style="-fx-font-size: 50;" styleClass="title-label" text="NEXT ROLL" />
+                        <Label style="-fx-font-size: 50;" styleClass="subtitle" text="NEXT ROLL" />
                         <Label fx:id="statTypeLabel" alignment="TOP_CENTER" prefWidth="200.0" styleClass="section-label" text="statType">
                            <VBox.margin>
                               <Insets bottom="20.0" />
@@ -89,7 +89,7 @@
                         </styleClass>
                      </TextArea>
                   </VBox>
-                  <Button maxWidth="1.7976931348623157E308" onAction="#giveUp" styleClass="btn-mkt" text="☠GIVE IN..." HBox.hgrow="SOMETIMES" />
+                  <Button maxWidth="1.7976931348623157E308" onAction="#giveUp" styleClass="button-drop" text="☠GIVE IN..." HBox.hgrow="SOMETIMES" />
                </children>
             </HBox>
          </VBox>

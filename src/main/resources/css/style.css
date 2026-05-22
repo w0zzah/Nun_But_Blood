@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
+
 /*
     JavaFX CSS reference: https://openjfx.io/javadoc/21/javafx.graphics/javafx/scene/doc-files/cssref.html
     Key difference from web CSS: all properties prefixed with -fx-
@@ -13,20 +15,18 @@
 }
 
 
-@import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
-
 /**------------------------------------- ALL BACKGROUND AND ROOTS -------------------------------------*/
 .root {
     -fx-text-fill: -chrome;
     /* Need font installed to work */
     -fx-font-family: "New Rocker";
-    -fx-font-size: 20px;
+    -fx-font-size: 25;
     -chrome: linear-gradient(to bottom, #cfcfcf 0%, #ffffff 20%, #a1a1a1 50%, #ffffff 80%, #cfcfcf 100%);
     -crimson: linear-gradient(to bottom, #af0303 0%, #ae1d1d 20%, #9e0202 50%, #cd2121 80%);
-    -darkCrimson: linear-gradient(to bottom, #640303 0%, #ae1d1d 20%, #4b0202 50%, #270000 80%);
+    -darkCrimson: linear-gradient(to bottom, #4e0000 0%, #5c0000 20%, #3e0000 50%, #130000 80%);
     -gold: linear-gradient(to bottom, #c59f42 0%, #dc9a38 20%, #8a6421 50%, #f6a242 80%, #8a6421 100%);
     -redLinear: linear-gradient(to top, rgba(80, 0, 0, .9) 0%, rgba(80, 0, 0, .4) 40%, rgba(80, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0) 80%);
-    -blackLinear: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.2) 60%), rgba(0, 0, 0, 0) 80%);
+    -blackLinear: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.2) 60%), rgba(0, 0, 0, 0) 80%;);
 }
 
 .root-setup {
@@ -97,13 +97,22 @@
 
 /**------------------------------- ALL GENERAL LABELS -----------------------------------------------*/
 .title-label {
-    -fx-text-fill: -crimson;
+    -fx-text-fill: -chrome;
     -fx-font-family: "Angel wish";
     -fx-font-size: 45px;
     -fx-font-weight: bold;
-    -fx-effect: dropshadow(gaussian, rgb(0, 0, 0), 60, 0.4, 3, 3);
+    -fx-effect: dropshadow(gaussian, rgba(83, 0, 0, 0.62), 60, 0.5, 0, 0);
     saint-fx-wrap-text: true;
 }
+.subtitle {
+    -fx-text-fill: -darkCrimson;
+    -fx-font-family: "Angel wish";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgb(131, 0, 0), 60, 0.5, 0, 0);
+    saint-fx-wrap-text: true;
+}
+
 
 .status-label {
     -fx-text-fill: linear-gradient(to top, #000000, #1c0000);;
@@ -157,17 +166,16 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-text-fill: -chrome;
-    -fx-font-size: 35px;
-    -fx-font-weight: bold;
+    -fx-font-size: 30px;
     -fx-wrap-text: true;
 }
 
 .button-drop:hover {
-    -fx-effect: dropshadow(gaussian, rgb(92, 0, 0), 50, 0.6, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgb(28, 0, 0), 50, 0.6, 0, 0);
     -fx-border-color: transparent;
-    -fx-font-size: 35px;
     -fx-font-weight: bold;
     -fx-wrap-text: true;
+    -fx-text-fill: -crimson;
 }
 
 .button-linear:hover {
@@ -184,18 +192,26 @@
 }
 
 .button-begin {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 50%, rgba(60, 0, 0, 0), rgba(0, 0, 0, 0.6));
-    -fx-border-image-source: url("/images/background/b3.png");
+    -fx-background-color: linear-gradient(to top, rgba(80, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+    -fx-border-image-source: url("/images/background/b3t.png");
     -fx-border-image-slice: 270;
     -fx-text-fill: -chrome;
-    -fx-border-image-width: 50px;
+    -fx-border-image-width: 25px;
     -fx-border-image-repeat: repeat;
-    saint-fx-wrap-text: true;
 }
 
 .button-begin:hover {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 50%, rgba(60, 0, 0, 0), rgba(60, 0, 0, 0.6));
-    -fx-text-fill: -darkCrimson;
+    -fx-background-color: linear-gradient(to top, rgba(80, 0, 0, 0.64), rgba(0, 0, 0, 0.6));
+
+}
+
+.demon-card-button{
+    -fx-effect: dropshadow(gaussian, rgb(44, 0, 0), 50, 0.6, 0, 0);
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-wrap-text: true;
 }
 .try-again-button {
     -fx-font-family: Arial;
@@ -329,10 +345,23 @@
     -fx-effect: None;
     -fx-background-color: linear-gradient(to top, rgba(80, 0, 0, .9) 0%, rgba(80, 0, 0, .4) 20%, rgba(80, 0, 0, .2) 50%, rgba(0, 0, 0, 0) 80%); /* Blood red gradient fading faster */
 }
+.item-card-btn {
+    -fx-border-image-slice: 270;
+    -fx-text-fill: -chrome;
+    -fx-border-image-width: 5px;
+    -fx-border-image-repeat: repeat;
+    saint-fx-wrap-text: true;
+    -fx-effect: None;
+    -fx-background-color: linear-gradient(to top, rgba(80, 0, 0, .9) 0%, rgba(80, 0, 0, .4) 20%, rgba(80, 0, 0, .2) 50%, rgba(0, 0, 0, 0) 80%); /* Blood red gradient fading faster */
+}
+
+
 .saint-button-fight {
     -fx-font-size: 35px;
     -fx-text-fill: -chrome;
     -fx-font-family: "Angel wish";
+    -fx-background-color: transparent;
+
 }
 
 .saint-button-fight:hover {

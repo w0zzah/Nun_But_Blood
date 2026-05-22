@@ -8,12 +8,12 @@
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.controllers.EndScreenController">
    <children>
-      <Label fx:id="result" alignment="CENTER" style="-fx-font-size: 100;" styleClass="title-label" text="GAME OVER!" />
+      <Label fx:id="result" alignment="CENTER" style="-fx-font-size: 100;" styleClass="subtitle" text="GAME OVER!" />
       <Label fx:id="crusadesCompleted" alignment="CENTER" contentDisplay="CENTER" styleClass="title-label" />
       <Label id="Score" fx:id="score" alignment="CENTER" contentDisplay="CENTER" style="-fx-font-size: 75; -fx-text-fill: -chrome;" styleClass="title-label" />
       <Label alignment="CENTER" styleClass="title-label" text="POSTCRUSADE EVENTS" />
       <ListView fx:id="eventsList" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
-      <Button fx:id="goNext" alignment="CENTER" mnemonicParsing="false" style="-fx-font-size: 75; -fx-text-fill: -chrome;" styleClass="btn-mkt" text="Try Again?" />
+      <Button fx:id="goNext" alignment="CENTER" mnemonicParsing="false" style="-fx-font-size: 75; -fx-text-fill: -chrome;" styleClass="button-drop" text="Try Again?" />
    </children>
    <styleClass>
       <String fx:value="cybersigil-border" />

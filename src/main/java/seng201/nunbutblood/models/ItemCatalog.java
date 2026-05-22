@@ -11,31 +11,31 @@ public enum ItemCatalog {
     /**
      * The Blood vial.
      */
-    BLOOD_VIAL("Blood Vial", Item.ItemType.CONSUMABLE, StatType.STRENGTH, 4, 150,
+    BLOOD_VIAL("Blood Vial", Item.ItemType.CONSUMABLE, StatType.STRENGTH, 4, 75,
             "Thick, vital fluid that causes a burst of unholy power.", "bloodVial.png"),
 
     /**
      * The Calcified heart.
      */
-    CALCIFIED_HEART("Calcified Heart", Item.ItemType.CONSUMABLE, StatType.SANITY, 8, 250,
+    CALCIFIED_HEART("Calcified Heart", Item.ItemType.CONSUMABLE, StatType.SANITY, 8, 125,
             "A petrified heart that temporarily numbs terror.", "calcifiedHeart.png"),
 
     /**
      * The Eye candy.
      */
-    EYE_CANDY("Eye Candy", Item.ItemType.CONSUMABLE, StatType.PERCEPTION, 5, 200,
+    EYE_CANDY("Eye Candy", Item.ItemType.CONSUMABLE, StatType.WISDOM, 5, 100,
             "A vibrant sweet that allows the consumer to spot hidden blessings.", "eyeCandy.png"),
 
     /**
      * The Flambe stew.
      */
-    FLAMBE_STEW("Flambé Stew", Item.ItemType.CONSUMABLE, StatType.DEXTERITY, 4, 150,
+    FLAMBE_STEW("Flambé Stew", Item.ItemType.CONSUMABLE, StatType.DEXTERITY, 4, 75,
             "A searing broth that sets the nerves on fire, quickening movements.", "flambeStew.png"),
 
     /**
      * The Shriek juice.
      */
-    SHRIEK_JUICE("Shriek Juice", Item.ItemType.CONSUMABLE, StatType.WISDOM, 4, 180,
+    SHRIEK_JUICE("Shriek Juice", Item.ItemType.CONSUMABLE, StatType.STRENGTH, 4, 90,
             "An agonizing brew that forces the mind to perceive cosmic echoes.", "shriekJuice.png"),
 
 // --- EQUIPMENT ---
@@ -55,7 +55,7 @@ public enum ItemCatalog {
     /**
      * The Skull candle.
      */
-    SKULL_CANDLE("Skull Candle", Item.ItemType.EQUIPMENT, StatType.PERCEPTION, 3, 300,
+    SKULL_CANDLE("Skull Candle", Item.ItemType.EQUIPMENT, StatType.DEXTERITY, 3, 300,
             "Its eerie flickering flame uncovers secret artifacts in the dark.", "skullCandle.png"),
 
     /**

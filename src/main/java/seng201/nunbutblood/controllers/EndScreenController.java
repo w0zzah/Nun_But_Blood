@@ -61,20 +61,24 @@ public class EndScreenController {
      * @param isVictory the is victory
      * @param gameOver  the game over
      */
-    public void result(boolean isVictory, boolean gameOver){
+    public void result(boolean isVictory, boolean gameOver) {
         if (gameOver || covenant.hasLost()) {
-            crusadesCompleted.setText("You Completed: " + covenant.getCurrentCrusade() + " / " + covenant.getTotalCrusades() + " Crusade's");
+            crusadesCompleted.setText("You Completed: " + covenant.getCurrentCrusade() + " / " + covenant.getTotalCrusades() + " Crusades");
+            score.setText("Score: " + covenant.getScore());
+            result.setText(isVictory ? covenant.getName() + " Has pushed the Demons back to Hell!" : covenant.getName() + " falls...");
             goNext.setText("Play Again?");
             goNext.setOnAction(e -> goToSetup());
-            score.setText("Score: " + covenant.getScore());
-            result.setText(isVictory ? covenant.getName() + "Has pushed the Demons back to Hell!" : covenant.getName() + "falls...");
         } else {
-            goNext.setText("Back to Covenant");
             market.refresh(covenant.getCurrentCrusade());
-            goNext.setOnAction(e -> goToHub());
-            result.setText(isVictory ? "Demon Vanquished" : "The Demon Flee's...");
+            result.setText(isVictory ? "Demon Vanquished" : "The Demon Flees...");
             List<String> events = postCrusadeEvents.triggerEvents(covenant);
-            eventsList.getItems().setAll(events);
+            if (events.isEmpty()) {
+                eventsList.getItems().setAll("No random events occur...");
+            } else {
+                eventsList.getItems().setAll(events);
+            }
+            goNext.setText("Back to Covenant");
+            goNext.setOnAction(e -> goToHub());
         }
     }
 

@@ -197,7 +197,7 @@ public class SetupController {
         }
 
         if (selectedSaints.size() != 3) {
-              AlertBox.showAlert(statusLabel, alertBox,"Please select exactly 3 Saint");
+              AlertBox.showAlert(statusLabel, alertBox,"Please select exactly 3 Saint's");
             return;
         }
 

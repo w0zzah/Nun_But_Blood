@@ -30,8 +30,6 @@ import java.util.Optional;
 public class HubController {
 
     @FXML private Label covenantTitle;
-    @FXML private Label faithLabel;
-    @FXML private Label expeditionLabel;
     @FXML private Label partyLabel;
     @FXML private Label statusLabel;
     @FXML private HBox alertBox;
@@ -65,9 +63,6 @@ public class HubController {
     /** Refreshes all displayed data from the Covenant model. */
     private void refresh() {
         covenantTitle.setText(covenant.getName().toUpperCase());
-        faithLabel.setText("Faith: " + covenant.getFaith());
-        expeditionLabel.setText("Crusade " + covenant.getCurrentCrusade()
-                + " / " + covenant.getTotalCrusades());
         partyLabel.setText("Party: " + covenant.getActiveParty().size() + "/5");
 
         refreshActiveParty();
@@ -94,6 +89,8 @@ public class HubController {
                 statusLabel.setText(saint.getName() + " has retired.");
                 refresh();
             });
+            activateBtn.getStyleClass().add("saint-button");
+            retireBtn.getStyleClass().add("saint-button");
 
             VBox actions = new VBox(5, activateBtn, retireBtn);
             actions.setAlignment(javafx.geometry.Pos.CENTER);
@@ -107,6 +104,7 @@ public class HubController {
         activePane.getChildren().clear();
         for (Saint saint : covenant.getActiveParty()) {
             Button benchBtn = new Button("BENCH");
+            benchBtn.getStyleClass().add("saint-button");
             benchBtn.setOnAction(e -> {
                 if (!covenant.benchSaint(saint)) {
                     statusLabel.setText("Cannot bench: party must keep at least one Saint, or reserves are full.");
@@ -125,7 +123,7 @@ public class HubController {
                     refresh();
                 }
             });
-
+            retireBtn.getStyleClass().add("saint-button");
             VBox actions = new VBox(5);
             actions.getChildren().addAll(benchBtn, retireBtn);
             actions.setAlignment(javafx.geometry.Pos.CENTER);

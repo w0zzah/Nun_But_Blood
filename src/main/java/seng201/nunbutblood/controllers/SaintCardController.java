@@ -34,7 +34,7 @@ public class SaintCardController {
 
         int cardWidth = isCompact ? 200 : 230;
         int cardHeight = isCompact ? 150 : 100;
-        int portraitBoxHeight = isCompact ? 150 : 200;
+        int portraitBoxHeight = isCompact ? 200 : 230;
         int imageFitHeight = isCompact ? 120 : 150;
         int spacing = isCompact ? 2 : 3;
 

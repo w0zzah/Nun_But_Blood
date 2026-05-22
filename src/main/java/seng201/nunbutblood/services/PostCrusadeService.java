@@ -70,19 +70,15 @@ public class PostCrusadeService {
             StatType[] stats = StatType.values();
             StatType randomStat = stats[random.nextInt(stats.length)];
 
-            // Apply the Change
 
             String direction = change > 0 ? "gained" : "lost";
             String type = change > 0 ? "divine" : "cursed";
 
-            // add the change to events arraylist<>
             events.add(String.format(" %s %s %d perception from a %s event",
                     target.getName(), direction, change, type));
         }
 
-// ... [Keep the stat change block up here as is] ...
 
-// Random skill event
         if (random.nextDouble() < chance * 0.5) {
             Saint target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));
             if (target.getSpecialAbility().isEmpty()) {
@@ -102,14 +98,13 @@ public class PostCrusadeService {
             }
         }
 
-        // Chance for saints to retire
         if (covenant.getActiveParty().size() > 1) {
             for (Saint saint : activeParty) {
                 double retireChance = 0.02 + (saint.getCrusadeCount() * 0.03);
                 if (random.nextDouble() < retireChance) {
                     covenant.retireSaint(saint);
                     events.add(String.format("%s has retired, a humble end for our hero...", saint.getName()));
-                    break; // Stop processing further retirements this round
+                    break;
                 }
             }
         }

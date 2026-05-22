@@ -128,9 +128,11 @@ public class MarketController {
         // purchase logic for the Saint
         for (Saint saint : marketService.getAvailableSaints()) {
             Button hireBtn = getHireBtn(saint);
+            hireBtn.getStyleClass().add("saint-button");
 
             // Create HBox containing hire button
             HBox action = new HBox(1);
+
             action.getChildren().add(hireBtn);
 
             VBox card = SaintCardController.createSaintCard(saint, action, true);
@@ -153,11 +155,10 @@ public class MarketController {
                     AlertBox.showAlert(statusLabel, alertBox, saint.getName() + " sold for " + (saint.getCost() / 2) + "faith!");
                     refresh();}
             });
-
+            sellBtn.getStyleClass().add("saint-button");
             // Create HBox containing hire button
             HBox action = new HBox(1);
             action.getChildren().add(sellBtn);
-
             VBox card = SaintCardController.createSaintCard(saint, action, true);
             sellSaintPane.getChildren().add(card);
         }

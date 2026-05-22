@@ -93,6 +93,7 @@ public class CrusadeController {
         audioService.stopMusic();
         audioService.playMusic(AudioService.Track.CRUSADE);
         setupDemonDisplay();
+        giveUp();
         refreshUI();
     }
 

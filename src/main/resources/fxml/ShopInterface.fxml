@@ -21,7 +21,7 @@
          <children>
             <HBox alignment="BASELINE_LEFT">
                <children>
-                  <Label styleClass="title-label" text="Market" textFill="WHITE">
+                  <Label style="-fx-font-size: 60;" styleClass="title-label" text="Market" textFill="WHITE">
                      <effect>
                         <InnerShadow blurType="GAUSSIAN">
                            <color>
@@ -34,11 +34,11 @@
                      </HBox.margin>
                   </Label>
                   <Region HBox.hgrow="SOMETIMES" />
-                  <Label fx:id="faithLabel" styleClass="section-label" text="Faith: 0" />
+                  <Label fx:id="faithLabel" style="-fx-font-size: 30;" styleClass="section-label" text="Faith: 0" />
                   <Region HBox.hgrow="SOMETIMES" />
                   <VBox alignment="CENTER">
                      <children>
-                        <Button maxWidth="1.7976931348623157E308" onAction="#handleBack" styleClass="btn-mkt" text="The Covenant ↠" />
+                        <Button maxWidth="1.7976931348623157E308" onAction="#handleBack" style="-fx-font-size: 40;" styleClass="button-drop" text="The Covenant ↠" />
                      </children>
                   </VBox>
                </children>

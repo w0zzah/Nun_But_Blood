@@ -8,41 +8,40 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="root-hub" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.controllers.HubController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="root-hub" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng201.nunbutblood.controllers.HubController">
     <children>
         <VBox alignment="CENTER" spacing="6" styleClass="cybersigil-border">
             <children>
-                <HBox alignment="BASELINE_LEFT">
+                <HBox alignment="BASELINE_LEFT" prefHeight="68.0" prefWidth="1032.0" VBox.vgrow="NEVER">
                     <children>
-                  <VBox alignment="CENTER" HBox.hgrow="SOMETIMES">
+                  <VBox alignment="CENTER_LEFT" prefHeight="93.0" prefWidth="93.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" maxWidth="-Infinity" onAction="#handleMarket" styleClass="btn-mkt" text="← MARKET" />
-                              <Label fx:id="faithLabel" text="Faith: 0" />
+                        <Button alignment="CENTER_RIGHT" onAction="#handleMarket" styleClass="button-drop" text="← MARKET" />
                      </children>
                   </VBox>
-                        <Region HBox.hgrow="SOMETIMES" />
-                        <Label fx:id="covenantTitle" styleClass="title-label" text="COVENANT" textFill="WHITE">
-                            <effect>
-                                <InnerShadow blurType="GAUSSIAN">
-                                    <color>
-                                        <Color red="0.8421052694320679" green="0.44054579734802246" blue="0.44054579734802246" />
-                                    </color>
-                                </InnerShadow>
-                            </effect>
-                            <HBox.margin>
-                                <Insets left="20.0" />
-                            </HBox.margin>
-                        </Label>
-                        <Region HBox.hgrow="SOMETIMES" />
                   <VBox alignment="CENTER" HBox.hgrow="SOMETIMES">
                      <children>
-                        <Button maxWidth="1.7976931348623157E308" onAction="#handleCrusade" styleClass="btn-mkt" text="BEGIN CRUSADE ↠" />
-                              <Label fx:id="expeditionLabel" alignment="CENTER" contentDisplay="CENTER" text="Crsuade 0/ 0" />
+                              <Label fx:id="covenantTitle" style="-fx-text-fill: -chrome;" styleClass="title-label" text="COVENANT" textFill="WHITE">
+                                  <effect>
+                                      <InnerShadow blurType="GAUSSIAN">
+                                          <color>
+                                              <Color red="0.8421052694320679" green="0.44054579734802246" blue="0.44054579734802246" />
+                                          </color>
+                                      </InnerShadow>
+                                  </effect>
+                           <padding>
+                              <Insets bottom="20.0" />
+                           </padding>
+                              </Label>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER_RIGHT" prefHeight="250.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" onAction="#handleCrusade" prefHeight="64.0" prefWidth="408.0" styleClass="button-drop" text="CRUSADE ↠" />
                      </children>
                   </VBox>
                     </children>
