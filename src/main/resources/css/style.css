@@ -27,13 +27,11 @@
     -fx-background-image: url("/images/background/CovenantBackground.png");
     -fx-background-size: cover;
     -fx-font-family: "New Rocker";
-
 }
 .root-market {
     -fx-background-image: url("/images/background/MarketBackground.png");
     -fx-background-size: cover;
     -fx-font-family: "New Rocker";
-
 }
 .root-crusade {
     -fx-background-image: url("/images/background/CrusadeBackground.png");
@@ -57,10 +55,13 @@
 }
 
 .tab-pane .tab {
+    -fx-border-image-source: url("/images/background/b3.png");
+    -fx-border-image-slice: 270;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);
+    -fx-text-fill: -chrome;
+    -fx-border-image-width: 10px;
+    -fx-border-image-repeat: repeat;
     -fx-min-width: infinity;
-    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, #323232, #000000);
-    -fx-border-color: -chrome;
-    -fx-border-width: 2;
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(37, 37, 37, 0.4), 8, 0.4, 0, 0);
 }
@@ -71,15 +72,12 @@
 }
 
 .tab-pane .tab:selected {
-    -fx-border-color: -crimson;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(243, 0, 0, 0.32), #4a0000);
     -fx-focus-color: rgba(0,0,0,0);
     -fx-faint-focus-color: rgba(0,0,0,0);
 }
 
-/* Hover effect for unselected tabs */
-.tab-pane .tab:hover {
-    -fx-background-color: #4a4a4a;
-}
+
 
 /**--------------------------------------------------------------------------------------------------*/
 
@@ -141,8 +139,7 @@
 }
 
 .button:hover {
-    -fx-text-fill: -darkcrimson;
-    -fx-effect: dropshadow(gaussian, rgb(207, 0, 0), 25, 0.6, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgb(57, 0, 0), 25, 0.6, 0, 0);
 }
 
 .button {
@@ -281,6 +278,15 @@
     -fx-min-width: 100%;
 }
 
+.saint-button-fight {
+    -fx-font-size: 35px;
+    -fx-text-fill: -chrome;
+    -fx-font-family: "Angel wish";
+}
+
+.saint-button-fight:hover {
+    -fx-text-fill: -crimson;
+}
 
 /**---------------------------- Saint Stat Bars ------------------------------------*/
 
@@ -288,7 +294,7 @@
     -fx-padding: 4 0 2 0;
 }
 .stat-track {
-    -fx-background-color: rgba(16, 16, 16, 0.4);
+    -fx-background-color: #171717;
     -fx-background-radius: 4;
     -fx-min-height: 8;
     -fx-max-height: 8;
@@ -400,7 +406,7 @@
 }
 .rarity-rare {
     -fx-effect: dropshadow(gaussian, rgba(175, 0, 0, 0.65), 8, 0.3, 0, 0);
-    -fx-text-fill: rgba(90, 0, 0, 0.71);
+    -fx-text-fill: rgba(255, 118, 118, 0.71);
     -fx-alignment: center;
     -fx-font-size: 17px;
     -fx-font-family: "fantasy";
@@ -459,6 +465,14 @@
     -fx-alignment: center;
 }
 
+.demon-select {
+    -fx-font-size: 50;
+    -fx-font-family: "Angel wish";
+    -fx-text-fill: -darkcrimson;
+}
+.demon-select:hover {
+    -fx-text-fill: -crimson;
+}
 /**-------------------------------------- Demon Card --------------------------------------------------------*/
 
 
@@ -599,3 +613,95 @@
 }
 
 /* ---------------------------------------------------------------------------------------------------*/
+
+
+/* ------------------------------DIALOG PANE-------------------------------------------------*/
+
+
+.choice-dialog {
+    -fx-border-image-source: url("/images/background/b3.png");
+    -fx-border-image-slice: 270;
+    -fx-border-image-width: 25px;
+    -fx-border-image-repeat: repeat;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, .8), #000000);
+    -fx-background-radius: 0;
+    -fx-padding: 10px;
+    -fx-alignment: center;
+}
+
+/** question mark icon */
+.choice-dialog .graphic-container {
+    visibility: hidden;
+    -fx-max-width: 0;
+    -fx-max-height: 0;
+    -fx-padding: 0;
+}
+
+.choice-dialog .header-panel {
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+}
+
+.choice-dialog-header {
+    -fx-text-fill: -chrome;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-max-width: infinity;
+}
+
+.choice-dialog .content {
+    -fx-alignment: center;
+    -fx-padding: 10px;
+    -fx-font-size: 13px;
+
+}
+
+.choice-dialog-content {
+    -fx-text-fill: -chrome;
+    -fx-font-size: 13px;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+.choice-dialog .combo-box {
+    -fx-background-color: transparent;
+    -fx-border-color: -darkcrimson;
+    -fx-border-width: 1px;
+    -fx-text-fill: -chrome;
+    -fx-prompt-text-fill: -chrome;
+}
+
+.choice-dialog .combo-box .list-cell {
+    -fx-text-fill: -chrome;
+    -fx-background-color: transparent;
+}
+
+.choice-dialog .combo-box-popup .list-view {
+    -fx-border-image-source: url("/images/background/b3.png");
+    -fx-border-image-slice: 270;
+    -fx-border-image-width: 25px;
+    -fx-border-image-repeat: repeat;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, .8), #000000);
+    -fx-background-radius: 0;
+}
+
+.choice-dialog .combo-box-popup .list-cell:hover {
+    -fx-background-color: rgba(255, 0, 0, 0.1);
+}
+
+.choice-dialog .button-bar {
+    -fx-alignment: center;
+    -fx-padding: 50, 300, 0, 0;
+    -fx-font-size: 30;
+}
+
+
+.choice-dialog .button-bar .button:hover {
+    -fx-background-color: rgba(255, 0, 0, 0.1);
+}
+
+.choice-dialog .button-bar .button:pressed {
+    -fx-background-color: rgba(69, 0, 0, 0.55);
+}
