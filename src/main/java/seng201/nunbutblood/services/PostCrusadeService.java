@@ -14,7 +14,7 @@ import java.util.Random;
 public class PostCrusadeService {
 
     /** Base probability of a random event after a crusade **/
-    private static final double BASE_EVENT_CHANCE = 0.40;
+    private static final double BASE_EVENT_CHANCE = 0.05;
 
     /** Difficulty increase for probability **/
     private static final double HARD_BONUS = 0.20;
