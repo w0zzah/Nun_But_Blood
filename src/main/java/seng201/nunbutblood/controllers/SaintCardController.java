@@ -1,6 +1,8 @@
 package seng201.nunbutblood.controllers;
 
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -30,7 +32,7 @@ public class SaintCardController {
      */
     public static VBox createSaintCard(Saint saint, Node actionNode, boolean isCompact) {
 
-        int cardWidth = isCompact ? 180 : 200;
+        int cardWidth = isCompact ? 200 : 230;
         int cardHeight = isCompact ? 150 : 100;
         int portraitBoxHeight = isCompact ? 150 : 200;
         int imageFitHeight = isCompact ? 120 : 150;
@@ -86,20 +88,36 @@ public class SaintCardController {
     private static VBox buildStatBars(Saint saint, boolean isCompact) {
         VBox bars = new VBox(3);
         bars.getStyleClass().add("stat-bars");
-        bars.getChildren().addAll(
-                buildStatRow("STR", saint.getStrength(), saint.getStatType().equals("STR"), "#790202", isCompact),
-                buildStatRow("WIS", saint.getWisdom(), saint.getStatType().equals("WIS"), "#530000", isCompact),
-                buildStatRow("DEX", saint.getDexterity(), saint.getStatType().equals("DEX"), "#310001", isCompact),
-                buildStatRow("SAN", saint.getCurrentSanity(), saint.getStatType().equals("STA"), "#230103", isCompact)
-                );
+
+        GridPane grid = new GridPane();
+        grid.setHgap(isCompact ? 4 : 6);
+        grid.setVgap(isCompact ? 2 : 3);
+
+        ColumnConstraints labelCol = new ColumnConstraints();
+        labelCol.setHgrow(Priority.NEVER);
+
+        ColumnConstraints barCol = new ColumnConstraints();
+        barCol.setHgrow(Priority.ALWAYS);
+        barCol.setFillWidth(true);
+
+        ColumnConstraints numCol = new ColumnConstraints();
+        numCol.setHgrow(Priority.NEVER);
+        numCol.setMinWidth(isCompact ? 14 : 20);
+        numCol.setHalignment(HPos.CENTER);
+
+        grid.getColumnConstraints().addAll(labelCol, barCol, numCol);
+
+        addStatRow(grid, 0, "STRENGTH",  saint.getStrength(),        saint.getStatType().equals("STR"), "#AA0000", isCompact);
+        addStatRow(grid, 1, "WISDOM",    saint.getWisdom(),          saint.getStatType().equals("WIS"), "#790000", isCompact);
+        addStatRow(grid, 2, "DEXTERITY", saint.getDexterity(),       saint.getStatType().equals("DEX"), "#530001", isCompact);
+        addStatRow(grid, 3, "SANITY",    saint.getCurrentSanity(),   saint.getStatType().equals("STA"), "#4B0B26", isCompact);
+
+        bars.getChildren().add(grid);
         return bars;
     }
 
-    private static Node buildStatRow(String label, int value, boolean isPrimary, String colour, boolean isCompact) {
-        int spacing = isCompact ? 2 : 6;
-
-        HBox row = new HBox(spacing);
-        row.setAlignment(Pos.CENTER_LEFT);
+    private static void addStatRow(GridPane grid, int rowIndex, String label, int value,
+                                   boolean isPrimary, String colour, boolean isCompact) {
         Label lbl = new Label(label);
         lbl.getStyleClass().add(isPrimary ? "stat-label-primary" : "stat-label");
 
@@ -111,15 +129,20 @@ public class SaintCardController {
         Region fill = new Region();
         fill.maxWidthProperty().bind(track.widthProperty().multiply(fillPct));
         fill.setStyle(String.format("-fx-background-color: %s; -fx-background-radius: 4;", colour));
-
         track.getChildren().add(fill);
         StackPane.setAlignment(fill, Pos.CENTER_LEFT);
 
         Label statNum = new Label(String.valueOf(value));
         statNum.getStyleClass().add("stat-value-small");
+        statNum.setAlignment(Pos.CENTER);
 
-        HBox.setHgrow(track, Priority.ALWAYS);
-        row.getChildren().addAll(lbl, track, statNum);
-        return row;
+
+        GridPane.setValignment(track, VPos.CENTER);
+        GridPane.setValignment(lbl, VPos.CENTER);
+        GridPane.setValignment(statNum, VPos.CENTER);
+
+        grid.add(lbl,     0, rowIndex);
+        grid.add(track,   1, rowIndex);
+        grid.add(statNum, 2, rowIndex);
     }
 }

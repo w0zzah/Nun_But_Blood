@@ -4,6 +4,15 @@
     Colors use HSV not HSL — use a picker to verify: https://www.google.com/search?q=color+picker
 */
 
+@font-face {
+    font-family: 'Angel Wish';
+    url('fonts/Angel Wish/AngelWish.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
 @import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
 
 /**------------------------------------- ALL BACKGROUND AND ROOTS -------------------------------------*/
@@ -15,6 +24,7 @@
     -chrome: linear-gradient(to bottom, #cfcfcf 0%, #ffffff 20%, #a1a1a1 50%, #ffffff 80%, #cfcfcf 100%);
     -crimson: linear-gradient(to bottom, #af0303 0%, #ae1d1d 20%, #9e0202 50%, #cd2121 80%);
     -darkCrimson: linear-gradient(to bottom, #640303 0%, #ae1d1d 20%, #4b0202 50%, #270000 80%);
+    -gold: linear-gradient(to bottom, #c59f42 0%, #fff3a1 20%, #8a6421 50%, #ffffff 80%, #c59f42 100%);
 }
 
 .root-setup {
@@ -294,7 +304,7 @@
     -fx-padding: 4 0 2 0;
 }
 .stat-track {
-    -fx-background-color: #171717;
+        -fx-background-color: #171717;
     -fx-background-radius: 4;
     -fx-min-height: 8;
     -fx-max-height: 8;
@@ -511,23 +521,23 @@
 /*----------------------------------- Dice result colorchanger----------------------------------- */
 
 .dice-critical-success {
-    -fx-text-fill: #e600ff;
-    -fx-effect: dropshadow(gaussian, #712aff, 20, 0.3, 0, 0);
+    -fx-text-fill: -gold;
+    -fx-effect: dropshadow(gaussian, #ffaa44, 40, 0.5, 0, 0);
 }
 
 .dice-success {
-    -fx-text-fill: #44ff88;
-    -fx-effect: dropshadow(gaussian, #44ff88, 15, 0.2, 0, 0);
+    -fx-text-fill: -chrome;
+    -fx-effect: dropshadow(gaussian, #d1aa62, 40, 0.5, 0, 0);
 }
 
 .dice-fail {
-    -fx-text-fill: #c88c49;
-    -fx-effect: dropshadow(gaussian, #852d2d, 15, 0.2, 0, 0);
+    -fx-text-fill: -chrome;
+    -fx-effect: dropshadow(gaussian, #b10707, 40, 0.5, 0, 0);
 }
 
 .dice-critical-fail {
-    -fx-text-fill: #a80202;
-    -fx-effect: dropshadow(gaussian, #fa0000, 15, 0.2, 0, 0);
+    -fx-text-fill: -chrome;
+    -fx-effect: dropshadow(gaussian, #fa0000, 40, 0.5, 0, 0);
 }
 
 

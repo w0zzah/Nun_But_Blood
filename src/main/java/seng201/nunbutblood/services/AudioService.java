@@ -56,7 +56,7 @@ public class AudioService {
 
     private MediaPlayer currentMusicPlayer;
     private Track currentTrack;
-    private double musicVolume = 1;
+    private double musicVolume = 0.5;
 
 
     /**
