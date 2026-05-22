@@ -19,7 +19,7 @@ import seng201.nunbutblood.models.SaintRoster;
  * <p>
  * {@link #createSaintCard(Saint, Node, boolean)} : Creates a distinct card for the Saint with a button to purchase the saint <br>
  * {@link #buildStatBars(Saint, boolean)} : Creates 3 rounded rectangles for each stat type <br>
- * {@link #buildStatRow(String, int, boolean, String, boolean)} : Assigns stats to each Saint card
+ * {@link #addStatRow(GridPane, int, String, int, boolean, String, boolean)} (String, int, boolean, String, boolean)} : Assigns stats to each Saint card
  */
 public class SaintCardController {
     /**

@@ -8,7 +8,7 @@
 
 @font-face {
     font-family: 'Angel Wish';
-    url('fonts/Angel Wish/AngelWish.ttf') format('truetype');
+url('fonts/Angel Wish/AngelWish.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -26,39 +26,36 @@
     -darkCrimson: linear-gradient(to bottom, #4e0000 0%, #5c0000 20%, #3e0000 50%, #130000 80%);
     -gold: linear-gradient(to bottom, #c59f42 0%, #dc9a38 20%, #8a6421 50%, #f6a242 80%, #8a6421 100%);
     -redLinear: linear-gradient(to top, rgba(80, 0, 0, .9) 0%, rgba(80, 0, 0, .4) 40%, rgba(80, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0) 80%);
-    -blackLinear: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.2) 60%), rgba(0, 0, 0, 0) 80%;);
+    -blackLinear: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.2) 60%, rgba(0, 0, 0, 0) 80%);
 }
 
 .root-setup {
     -fx-background-image: url("/images/background/SetupBackground.png");
     -fx-background-size: cover;
     -fx-font-family: "New Rocker";
-
 }
+
 .root-hub {
     -fx-background-image: url("/images/background/CovenantBackground.png");
     -fx-background-size: cover;
     -fx-font-family: "New Rocker";
 }
+
 .root-market {
     -fx-background-image: url("/images/background/MarketBackground.png");
     -fx-background-size: cover;
     -fx-font-family: "New Rocker";
 }
+
 .root-crusade {
     -fx-background-image: url("/images/background/CrusadeBackground.png");
     -fx-background-size: cover;
     -fx-font-family: "New Rocker";
-
 }
 
 .label {
-    -fx-text-fill: -chrome
+    -fx-text-fill: -chrome;
 }
-
-/**--------------------------------------------------------------------------------------------------*/
-
-
 
 
 /**--------------------------------------Tab  Pane---------------------------------------------------*/
@@ -77,6 +74,7 @@
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(37, 37, 37, 0.4), 8, 0.4, 0, 0);
 }
+
 .tab-label {
     -fx-text-fill: -chrome;
     -fx-font-size: 25px;
@@ -90,38 +88,32 @@
 }
 
 
-
-/**--------------------------------------------------------------------------------------------------*/
-
-
-
 /**------------------------------- ALL GENERAL LABELS -----------------------------------------------*/
 .title-label {
     -fx-text-fill: -chrome;
-    -fx-font-family: "Angel wish";
+    -fx-font-family: "Angel Wish";
     -fx-font-size: 45px;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(gaussian, rgba(83, 0, 0, 0.62), 60, 0.5, 0, 0);
-    saint-fx-wrap-text: true;
+    -fx-wrap-text: true;
 }
+
 .subtitle {
     -fx-text-fill: -darkCrimson;
-    -fx-font-family: "Angel wish";
+    -fx-font-family: "Angel Wish";
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(gaussian, rgb(131, 0, 0), 60, 0.5, 0, 0);
-    saint-fx-wrap-text: true;
+    -fx-wrap-text: true;
 }
 
-
 .status-label {
-    -fx-text-fill: linear-gradient(to top, #000000, #1c0000);;
+    -fx-text-fill: linear-gradient(to top, #000000, #1c0000);
     -fx-font-family: "New Rocker";
     -fx-font-size: 70px;
     -fx-font-weight: bold;
     -fx-effect: dropshadow(gaussian, rgba(239, 0, 0, 0.76), 10, 0.6, 0, 0);
 }
-
 
 .section-label {
     -fx-font-weight: bold;
@@ -142,13 +134,9 @@
     -fx-text-fill: -crimson;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 8, 0.4, 0, 0);
 }
-/**------------------------------- ALL GENERAL LABELS -----------------------------------------------*/
-
 
 
 /**------------------------------- ALL GENERAL BUTTONS + -----------------------------------------------*/
-
-
 .cybersigil-border {
     -fx-border-image-source: url("/images/background/b3.png");
     -fx-border-image-slice: 270;
@@ -156,10 +144,8 @@
     -fx-text-fill: -chrome;
     -fx-border-image-width: 50px;
     -fx-border-image-repeat: repeat;
-    saint-fx-wrap-text: true;
+    -fx-wrap-text: true;
 }
-
-
 
 .button-drop {
     -fx-effect: dropshadow(gaussian, rgb(44, 0, 0), 50, 0.6, 0, 0);
@@ -180,7 +166,7 @@
 
 .button-linear:hover {
     -fx-background-color: linear-gradient(to top, rgba(80, 0, 0, 0.64), rgba(248, 198, 198, 0));
-    cursor: pointer;
+    -fx-cursor: hand;
 }
 
 .button-linear {
@@ -202,10 +188,9 @@
 
 .button-begin:hover {
     -fx-background-color: linear-gradient(to top, rgba(80, 0, 0, 0.64), rgba(0, 0, 0, 0.6));
-
 }
 
-.demon-card-button{
+.demon-card-button {
     -fx-effect: dropshadow(gaussian, rgb(44, 0, 0), 50, 0.6, 0, 0);
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -213,15 +198,15 @@
     -fx-font-size: 30px;
     -fx-wrap-text: true;
 }
+
 .try-again-button {
     -fx-font-family: Arial;
     -fx-font-size: 40px;
     -fx-effect: dropshadow(gaussian, black, 5, 10, 0, 0);
 }
 
+
 /**---------------------------------------Form Section---------------------------------------------------*/
-
-
 .form-section {
     -fx-background-color: rgba(30, 30, 30, 0.87);
     -fx-padding: 14 16 14 16;
@@ -229,17 +214,13 @@
     -fx-border-radius: 0;
     -fx-border-width: 3;
 }
+
 .form-section-part {
     -fx-padding: 0 5;
 }
 
 
-/**---------------------------------------Form Section---------------------------------------------------*/
-
-
-
 /**-------------------------------Text Input Field  (On startup only)------------------------------------*/
-
 .input-field {
     -fx-background-color: linear-gradient(to top, #500000, rgba(248, 198, 198, 0)); /* Blood red gradient */
     -fx-border-width: 2;
@@ -251,19 +232,15 @@
     -fx-text-fill: -chrome;
     -fx-border-image-width: 20px;
     -fx-border-image-repeat: repeat;
-    saint-fx-wrap-text: true;
+    -fx-wrap-text: true;
 }
+
 .input-field:focused {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 8, 0.4, 0, 0);
 }
 
-/**-------------------------------Text Input Field  (On startup only)------------------------------------*/
-
-
-
 
 /**-------------------------------------------- Saint Cards ---------------------------------------------*/
-
 .saint-portrait {
     -fx-background-radius: 4;
     -fx-border-width: 1;
@@ -289,12 +266,13 @@
     -fx-text-fill: -chrome;
     -fx-font-family: "New Rocker";
 }
+
 .saint-card-active {
     -fx-background-color: linear-gradient(to top, rgba(35, 35, 35, 0.3) 30%, rgba(0,0,0,0));
     -fx-background-radius: 35;
     -fx-text-fill: -crimson;
-
 }
+
 .card-name {
     -fx-text-fill: white;
     -fx-font-size: 20px;
@@ -302,11 +280,13 @@
     -fx-wrap-text: true;
     -fx-alignment: center;
 }
+
 .card-type {
     -fx-text-fill: -chrome;
     -fx-font-size: 11px;
     -fx-font-style: italic;
 }
+
 .card-stats {
     -fx-text-fill: -chrome;
     -fx-font-size: 11px;
@@ -322,13 +302,16 @@
     -fx-font-weight: bold;
     -fx-min-width: 100%;
 }
+
 .card-btn-com {
     -fx-font-size: 20px;
     -fx-min-width: 100%;
 }
+
 .card-btn:hover {
     -fx-effect: dropshadow(gaussian, -crimson, 10, 0.5, 0, 0);
 }
+
 .card-cost {
     -fx-text-fill: #e1e1e1;
     -fx-font-size: 15px;
@@ -341,40 +324,40 @@
     -fx-text-fill: -chrome;
     -fx-border-image-width: 5px;
     -fx-border-image-repeat: repeat;
-    saint-fx-wrap-text: true;
-    -fx-effect: None;
-    -fx-background-color: linear-gradient(to top, rgba(80, 0, 0, .9) 0%, rgba(80, 0, 0, .4) 20%, rgba(80, 0, 0, .2) 50%, rgba(0, 0, 0, 0) 80%); /* Blood red gradient fading faster */
+    -fx-wrap-text: true;
+    -fx-effect: none;
+    -fx-background-color: linear-gradient(to top, rgba(80, 0, 0, .9) 0%, rgba(80, 0, 0, .4) 20%, rgba(80, 0, 0, .2) 50%, rgba(0, 0, 0, 0) 80%);
 }
+
 .item-card-btn {
     -fx-border-image-slice: 270;
     -fx-text-fill: -chrome;
     -fx-border-image-width: 5px;
     -fx-border-image-repeat: repeat;
-    saint-fx-wrap-text: true;
-    -fx-effect: None;
-    -fx-background-color: linear-gradient(to top, rgba(80, 0, 0, .9) 0%, rgba(80, 0, 0, .4) 20%, rgba(80, 0, 0, .2) 50%, rgba(0, 0, 0, 0) 80%); /* Blood red gradient fading faster */
+    -fx-wrap-text: true;
+    -fx-effect: none;
+    -fx-background-color: linear-gradient(to top, rgba(80, 0, 0, .9) 0%, rgba(80, 0, 0, .4) 20%, rgba(80, 0, 0, .2) 50%, rgba(0, 0, 0, 0) 80%);
 }
-
 
 .saint-button-fight {
     -fx-font-size: 35px;
     -fx-text-fill: -chrome;
-    -fx-font-family: "Angel wish";
+    -fx-font-family: "Angel Wish";
     -fx-background-color: transparent;
-
 }
 
 .saint-button-fight:hover {
     -fx-text-fill: -crimson;
 }
 
-/**---------------------------- Saint Stat Bars ------------------------------------*/
 
+/**---------------------------- Saint Stat Bars ------------------------------------*/
 .stat-bars {
     -fx-padding: 4 0 2 0;
 }
+
 .stat-track {
-        -fx-background-color: #171717;
+    -fx-background-color: #171717;
     -fx-background-radius: 4;
     -fx-min-height: 8;
     -fx-max-height: 8;
@@ -382,53 +365,48 @@
     -fx-pref-width: 10;
     -fx-border-width: 1;
 }
+
 .stat-label {
     -fx-text-fill: #e1e1e1;
     -fx-font-size: 12px;
     -fx-min-width: 100%;
 }
+
 .stat-label-primary {
     -fx-text-fill: #f8df9f;
     -fx-font-size: 12;
     -fx-min-width: 100%;
 }
+
 .stat-value-small {
     -fx-text-fill: #e1e1e1;
     -fx-font-size: 13px;
     -fx-min-width: 100%;
 }
 
-/**-------------------------------------- Saint Stat Bars -----------------------------------------------*/
-
-
 
 /**---------------------------- Slider Input Field  (On startup only)------------------------------------*/
-
-
 .slider .track {
     -fx-background-color: -chrome;
-
 }
+
 .slider .thumb {
     -fx-background-image: url("/images/background/cross.png");
     -fx-background-size: cover;
     -fx-background-color: rgba(0,0,0,0);
     -fx-padding: 30px;
 }
+
 .slider .tick-mark {
     -fx-fill: #664444;
 }
+
 .slider .tick-label {
     -fx-fill: #aa6655;
 }
 
-/**---------------------------- Slider Input Field  (On startup only)------------------------------------*/
-
-
-
 
 /**---------------------------- Difficulty Button (On startup only) -------------------------------------*/
-
 .diff-btn {
     -fx-border-color: -chrome;
     -fx-border-width: 2;
@@ -440,68 +418,59 @@
     -fx-background-color: -blackLinear;
     -fx-border-image-width: 20px;
     -fx-border-image-repeat: repeat;
-    saint-fx-wrap-text: true;
+    -fx-wrap-text: true;
 }
+
 .diff-btn:selected {
     -fx-text-fill: -crimson;
     -fx-background-color: -redLinear;
 }
 
-/**---------------------------- Difficulty Button (On startup only) -------------------------------------*/
-
-
-
 
 /**-------------------------------------- Scroll Pane Style ---------------------------------------------*/
-
-
 .scroll-pane {
     -fx-background-color: transparent;
 }
+
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
 
 
-/**-------------------------------------- Scroll Pane Style ---------------------------------------------*/
-
-
-
-
 /**-------------------------------------- Scroll Bar - invis ---------------------------------------------*/
-
-
-.scroll-bar .increment-button, .scroll-bar .decrement-button, .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow, .scroll-bar,.scroll-bar .thumb {
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button,
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow,
+.scroll-bar,
+.scroll-bar .thumb {
     -fx-background-color: transparent;
 }
 
-/**-------------------------------------- Scroll Bar - invis ---------------------------------------------*/
-
-
-
 
 /**-------------------------------------- Saint Rarity Colours  ---------------------------------------------*/
-
-
 .rarity-common {
     -fx-effect: dropshadow(gaussian, rgba(99, 0, 0, 0.65), 8, 0.3, 0, 0);
     -fx-text-fill: rgb(255, 255, 255);
     -fx-alignment: center;
     -fx-font-size: 16px;
 }
+
 .rarity-rare {
     -fx-effect: dropshadow(gaussian, rgba(175, 0, 0, 0.65), 8, 0.3, 0, 0);
     -fx-text-fill: rgba(255, 118, 118, 0.71);
     -fx-alignment: center;
     -fx-font-size: 17px;
-    -fx-font-family: "fantasy";
+    -fx-font-family: "New Rocker"; /* Replaced "fantasy" fallback with loaded theme font */
 }
+
 .rarity-epic {
     -fx-effect: dropshadow(gaussian, rgba(251, 31, 92, 0.65), 8, 0.2, 0, 0);
     -fx-text-fill: #ff002f;
     -fx-alignment: center;
     -fx-font-size: 17px;
 }
+
 .rarity-legendary {
     -fx-effect: dropshadow(gaussian, rgba(255,170,0,0.65), 8, 0.55, 0, 0);
     -fx-text-fill: -chrome;
@@ -510,13 +479,8 @@
     -fx-font-weight: bold;
 }
 
-/**-------------------------------------- Saint Rarity Colours  ---------------------------------------------*/
-
-
-
 
 /**-------------------------------------- Demon Card --------------------------------------------------------*/
-
 .demon-card {
     -fx-padding: 5px;
     -fx-cursor: hand;
@@ -533,7 +497,6 @@
     -fx-font-weight: bold;
     -fx-wrap-text: true;
     -fx-text-alignment: center;
-
 }
 
 .demon-card-type {
@@ -542,23 +505,23 @@
     -fx-font-style: italic;
     -fx-alignment: center;
 }
+
 .demon-card-stats {
     -fx-text-fill: -chrome;
     -fx-font-size: 30px;
-    saint-fx-wrap-text: true;
+    -fx-wrap-text: true;
     -fx-alignment: center;
 }
 
 .demon-select {
     -fx-font-size: 50;
-    -fx-font-family: "Angel wish";
+    -fx-font-family: "Angel Wish";
     -fx-text-fill: -darkCrimson;
 }
+
 .demon-select:hover {
     -fx-text-fill: -crimson;
 }
-/**-------------------------------------- Demon Card --------------------------------------------------------*/
-
 
 
 /* ----------------------------------- Progress Bar Customization ----------------------------------- */
@@ -573,14 +536,10 @@
     -fx-background-radius: 0;
 }
 
-/* ----------------------------------- Progress Bar Customization ----------------------------------- */
-
-
 
 /* ----------------------------------- The Dice Box -----------------------------------*/
-
 .dice-box {
-    -fx-background-color: radial-gradient(center 50% 50%, radius 60%, rgba(0, 0, 0), rgba(0, 0, 0, 0));;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 60%, rgba(0, 0, 0), rgba(0, 0, 0, 0));
 }
 
 .dice-label {
@@ -590,10 +549,8 @@
     -fx-min-width: -fx-pref-width;
 }
 
-/* ----------------------------------- The Dice Box -----------------------------------*/
 
 /*----------------------------------- Dice result colorchanger----------------------------------- */
-
 .dice-critical-success {
     -fx-text-fill: -gold;
     -fx-effect: dropshadow(gaussian, #ffffff, 100, 0.5, 0, 0);
@@ -630,9 +587,6 @@
     -fx-background-color: transparent;
 }
 
-/*---------------------------------------------------------------------------------------------------------*/
-
-
 
 /* ----------------------------------- Battle Log (TextArea) ----------------------------------- */
 .event-log {
@@ -653,16 +607,11 @@
 }
 
 
-/* ---------------------------------------------------------------------------------------------------------*/
-
-
 /** -----------------------------------CSS FOR LIST VIEW-------------------------------------------------*/
-
 .list-cell {
     -fx-background-color: transparent;
     -fx-alignment: center;
 }
-
 
 .list-cell:filled {
     -fx-background-color: transparent;
@@ -674,10 +623,10 @@
 
 
 /* ----------------------------------- CSS FOR ITEMS -----------------------------------*/
-
 .item-card {
     -fx-alignment: center;
 }
+
 .item-card-potion {
     -fx-effect: dropshadow(gaussian, rgba(182, 0, 255, 0.65), 6, 0.3, 0, 0);
     -fx-font-size: 30px;
@@ -696,12 +645,8 @@
     -fx-font-size: 20px;
 }
 
-/* ---------------------------------------------------------------------------------------------------*/
-
 
 /* ------------------------------DIALOG PANE-------------------------------------------------*/
-
-
 .choice-dialog {
     -fx-border-image-source: url("/images/background/b3.png");
     -fx-border-image-slice: 270;
@@ -715,7 +660,7 @@
 
 /** question mark icon */
 .choice-dialog .graphic-container {
-    visibility: hidden;
+    -fx-visibility: hidden;
     -fx-max-width: 0;
     -fx-max-height: 0;
     -fx-padding: 0;
@@ -739,7 +684,6 @@
     -fx-alignment: center;
     -fx-padding: 10px;
     -fx-font-size: 13px;
-
 }
 
 .choice-dialog-content {
@@ -751,7 +695,7 @@
 
 .choice-dialog .combo-box {
     -fx-background-color: transparent;
-    -fx-border-color: -darkcrimson;
+    -fx-border-color: -darkCrimson; /* Fixed capitalization mapping */
     -fx-border-width: 1px;
     -fx-text-fill: -chrome;
     -fx-prompt-text-fill: -chrome;
@@ -777,10 +721,9 @@
 
 .choice-dialog .button-bar {
     -fx-alignment: center;
-    -fx-padding: 50, 300, 0, 0;
+    -fx-padding: 50 300 0 0; /* Fixed standard comma padding layout to space layout format */
     -fx-font-size: 30;
 }
-
 
 .choice-dialog .button-bar .button:hover {
     -fx-background-color: rgba(255, 0, 0, 0.1);

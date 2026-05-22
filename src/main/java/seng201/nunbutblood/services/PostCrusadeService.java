@@ -21,7 +21,7 @@ public class PostCrusadeService {
 
     /** Skill's that can be learned after battle. */
     private static final String[] SKILLS = {
-            "Holy Blessing", "Devout Survivor", "Covered in Blood"
+            "Holy Blessing", "Devout Survivor"
     };
 
     /** Random number generator utilized for evaluation of event checks. */
@@ -70,12 +70,19 @@ public class PostCrusadeService {
             StatType[] stats = StatType.values();
             StatType randomStat = stats[random.nextInt(stats.length)];
 
+            switch (randomStat) {
+                case STRENGTH   -> target.changeStrength(change);
+                case WISDOM     -> target.changeWisdom(change);
+                case DEXTERITY  -> target.changeDexterity(change);
+                case SANITY     -> target.changeMaxSanity(change);
+                case PERCEPTION -> target.changePerception(change);
+            }
 
             String direction = change > 0 ? "gained" : "lost";
             String type = change > 0 ? "divine" : "cursed";
 
-            events.add(String.format(" %s %s %d perception from a %s event",
-                    target.getName(), direction, change, type));
+            events.add(String.format("%s %s %d %s from a %s event",
+                    target.getName(), direction, Math.abs(change), randomStat.key, type));
         }
 
 
@@ -86,13 +93,6 @@ public class PostCrusadeService {
                 switch (skill) {
                     case "Holy Blessing" -> covenant.addFaith(300);
                     case "Devout Survivor" -> covenant.addItem(ItemCatalog.BLOOD_VIAL.create());
-                    case "Covered in Blood" -> {
-                        // FIX: Guard against retiring your last active saint via skill assignment
-                        if (covenant.getActiveParty().size() > 1) {
-                            covenant.retireSaint(target);
-                            covenant.addSaint(SaintRoster.create(new SaintRoster.Entry("Angel", "Angel.gif", "EXE", 20,20,20,20)));
-                        }
-                    }
                 }
                 events.add(String.format("%s has Channeled the ability, %s", target, skill));
             }

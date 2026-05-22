@@ -35,13 +35,12 @@ public class SaintService {
 
     /**
      * Adds a new Saint to the roster
-     *
+     * <p>
      * Try to put in the activeParty first, and if not enough space, check reserves.
      * Then if not enough space in either, return false
      *
      * @param saint the Saint to be added to the roster
-     * @return true if the Saint was successfully added to either the active party
-     *         or reserves, false if both groups are completely full
+     * @return true if the Saint was successfully added to either the active party         or reserves, false if both groups are completely full
      */
     public boolean addSaint(Saint saint) {
         if (activeParty.size() < 5) {
@@ -127,8 +126,7 @@ public class SaintService {
      * Checks whether all currently owned Saints (both active and reserves) are completely exhausted.
      * A Saint is considered exhausted if their current sanity falls below 5.
      *
-     * @return true if the entire roster is empty or if every owned Saint has less than 5 sanity,
-     *         false if there is at least one Saint with 5 or more sanity remaining
+     * @return true if the entire roster is empty or if every owned Saint has less than 5 sanity,         false if there is at least one Saint with 5 or more sanity remaining
      */
     public boolean allSaintsExhausted() {
         List<Saint> allSaints = getOwnedSaints();

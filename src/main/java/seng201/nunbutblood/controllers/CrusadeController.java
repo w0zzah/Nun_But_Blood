@@ -205,10 +205,11 @@ public class CrusadeController {
                 postCrusade(false);
             } else {
                 partyContainer.setDisable(false);
+                if (random.nextInt(10) < 5 ) {
+                    showNextAdventureEvent();
+                }
             }
-            if (random.nextInt(10) < 5 ) {
-                showNextAdventureEvent();
-            }
+
         });
     }
 

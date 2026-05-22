@@ -10,7 +10,7 @@ import java.util.Map;
 
 
 /**
- * <h1>Audio Service: * </h1>
+ * Audio Service: *
  *
  * <p>Creates an Enum where all audio clips are found for shorter sound effects such as dice roll.</p>
  * <p>(can be disabled with setting enabled to false)</p>
