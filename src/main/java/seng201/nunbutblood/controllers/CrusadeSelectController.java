@@ -15,13 +15,11 @@ public class CrusadeSelectController {
     @FXML private Label crusadeLabel;
     @FXML private HBox demonCardBox;
     @FXML private Label hintLabel;
-    @FXML private Button beginBtn;
 
     private Stage stage;
     private ScreenNavigator navigator;
     private Covenant covenant;
     private DemonService demonService;
-    private Demon selectedDemon;
 
     /**
      * Init.
@@ -51,42 +49,24 @@ public class CrusadeSelectController {
         demonCardBox.getChildren().clear();
         for (Demon demon : demonService.getCurrentOptions()) {
 
-            Button selectDemon = new Button("Select");
+            Button selectDemon = new Button("EXORCISE");
 
             VBox card = DemonCardController.buildDemonCard(demon, selectDemon, true);
 
             HBox.setHgrow(card, Priority.ALWAYS);
             demonCardBox.getChildren().add(card);
 
-            selectDemon.setOnAction(e -> selectedDemon(demon, card, selectDemon));
+            selectDemon.setOnAction(e -> handleBegin(demon));
         }
     }
 
     @FXML
-    private void handleBegin() {
-        if (selectedDemon == null) {
+    private void handleBegin(Demon demon) {
+        if (demon == null) {
             hintLabel.setText("You must choose a demon to continue!");
             return;
         }
-        navigator.goToCrusade(selectedDemon);
-    }
-
-    private void selectedDemon(Demon demon, VBox card, Button selectBtn) {
-        demonCardBox.getChildren().forEach(node -> {
-            node.getStyleClass().remove("demon-card-selected");
-            if (node instanceof VBox vbox) {
-                vbox.getChildren().stream()
-                        .filter(c -> c instanceof Button)
-                        .map(c -> (Button) c)
-                        .forEach((b -> b.setText("Select")));
-            }
-        });
-
-        selectedDemon = demon;
-        card.getStyleClass().add("demon-card-selected");
-        beginBtn.setText("Rock n' Roll!");
-        hintLabel.setText("Facing " + demon.getName() + " Difficulty: " +
-            demon.getDifficultyRating() + " Weakness: " + demon.getWeakness());
+        navigator.goToCrusade(demon);
     }
 
     @FXML

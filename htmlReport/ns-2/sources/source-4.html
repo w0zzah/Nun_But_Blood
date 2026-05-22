@@ -148,7 +148,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        // Creates an empty animation timeline where we will map out specific events at specific milliseconds
 <b class="fc">&nbsp;        Timeline cycling = new Timeline();</b>
 &nbsp;        // How many times the number will change
-<b class="fc">&nbsp;        int totalFrames = 25;</b>
+<b class="fc">&nbsp;        int totalFrames = 20;</b>
 &nbsp;        // running timer that increases the longer it rolls
 <b class="fc">&nbsp;        double currentDelayMs = 1;</b>
 &nbsp;        // Starting Duration between numbers
@@ -197,13 +197,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="pc">&nbsp;        switch (type) {</b>
 &nbsp;
 &nbsp;            case &quot;critical-success&quot;:
-<b class="nc">&nbsp;                audio.play(AudioService.Clip.CRITICAL_SUCCESS);</b>
-<b class="nc">&nbsp;                pop.setFromX(1.0); pop.setToX(1.5);pop.setFromY(1.0); pop.setToY(1.5);</b>
+<b class="fc">&nbsp;                audio.play(AudioService.Clip.CRITICAL_SUCCESS);</b>
+<b class="fc">&nbsp;                pop.setFromX(1.0); pop.setToX(1.5);pop.setFromY(1.0); pop.setToY(1.5);</b>
 &nbsp;                break;
 &nbsp;
 &nbsp;            case &quot;critical-fail&quot;:
-<b class="fc">&nbsp;                audio.play(AudioService.Clip.CRITICAL_FAIL);</b>
-<b class="fc">&nbsp;                pop.setFromX(1.0); pop.setToX(1.5);pop.setFromY(1.0); pop.setToY(1.5);</b>
+<b class="nc">&nbsp;                audio.play(AudioService.Clip.CRITICAL_FAIL);</b>
+<b class="nc">&nbsp;                pop.setFromX(1.0); pop.setToX(1.5);pop.setFromY(1.0); pop.setToY(1.5);</b>
 &nbsp;                break;
 &nbsp;
 &nbsp;            case &quot;success&quot;:
@@ -267,7 +267,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 05:43</div>
+    <div style="float:right;">generated on 2026-05-22 14:14</div>
 </div>
 </body>
 </html>

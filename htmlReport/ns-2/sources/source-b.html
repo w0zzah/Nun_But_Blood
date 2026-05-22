@@ -156,7 +156,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    public void goToSetup() {
 <b class="fc">&nbsp;        loadScreen(&quot;/fxml/SetupInterface.fxml&quot;, controller -&gt; {</b>
 <b class="pc">&nbsp;            if (controller instanceof SetupController sc) {</b>
-<b class="fc">&nbsp;                sc.init(stage, this);</b>
+<b class="fc">&nbsp;                sc.init(stage, this, audioService);</b>
 &nbsp;            }
 &nbsp;        });
 &nbsp;    }
@@ -180,7 +180,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    public void goToHub() {
 <b class="fc">&nbsp;        loadScreen(&quot;/fxml/HubInterface.fxml&quot;, controller -&gt; {</b>
 <b class="pc">&nbsp;            if (controller instanceof HubController hc) {</b>
-<b class="fc">&nbsp;                hc.init(stage, this, covenant);</b>
+<b class="fc">&nbsp;                hc.init(stage, this, covenant, audioService);</b>
 &nbsp;            }
 &nbsp;        });
 &nbsp;    }
@@ -214,7 +214,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    public void goToCrusade(Demon chosenDemon) {
 <b class="fc">&nbsp;        loadScreen(&quot;/fxml/CrusadeInterface.fxml&quot;, controller -&gt; {</b>
 <b class="pc">&nbsp;            if (controller instanceof CrusadeController cc) {</b>
-<b class="fc">&nbsp;                cc.init(covenant, chosenDemon, this);</b>
+<b class="fc">&nbsp;                cc.init(covenant, chosenDemon, this, audioService);</b>
 &nbsp;            }
 &nbsp;        });
 &nbsp;    }
@@ -228,7 +228,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    public void goToEndScreen(boolean isVictory, boolean isGameOver) {
 <b class="fc">&nbsp;        loadScreen(&quot;/fxml/EndScreen.fxml&quot;, controller -&gt; {</b>
 <b class="pc">&nbsp;            if (controller instanceof EndScreenController ec) {</b>
-<b class="fc">&nbsp;                ec.init(stage, this, covenant, marketService, saintService, isVictory, isGameOver);</b>
+<b class="fc">&nbsp;                ec.init(stage, this, covenant, marketService, audioService, isVictory, isGameOver);</b>
 &nbsp;            }
 &nbsp;        });
 &nbsp;    }
@@ -296,7 +296,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 05:43</div>
+    <div style="float:right;">generated on 2026-05-22 14:14</div>
 </div>
 </body>
 </html>

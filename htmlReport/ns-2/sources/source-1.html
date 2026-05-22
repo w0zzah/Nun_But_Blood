@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    90.9%
   </span>
   <span class="absValue">
-    (11/11)
+    (10/11)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    87.5%
   </span>
   <span class="absValue">
-    (16/16)
+    (14/16)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    93.9%
   </span>
   <span class="absValue">
-    (80/80)
+    (77/82)
   </span>
 </td>
 </tr>
@@ -148,7 +148,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private Demon currentDemon;
 &nbsp;    private ScreenNavigator navigator;
 &nbsp;    private int bonus;
-&nbsp;    private AudioService audio;
+&nbsp;    private AudioService audioService;
 &nbsp;    private MidCrusadeEvents midCrusadeEvents;
 &nbsp;    private MidCrusadeEvents.Event currentEvent;
 <b class="fc">&nbsp;    private final Random random = new Random();</b>
@@ -164,12 +164,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param demon     the demon
 &nbsp;     * @param navigator the navigator
 &nbsp;     */
-&nbsp;    public void init(Covenant covenant, Demon demon, ScreenNavigator navigator) {
+&nbsp;    public void init(Covenant covenant, Demon demon, ScreenNavigator navigator, AudioService audioService) {
 <b class="fc">&nbsp;        this.covenant = covenant;</b>
 <b class="fc">&nbsp;        this.currentDemon = demon;</b>
 <b class="fc">&nbsp;        this.navigator = navigator;</b>
 <b class="fc">&nbsp;        this.crusadeService = new CrusadeService();</b>
-<b class="fc">&nbsp;        this.audio = new AudioService();</b>
+<b class="fc">&nbsp;        this.audioService = audioService;</b>
 <b class="fc">&nbsp;        this.midCrusadeEvents = new MidCrusadeEvents();</b>
 &nbsp;
 <b class="fc">&nbsp;        this.diceAnimation = new DiceRollAnimation(</b>
@@ -179,7 +179,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;                navigator.getAudioService(),</b>
 &nbsp;                bonus
 &nbsp;        );
-&nbsp;
+<b class="fc">&nbsp;        audioService.stopMusic();</b>
+<b class="fc">&nbsp;        audioService.playMusic(AudioService.Track.CRUSADE);</b>
 <b class="fc">&nbsp;        setupDemonDisplay();</b>
 <b class="fc">&nbsp;        refreshUI();</b>
 &nbsp;    }
@@ -287,8 +288,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="fc">&nbsp;            if (crusadeService.checkVictory()) {</b>
 <b class="fc">&nbsp;                postCrusade(true);</b>
-<b class="fc">&nbsp;            } else if (crusadeService.checkGameOver(covenant.getActiveParty())) {</b>
-<b class="fc">&nbsp;                postCrusade(false);</b>
+<b class="pc">&nbsp;            } else if (crusadeService.checkGameOver(covenant.getActiveParty())) {</b>
+<b class="nc">&nbsp;                postCrusade(false);</b>
 &nbsp;            } else {
 <b class="fc">&nbsp;                partyContainer.setDisable(false);</b>
 &nbsp;            }
@@ -300,19 +301,19 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    @FXML
 &nbsp;    private void giveUp() {
-<b class="fc">&nbsp;        covenant.postCrusade(0,0,false);</b>
-<b class="fc">&nbsp;        navigator.goToEndScreen(false, false);</b>
+<b class="nc">&nbsp;        covenant.postCrusade(0,0,false);</b>
+<b class="nc">&nbsp;        navigator.goToEndScreen(false, false);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    private void postCrusade(boolean won) {
-<b class="fc">&nbsp;        if (won) {</b>
+<b class="pc">&nbsp;        if (won) {</b>
 <b class="fc">&nbsp;            int reward = currentDemon.getFaithReward();</b>
 <b class="fc">&nbsp;            int score = currentDemon.getDifficultyRating() * 10;</b>
 <b class="fc">&nbsp;            covenant.postCrusade(reward, score, true);</b>
 <b class="fc">&nbsp;            navigator.goToEndScreen(true, covenant.isGameComplete());</b>
 &nbsp;        } else {
-<b class="fc">&nbsp;            covenant.postCrusade(0, 0, false);</b>
-<b class="fc">&nbsp;            navigator.goToEndScreen(false, covenant.isGameComplete());</b>
+<b class="nc">&nbsp;            covenant.postCrusade(0, 0, false);</b>
+<b class="nc">&nbsp;            navigator.goToEndScreen(false, covenant.isGameComplete());</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;}
@@ -339,7 +340,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 05:43</div>
+    <div style="float:right;">generated on 2026-05-22 14:14</div>
 </div>
 </body>
 </html>

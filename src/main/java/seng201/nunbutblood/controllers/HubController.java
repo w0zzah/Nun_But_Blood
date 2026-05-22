@@ -1,11 +1,14 @@
 package seng201.nunbutblood.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import seng201.nunbutblood.models.AlertBox;
 import seng201.nunbutblood.models.Saint;
 import seng201.nunbutblood.models.Covenant;
@@ -15,6 +18,7 @@ import seng201.nunbutblood.services.AudioService;
 
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -145,19 +149,43 @@ public class HubController {
 
     /** Opens a ChoiceDialog allowing the player to select which Saint to apply the item to. */
     private void handleUseItemDialog(Item item) {
-
-
         List<Saint> allSaints = covenant.getOwnedSaints();
 
         if (allSaints.isEmpty()) {
             statusLabel.setText("You have no Saint to use this on.");
             return;
         }
-
+        // Pop up for the dialog. Had to treat like rebuilding entirely new card as new stage wont pick up css
+        // Initialise the new dialog
         ChoiceDialog<Saint> dialog = new ChoiceDialog<>(allSaints.getFirst(), allSaints);
-        dialog.setTitle("Use Item");
-        dialog.setHeaderText("Applying: " + item.getItemName());
-        dialog.setContentText("Select a Saint to use this on:");
+
+        // Set it invisible to begin with so we can set up all alterations
+        dialog.initStyle(StageStyle.TRANSPARENT);
+
+        // Add the css sheet to a dialogPane
+        DialogPane dialogPane = dialog.getDialogPane();
+        dialogPane.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("/css/style.css")).toExternalForm()
+        );
+        // Add choice dialog, to guarentee catching css
+        dialogPane.getStyleClass().add("choice-dialog");
+
+        // Set the header css
+        Label headerLabel = new Label("Applying: " + item.getItemName());
+        headerLabel.getStyleClass().add("choice-dialog-header");
+        dialogPane.setHeader(headerLabel);
+
+        // Set the Label css
+        Label contentLabel = new Label("Select a Saint to use this on:");
+        contentLabel.getStyleClass().add("choice-dialog-content");
+
+        // Once all has been initiliased, then run itemPane
+        Platform.runLater(() -> {
+            Stage stage = (Stage) dialogPane.getScene().getWindow();
+            stage.getScene().setFill(null);
+        });
+
+        // Then proc logic for Dialog Box
         Optional<Saint> result = dialog.showAndWait();
         result.ifPresent(saint -> {
             item.applyEffect(saint);

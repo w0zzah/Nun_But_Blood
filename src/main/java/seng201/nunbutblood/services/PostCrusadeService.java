@@ -80,7 +80,9 @@ public class PostCrusadeService {
                     target.getName(), direction, change, type));
         }
 
-        // Random skill event
+// ... [Keep the stat change block up here as is] ...
+
+// Random skill event
         if (random.nextDouble() < chance * 0.5) {
             Saint target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));
             if (target.getSpecialAbility().isEmpty()) {
@@ -89,26 +91,29 @@ public class PostCrusadeService {
                     case "Holy Blessing" -> covenant.addFaith(300);
                     case "Devout Survivor" -> covenant.addItem(ItemCatalog.BLOOD_VIAL.create());
                     case "Covered in Blood" -> {
-                        covenant.retireSaint(target);
-                        covenant.addSaint(SaintRoster.create(new SaintRoster.Entry("Angel", "Angel.gif", "EXE", 20,20,20,20)));
+                        // FIX: Guard against retiring your last active saint via skill assignment
+                        if (covenant.getActiveParty().size() > 1) {
+                            covenant.retireSaint(target);
+                            covenant.addSaint(SaintRoster.create(new SaintRoster.Entry("Angel", "Angel.gif", "EXE", 20,20,20,20)));
+                        }
                     }
                 }
                 events.add(String.format("%s has Channeled the ability, %s", target, skill));
             }
         }
+
         // Chance for saints to retire
-        for (Saint saint : activeParty) {
-            double retireChance = 0.02 + (saint.getCrusadeCount() * 0.03);
-            if (random.nextDouble() < retireChance) {
-                int total = covenant.getActiveParty().size() + covenant.getReserves().size();
-                if (total > 1) {
+        if (covenant.getActiveParty().size() > 1) {
+            for (Saint saint : activeParty) {
+                double retireChance = 0.02 + (saint.getCrusadeCount() * 0.03);
+                if (random.nextDouble() < retireChance) {
                     covenant.retireSaint(saint);
                     events.add(String.format("%s has retired, a humble end for our hero...", saint.getName()));
-                    break;
+                    break; // Stop processing further retirements this round
                 }
             }
-
         }
+
         return events;
     }
 

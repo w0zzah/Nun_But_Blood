@@ -21,7 +21,6 @@
       <HBox alignment="CENTER" VBox.vgrow="SOMETIMES">
          <children>
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBack" styleClass="cybersigil-border" text="Go Back" HBox.hgrow="SOMETIMES" />
-            <Button fx:id="beginBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBegin" styleClass="cybersigil-border" text="Begin" HBox.hgrow="SOMETIMES" />
          </children>
       </HBox>
    </children>

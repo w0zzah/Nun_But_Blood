@@ -53,6 +53,7 @@ public class DemonCardController {
 
         Label reward = new Label("Reward: " + demon.getFaithReward());
         reward.getStyleClass().add("demon-card-type");
+        actionNode.getStyleClass().add("demon-select");
         if (isCompact) {
             card.getChildren().addAll(demonImg, name, weakness, difficulty, reward, actionNode);
         } else {card.getChildren().addAll(demonImg, weakness, difficulty); }

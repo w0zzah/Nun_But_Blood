@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > MarketService</title>
+  <title>Coverage Report > MidCrusadeEvents</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,15 +22,12 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">seng201.nunbutblood.services</a>
 </div>
 
-<h1>Coverage Summary for Class: MarketService (seng201.nunbutblood.services)</h1>
+<h1>Coverage Summary for Class: MidCrusadeEvents (seng201.nunbutblood.services)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -45,7 +42,34 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">MarketService</td>
+  <td class="name">MidCrusadeEvents</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    47.1%
+  </span>
+  <span class="absValue">
+    (8/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    49.1%
+  </span>
+  <span class="absValue">
+    (27/55)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">MidCrusadeEvents$Choice</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -59,27 +83,56 @@ Current scope:     <a href="../../index.html">all classes</a>
     100%
   </span>
   <span class="absValue">
-    (10/10)
+    (1/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">MidCrusadeEvents$Event</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    65%
+    100%
   </span>
   <span class="absValue">
-    (13/20)
+    (1/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    95.2%
+    47.1%
   </span>
   <span class="absValue">
-    (40/42)
+    (8/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50.9%
+  </span>
+  <span class="absValue">
+    (29/57)
   </span>
 </td>
 </tr>
-
 </table>
 
 <br/>
@@ -88,187 +141,193 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.services;
-&nbsp;/*
 &nbsp;
-&nbsp; */
-&nbsp;import seng201.nunbutblood.models.*;
+&nbsp;import seng201.nunbutblood.models.Saint;
+&nbsp;import seng201.nunbutblood.models.StatType;
 &nbsp;
-&nbsp;import java.util.*;
-&nbsp;import java.util.stream.Collectors;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Random;
 &nbsp;
 &nbsp;/**
-&nbsp; * Manages buying, selling, and rolling random generation for items and saints in the shop.
+&nbsp; * Handles picking and executing random text choices/events during a crusade.
 &nbsp; */
-&nbsp;public class MarketService {
+<b class="fc">&nbsp;public class MidCrusadeEvents {</b>
 &nbsp;
-&nbsp;    /** List of available saints */
-&nbsp;    private List&lt;Saint&gt; availableSaints;
-&nbsp;
-&nbsp;    /** List of available items */
-&nbsp;    private final List&lt;Item&gt; availableItems;
-&nbsp;
-&nbsp;    private final Random random;
+<b class="fc">&nbsp;    private final Random random = new Random();</b>
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Contructs new Marketservice and performs the initial refresh
-&nbsp;     *
-&nbsp;     * @param random the random
+&nbsp;     * Data outcome of a single choice.
 &nbsp;     */
-<b class="fc">&nbsp;    public MarketService(Random random) {</b>
-<b class="fc">&nbsp;        this.random = random;</b>
-<b class="fc">&nbsp;        this.availableSaints = new ArrayList&lt;&gt;();</b>
-<b class="fc">&nbsp;        this.availableItems = new ArrayList&lt;&gt;();</b>
-<b class="fc">&nbsp;        refresh(1);</b>
-&nbsp;    }
-&nbsp;
+<b class="fc">&nbsp;    public record Choice(</b>
+&nbsp;            String text,
+&nbsp;            StatType stat,
+&nbsp;            int amount,
+&nbsp;            Saint saint) {}
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Refresh the market stock. Called initially and after every crusade.
-&nbsp;     * Longer game time leads to stronger Saint
-&nbsp;     *
-&nbsp;     * @param crusadeNumber the crusade number
+&nbsp;     * An event scenario holding two branching choices.
 &nbsp;     */
-&nbsp;    public void refresh(int crusadeNumber) {
-&nbsp;
-&nbsp;        // Clear both list&#39;s
-<b class="fc">&nbsp;        availableSaints.clear();</b>
-<b class="fc">&nbsp;        availableItems.clear();</b>
-&nbsp;
-&nbsp;        // Generate a list of random saints based on crusade&#39;s completed
-<b class="fc">&nbsp;        int saintCount = 3 + random.nextInt(3);</b>
-<b class="fc">&nbsp;        for (int i = 0; i &lt; saintCount; i++) {</b>
-<b class="fc">&nbsp;            availableSaints.add(generateRandomSaint(crusadeNumber));</b>
-&nbsp;        }
-&nbsp;
-<b class="fc">&nbsp;        List&lt;ItemCatalog&gt; allCatalogItems = new ArrayList&lt;&gt;(Arrays.asList(ItemCatalog.values()));</b>
-<b class="fc">&nbsp;        Collections.shuffle(allCatalogItems, random);</b>
-<b class="fc">&nbsp;        int itemsToDraw = Math.min(3, allCatalogItems.size());</b>
-<b class="fc">&nbsp;        for (int i = 0; i &lt; itemsToDraw; i++) {</b>
-<b class="fc">&nbsp;            availableItems.add(allCatalogItems.get(i).create());</b>
-&nbsp;        }
-&nbsp;    }
-&nbsp;
-&nbsp;
-&nbsp;    // BUY AND SELL FOR SAINTS AND ITEMS
-&nbsp;
+<b class="fc">&nbsp;    public record Event(</b>
+&nbsp;            String description,
+&nbsp;            Choice choiceA,
+&nbsp;            Choice choiceB
+&nbsp;    ) {}
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Hire a Saint from the shop
+&nbsp;     * Picks a random event out of 15 scenarios and assigns targets from the party.
 &nbsp;     *
-&nbsp;     * @param saint    The saint to be hired
-&nbsp;     * @param covenant The Covenant purchasing the saint
-&nbsp;     * @return the boolean
+&nbsp;     * @param activeParty current active list of saints
+&nbsp;     * @return the selected event scenario
 &nbsp;     */
-&nbsp;    public boolean buySaint(Saint saint, Covenant covenant) {
-<b class="pc">&nbsp;        if (availableSaints.contains(saint) &amp;&amp; covenant.spendFaith(saint.getCost())) {</b>
-<b class="fc">&nbsp;            availableSaints.remove(saint);</b>
-<b class="fc">&nbsp;            covenant.addSaint(saint);</b>
-<b class="fc">&nbsp;            return true;</b>
-&nbsp;        }
-<b class="nc">&nbsp;        return false;</b>
-&nbsp;    }
+&nbsp;    public Event getRandomEvent(List&lt;Saint&gt; activeParty) {
 &nbsp;
+&nbsp;        // Possiblity for same
+<b class="fc">&nbsp;        Saint target = activeParty.get(random.nextInt(activeParty.size()));</b>
+<b class="fc">&nbsp;        Saint target2 = activeParty.get(random.nextInt(activeParty.size()));</b>
 &nbsp;
-&nbsp;    /**
-&nbsp;     * Sells a Saint back to the market for half of their original purchase price
-&nbsp;     *
-&nbsp;     * @param saint    The Saint to be sold
-&nbsp;     * @param covenant The Covenant sell the saint
-&nbsp;     * @return the boolean
-&nbsp;     */
-&nbsp;    public boolean sellSaint(Saint saint, Covenant covenant) {
-<b class="pc">&nbsp;        if (!covenant.retireSaint(saint)) return false;</b>
-<b class="fc">&nbsp;        covenant.addFaith(saint.getCost() / 2);</b>
-<b class="fc">&nbsp;        return true;</b>
-&nbsp;    }
+<b class="pc">&nbsp;        return switch (random.nextInt(15)) {</b>
+<b class="nc">&nbsp;            case 0 -&gt; new Event(</b>
+&nbsp;                    &quot;A weeping stone statue of the Martyr bleeds warm blood. Do you drink it or pray?&quot;,
+&nbsp;                    // Choice A (Positive Faith)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s drinks the tears, feeling an unholy fervor.&quot;, target, StatType.WISDOM), StatType.WISDOM, 3, target),</b>
+&nbsp;                    // Choice B (Negative Sanity)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s kneels to pray, but the whispers break their mind&quot;, target2, StatType.SANITY), StatType.SANITY, -2, target2)</b>
+&nbsp;            );
 &nbsp;
-&nbsp;    /**
-&nbsp;     * Purchase an item for the covenant
-&nbsp;     *
-&nbsp;     * @param item     Item the covenant is attempting to buy
-&nbsp;     * @param covenant Covenant attempting to buy items
-&nbsp;     * @return the boolean
-&nbsp;     */
-&nbsp;    public boolean buyItem(Item item, Covenant covenant) {
-<b class="pc">&nbsp;        if (!availableItems.contains(item)) return false;</b>
-<b class="pc">&nbsp;        if (!covenant.spendFaith(item.getCost())) return false;</b>
-<b class="fc">&nbsp;        availableItems.remove(item);</b>
-<b class="fc">&nbsp;        covenant.addItem(item);</b>
-<b class="fc">&nbsp;        return true;</b>
-&nbsp;    }
+<b class="fc">&nbsp;            case 1 -&gt; new Event(</b>
+&nbsp;                    &quot;The cathedral&#39;s iron-wrought bell begins to toll on its own, vibrating through your bones.&quot;,
+&nbsp;                    // Choice A (Negative Strength)
+<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s tries to steady the heavy rope, straining a muscle&quot;, target, StatType.STRENGTH), StatType.STRENGTH, -2, target),</b>
+&nbsp;                    // Choice B (Positive Intellect)
+<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s deciphers the rhythmic tolls as a hidden warning&quot;, target2, StatType.DEXTERITY), StatType.DEXTERITY, 2, target2)</b>
+&nbsp;            );
 &nbsp;
-&nbsp;    /**
-&nbsp;     * Sells the back to the market from covenant
-&nbsp;     *
-&nbsp;     * @param item     Item the covenant is attempting to sell
-&nbsp;     * @param covenant Covenant attempting to sell the item
-&nbsp;     * @return the boolean
-&nbsp;     */
-&nbsp;    public boolean sellItem(Item item, Covenant covenant) {
-<b class="pc">&nbsp;        if (!covenant.removeItem(item)) return false;</b>
-<b class="fc">&nbsp;        covenant.addFaith(item.getCost() / 2);</b>
-<b class="fc">&nbsp;        return true;</b>
-&nbsp;    }
+<b class="fc">&nbsp;            case 2 -&gt; new Event(</b>
+&nbsp;                    &quot;A flock of plague-ridden ravens bursts from the confessional box!&quot;,
+&nbsp;                    // Choice A (Positive Dexterity)
+<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s swats them away with lightning reflexes&quot;, target, StatType.DEXTERITY), StatType.DEXTERITY, 2, target),</b>
+&nbsp;                    // Choice B (Negative Faith)
+<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s views this as an omen of abandonment, losing hope&quot;, target2, StatType.WISDOM), StatType.WISDOM, -3, target2)</b>
+&nbsp;            );
 &nbsp;
+<b class="nc">&nbsp;            case 3 -&gt; new Event(</b>
+&nbsp;                    &quot;The Sister Superior&#39;s ghost wanders the cloister, clutching a razor-sharp rosary.&quot;,
+&nbsp;                    // Choice A (Positive Strength)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s wrestles the relic from her spectral grasp!&quot;, target, StatType.STRENGTH), StatType.STRENGTH, 2, target),</b>
+&nbsp;                    // Choice B (Negative Sanity)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s locks eyes with her hollow sockets and freezes in horror&quot;, target2, StatType.SANITY), StatType.SANITY, -3, target2)</b>
+&nbsp;            );
 &nbsp;
+<b class="nc">&nbsp;            case 4 -&gt; new Event(</b>
+&nbsp;                    &quot;The catacomb floor collapses, revealing a pit of bones and ancient texts.&quot;,
+&nbsp;                    // Choice A (Negative Dexterity)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s slips on the unstable shale and falls hard&quot;, target, StatType.DEXTERITY), StatType.DEXTERITY, -2, target),</b>
+&nbsp;                    // Choice B (Positive Intellect)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s unearths a lost liturgical manuscript from the debris&quot;, target2, StatType.DEXTERITY), StatType.DEXTERITY, 3, target2)</b>
+&nbsp;            );
 &nbsp;
-&nbsp;    // getters
+<b class="nc">&nbsp;            case 5 -&gt; new Event(</b>
+&nbsp;                    &quot;A massive stained-glass window shatters inward under the weight of a gargoyle!&quot;,
+&nbsp;                    // Choice A (Negative Strength)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s shields the group from falling shards, taking a heavy hit&quot;, target, StatType.STRENGTH), StatType.STRENGTH, -3, target),</b>
+&nbsp;                    // Choice B (Positive Dexterity)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s gracefully ducks beneath the flying glass&quot;, target2, StatType.DEXTERITY), StatType.DEXTERITY, 2, target2)</b>
+&nbsp;            );
 &nbsp;
-&nbsp;    /**
-&nbsp;     * Gets available saints.
-&nbsp;     *
-&nbsp;     * @return List of available saints for sale
-&nbsp;     */
-&nbsp;    public List&lt;Saint&gt; getAvailableSaints() {
-<b class="fc">&nbsp;        return availableSaints;</b>
-&nbsp;    }
+<b class="fc">&nbsp;            case 6 -&gt; new Event(</b>
+&nbsp;                    &quot;You discover a hidden spiked discipline belt (scourge) inside a hollowed-out bible.&quot;,
+&nbsp;                    // Choice A (Positive Faith)
+<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s accepts the penance, hardening their resolve&quot;, target, StatType.WISDOM), StatType.WISDOM, 3, target),</b>
+&nbsp;                    // Choice B (Negative Strength)
+<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s tries to disarm the trap but cuts their hands deeply&quot;, target2, StatType.STRENGTH), StatType.STRENGTH, -2, target2)</b>
+&nbsp;            );
 &nbsp;
-&nbsp;    /**
-&nbsp;     * Gets available items.
-&nbsp;     *
-&nbsp;     * @return List of available items for sale
-&nbsp;     */
-&nbsp;    public List&lt;Item&gt; getAvailableItems() {
-<b class="fc">&nbsp;        return availableItems;</b>
-&nbsp;    }
+<b class="nc">&nbsp;            case 7 -&gt; new Event(</b>
+&nbsp;                    &quot;The shadows in the scriptorium begin to twist and mimic your movements.&quot;,
+&nbsp;                    // Choice A (Positive Sanity)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s blankly stares them down, mastering their fear&quot;, target, StatType.SANITY), StatType.SANITY, 2, target),</b>
+&nbsp;                    // Choice B (Negative Intellect)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s tries to logically comprehend the darkness and gets a migraine&quot;, target2, StatType.DEXTERITY), StatType.DEXTERITY, -2, target2)</b>
+&nbsp;            );
 &nbsp;
+<b class="nc">&nbsp;            case 8 -&gt; new Event(</b>
+&nbsp;                    &quot;An altar candle suddenly blazes with an eerie, blinding violet flame.&quot;,
+&nbsp;                    // Choice A (Positive Intellect)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s recognizes the alchemical property of the flame&quot;, target, StatType.DEXTERITY), StatType.DEXTERITY, 2, target),</b>
+&nbsp;                    // Choice B (Negative Faith)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s fears it is witchery, doubting the chapel&#39;s sanctity&quot;, target2, StatType.WISDOM), StatType.WISDOM, -2, target2)</b>
+&nbsp;            );
 &nbsp;
-&nbsp;    /**
-&nbsp;     * Generate&#39;s a random Saint drawn from SaintRoster
-&nbsp;     *
-&nbsp;     * Rarity scales with the crusade number, increasing the chance of
-&nbsp;     * stronger saints based on the crusade count
-&nbsp;     * @param crusadeNumber current crusade number
-&nbsp;     * @return a new Saint from the roster
-&nbsp;     */
-&nbsp;    private Saint generateRandomSaint(int crusadeNumber) {
+<b class="fc">&nbsp;            case 9 -&gt; new Event(</b>
+&nbsp;                    &quot;The crypt is flooding with corrupted holy water that smells of sulfur.&quot;,
+&nbsp;                    // Choice A (Negative Dexterity)
+<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s splashes frantically, wading through the thick muck&quot;, target, StatType.DEXTERITY), StatType.DEXTERITY, -2, target),</b>
+&nbsp;                    // Choice B (Positive Faith)
+<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s purifies the water with a desperate, fierce prayer&quot;, target2, StatType.WISDOM), StatType.WISDOM, 3, target2)</b>
+&nbsp;            );
 &nbsp;
-<b class="fc">&nbsp;        Rarity targetRarity = rollRarity(crusadeNumber);</b>
+<b class="fc">&nbsp;            case 10 -&gt; new Event(</b>
+&nbsp;                    &quot;A swarm of locusts pours out of the grand organ pipes.&quot;,
+&nbsp;                    // Choice A (Positive Strength)
+<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s slams the organ lid shut with brute force&quot;, target, StatType.STRENGTH), StatType.STRENGTH, 2, target),</b>
+&nbsp;                    // Choice B (Negative Sanity)
+<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s is covered in the biting insects and panics&quot;, target2, StatType.SANITY), StatType.SANITY, -3, target2)</b>
+&nbsp;            );
 &nbsp;
-&nbsp;        // Filter the roster to best fit the current crusade number
-<b class="fc">&nbsp;        List&lt;SaintRoster.Entry&gt; candidates = SaintRoster.getAllSaints().stream()</b>
-<b class="fc">&nbsp;                .filter(saint -&gt; SaintRoster.create(saint).getRarity() == targetRarity)</b>
-<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
+<b class="nc">&nbsp;            case 11 -&gt; new Event(</b>
+&nbsp;                    &quot;A dying heretic offers you a forbidden black book before his last breath.&quot;,
+&nbsp;                    // Choice A (Positive Intellect)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s reads the texts, gaining dark, forbidden knowledge&quot;, target, StatType.DEXTERITY), StatType.DEXTERITY, 3, target),</b>
+&nbsp;                    // Choice B (Negative Faith)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s burns it, but the heretic&#39;s curses weaken their soul&quot;, target2, StatType.WISDOM), StatType.WISDOM, -2, target2)</b>
+&nbsp;            );
 &nbsp;
+<b class="nc">&nbsp;            case 12 -&gt; new Event(</b>
+&nbsp;                    &quot;The heavy iron abbey doors begin to slide shut, threatening to trap you forever.&quot;,
+&nbsp;                    // Choice A (Positive Dexterity)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s slides underneath the closing door just in time!&quot;, target, StatType.DEXTERITY), StatType.DEXTERITY, 3, target),</b>
+&nbsp;                    // Choice B (Negative Strength)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s tries to hold it open but gets their arm crushed&quot;, target2, StatType.STRENGTH), StatType.STRENGTH, -3, target2)</b>
+&nbsp;            );
 &nbsp;
-&nbsp;        // If the filter is unable to produce any saints for the shop, then make a new list anyway
-<b class="pc">&nbsp;        if (candidates.isEmpty()) {</b>
-<b class="nc">&nbsp;            candidates = new ArrayList&lt;&gt;(SaintRoster.getAllSaints());</b>
-&nbsp;        }
+<b class="nc">&nbsp;            case 13 -&gt; new Event(</b>
+&nbsp;                    &quot;You find a pristine white habit among charred ruins.&quot;,
+&nbsp;                    // Choice A (Positive Sanity)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s puts it on, feeling a sense of clean renewal&quot;, target, StatType.SANITY), StatType.SANITY, 2, target),</b>
+&nbsp;                    // Choice B (Negative Dexterity)
+<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s trips over the long, heavy ceremonial fabric&quot;, target2, StatType.DEXTERITY), StatType.DEXTERITY, -1, target2)</b>
+&nbsp;            );
 &nbsp;
-&nbsp;        // Select a random Saint based on candidates
-<b class="fc">&nbsp;        SaintRoster.Entry entry = candidates.get(random.nextInt(candidates.size()));</b>
-<b class="fc">&nbsp;        return SaintRoster.create(entry);</b>
+<b class="fc">&nbsp;            case 14 -&gt; new Event(</b>
+&nbsp;                    &quot;A demonic entity mimics the voice of a missing Sister, calling from the well.&quot;,
+&nbsp;                    // Choice A (Positive Faith)
+<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s rebukes the demon with an unshakeable hymn&quot;, target, StatType.WISDOM), StatType.WISDOM, 2, target),</b>
+&nbsp;                    // Choice B (Negative Sanity)
+<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s leans in too close, haunted by the whispers&quot;, target2, StatType.SANITY), StatType.SANITY, -3, target2)</b>
+&nbsp;            );
+&nbsp;
+<b class="nc">&nbsp;            default -&gt; null;</b>
+&nbsp;        };
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Rolls the rarity based on crusade count
+&nbsp;     * Mutates the targeted saint&#39;s stats based on the chosen option.
 &nbsp;     *
-&nbsp;     * @param crusadeNumber current crusade sequence index
-&nbsp;     * @return rolled Rarity tier
+&nbsp;     * @param party the active squad list
+&nbsp;     * @param choice the selection made by the player
+&nbsp;     * @return summary text describing the exact change
 &nbsp;     */
-&nbsp;    private Rarity rollRarity(int crusadeNumber) {
-<b class="fc">&nbsp;        return Rarity.rollFromCrusade(random, crusadeNumber);</b>
+&nbsp;    public String applyChoice(List&lt;Saint&gt; party, Choice choice) {
+&nbsp;
+<b class="fc">&nbsp;        applyStat(choice.saint, choice.stat(), choice.amount());</b>
+&nbsp;
+<b class="fc">&nbsp;        String changeText = choice.amount() &gt; 0 ? &quot;+&quot; + choice.amount() : String.valueOf(choice.amount());</b>
+&nbsp;
+<b class="fc">&nbsp;        return choice.saint.getName() + &quot;&#39;s &quot; + choice.stat().label + &quot; changed by &quot; + changeText + &quot;.&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void applyStat(Saint saint, StatType stat, int amount) {
+<b class="fc">&nbsp;        Saint.applyStat(saint, stat, amount);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -294,7 +353,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 05:43</div>
+    <div style="float:right;">generated on 2026-05-22 14:14</div>
 </div>
 </body>
 </html>

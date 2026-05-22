@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    83.3%
+    100%
   </span>
   <span class="absValue">
-    (5/6)
+    (5/5)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    62.5%
+    50%
   </span>
   <span class="absValue">
-    (5/8)
+    (4/8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    84.6%
+    91.7%
   </span>
   <span class="absValue">
-    (11/13)
+    (11/12)
   </span>
 </td>
 </tr>
@@ -89,8 +89,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.services;
 &nbsp;
-&nbsp;import seng201.nunbutblood.models.*;
-&nbsp;
 &nbsp;
 &nbsp;/**
 &nbsp; * BankService handles the faith of the Coven.
@@ -98,7 +96,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp; * FUNCTIONS:
 &nbsp; * &lt;p&gt;
 &nbsp; * {@link #getFaith()} -&gt; Get the CovensFaith &lt;br&gt;
-&nbsp; * {@link #getTotalFaithEarned()} -&gt; Get the total faith earned over the game &lt;br&gt;
 &nbsp; * {@link #addFaith(int)} -&gt; Adds faith to the Covenant &lt;br&gt;
 &nbsp; * {@link #spendFaith(int)} -&gt; Spends faith if the Covenant has enough &lt;br&gt;
 &nbsp; * {@link #payUpKeep(int)} -&gt; Pays all Saint who are on the activeParty &lt;br&gt;
@@ -121,7 +118,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param difficulty Selected game difficulty
 &nbsp;     */
 <b class="fc">&nbsp;    public BankService(String difficulty) {</b>
-<b class="fc">&nbsp;        this.faith = difficulty.equals(&quot;Hard&quot;) ? 100 : 300;</b>
+<b class="pc">&nbsp;        this.faith = difficulty.equals(&quot;Hard&quot;) ? 100 : 300;</b>
 <b class="fc">&nbsp;        this.totalFaithEarned = 0;</b>
 &nbsp;    }
 &nbsp;
@@ -132,15 +129,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    public int getFaith() {
 <b class="fc">&nbsp;        return faith;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    /**
-&nbsp;     * Gets the total amount of faith earned during the game.
-&nbsp;     *
-&nbsp;     * @return Total faith earned
-&nbsp;     */
-&nbsp;    public int getTotalFaithEarned() {
-<b class="nc">&nbsp;        return totalFaithEarned;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -204,7 +192,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 05:43</div>
+    <div style="float:right;">generated on 2026-05-22 14:14</div>
 </div>
 </body>
 </html>

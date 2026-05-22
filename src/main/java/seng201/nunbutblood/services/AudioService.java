@@ -56,7 +56,7 @@ public class AudioService {
 
     private MediaPlayer currentMusicPlayer;
     private Track currentTrack;
-    private double musicVolume = .4;
+    private double musicVolume = 1;
 
 
     /**
@@ -158,8 +158,8 @@ public class AudioService {
     private double volumeFor(Clip clip) {
         // Balance the audio, may add setting for fx music etc.
         return switch(clip) {
-            default -> 0.7;
-            case ROLLING -> 0.5;
+            default -> 1;
+            case ROLLING -> 1;
             case CRITICAL_FAIL, CRITICAL_SUCCESS -> 1;
         };
     }

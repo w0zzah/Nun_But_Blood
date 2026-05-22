@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > MidCrusadeEvents</title>
+  <title>Coverage Report > PostCrusadeService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,12 +22,15 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">seng201.nunbutblood.services</a>
 </div>
 
-<h1>Coverage Summary for Class: MidCrusadeEvents (seng201.nunbutblood.services)</h1>
+<h1>Coverage Summary for Class: PostCrusadeService (seng201.nunbutblood.services)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -42,97 +45,41 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">MidCrusadeEvents</td>
+  <td class="name">PostCrusadeService</td>
 <td class="coverageStat">
   <span class="percent">
     100%
   </span>
   <span class="absValue">
-    (4/4)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    94.1%
+    100%
   </span>
   <span class="absValue">
-    (16/17)
+    (3/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    92.7%
+    44%
   </span>
   <span class="absValue">
-    (51/55)
+    (11/25)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    62.9%
+  </span>
+  <span class="absValue">
+    (22/35)
   </span>
 </td>
 </tr>
-  <tr>
-    <td class="name">MidCrusadeEvents$Choice</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-  </tr>
-  <tr>
-    <td class="name">MidCrusadeEvents$Event</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-  </tr>
-<tr>
-  <td class="name"><strong>Total</strong></td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (6/6)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    94.1%
-  </span>
-  <span class="absValue">
-    (16/17)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    93%
-  </span>
-  <span class="absValue">
-    (53/57)
-  </span>
-</td>
-</tr>
+
 </table>
 
 <br/>
@@ -142,193 +89,119 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.services;
 &nbsp;
-&nbsp;import seng201.nunbutblood.models.Saint;
-&nbsp;import seng201.nunbutblood.models.StatType;
+&nbsp;import seng201.nunbutblood.models.*;
 &nbsp;
+&nbsp;import java.util.ArrayList;
 &nbsp;import java.util.List;
 &nbsp;import java.util.Random;
 &nbsp;
 &nbsp;/**
-&nbsp; * Handles picking and executing random text choices/events during a crusade.
+&nbsp; * Service class responsible for handling post-crusade processing.
+&nbsp; * Triggers random sequence events, stat mutations, ability acquisitions,
+&nbsp; * and handles progressive retirement tracking for Saints based on game difficulty.
 &nbsp; */
-<b class="fc">&nbsp;public class MidCrusadeEvents {</b>
+&nbsp;public class PostCrusadeService {
 &nbsp;
-<b class="fc">&nbsp;    private final Random random = new Random();</b>
+&nbsp;    /** Base probability of a random event after a crusade **/
+&nbsp;    private static final double BASE_EVENT_CHANCE = 0.40;
 &nbsp;
-&nbsp;    /**
-&nbsp;     * Data outcome of a single choice.
-&nbsp;     */
-<b class="fc">&nbsp;    public record Choice(</b>
-&nbsp;            String text,
-&nbsp;            StatType stat,
-&nbsp;            int amount,
-&nbsp;            Saint saint) {}
+&nbsp;    /** Difficulty increase for probability **/
+&nbsp;    private static final double HARD_BONUS = 0.20;
 &nbsp;
-&nbsp;    /**
-&nbsp;     * An event scenario holding two branching choices.
-&nbsp;     */
-<b class="fc">&nbsp;    public record Event(</b>
-&nbsp;            String description,
-&nbsp;            Choice choiceA,
-&nbsp;            Choice choiceB
-&nbsp;    ) {}
+&nbsp;    /** Skill&#39;s that can be learned after battle. */
+<b class="fc">&nbsp;    private static final String[] SKILLS = {</b>
+&nbsp;            &quot;Holy Blessing&quot;, &quot;Devout Survivor&quot;, &quot;Covered in Blood&quot;
+&nbsp;    };
+&nbsp;
+&nbsp;    /** Random number generator utilized for evaluation of event checks. */
+&nbsp;    private final Random random;
+&nbsp;
+&nbsp;    /** Flag indicating whether the game session is configured to Hard difficulty. */
+&nbsp;    private final boolean hardMode;
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Picks a random event out of 15 scenarios and assigns targets from the party.
+&nbsp;     * Instantiates a new Post crusade service with configured difficulty mechanics.
+&nbsp;     * Evaluates whether hard mode bonus percentages should apply to event processing checks.
 &nbsp;     *
-&nbsp;     * @param activeParty current active list of saints
-&nbsp;     * @return the selected event scenario
+&nbsp;     * @param difficulty the chosen game difficulty string (e.g., &quot;Normal&quot; or &quot;Hard&quot;)
 &nbsp;     */
-&nbsp;    public Event getRandomEvent(List&lt;Saint&gt; activeParty) {
+<b class="fc">&nbsp;    public PostCrusadeService(String difficulty) {</b>
+<b class="fc">&nbsp;        this.random = new Random();</b>
+<b class="fc">&nbsp;        this.hardMode = &quot;Hard&quot;.equals(difficulty);</b>
 &nbsp;
-&nbsp;        // Possiblity for same
-<b class="fc">&nbsp;        Saint target = activeParty.get(random.nextInt(activeParty.size()));</b>
-<b class="fc">&nbsp;        Saint target2 = activeParty.get(random.nextInt(activeParty.size()));</b>
-&nbsp;
-<b class="pc">&nbsp;        return switch (random.nextInt(15)) {</b>
-<b class="fc">&nbsp;            case 0 -&gt; new Event(</b>
-&nbsp;                    &quot;A weeping stone statue of the Martyr bleeds warm blood. Do you drink it or pray?&quot;,
-&nbsp;                    // Choice A (Positive Faith)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s drinks the tears, feeling an unholy fervor. \n (+3 %s)&quot;, target, StatType.WISDOM), StatType.WISDOM, 3, target),</b>
-&nbsp;                    // Choice B (Negative Sanity)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s kneels to pray, but the whispers break their mind\n (-2 %s)&quot;, target2, StatType.SANITY), StatType.SANITY, -2, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 1 -&gt; new Event(</b>
-&nbsp;                    &quot;The cathedral&#39;s iron-wrought bell begins to toll on its own, vibrating through your bones.&quot;,
-&nbsp;                    // Choice A (Negative Strength)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s tries to steady the heavy rope, straining a muscle\n (-2 %s)&quot;, target, StatType.STRENGTH), StatType.STRENGTH, -2, target),</b>
-&nbsp;                    // Choice B (Positive Intellect)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s deciphers the rhythmic tolls as a hidden warning\n (+2 %s)&quot;, target2, StatType.DEXTERITY), StatType.DEXTERITY, 2, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="nc">&nbsp;            case 2 -&gt; new Event(</b>
-&nbsp;                    &quot;A flock of plague-ridden ravens bursts from the confessional box!&quot;,
-&nbsp;                    // Choice A (Positive Dexterity)
-<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s swats them away with lightning reflexes\n (+2 %s)&quot;, target, StatType.DEXTERITY), StatType.DEXTERITY, 2, target),</b>
-&nbsp;                    // Choice B (Negative Faith)
-<b class="nc">&nbsp;                    new Choice(String.format(&quot;%s views this as an omen of abandonment, losing hope\n (-3 %s)&quot;, target2, StatType.WISDOM), StatType.WISDOM, -3, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 3 -&gt; new Event(</b>
-&nbsp;                    &quot;The Sister Superior&#39;s ghost wanders the cloister, clutching a razor-sharp rosary.&quot;,
-&nbsp;                    // Choice A (Positive Strength)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s wrestles the relic from her spectral grasp! (+2 %s)&quot;, target, StatType.STRENGTH), StatType.STRENGTH, 2, target),</b>
-&nbsp;                    // Choice B (Negative Sanity)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s locks eyes with her hollow sockets and freezes in horror\n (-3 %s)&quot;, target2, StatType.SANITY), StatType.SANITY, -3, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 4 -&gt; new Event(</b>
-&nbsp;                    &quot;The catacomb floor collapses, revealing a pit of bones and ancient texts.&quot;,
-&nbsp;                    // Choice A (Negative Dexterity)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s slips on the unstable shale and falls hard\n (-2 %s)&quot;, target, StatType.DEXTERITY), StatType.DEXTERITY, -2, target),</b>
-&nbsp;                    // Choice B (Positive Intellect)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s unearths a lost liturgical manuscript from the debris\n (+3 %s)&quot;, target2, StatType.DEXTERITY), StatType.DEXTERITY, 3, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 5 -&gt; new Event(</b>
-&nbsp;                    &quot;A massive stained-glass window shatters inward under the weight of a gargoyle!&quot;,
-&nbsp;                    // Choice A (Negative Strength)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s shields the group from falling shards, taking a heavy hit\n (-3 %s)&quot;, target, StatType.STRENGTH), StatType.STRENGTH, -3, target),</b>
-&nbsp;                    // Choice B (Positive Dexterity)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s gracefully ducks beneath the flying glass\n (+2 %s)&quot;, target2, StatType.DEXTERITY), StatType.DEXTERITY, 2, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 6 -&gt; new Event(</b>
-&nbsp;                    &quot;You discover a hidden spiked discipline belt (scourge) inside a hollowed-out bible.&quot;,
-&nbsp;                    // Choice A (Positive Faith)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s accepts the penance, hardening their resolve\n (+3 %s)&quot;, target, StatType.WISDOM), StatType.WISDOM, 3, target),</b>
-&nbsp;                    // Choice B (Negative Strength)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s tries to disarm the trap but cuts their hands deeply\n (-2 %s)&quot;, target2, StatType.STRENGTH), StatType.STRENGTH, -2, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 7 -&gt; new Event(</b>
-&nbsp;                    &quot;The shadows in the scriptorium begin to twist and mimic your movements.&quot;,
-&nbsp;                    // Choice A (Positive Sanity)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s blankly stares them down, mastering their fear\n (+2 %s)&quot;, target, StatType.SANITY), StatType.SANITY, 2, target),</b>
-&nbsp;                    // Choice B (Negative Intellect)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s tries to logically comprehend the darkness and gets a migraine\n (-2 %s)&quot;, target2, StatType.DEXTERITY), StatType.DEXTERITY, -2, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 8 -&gt; new Event(</b>
-&nbsp;                    &quot;An altar candle suddenly blazes with an eerie, blinding violet flame.&quot;,
-&nbsp;                    // Choice A (Positive Intellect)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s recognizes the alchemical property of the flame\n (+2 %s)&quot;, target, StatType.DEXTERITY), StatType.DEXTERITY, 2, target),</b>
-&nbsp;                    // Choice B (Negative Faith)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s fears it is witchery, doubting the chapel&#39;s sanctity\n (-2 %s)&quot;, target2, StatType.WISDOM), StatType.WISDOM, -2, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 9 -&gt; new Event(</b>
-&nbsp;                    &quot;The crypt is flooding with corrupted holy water that smells of sulfur.&quot;,
-&nbsp;                    // Choice A (Negative Dexterity)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s splashes frantically, wading through the thick muck\n (-2 %s)&quot;, target, StatType.DEXTERITY), StatType.DEXTERITY, -2, target),</b>
-&nbsp;                    // Choice B (Positive Faith)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s purifies the water with a desperate, fierce prayer\n (+3 %s)&quot;, target2, StatType.WISDOM), StatType.WISDOM, 3, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 10 -&gt; new Event(</b>
-&nbsp;                    &quot;A swarm of locusts pours out of the grand organ pipes.&quot;,
-&nbsp;                    // Choice A (Positive Strength)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s slams the organ lid shut with brute force\n (+2 %s)&quot;, target, StatType.STRENGTH), StatType.STRENGTH, 2, target),</b>
-&nbsp;                    // Choice B (Negative Sanity)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s is covered in the biting insects and panics\n (-3 %s)&quot;, target2, StatType.SANITY), StatType.SANITY, -3, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 11 -&gt; new Event(</b>
-&nbsp;                    &quot;A dying heretic offers you a forbidden black book before his last breath.&quot;,
-&nbsp;                    // Choice A (Positive Intellect)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s reads the texts, gaining dark, forbidden knowledge\n (+3 %s)&quot;, target, StatType.DEXTERITY), StatType.DEXTERITY, 3, target),</b>
-&nbsp;                    // Choice B (Negative Faith)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s burns it, but the heretic&#39;s curses weaken their soul\n (-2 %s)&quot;, target2, StatType.WISDOM), StatType.WISDOM, -2, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 12 -&gt; new Event(</b>
-&nbsp;                    &quot;The heavy iron abbey doors begin to slide shut, threatening to trap you forever.&quot;,
-&nbsp;                    // Choice A (Positive Dexterity)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s slides underneath the closing door just in time! (+3 %s)&quot;, target, StatType.DEXTERITY), StatType.DEXTERITY, 3, target),</b>
-&nbsp;                    // Choice B (Negative Strength)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s tries to hold it open but gets their arm crushed\n (-3 %s)&quot;, target2, StatType.STRENGTH), StatType.STRENGTH, -3, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 13 -&gt; new Event(</b>
-&nbsp;                    &quot;You find a pristine white habit among charred ruins.&quot;,
-&nbsp;                    // Choice A (Positive Sanity)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s puts it on, feeling a sense of clean renewal\n (+2 %s)&quot;, target, StatType.SANITY), StatType.SANITY, 2, target),</b>
-&nbsp;                    // Choice B (Negative Dexterity)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s trips over the long, heavy ceremonial fabric\n (-1 %s)&quot;, target2, StatType.DEXTERITY), StatType.DEXTERITY, -1, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="fc">&nbsp;            case 14 -&gt; new Event(</b>
-&nbsp;                    &quot;A demonic entity mimics the voice of a missing Sister, calling from the well.&quot;,
-&nbsp;                    // Choice A (Positive Faith)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s rebukes the demon with an unshakeable hymn\n (+2 %s)&quot;, target, StatType.WISDOM), StatType.WISDOM, 2, target),</b>
-&nbsp;                    // Choice B (Negative Sanity)
-<b class="fc">&nbsp;                    new Choice(String.format(&quot;%s leans in too close, haunted by the whispers\n (-3 %s)&quot;, target2, StatType.SANITY), StatType.SANITY, -3, target2)</b>
-&nbsp;            );
-&nbsp;
-<b class="nc">&nbsp;            default -&gt; null;</b>
-&nbsp;        };
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Mutates the targeted saint&#39;s stats based on the chosen option.
+&nbsp;     * Evaluates and updates state for unpredictable occurrences targeting active Saints after a crusade.
+&nbsp;     * Processes potential stat swings, passive skill allocations, and voluntary retirements.
 &nbsp;     *
-&nbsp;     * @param party the active squad list
-&nbsp;     * @param choice the selection made by the player
-&nbsp;     * @return summary text describing the exact change
+&nbsp;     * @param covenant the player&#39;s active Covenant structure containing the full roster
+&nbsp;     * @return a list of user-facing event description strings summarizing what transpired
 &nbsp;     */
-&nbsp;    public String applyChoice(List&lt;Saint&gt; party, Choice choice) {
+&nbsp;    public List&lt;String&gt; triggerEvents(Covenant covenant) {
 &nbsp;
-<b class="fc">&nbsp;        applyStat(choice.saint, choice.stat(), choice.amount());</b>
+<b class="fc">&nbsp;        List&lt;String&gt; events = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        List&lt;Saint&gt; activeParty = new ArrayList&lt;&gt;(covenant.getActiveParty());</b>
 &nbsp;
-<b class="fc">&nbsp;        String changeText = choice.amount() &gt; 0 ? &quot;+&quot; + choice.amount() : String.valueOf(choice.amount());</b>
+<b class="pc">&nbsp;        if (activeParty.isEmpty()) return events;</b>
+<b class="pc">&nbsp;        double chance = BASE_EVENT_CHANCE + (hardMode ? HARD_BONUS : 0);</b>
 &nbsp;
-<b class="fc">&nbsp;        return choice.saint.getName() + &quot;&#39;s &quot; + choice.stat().label + &quot; changed by &quot; + changeText + &quot;.&quot;;</b>
+&nbsp;        /**
+&nbsp;         * Change a random stat of the Saint
+&nbsp;         */
+<b class="fc">&nbsp;        if (random.nextDouble() &lt; chance) {</b>
+&nbsp;            // Pick random saint
+<b class="fc">&nbsp;            Saint target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));</b>
+&nbsp;
+&nbsp;            // set the change to either +3 or -2
+<b class="pc">&nbsp;            int change = random.nextBoolean() ? 3 : -2;</b>
+&nbsp;
+<b class="fc">&nbsp;            StatType[] stats = StatType.values();</b>
+<b class="fc">&nbsp;            StatType randomStat = stats[random.nextInt(stats.length)];</b>
+&nbsp;
+&nbsp;            // Apply the Change
+&nbsp;
+<b class="pc">&nbsp;            String direction = change &gt; 0 ? &quot;gained&quot; : &quot;lost&quot;;</b>
+<b class="pc">&nbsp;            String type = change &gt; 0 ? &quot;divine&quot; : &quot;cursed&quot;;</b>
+&nbsp;
+&nbsp;            // add the change to events arraylist&lt;&gt;
+<b class="fc">&nbsp;            events.add(String.format(&quot; %s %s %d perception from a %s event&quot;,</b>
+<b class="fc">&nbsp;                    target.getName(), direction, change, type));</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Random skill event
+<b class="pc">&nbsp;        if (random.nextDouble() &lt; chance * 0.5) {</b>
+<b class="nc">&nbsp;            Saint target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));</b>
+<b class="nc">&nbsp;            if (target.getSpecialAbility().isEmpty()) {</b>
+<b class="nc">&nbsp;                String skill = SKILLS[random.nextInt(SKILLS.length)];</b>
+<b class="nc">&nbsp;                switch (skill) {</b>
+<b class="nc">&nbsp;                    case &quot;Holy Blessing&quot; -&gt; covenant.addFaith(300);</b>
+<b class="nc">&nbsp;                    case &quot;Devout Survivor&quot; -&gt; covenant.addItem(ItemCatalog.BLOOD_VIAL.create());</b>
+&nbsp;                    case &quot;Covered in Blood&quot; -&gt; {
+<b class="nc">&nbsp;                        covenant.retireSaint(target);</b>
+<b class="nc">&nbsp;                        covenant.addSaint(SaintRoster.create(new SaintRoster.Entry(&quot;Angel&quot;, &quot;Angel.gif&quot;, &quot;EXE&quot;, 20,20,20,20)));</b>
+&nbsp;                    }
+&nbsp;                }
+<b class="nc">&nbsp;                events.add(String.format(&quot;%s has Channeled the ability, %s&quot;, target, skill));</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;        // Chance for saints to retire
+<b class="fc">&nbsp;        for (Saint saint : activeParty) {</b>
+<b class="fc">&nbsp;            double retireChance = 0.02 + (saint.getCrusadeCount() * 0.03);</b>
+<b class="pc">&nbsp;            if (random.nextDouble() &lt; retireChance) {</b>
+<b class="nc">&nbsp;                int total = covenant.getActiveParty().size() + covenant.getReserves().size();</b>
+<b class="nc">&nbsp;                if (total &gt; 1) {</b>
+<b class="nc">&nbsp;                    covenant.retireSaint(saint);</b>
+<b class="nc">&nbsp;                    events.add(String.format(&quot;%s has retired, a humble end for our hero...&quot;, saint.getName()));</b>
+&nbsp;                    break;
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;        }
+<b class="fc">&nbsp;        return events;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    private void applyStat(Saint saint, StatType stat, int amount) {
-<b class="fc">&nbsp;        Saint.applyStat(saint, stat, amount);</b>
-&nbsp;    }
+&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -353,7 +226,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 05:43</div>
+    <div style="float:right;">generated on 2026-05-22 14:14</div>
 </div>
 </body>
 </html>

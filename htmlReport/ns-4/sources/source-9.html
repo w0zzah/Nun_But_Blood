@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > PostCrusadeService</title>
+  <title>Coverage Report > SaintService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,7 +22,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">seng201.nunbutblood.services</a>
 </div>
 
-<h1>Coverage Summary for Class: PostCrusadeService (seng201.nunbutblood.services)</h1>
+<h1>Coverage Summary for Class: SaintService (seng201.nunbutblood.services)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -45,7 +45,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">PostCrusadeService</td>
+  <td class="name">SaintService</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    85.7%
   </span>
   <span class="absValue">
-    (3/3)
+    (12/14)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    72.7%
+    40.9%
   </span>
   <span class="absValue">
-    (16/22)
+    (9/22)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    79.4%
   </span>
   <span class="absValue">
-    (31/31)
+    (27/34)
   </span>
 </td>
 </tr>
@@ -89,114 +89,182 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.services;
 &nbsp;
-&nbsp;import seng201.nunbutblood.models.Covenant;
 &nbsp;import seng201.nunbutblood.models.Saint;
 &nbsp;import seng201.nunbutblood.models.StatType;
 &nbsp;
 &nbsp;import java.util.ArrayList;
 &nbsp;import java.util.List;
-&nbsp;import java.util.Random;
 &nbsp;
 &nbsp;/**
-&nbsp; * Service class responsible for handling post-crusade processing.
-&nbsp; * Triggers random sequence events, stat mutations, ability acquisitions,
-&nbsp; * and handles progressive retirement tracking for Saints based on game difficulty.
+&nbsp; * Service class responsible for managing the roster of Saints.
+&nbsp; * Handles ops involving the active party, reserves, party transitions,
+&nbsp; * and all of the stat or status updates.
 &nbsp; */
-&nbsp;public class PostCrusadeService {
+<b class="fc">&nbsp;public class SaintService {</b>
 &nbsp;
-&nbsp;    /** Base probability of a random event after a crusade **/
-&nbsp;    private static final double BASE_EVENT_CHANCE = 0.40;
+&nbsp;    /** Active party of saints going on the next crusade. Max 5.*/
+<b class="fc">&nbsp;    private final List&lt;Saint&gt; activeParty = new ArrayList&lt;&gt;();</b>
 &nbsp;
-&nbsp;    /** Difficulty increase for probability **/
-&nbsp;    private static final double HARD_BONUS = 0.20;
-&nbsp;
-&nbsp;    /** Skill&#39;s that can be learned after battle. */
-<b class="fc">&nbsp;    private static final String[] SKILLS = {</b>
-&nbsp;            &quot;Holy Blessing&quot;, &quot;Devout Survivor&quot;, &quot;Covered in Blood&quot;
-&nbsp;    };
-&nbsp;
-&nbsp;    /** Random number generator utilized for evaluation of event checks. */
-&nbsp;    private final Random random;
-&nbsp;
-&nbsp;    /** Flag indicating whether the game session is configured to Hard difficulty. */
-&nbsp;    private final boolean hardMode;
+&nbsp;    /** Reserve saints not used in the upcoming crusade. Max 5.     */
+<b class="fc">&nbsp;    private final List&lt;Saint&gt; reserves = new ArrayList&lt;&gt;();</b>
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Instantiates a new Post crusade service with configured difficulty mechanics.
-&nbsp;     * Evaluates whether hard mode bonus percentages should apply to event processing checks.
+&nbsp;     * Gets the current list of active party members.
 &nbsp;     *
-&nbsp;     * @param difficulty the chosen game difficulty string (e.g., &quot;Normal&quot; or &quot;Hard&quot;)
+&nbsp;     * @return a list containing the active Saints
 &nbsp;     */
-<b class="fc">&nbsp;    public PostCrusadeService(String difficulty) {</b>
-<b class="fc">&nbsp;        this.random = new Random();</b>
-<b class="fc">&nbsp;        this.hardMode = &quot;Hard&quot;.equals(difficulty);</b>
+<b class="fc">&nbsp;    public List&lt;Saint&gt; getActiveParty() { return activeParty;}</b>
 &nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the current list of reserve party members.
+&nbsp;     *
+&nbsp;     * @return a list containing the reserve Saints
+&nbsp;     */
+<b class="fc">&nbsp;    public List&lt;Saint&gt; getReserves() { return reserves;}</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds a new Saint to the roster
+&nbsp;     *
+&nbsp;     * Try to put in the activeParty first, and if not enough space, check reserves.
+&nbsp;     * Then if not enough space in either, return false
+&nbsp;     *
+&nbsp;     * @param saint the Saint to be added to the roster
+&nbsp;     * @return true if the Saint was successfully added to either the active party
+&nbsp;     *         or reserves, false if both groups are completely full
+&nbsp;     */
+&nbsp;    public boolean addSaint(Saint saint) {
+<b class="pc">&nbsp;        if (activeParty.size() &lt; 5) {</b>
+<b class="fc">&nbsp;            activeParty.add(saint);</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else if (reserves.size() &lt; 5) {</b>
+<b class="nc">&nbsp;            reserves.add(saint);</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
-&nbsp;     * Evaluates and updates state for unpredictable occurrences targeting active Saints after a crusade.
-&nbsp;     * Processes potential stat swings, passive skill allocations, and voluntary retirements.
+&nbsp;     * Moves a Saint from the reserves list into the active party, if there is space
 &nbsp;     *
-&nbsp;     * @param covenant the player&#39;s active Covenant structure containing the full roster
-&nbsp;     * @return a list of user-facing event description strings summarizing what transpired
+&nbsp;     * @param saint the Saint to activate
+&nbsp;     * @return true if the transferred, else false
 &nbsp;     */
-&nbsp;    public List&lt;String&gt; triggerEvents(Covenant covenant) {
+&nbsp;    public boolean activateSaint(Saint saint) {
+<b class="pc">&nbsp;        if (activeParty.size() &gt;= 5 || !reserves.contains(saint)) return false;</b>
+<b class="fc">&nbsp;        reserves.remove(saint);</b>
+<b class="fc">&nbsp;        activeParty.add(saint);</b>
+<b class="fc">&nbsp;        return true;</b>
+&nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;        List&lt;String&gt; events = new ArrayList&lt;&gt;();</b>
-<b class="fc">&nbsp;        List&lt;Saint&gt; activeParty = new ArrayList&lt;&gt;(covenant.getActiveParty());</b>
+&nbsp;    /**
+&nbsp;     * Moves a Saint from the active party into the reserves list, if there is space
+&nbsp;     *
+&nbsp;     * @param saint the Saint to move to reserves
+&nbsp;     * @return true if the transferred, else false
+&nbsp;     */
+&nbsp;    public boolean benchSaint(Saint saint) {
+<b class="pc">&nbsp;        if (reserves.size() &gt;= 5 || !activeParty.contains(saint)) return false;</b>
+<b class="fc">&nbsp;        activeParty.remove(saint);</b>
+<b class="fc">&nbsp;        reserves.add(saint);</b>
+<b class="fc">&nbsp;        return true;</b>
+&nbsp;    }
 &nbsp;
-<b class="pc">&nbsp;        if (activeParty.isEmpty()) return events;</b>
-<b class="fc">&nbsp;        double chance = BASE_EVENT_CHANCE + (hardMode ? HARD_BONUS : 0);</b>
+&nbsp;    /**
+&nbsp;     * Permanently removes a Saint from the roster (either active or reserve).
+&nbsp;     * To prevent a completely empty roster, will fail if the total number
+&nbsp;     * of owned Saints is 1 or fewer.
+&nbsp;     *
+&nbsp;     * @param saint the Saint to retire from service
+&nbsp;     * @return true if the Saint was successfully removed from the roster, else false
+&nbsp;     */
+&nbsp;    public boolean retireSaint(Saint saint) {
+<b class="pc">&nbsp;        if ((activeParty.size() + reserves.size() &lt;= 1)) return false;</b>
+<b class="pc">&nbsp;        return activeParty.remove(saint) || reserves.remove(saint);</b>
+&nbsp;    }
 &nbsp;
-&nbsp;        /**
-&nbsp;         * Change a random stat of the Saint
-&nbsp;         */
-<b class="fc">&nbsp;        if (random.nextDouble() &lt; chance) {</b>
-&nbsp;            // Pick random saint
-<b class="fc">&nbsp;            Saint target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));</b>
-&nbsp;
-&nbsp;            // set the change to either +3 or -2
-<b class="pc">&nbsp;            int change = random.nextBoolean() ? 3 : -2;</b>
-&nbsp;
-<b class="fc">&nbsp;            StatType[] stats = StatType.values();</b>
-<b class="fc">&nbsp;            StatType randomStat = stats[random.nextInt(stats.length)];</b>
-&nbsp;
-&nbsp;            // Apply the Change
-&nbsp;
-<b class="pc">&nbsp;            String direction = change &gt; 0 ? &quot;gained&quot; : &quot;lost&quot;;</b>
-<b class="pc">&nbsp;            String type = change &gt; 0 ? &quot;divine&quot; : &quot;cursed&quot;;</b>
-&nbsp;
-&nbsp;            // add the change to events arraylist&lt;&gt;
-<b class="fc">&nbsp;            events.add(String.format(&quot; %s %s %d perception from a %s event&quot;,</b>
-<b class="fc">&nbsp;                    target.getName(), direction, change, type));</b>
-&nbsp;        }
-&nbsp;
-&nbsp;        // Random skill event
-<b class="fc">&nbsp;        if (random.nextDouble() &lt; chance * 0.5) {</b>
-<b class="fc">&nbsp;            Saint target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));</b>
-<b class="pc">&nbsp;            if (target.getSpecialAbility().isEmpty()) {</b>
-<b class="fc">&nbsp;                String skill = SKILLS[random.nextInt(SKILLS.length)];</b>
-<b class="fc">&nbsp;                target.setSpecialAbility(skill);</b>
-<b class="fc">&nbsp;                events.add(String.format(&quot;%s has learned the new ability, %s&quot;, target, skill));</b>
-&nbsp;            }
-&nbsp;        }
-&nbsp;        // Chance for saints to retire
-<b class="fc">&nbsp;        for (Saint saint : activeParty) {</b>
-<b class="fc">&nbsp;            double retireChance = 0.02 + (saint.getCrusadeCount() * 0.03);</b>
-<b class="fc">&nbsp;            if (random.nextDouble() &lt; retireChance) {</b>
-<b class="fc">&nbsp;                int total = covenant.getActiveParty().size() + covenant.getReserves().size();</b>
-<b class="pc">&nbsp;                if (total &gt; 1) {</b>
-<b class="fc">&nbsp;                    covenant.retireSaint(saint);</b>
-<b class="fc">&nbsp;                    events.add(String.format(&quot;%s has retired, a humble end for our hero...&quot;, saint.getName()));</b>
-&nbsp;                    break;
-&nbsp;                }
-&nbsp;            }
-&nbsp;
-&nbsp;        }
-<b class="fc">&nbsp;        return events;</b>
+&nbsp;    /**
+&nbsp;     * &lt;b&gt;Stream -&gt;&lt;/b&gt;Stream  Return&#39;s the Active party one by one so that we can talk to each of them (sequential list)&lt;br&gt;
+&nbsp;     * &lt;b&gt;mapToInt -&gt;&lt;/b&gt;  Return Int values of the object (faster than objects for computing)&lt;br&gt;
+&nbsp;     * &lt;b&gt;Saint::getUpKeep -&gt;&lt;/b&gt;  Pick&#39;s out each saints upKeep&lt;br&gt;
+&nbsp;     * &lt;b&gt;sum() -&gt; &lt;/b&gt; add&#39;s everything up &lt;br&gt;
+&nbsp;     * &lt;br&gt;
+&nbsp;     * &lt;p&gt;
+&nbsp;     * This serves as a conveyer belt system where we line up all our Saint and slowly
+&nbsp;     * pick out the ones we want, and the things we need, then what we want to do with it.
+&nbsp;     * &lt;/p&gt;
+&nbsp;     * &lt;br&gt;
+&nbsp;     * &lt;br&gt;
+&nbsp;     * .stream() &lt;b&gt;(Line them up)&lt;/b&gt;-&gt; mapToInt(Saint::getUpKeep) &lt;b&gt;Pickout each Saint UpKeep) -&lt;/b&gt;(&gt; .sum() &lt;b&gt;(Add them all together)&lt;/b&gt;
+&nbsp;     *
+&nbsp;     * @return the total upkeep cost of all active party members combined
+&nbsp;     */
+&nbsp;    public int calculateUpKeep() {
+<b class="fc">&nbsp;        return activeParty.stream().mapToInt(Saint::getUpKeep).sum();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
+&nbsp;    /**
+&nbsp;     * Refreshes and restores the sanity of all active party members.
+&nbsp;     */
+&nbsp;    public void refreshSanity() {
+<b class="fc">&nbsp;        activeParty.forEach(Saint::restoreSanity);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks whether all currently owned Saints (both active and reserves) are completely exhausted.
+&nbsp;     * A Saint is considered exhausted if their current sanity falls below 5.
+&nbsp;     *
+&nbsp;     * @return true if the entire roster is empty or if every owned Saint has less than 5 sanity,
+&nbsp;     *         false if there is at least one Saint with 5 or more sanity remaining
+&nbsp;     */
+&nbsp;    public boolean allSaintsExhausted() {
+<b class="fc">&nbsp;        List&lt;Saint&gt; allSaints = getOwnedSaints();</b>
+<b class="pc">&nbsp;        if (allSaints.isEmpty()) {</b>
+<b class="nc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="pc">&nbsp;        return allSaints.stream().allMatch(saints -&gt; saints.getCurrentSanity() &lt; 5);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Increments the total crusade completion count for all active party members.
+&nbsp;     */
+&nbsp;    public void incrementCrusadeCounts() {
+<b class="fc">&nbsp;        activeParty.forEach(Saint::incrementCrusadeCount);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks if the service has no Saints allocated anywhere.
+&nbsp;     *
+&nbsp;     * @return true if both active party and reserves are completely empty, false otherwise
+&nbsp;     */
+&nbsp;    public boolean isEmpty() {
+<b class="nc">&nbsp;        return activeParty.isEmpty() &amp;&amp; reserves.isEmpty();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Aggregates and retrieves all Saints currently managed by the service.
+&nbsp;     * Combines both active party members and reserve members into a unified list.
+&nbsp;     *
+&nbsp;     * @return a new list containing all active and reserve Saints
+&nbsp;     */
+&nbsp;    public List&lt;Saint&gt; getOwnedSaints() {
+<b class="fc">&nbsp;        List&lt;Saint&gt; allSaints = new ArrayList&lt;&gt;(activeParty);</b>
+<b class="fc">&nbsp;        allSaints.addAll(reserves);</b>
+<b class="fc">&nbsp;        return allSaints;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Internal helper method to modify a specific statistic value of a given Saint.
+&nbsp;     *
+&nbsp;     * @param saint  the Saint whose stat is to be adjusted
+&nbsp;     * @param stat   the type of statistic being targeted
+&nbsp;     * @param amount the numerical amount to apply (positive or negative)
+&nbsp;     */
+&nbsp;    private void applyStat(Saint saint, StatType stat, int amount) {
+<b class="nc">&nbsp;        Saint.applyStat(saint, stat, amount);</b>
+&nbsp;    }
 &nbsp;}
 </code>
 </pre>
@@ -221,7 +289,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 05:43</div>
+    <div style="float:right;">generated on 2026-05-22 14:14</div>
 </div>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > CrusadeEvent</title>
+  <title>Coverage Report > CrusadeService</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,18 +22,19 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">seng201.nunbutblood.services</a>
 </div>
 
-<h1>Coverage Summary for Class: CrusadeEvent (seng201.nunbutblood.services)</h1>
+<h1>Coverage Summary for Class: CrusadeService (seng201.nunbutblood.services)</h1>
 
 <table class="coverageStats">
+
 <tr>
   <th class="name">Class</th>
 <th class="coverageStat 
 ">
-  Class, %
+  Method, %
 </th>
 <th class="coverageStat 
 ">
-  Method, %
+  Branch, %
 </th>
 <th class="coverageStat 
 ">
@@ -41,33 +42,78 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">CrusadeEvent</td>
+  <td class="name">CrusadeService</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (8/8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    83.3%
   </span>
   <span class="absValue">
-    (0/1)
+    (15/18)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    91.4%
   </span>
   <span class="absValue">
-    (0/1)
+    (32/35)
   </span>
 </td>
 </tr>
-
+  <tr>
+    <td class="name">CrusadeService$StepResult</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (15/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    91.7%
+  </span>
+  <span class="absValue">
+    (33/36)
+  </span>
+</td>
+</tr>
 </table>
 
 <br/>
@@ -77,17 +123,133 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.services;
 &nbsp;
+&nbsp;import seng201.nunbutblood.models.Demon;
 &nbsp;import seng201.nunbutblood.models.Saint;
 &nbsp;import seng201.nunbutblood.models.StatType;
 &nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;import java.util.Random;
+&nbsp;
 &nbsp;/**
-&nbsp; * A data container for storing stat changes applied to a Saint during a crusade event.
+&nbsp; * The brain of the Crusade. Handles the math, sanity costs, and
+&nbsp; * progression logic, returning data for the UI to display.
 &nbsp; */
-<b class="nc">&nbsp;public record CrusadeEvent(</b>
-&nbsp;        Saint target,
-&nbsp;        StatType stat,
-&nbsp;        int change,
-&nbsp;        String description){}
+<b class="fc">&nbsp;public class CrusadeService {</b>
+&nbsp;
+<b class="fc">&nbsp;    private int currentStep = 0;</b>
+&nbsp;    // expedition length
+<b class="fc">&nbsp;    private final int totalSteps = 3;</b>
+<b class="fc">&nbsp;    private final StringBuilder logHistory = new StringBuilder(&quot;Click &#39;ROLL&#39; to roll the die. Roll higher 3 times and you win!\n&quot;);</b>
+<b class="fc">&nbsp;    private final Random random = new Random();</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Data carrier for the Controller and Animation.
+&nbsp;     */
+<b class="fc">&nbsp;    public record StepResult(</b>
+&nbsp;            int roll,
+&nbsp;            String type,
+&nbsp;            String narrative,
+&nbsp;            String logMessage,
+&nbsp;            boolean hasDemonEvent
+&nbsp;    ) {}
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Executes one &quot;turn&quot; of the crusade.
+&nbsp;     *
+&nbsp;     * @param saint the saint
+&nbsp;     * @param demon the demon
+&nbsp;     * @param party the party
+&nbsp;     * @param stat  the stat
+&nbsp;     * @return A StepResult containing all data needed for the animation and UI update.
+&nbsp;     */
+&nbsp;    public StepResult performStep(Saint saint, Demon demon, List&lt;Saint&gt; party, StatType stat) {
+&nbsp;        //  Calculate the Roll
+<b class="fc">&nbsp;        int roll = random.nextInt(20) + 1;</b>
+<b class="fc">&nbsp;        int bonus = saint.getAttributeValue(stat);</b>
+<b class="fc">&nbsp;        int total = roll + bonus;</b>
+<b class="fc">&nbsp;        boolean isSuccess = total &gt;= demon.getDifficultyRating();</b>
+&nbsp;
+<b class="pc">&nbsp;        String type = switch(roll) {</b>
+<b class="fc">&nbsp;            case 20 -&gt; &quot;critical-success&quot;;</b>
+<b class="nc">&nbsp;            case 1 -&gt; &quot;critical-fail&quot;;</b>
+<b class="fc">&nbsp;            default -&gt; isSuccess ? &quot;success&quot; : &quot;fail&quot;;</b>
+<b class="fc">&nbsp;        };</b>
+&nbsp;
+&nbsp;        // Every roll costs sanity, regardless of success
+<b class="fc">&nbsp;        saint.consumeSanity(5);</b>
+&nbsp;
+&nbsp;        String narrative;
+<b class="fc">&nbsp;        if (type.equals(&quot;critical-success&quot;)) {</b>
+<b class="fc">&nbsp;            currentStep += 2;</b>
+<b class="fc">&nbsp;            narrative = &quot;CRITICAL SUCCESS&quot;;</b>
+<b class="fc">&nbsp;        } else if (isSuccess) {</b>
+<b class="fc">&nbsp;            currentStep += 1;</b>
+<b class="fc">&nbsp;            narrative = &quot;SUCCESS&quot;;</b>
+<b class="pc">&nbsp;        } else if (type.equals(&quot;critical-fail&quot;)){</b>
+<b class="nc">&nbsp;            currentStep -= 1;</b>
+<b class="nc">&nbsp;            narrative = &quot;CRITICAL FAIL&quot;;</b>
+<b class="fc">&nbsp;        } else { narrative = &quot;FAIL&quot;; }</b>
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;        String logEntry = String.format(&quot;[Roll : %d] (%d+%d) %s used %s. Result: %s&quot;,</b>
+<b class="fc">&nbsp;                (roll + bonus), roll, bonus, saint.getName(), stat, type.toUpperCase());</b>
+<b class="fc">&nbsp;        addToLog(logEntry);</b>
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;        return new StepResult(roll, type, narrative, logEntry, roll &lt; 10);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check victory boolean.
+&nbsp;     *
+&nbsp;     * @return the boolean
+&nbsp;     */
+&nbsp;    public boolean checkVictory() {
+<b class="fc">&nbsp;        return currentStep &gt;= totalSteps;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check game over boolean.
+&nbsp;     *
+&nbsp;     * @param party the party
+&nbsp;     * @return the boolean
+&nbsp;     */
+&nbsp;    public boolean checkGameOver(List&lt;Saint&gt; party) {
+&nbsp;        // Game is over if all party members are below the required sanity to act
+<b class="pc">&nbsp;        return party.stream().allMatch(s -&gt; s.getCurrentSanity() &lt; 5);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets current step.
+&nbsp;     *
+&nbsp;     * @return the current step
+&nbsp;     */
+<b class="fc">&nbsp;    public int getCurrentStep() { return currentStep; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets total steps.
+&nbsp;     *
+&nbsp;     * @return the total steps
+&nbsp;     */
+<b class="fc">&nbsp;    public int getTotalSteps() { return totalSteps; }</b>
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets log.
+&nbsp;     *
+&nbsp;     * @return the log
+&nbsp;     */
+<b class="fc">&nbsp;    public String getLog() { return logHistory.toString(); }</b>
+&nbsp;
+&nbsp;    private void addToLog(String message) {
+<b class="fc">&nbsp;        logHistory.insert(0, message + &quot;\n&quot;); // Newest messages at the top</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
 </code>
 </pre>
 </div>
@@ -111,7 +273,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 05:43</div>
+    <div style="float:right;">generated on 2026-05-22 14:14</div>
 </div>
 </body>
 </html>

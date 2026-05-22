@@ -45,26 +45,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">AudioService</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    87.5%
   </span>
   <span class="absValue">
-    (5/5)
+    (7/8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    61.5%
+    60%
   </span>
   <span class="absValue">
-    (8/13)
+    (15/25)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    97.5%
   </span>
   <span class="absValue">
-    (19/19)
+    (39/40)
   </span>
 </td>
 </tr>
@@ -87,30 +87,49 @@ Current scope:     <a href="../../index.html">all classes</a>
   </span>
 </td>
   </tr>
+  <tr>
+    <td class="name">AudioService$Track</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+  </tr>
 <tr>
   <td class="name"><strong>Total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    91.7%
   </span>
   <span class="absValue">
-    (7/7)
+    (11/12)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    61.5%
+    60%
   </span>
   <span class="absValue">
-    (8/13)
+    (15/25)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    98%
   </span>
   <span class="absValue">
-    (25/25)
+    (48/49)
   </span>
 </td>
 </tr>
@@ -124,13 +143,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 <code class="sourceCode" id="sourceCode">&nbsp;package seng201.nunbutblood.services;
 &nbsp;
 &nbsp;import javafx.scene.media.AudioClip;
+&nbsp;import javafx.scene.media.Media;
+&nbsp;import javafx.scene.media.MediaPlayer;
+&nbsp;
 &nbsp;import java.net.URL;
 &nbsp;import java.util.EnumMap;
 &nbsp;import java.util.Map;
 &nbsp;
 &nbsp;
 &nbsp;/**
-&nbsp; * Audio Service: *
+&nbsp; * &lt;h1&gt;Audio Service: * &lt;/h1&gt;
 &nbsp; *
 &nbsp; * &lt;p&gt;Creates an Enum where all audio clips are found for shorter sound effects such as dice roll.&lt;/p&gt;
 &nbsp; * &lt;p&gt;(can be disabled with setting enabled to false)&lt;/p&gt;
@@ -164,20 +186,31 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;        ROLLING</b>
 &nbsp;    }
 &nbsp;
+<b class="fc">&nbsp;    public enum Track {</b>
+<b class="fc">&nbsp;        CRUSADE,</b>
+<b class="fc">&nbsp;        HUB</b>
+&nbsp;    }
+&nbsp;
 &nbsp;    // Create an EnumMap to call each audio clip of o(1)
 <b class="fc">&nbsp;    private final Map&lt;Clip, AudioClip&gt; clips = new EnumMap&lt;&gt;(Clip.class);</b>
 <b class="fc">&nbsp;    private boolean enabled = true; // To disable audio</b>
+&nbsp;
+&nbsp;
+&nbsp;    private MediaPlayer currentMusicPlayer;
+&nbsp;    private Track currentTrack;
+<b class="fc">&nbsp;    private double musicVolume = .4;</b>
+&nbsp;
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Instantiates a new Audio service.
 &nbsp;     */
 <b class="fc">&nbsp;    public AudioService() {</b>
 &nbsp;        // Load assets into memory to prevent pulling each time
-<b class="fc">&nbsp;        load(Clip.CRITICAL_SUCCESS, &quot;/audio/critical_success.wav&quot;);</b>
-<b class="fc">&nbsp;        load(Clip.SUCCESS,          &quot;/audio/success.wav&quot;);</b>
-<b class="fc">&nbsp;        load(Clip.FAIL,             &quot;/audio/fail.wav&quot;);</b>
-<b class="fc">&nbsp;        load(Clip.CRITICAL_FAIL,    &quot;/audio/critical_fail.wav&quot;);</b>
-<b class="fc">&nbsp;        load(Clip.ROLLING,          &quot;/audio/rolling.wav&quot;);</b>
+<b class="fc">&nbsp;        loadDiceRollSound(Clip.CRITICAL_SUCCESS, &quot;/audio/critical_success.wav&quot;);</b>
+<b class="fc">&nbsp;        loadDiceRollSound(Clip.SUCCESS,          &quot;/audio/success.wav&quot;);</b>
+<b class="fc">&nbsp;        loadDiceRollSound(Clip.FAIL,             &quot;/audio/fail.wav&quot;);</b>
+<b class="fc">&nbsp;        loadDiceRollSound(Clip.CRITICAL_FAIL,    &quot;/audio/critical_fail.wav&quot;);</b>
+<b class="fc">&nbsp;        loadDiceRollSound(Clip.ROLLING,          &quot;/audio/rolling.wav&quot;);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    /**
@@ -210,6 +243,47 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param path target path to the resource file
 &nbsp;     */
 &nbsp;    private void load(Clip key, String path) {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;    public void playMusic(Track track) {
+<b class="pc">&nbsp;        if (!enabled) return;</b>
+<b class="pc">&nbsp;        if (currentTrack == track &amp;&amp; currentMusicPlayer != null) return;</b>
+&nbsp;
+<b class="fc">&nbsp;        stopMusic();</b>
+&nbsp;
+<b class="pc">&nbsp;        String path = switch (track) {</b>
+<b class="fc">&nbsp;            case HUB -&gt; &quot;/audio/hub.mp3&quot;;</b>
+<b class="fc">&nbsp;            case CRUSADE -&gt; &quot;/audio/crusade.mp3&quot;;</b>
+&nbsp;        };
+&nbsp;
+<b class="fc">&nbsp;        URL url = getClass().getResource(path);</b>
+&nbsp;
+<b class="pc">&nbsp;        if (url == null) return;</b>
+&nbsp;
+<b class="fc">&nbsp;        Media media = new Media(url.toExternalForm());</b>
+<b class="fc">&nbsp;        currentMusicPlayer = new MediaPlayer(media);</b>
+<b class="fc">&nbsp;        currentTrack = track;</b>
+&nbsp;
+<b class="fc">&nbsp;        currentMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);</b>
+<b class="fc">&nbsp;        currentMusicPlayer.setVolume(musicVolume);</b>
+<b class="fc">&nbsp;        currentMusicPlayer.play();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void stopMusic() {
+<b class="fc">&nbsp;        if (currentMusicPlayer != null) {</b>
+<b class="fc">&nbsp;            currentMusicPlayer.stop();</b>
+<b class="fc">&nbsp;            currentMusicPlayer.dispose(); // Free all resources associated with player. check docs</b>
+<b class="fc">&nbsp;            currentMusicPlayer = null;</b>
+<b class="fc">&nbsp;            currentTrack = null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Finds and caches the audio asset from resources if it exists.
+&nbsp;     *
+&nbsp;     * @param key the designated clip identifier
+&nbsp;     * @param path target path to the resource file
+&nbsp;     */
+&nbsp;    private void loadDiceRollSound(Clip key, String path) {
 <b class="fc">&nbsp;        URL url = getClass().getResource(path);</b>
 &nbsp;        // Check the audio exists, if so assign the EnumMap key to audio wav
 <b class="pc">&nbsp;        if (url != null) {</b>
@@ -227,11 +301,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;        // Balance the audio, may add setting for fx music etc.
 <b class="pc">&nbsp;        return switch(clip) {</b>
 <b class="fc">&nbsp;            default -&gt; 0.7;</b>
-<b class="fc">&nbsp;            case ROLLING -&gt; 0.5;</b>
+<b class="fc">&nbsp;            case ROLLING -&gt; 0.7;</b>
 <b class="fc">&nbsp;            case CRITICAL_FAIL, CRITICAL_SUCCESS -&gt; 1;</b>
 &nbsp;        };
 &nbsp;    }
-&nbsp;}
+&nbsp; }
 </code>
 </pre>
 </div>
@@ -255,7 +329,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 05:43</div>
+    <div style="float:right;">generated on 2026-05-22 14:14</div>
 </div>
 </body>
 </html>

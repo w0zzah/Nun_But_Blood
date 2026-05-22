@@ -72,10 +72,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    88.9%
+    89%
   </span>
   <span class="absValue">
-    (64/72)
+    (65/73)
   </span>
 </td>
 </tr>
@@ -100,6 +100,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import seng201.nunbutblood.models.Covenant;
 &nbsp;import seng201.nunbutblood.models.Item;
 &nbsp;import javafx.scene.control.Label;
+&nbsp;import seng201.nunbutblood.services.AudioService;
 &nbsp;
 &nbsp;
 &nbsp;import java.util.List;
@@ -128,6 +129,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private Stage stage;
 &nbsp;    private ScreenNavigator navigator;
 &nbsp;    private Covenant covenant;
+&nbsp;    private AudioService audioService;
 &nbsp;
 &nbsp;    /**
 &nbsp;     * Init.
@@ -136,10 +138,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param navigator the navigator
 &nbsp;     * @param covenant  the covenant
 &nbsp;     */
-&nbsp;    public void init(Stage stage, ScreenNavigator navigator, Covenant covenant) {
+&nbsp;    public void init(Stage stage, ScreenNavigator navigator, Covenant covenant, AudioService audioService) {
 <b class="fc">&nbsp;        this.stage = stage;</b>
 <b class="fc">&nbsp;        this.navigator = navigator;</b>
 <b class="fc">&nbsp;        this.covenant = covenant;</b>
+<b class="fc">&nbsp;        this.audioService = audioService;</b>
 <b class="fc">&nbsp;        refresh();</b>
 &nbsp;    }
 &nbsp;
@@ -244,7 +247,6 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;        dialog.setTitle(&quot;Use Item&quot;);</b>
 <b class="fc">&nbsp;        dialog.setHeaderText(&quot;Applying: &quot; + item.getItemName());</b>
 <b class="fc">&nbsp;        dialog.setContentText(&quot;Select a Saint to use this on:&quot;);</b>
-&nbsp;
 <b class="fc">&nbsp;        Optional&lt;Saint&gt; result = dialog.showAndWait();</b>
 <b class="fc">&nbsp;        result.ifPresent(saint -&gt; {</b>
 <b class="fc">&nbsp;            item.applyEffect(saint);</b>
@@ -292,7 +294,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 05:43</div>
+    <div style="float:right;">generated on 2026-05-22 14:14</div>
 </div>
 </body>
 </html>

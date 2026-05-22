@@ -56,10 +56,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    90.9%
+    100%
   </span>
   <span class="absValue">
-    (10/11)
+    (11/11)
   </span>
 </td>
 <td class="coverageStat">
@@ -72,10 +72,10 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    90.6%
+    90.8%
   </span>
   <span class="absValue">
-    (58/64)
+    (59/65)
   </span>
 </td>
 </tr>
@@ -96,6 +96,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import javafx.stage.Stage;
 &nbsp;import javafx.util.Duration;
 &nbsp;import seng201.nunbutblood.models.*;
+&nbsp;import seng201.nunbutblood.services.AudioService;
 &nbsp;import seng201.nunbutblood.services.MarketService;
 &nbsp;
 &nbsp;import java.util.ArrayList;
@@ -142,13 +143,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     * @param stage     the stage
 &nbsp;     * @param navigator the navigator
 &nbsp;     */
-&nbsp;    public void init(Stage stage, ScreenNavigator navigator) {
+&nbsp;    public void init(Stage stage, ScreenNavigator navigator, AudioService audioService) {
 <b class="fc">&nbsp;        this.stage = stage;</b>
 <b class="fc">&nbsp;        this.navigator = navigator;</b>
 <b class="fc">&nbsp;        setupDifficultyToggle();</b>
 <b class="fc">&nbsp;        setupSlider();</b>
 <b class="fc">&nbsp;        buildSaintsList();</b>
 <b class="fc">&nbsp;        createSaintCards();</b>
+<b class="fc">&nbsp;        audioService.playMusic(AudioService.Track.HUB);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
@@ -174,7 +176,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;     */
 &nbsp;    private void setupSlider() {
 <b class="fc">&nbsp;        expeditionSlider.valueProperty().addListener((obs, oldVal, newVal) -&gt;</b>
-<b class="nc">&nbsp;                expeditionValue.setText(String.valueOf(newVal.intValue()))</b>
+<b class="fc">&nbsp;                expeditionValue.setText(String.valueOf(newVal.intValue()))</b>
 &nbsp;        );
 &nbsp;    }
 &nbsp;
@@ -235,12 +237,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private void toggleSaintSelection(Saint clickedSaint, VBox card, Button SelectBtn) {
 &nbsp;
 &nbsp;        // Check if the current selected list of saints contains clickedSaint
-<b class="fc">&nbsp;        if (selectedSaints.contains(clickedSaint)) {</b>
+<b class="pc">&nbsp;        if (selectedSaints.contains(clickedSaint)) {</b>
 &nbsp;
 &nbsp;            // if so remove it from the list of selected saints and reset the style
-<b class="fc">&nbsp;            selectedSaints.remove(clickedSaint);</b>
-<b class="fc">&nbsp;            card.getStyleClass().remove(&quot;saint-card-active&quot;);</b>
-<b class="fc">&nbsp;            SelectBtn.setText(&quot;SELECT&quot;);</b>
+<b class="nc">&nbsp;            selectedSaints.remove(clickedSaint);</b>
+<b class="nc">&nbsp;            card.getStyleClass().remove(&quot;saint-card-active&quot;);</b>
+<b class="nc">&nbsp;            SelectBtn.setText(&quot;SELECT&quot;);</b>
 &nbsp;
 &nbsp;            // If clickedSaint is not in the selectedSaints list
 &nbsp;        } else {
@@ -275,11 +277,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="fc">&nbsp;        String name = nameField.getText().trim();</b>
 <b class="pc">&nbsp;        if (name.length() &lt; 3 || name.length() &gt; 15) {</b>
-<b class="nc">&nbsp;              AlertBox.showAlert(statusLabel, alertBox,&quot;Name must be 3-15 characters&quot;);</b>
+<b class="fc">&nbsp;              AlertBox.showAlert(statusLabel, alertBox,&quot;Name must be 3-15 characters&quot;);</b>
 &nbsp;            return;
 &nbsp;        }
-<b class="pc">&nbsp;        if (!name.matches(&quot;^[a-zA-Z0-9 ]+$&quot;)) {</b>
-<b class="nc">&nbsp;              AlertBox.showAlert(statusLabel, alertBox,&quot;Only letters, numbers and spaces allowed&quot;);</b>
+<b class="fc">&nbsp;        if (!name.matches(&quot;^[a-zA-Z0-9 ]+$&quot;)) {</b>
+<b class="fc">&nbsp;              AlertBox.showAlert(statusLabel, alertBox,&quot;Only letters, numbers and spaces allowed&quot;);</b>
 &nbsp;            return;
 &nbsp;        }
 &nbsp;
@@ -290,7 +292,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="fc">&nbsp;        int crusades = (int) expeditionSlider.getValue();</b>
 &nbsp;
-<b class="fc">&nbsp;        String difficulty = hardMode.isSelected() ? &quot;Hard&quot; : &quot;Easy&quot;;</b>
+<b class="pc">&nbsp;        String difficulty = hardMode.isSelected() ? &quot;Hard&quot; : &quot;Easy&quot;;</b>
 &nbsp;
 <b class="fc">&nbsp;        Covenant covenant = new Covenant(name, crusades, difficulty);</b>
 <b class="fc">&nbsp;        for (Saint a : selectedSaints) {</b>
@@ -325,7 +327,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2026-05-22 05:43</div>
+    <div style="float:right;">generated on 2026-05-22 14:14</div>
 </div>
 </body>
 </html>

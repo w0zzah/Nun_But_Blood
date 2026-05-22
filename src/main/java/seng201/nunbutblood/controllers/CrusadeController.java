@@ -161,6 +161,7 @@ public class CrusadeController {
         partyContainer.getChildren().clear();
         for (Saint saint : covenant.getActiveParty()) {
             Button rollBtn = new Button("ROLL");
+            rollBtn.getStyleClass().add("saint-button-fight");
             rollBtn.setDisable(saint.getCurrentSanity() < 5);
             rollBtn.setOnAction(e -> handleRoll(saint));
 
@@ -174,7 +175,7 @@ public class CrusadeController {
 
         // Next Stat type to check n set label
         rollStatType = StatType.getRandomOf(StatType.STRENGTH, StatType.WISDOM, StatType.DEXTERITY);
-        statTypeLabel.setText("NEXT ROLL TYPE:\n" + rollStatType);
+        statTypeLabel.setText(rollStatType.toString());
         crusadeProgressBar.setProgress(progress);
 
         eventLog.setText(crusadeService.getLog());

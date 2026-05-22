@@ -87,10 +87,10 @@ public class SaintCardController {
         VBox bars = new VBox(3);
         bars.getStyleClass().add("stat-bars");
         bars.getChildren().addAll(
-                buildStatRow("STR", saint.getStrength(), saint.getStatType().equals("STR"), "#711313", isCompact),
-                buildStatRow("WIS", saint.getWisdom(), saint.getStatType().equals("WIS"), "#235E7F", isCompact),
-                buildStatRow("DEX", saint.getDexterity(), saint.getStatType().equals("DEX"), "#24551D", isCompact),
-                buildStatRow("SAN", saint.getCurrentSanity(), saint.getStatType().equals("STA"), "#4500AD", isCompact)
+                buildStatRow("STR", saint.getStrength(), saint.getStatType().equals("STR"), "#790202", isCompact),
+                buildStatRow("WIS", saint.getWisdom(), saint.getStatType().equals("WIS"), "#530000", isCompact),
+                buildStatRow("DEX", saint.getDexterity(), saint.getStatType().equals("DEX"), "#310001", isCompact),
+                buildStatRow("SAN", saint.getCurrentSanity(), saint.getStatType().equals("STA"), "#230103", isCompact)
                 );
         return bars;
     }

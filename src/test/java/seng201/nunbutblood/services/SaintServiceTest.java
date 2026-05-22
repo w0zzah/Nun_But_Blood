@@ -2,10 +2,7 @@ package seng201.nunbutblood.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seng201.nunbutblood.models.Executioner;
-import seng201.nunbutblood.models.Oracle;
-import seng201.nunbutblood.models.Inquisitor;
-import seng201.nunbutblood.models.Saint;
+import seng201.nunbutblood.models.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -184,5 +181,11 @@ class SaintServiceTest {
     @Test
     void allSaintsExhaustedReturnsTrueWhenNoSaints() {
         assertTrue(saintService.allSaintsExhausted());
+    }
+
+    @Test
+    void applyStatTest() {
+        Saint.applyStat(saint1, StatType.DEXTERITY, 3);
+        assertEquals(8, saint1.getDexterity());
     }
 }

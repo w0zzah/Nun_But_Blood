@@ -261,7 +261,7 @@ public class Covenant {
     }
 
     /**
-     * Adds an item to the inventory.
+     * Add item.
      *
      * @param item Item to add
      */
