@@ -85,7 +85,7 @@
       </VBox>
       <VBox fx:id="entryBox" alignment="CENTER" onKeyPressed="#enter" prefHeight="940.0" prefWidth="1920.0" style="-fx-border-image-width: 150; -fx-background-image: url(&quot;/images/background/InitiaBackground.png&quot;); -fx-background-size: stretch;" styleClass="cybersigil-border">
          <children>
-            <Label style="-fx-font-size: 200;" styleClass="title-label" text="NUN' BUT BLOOD" />
+            <Label style="-fx-font-size: 200; -fx-text-fill: -crimson; -fx-effect: -fx-effect: dropshadow(gaussian, -darkcrimson, 8, 0.4, 0, 0);;" styleClass="title-label" text="NUN' BUT BLOOD" />
             <Button fx:id="enter" mnemonicParsing="false" onAction="#enter" style="-fx-font-size: 50; -fx-background-color: -fx-background-color: radial-gradient(center 50% 50%, radius 200%, rgba(0, 0, 0, 0.32), #000000);;" styleClass="button-drop" text="✟ ESTABLISH THE COVEN ✟">
                <VBox.margin>
                   <Insets top="20.0" />

@@ -12,19 +12,19 @@ public enum ItemCatalog {
      * The Blood vial.
      */
     BLOOD_VIAL("Blood Vial", Item.ItemType.CONSUMABLE, StatType.STRENGTH, 4, 75,
-            "Thick, vital fluid that causes a burst of unholy power.", "bloodVial.png"),
+            "Blood is a life, Mr. Harker...", "bloodVial.png"),
 
     /**
-     * The Calcified heart.
+     * The Skull candle.
      */
-    CALCIFIED_HEART("Calcified Heart", Item.ItemType.CONSUMABLE, StatType.SANITY, 8, 125,
-            "A petrified heart that temporarily numbs terror.", "calcifiedHeart.png"),
+    SKULL_CANDLE("Skull Candle", Item.ItemType.CONSUMABLE, StatType.DEXTERITY, 3, 300,
+            "WARNING! NOT FOR USE IN THE BEDROOM", "skullCandle.png"),
 
     /**
      * The Eye candy.
      */
     EYE_CANDY("Eye Candy", Item.ItemType.CONSUMABLE, StatType.WISDOM, 5, 100,
-            "A vibrant sweet that allows the consumer to spot hidden blessings.", "eyeCandy.png"),
+            "Careful! It's watching...", "eyeCandy.png"),
 
     /**
      * The Flambe stew.
@@ -36,39 +36,40 @@ public enum ItemCatalog {
      * The Shriek juice.
      */
     SHRIEK_JUICE("Shriek Juice", Item.ItemType.CONSUMABLE, StatType.STRENGTH, 4, 90,
-            "An agonizing brew that forces the mind to perceive cosmic echoes.", "shriekJuice.png"),
+            "SIDE EFFECTS: Prolonged screaming, MAIN EFFECTS: TBD", "shriekJuice.png"),
 
 // --- EQUIPMENT ---
 
     /**
      * The Circlet.
      */
-    CIRCLET("Sacred Circlet", Item.ItemType.EQUIPMENT, StatType.WISDOM, 3, 250,
+    CIRCLET("Sacred Circlet", Item.ItemType.EQUIPMENT, StatType.DEXTERITY, 3, 250,
             "A woven headband that focuses divine thoughts permanently.", "circlet.png"),
+
+    /**
+     * The Calcified heart.
+     */
+    CALCIFIED_HEART("Calcified Heart", Item.ItemType.EQUIPMENT, StatType.SANITY, 10, 750,
+            "My dear Percy...", "calcifiedHeart.png"),
 
     /**
      * The Prayer tome.
      */
-    PRAYER_TOME("Prayer Tome", Item.ItemType.EQUIPMENT, StatType.SANITY, 12, 600,
-            "A well-worn scripture providing permanent spiritual resilience.", "prayerTome.png"),
+    PRAYER_TOME("Necromancy Grimoire", Item.ItemType.EQUIPMENT, StatType.STRENGTH, 12, 600,
+            "Raising a family is hard...if they aren't buried close together...", "prayerTome.png"),
 
-    /**
-     * The Skull candle.
-     */
-    SKULL_CANDLE("Skull Candle", Item.ItemType.EQUIPMENT, StatType.DEXTERITY, 3, 300,
-            "Its eerie flickering flame uncovers secret artifacts in the dark.", "skullCandle.png"),
 
     /**
      * The Tome.
      */
     TOME("Ancient Tome", Item.ItemType.EQUIPMENT, StatType.WISDOM, 5, 500,
-            "Heavy text detailing lost defensive incantations.", "tome.png"),
+            "Link to WikiHow, utilised in the creation of the pyramids", "tome.png"),
 
     /**
      * The VooDool.
      */
-    VOO_DOOL("Voodoo Doll", Item.ItemType.EQUIPMENT, StatType.STRENGTH, 3, 350,
-            "A cursed doll whose needles redirect physical pain back outward.", "vooDool.png"),
+    VOO_DOOL("Charged Doll", Item.ItemType.EQUIPMENT, StatType.WISDOM, 3, 350,
+            "IT'S ALIVE!!! And quite intelligent, too!", "vooDool.png"),
     ;
 
 

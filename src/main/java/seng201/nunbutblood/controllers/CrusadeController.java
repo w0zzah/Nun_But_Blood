@@ -83,20 +83,22 @@ public class CrusadeController {
         this.audioService = audioService;
         this.midCrusadeEvents = new MidCrusadeEvents();
 
+        // FIXED: Pass the local audioService variable instead of querying the navigator
         this.diceAnimation = new DiceRollAnimation(
                 diceBox,
                 diceLabel,
                 outcomeLabel,
-                navigator.getAudioService(),
+                audioService,
                 bonus
         );
+
+        // Stop previous menu track and change over to the intense crusade theme
         audioService.stopMusic();
         audioService.playMusic(AudioService.Track.CRUSADE);
+
         setupDemonDisplay();
-        giveUp();
         refreshUI();
     }
-
     private void setupDemonDisplay() {
         Button emptyDemonButton = new Button("");
         VBox card = DemonCardController.buildDemonCard(currentDemon, emptyDemonButton, false);

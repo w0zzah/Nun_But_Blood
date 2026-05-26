@@ -8,10 +8,15 @@ import java.util.Random;
 
 /**
  * Handles picking and executing random text choices/events during a crusade.
+ * Infused with classic Gothic literature themes, dark romanticism, and macabre lore.
  */
 public class MidCrusadeEvents {
 
     private final Random random = new Random();
+
+    // Cooldown duration in milliseconds (e.g., 2000 ms = 2 seconds)
+    private static final long COOLDOWN_MS = 2000;
+    private long lastAppliedTime = 0;
 
     /**
      * Data outcome of a single choice.
@@ -39,129 +44,99 @@ public class MidCrusadeEvents {
      */
     public Event getRandomEvent(List<Saint> activeParty) {
 
-        // Possiblity for same
+        // Possibility for same target tracking
         Saint target = activeParty.get(random.nextInt(activeParty.size()));
         Saint target2 = activeParty.get(random.nextInt(activeParty.size()));
 
         return switch (random.nextInt(15)) {
             case 0 -> new Event(
-                    "A weeping stone statue of the Martyr bleeds warm blood. Do you drink it or pray?",
-                    // Choice A (Positive Faith)
-                    new Choice(String.format("%s drinks the tears, feeling an unholy fervor.", target, StatType.WISDOM), StatType.WISDOM, 3, target),
-                    // Choice B (Negative Sanity)
-                    new Choice(String.format("%s kneels to pray, but the whispers break their mind", target2, StatType.SANITY), StatType.SANITY, -2, target2)
+                    "An ancient, pallid nobleman offers a dark toast: 'The blood is the life, and it shall be yours.' Do you drink?",
+                    new Choice(String.format("%s drinks deeply, embracing a profound, unholy clarity.", target.getName(), StatType.WISDOM), StatType.WISDOM, 2, target),
+                    new Choice(String.format("%s recoils in horror, but the carnal temptation shatters their peace of mind.", target2.getName(), StatType.SANITY), StatType.SANITY, -5, target2)
             );
 
             case 1 -> new Event(
-                    "The cathedral's iron-wrought bell begins to toll on its own, vibrating through your bones.",
-                    // Choice A (Negative Strength)
-                    new Choice(String.format("%s tries to steady the heavy rope, straining a muscle", target, StatType.STRENGTH), StatType.STRENGTH, -2, target),
-                    // Choice B (Positive Intellect)
-                    new Choice(String.format("%s deciphers the rhythmic tolls as a hidden warning", target2, StatType.DEXTERITY), StatType.DEXTERITY, 2, target2)
+                    "A lightning strike illuminates an operating table where a stitched monstrosity stirs. 'Did I request thee, Maker, from my clay to mould me man?'",
+                    new Choice(String.format("%s rushes to sever the galvanic conductors, tearing a tendon.", target.getName(), StatType.STRENGTH), StatType.STRENGTH, -2, target),
+                    new Choice(String.format("%s studies the spark of life, deciphering forbidden anatomical secrets.", target2.getName(), StatType.DEXTERITY), StatType.DEXTERITY, 2, target2)
             );
 
             case 2 -> new Event(
-                    "A flock of plague-ridden ravens bursts from the confessional box!",
-                    // Choice A (Positive Dexterity)
-                    new Choice(String.format("%s swats them away with lightning reflexes", target, StatType.DEXTERITY), StatType.DEXTERITY, 2, target),
-                    // Choice B (Negative Faith)
-                    new Choice(String.format("%s views this as an omen of abandonment, losing hope", target2, StatType.WISDOM), StatType.WISDOM, -3, target2)
+                    "A grim, ungainly raven perches upon a bust of Pallas just above the cloister door, croaking a low 'Nevermore'.",
+                    new Choice(String.format("%s hurls a heavy thurible, driving the dark fiend away with sharp precision.", target.getName(), StatType.DEXTERITY), StatType.DEXTERITY, 2, target),
+                    new Choice(String.format("%s listens too closely to the prophetic bird, sliding into deep despair.", target2.getName(), StatType.WISDOM), StatType.WISDOM, -3, target2)
             );
 
             case 3 -> new Event(
-                    "The Sister Superior's ghost wanders the cloister, clutching a razor-sharp rosary.",
-                    // Choice A (Positive Strength)
-                    new Choice(String.format("%s wrestles the relic from her spectral grasp!", target, StatType.STRENGTH), StatType.STRENGTH, 2, target),
-                    // Choice B (Negative Sanity)
-                    new Choice(String.format("%s locks eyes with her hollow sockets and freezes in horror", target2, StatType.SANITY), StatType.SANITY, -3, target2)
+                    "A ghostly hand scratches at the ice-coated lattice window, a voice weeping: 'Let me in! I'm come home!'",
+                    new Choice(String.format("%s shatters the window frame and forces the weeping specter back into the moors.", target.getName(), StatType.STRENGTH), StatType.STRENGTH, 2, target),
+                    new Choice(String.format("%s stares into the hollow, frozen eyes of Catherine's ghost and freezes in raw terror.", target2.getName(), StatType.SANITY), StatType.SANITY, -3, target2)
             );
 
             case 4 -> new Event(
-                    "The catacomb floor collapses, revealing a pit of bones and ancient texts.",
-                    // Choice A (Negative Dexterity)
-                    new Choice(String.format("%s slips on the unstable shale and falls hard", target, StatType.DEXTERITY), StatType.DEXTERITY, -2, target),
-                    // Choice B (Positive Intellect)
-                    new Choice(String.format("%s unearths a lost liturgical manuscript from the debris", target2, StatType.DEXTERITY), StatType.DEXTERITY, 3, target2)
+                    "You discover an elegant, silk-lined velvet coffin surrounded by withered black roses and handwritten love poetry.",
+                    new Choice(String.format("%s slips on the slick, unholy oils pooled near the base and falls hard.", target.getName(), StatType.DEXTERITY), StatType.DEXTERITY, -2, target),
+                    new Choice(String.format("%s translates the tragic, romantic verses, unearthing hidden artistic insights.", target2.getName(), StatType.DEXTERITY), StatType.DEXTERITY, 3, target2)
             );
 
             case 5 -> new Event(
-                    "A massive stained-glass window shatters inward under the weight of a gargoyle!",
-                    // Choice A (Negative Strength)
-                    new Choice(String.format("%s shields the group from falling shards, taking a heavy hit", target, StatType.STRENGTH), StatType.STRENGTH, -3, target),
-                    // Choice B (Positive Dexterity)
-                    new Choice(String.format("%s gracefully ducks beneath the flying glass", target2, StatType.DEXTERITY), StatType.DEXTERITY, 2, target2)
+                    "High up in the shadows, a heavy stone gargoyle detaches from the vaulted ceiling, falling directly toward the group!",
+                    new Choice(String.format("%s throws themselves under the masonry to save the squad, taking a crushing blow.", target.getName(), StatType.STRENGTH), StatType.STRENGTH, -3, target),
+                    new Choice(String.format("%s reads the shifting shadows instantly and dodges the plummeting rock.", target2.getName(), StatType.DEXTERITY), StatType.DEXTERITY, 2, target2)
             );
 
             case 6 -> new Event(
-                    "You discover a hidden spiked discipline belt (scourge) inside a hollowed-out bible.",
-                    // Choice A (Positive Faith)
-                    new Choice(String.format("%s accepts the penance, hardening their resolve", target, StatType.WISDOM), StatType.WISDOM, 3, target),
-                    // Choice B (Negative Strength)
-                    new Choice(String.format("%s tries to disarm the trap but cuts their hands deeply", target2, StatType.STRENGTH), StatType.STRENGTH, -2, target2)
+                    "Behind a heavy velvet curtain hangs a hidden portrait. The painted face is twisted in a cruel, decaying sneer, though you remain unscathed.",
+                    new Choice(String.format("%s gazes upon the portrait's sins, hardening their own spiritual resolve.", target.getName(), StatType.WISDOM), StatType.WISDOM, 3, target),
+                    new Choice(String.format("%s tries to slash the cursed canvas but cuts their hands on splintered glass.", target2.getName(), StatType.STRENGTH), StatType.STRENGTH, -2, target2)
             );
 
             case 7 -> new Event(
-                    "The shadows in the scriptorium begin to twist and mimic your movements.",
-                    // Choice A (Positive Sanity)
-                    new Choice(String.format("%s blankly stares them down, mastering their fear", target, StatType.SANITY), StatType.SANITY, 2, target),
-                    // Choice B (Negative Intellect)
-                    new Choice(String.format("%s tries to logically comprehend the darkness and gets a migraine", target2, StatType.DEXTERITY), StatType.DEXTERITY, -2, target2)
+                    "The shadows across the stone floor divide into two distinct shapes: a pious scholar and a brutal, primitive beast.",
+                    new Choice(String.format("%s accepts their internal duality, mastering the creeping psychological horror.", target.getName(), StatType.SANITY), StatType.SANITY, 2, target),
+                    new Choice(String.format("%s tries to logically separate the light from the dark, inducing a piercing migraine.", target2.getName(), StatType.DEXTERITY), StatType.DEXTERITY, -2, target2)
             );
 
             case 8 -> new Event(
-                    "An altar candle suddenly blazes with an eerie, blinding violet flame.",
-                    // Choice A (Positive Intellect)
-                    new Choice(String.format("%s recognizes the alchemical property of the flame", target, StatType.DEXTERITY), StatType.DEXTERITY, 2, target),
-                    // Choice B (Negative Faith)
-                    new Choice(String.format("%s fears it is witchery, doubting the chapel's sanctity", target2, StatType.WISDOM), StatType.WISDOM, -2, target2)
+                    "Deep within the dark woods, an altar candle suddenly flares with an unholy, brilliant violet flame.",
+                    new Choice(String.format("%s recognizes the specific alchemical properties of the occult flame.", target.getName(), StatType.DEXTERITY), StatType.DEXTERITY, 2, target),
+                    new Choice(String.format("%s fears they have stumbled into a devilish coven, doubting their divine calling.", target2.getName(), StatType.WISDOM), StatType.WISDOM, -2, target2)
             );
 
             case 9 -> new Event(
-                    "The crypt is flooding with corrupted holy water that smells of sulfur.",
-                    // Choice A (Negative Dexterity)
-                    new Choice(String.format("%s splashes frantically, wading through the thick muck", target, StatType.DEXTERITY), StatType.DEXTERITY, -2, target),
-                    // Choice B (Positive Faith)
-                    new Choice(String.format("%s purifies the water with a desperate, fierce prayer", target2, StatType.WISDOM), StatType.WISDOM, 3, target2)
+                    "A manic, mocking laughter echoes down from a locked attic room, followed by the smell of smoke and kindling.",
+                    new Choice(String.format("%s fumbles blindly through the thick smoke, coughing violently.", target.getName(), StatType.DEXTERITY), StatType.DEXTERITY, -2, target),
+                    new Choice(String.format("%s dampens the raging flames with a fierce, unwavering prayer.", target2.getName(), StatType.WISDOM), StatType.WISDOM, 3, target2)
             );
 
             case 10 -> new Event(
-                    "A swarm of locusts pours out of the grand organ pipes.",
-                    // Choice A (Positive Strength)
-                    new Choice(String.format("%s slams the organ lid shut with brute force", target, StatType.STRENGTH), StatType.STRENGTH, 2, target),
-                    // Choice B (Negative Sanity)
-                    new Choice(String.format("%s is covered in the biting insects and panics", target2, StatType.SANITY), StatType.SANITY, -3, target2)
+                    "The grand pipe organ begins to play a droning, melancholic melody on its own, its chords singing of bat wings and theater capes.",
+                    new Choice(String.format("%s slams the heavy wooden keyboard cover down, silencing the dark anthem.", target.getName(), StatType.STRENGTH), StatType.STRENGTH, 2, target),
+                    new Choice(String.format("%s falls into a deep, paralyzing existential gloom from the bleak arrangement.", target2.getName(), StatType.SANITY), StatType.SANITY, -3, target2)
             );
 
             case 11 -> new Event(
-                    "A dying heretic offers you a forbidden black book before his last breath.",
-                    // Choice A (Positive Intellect)
-                    new Choice(String.format("%s reads the texts, gaining dark, forbidden knowledge", target, StatType.DEXTERITY), StatType.DEXTERITY, 3, target),
-                    // Choice B (Negative Faith)
-                    new Choice(String.format("%s burns it, but the heretic's curses weaken their soul", target2, StatType.WISDOM), StatType.WISDOM, -2, target2)
+                    "An enchanting lady clad in a trailing morning-dress emerges from a carriage, offering a velvet-bound book of secrets.",
+                    new Choice(String.format("%s opens the forbidden text, absorbing dark, hypnotic literature.", target.getName(), StatType.DEXTERITY), StatType.DEXTERITY, 3, target),
+                    new Choice(String.format("%s burns the unholy text, but her parting, melancholy curse saps their soul.", target2.getName(), StatType.WISDOM), StatType.WISDOM, -2, target2)
             );
 
             case 12 -> new Event(
-                    "The heavy iron abbey doors begin to slide shut, threatening to trap you forever.",
-                    // Choice A (Positive Dexterity)
-                    new Choice(String.format("%s slides underneath the closing door just in time!", target, StatType.DEXTERITY), StatType.DEXTERITY, 3, target),
-                    // Choice B (Negative Strength)
-                    new Choice(String.format("%s tries to hold it open but gets their arm crushed", target2, StatType.STRENGTH), StatType.STRENGTH, -3, target2)
+                    "The iron gates of the crumbling Italian castle begin to drop rapidly, threatening to lock you in the dungeon forever.",
+                    new Choice(String.format("%s performs a desperate, swift slide beneath the iron spikes.", target.getName(), StatType.DEXTERITY), StatType.DEXTERITY, 3, target),
+                    new Choice(String.format("%s attempts to hold the dropping portcullis, severely crushing their arm bones.", target2.getName(), StatType.STRENGTH), StatType.STRENGTH, -3, target2)
             );
 
             case 13 -> new Event(
-                    "You find a pristine white habit among charred ruins.",
-                    // Choice A (Positive Sanity)
-                    new Choice(String.format("%s puts it on, feeling a sense of clean renewal", target, StatType.SANITY), StatType.SANITY, 2, target),
-                    // Choice B (Negative Dexterity)
-                    new Choice(String.format("%s trips over the long, heavy ceremonial fabric", target2, StatType.DEXTERITY), StatType.DEXTERITY, -1, target2)
+                    "You uncover a pristine, silk embroidered habit hidden inside a soot-stained, sacrilegious chamber.",
+                    new Choice(String.format("%s puts on the solemn robes, feeling a dark, aesthetic transfiguration.", target.getName(), StatType.SANITY), StatType.SANITY, 2, target),
+                    new Choice(String.format("%s trips over the excessively long, dramatic velvet train of the garment.", target2.getName(), StatType.DEXTERITY), StatType.DEXTERITY, -1, target2)
             );
 
             case 14 -> new Event(
-                    "A demonic entity mimics the voice of a missing Sister, calling from the well.",
-                    // Choice A (Positive Faith)
-                    new Choice(String.format("%s rebukes the demon with an unshakeable hymn", target, StatType.WISDOM), StatType.WISDOM, 2, target),
-                    // Choice B (Negative Sanity)
-                    new Choice(String.format("%s leans in too close, haunted by the whispers", target2, StatType.SANITY), StatType.SANITY, -3, target2)
+                    "Sly, rat-faced merchant creatures call out from a dark glen: 'Come buy our orchard fruits, sweet to tongue and sharp to tooth!'",
+                    new Choice(String.format("%s chants an unshakeable, pure hymn to drive the tempters back into the bushes.", target.getName(), StatType.WISDOM), StatType.WISDOM, 2, target),
+                    new Choice(String.format("%s tastes a single toxic blackberry, forever haunted by an insatiable hunger.", target2.getName(), StatType.SANITY), StatType.SANITY, -3, target2)
             );
 
             default -> null;
@@ -169,19 +144,24 @@ public class MidCrusadeEvents {
     }
 
     /**
-     * Mutates the targeted saint's stats based on the chosen option.
-     *
      * @param party the active squad list
      * @param choice the selection made by the player
-     * @return summary text describing the exact change
+     * @return summary text describing the exact change, or a cooldown warning if spammed
      */
     public String applyChoice(List<Saint> party, Choice choice) {
+        long currentTime = System.currentTimeMillis();
+
+        if (currentTime - lastAppliedTime < COOLDOWN_MS) {
+            return "The shadows remain unmoved. Rest your weary fingers for a moment.";
+        }
+
+        lastAppliedTime = currentTime;
 
         applyStat(choice.saint, choice.stat(), choice.amount());
 
         String changeText = choice.amount() > 0 ? "+" + choice.amount() : String.valueOf(choice.amount());
 
-        return choice.saint.getName() + "'s " + choice.stat().label + " changed by " + changeText + ".";
+        return choice.saint.getName() + "'s " + choice.stat().label + " shifted by " + changeText + " in the gloom.";
     }
 
     private void applyStat(Saint saint, StatType stat, int amount) {

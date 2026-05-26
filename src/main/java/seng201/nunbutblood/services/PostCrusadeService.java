@@ -19,9 +19,19 @@ public class PostCrusadeService {
     /** Difficulty increase for probability **/
     private static final double HARD_BONUS = 0.20;
 
-    /** Skill's that can be learned after battle. */
+    /** Skills/Events that can be processed after a battle with explicit items mapped. */
     private static final String[] SKILLS = {
-            "Holy Blessing", "Devout Survivor"
+            "Collect the tithe (+300 faith)",
+            "The Dead travel fast (+Blood Vial)",
+            "Mary's Treasure (+Calcified Heart)",
+            "Grave Robber's Delight (+Skull Candle)",
+            "Visionary Guidance (+Eye Candy)",
+            "Kitchen Duty (+Flambé Stew)",
+            "Banshee's Echo (+Shriek Juice)",
+            "Coronation (+Sacred Circlet)",
+            "Forbidden Knowledge (+Necromancy Grimoire)",
+            "Ancient Research (+Ancient Tome)",
+            "Witchcraft Whispers (+Charged Doll)"
     };
 
     /** Random number generator utilized for evaluation of event checks. */
@@ -39,7 +49,6 @@ public class PostCrusadeService {
     public PostCrusadeService(String difficulty) {
         this.random = new Random();
         this.hardMode = "Hard".equals(difficulty);
-
     }
 
     /**
@@ -57,60 +66,28 @@ public class PostCrusadeService {
         if (activeParty.isEmpty()) return events;
         double chance = BASE_EVENT_CHANCE + (hardMode ? HARD_BONUS : 0);
 
-        /**
-         * Change a random stat of the Saint
-         */
-        if (random.nextDouble() < chance) {
-            // Pick random saint
-            Saint target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));
-
-            // set the change to either +3 or -2
-            int change = random.nextBoolean() ? 3 : -2;
-
-            StatType[] stats = StatType.values();
-            StatType randomStat = stats[random.nextInt(stats.length)];
-
-            switch (randomStat) {
-                case STRENGTH   -> target.changeStrength(change);
-                case WISDOM     -> target.changeWisdom(change);
-                case DEXTERITY  -> target.changeDexterity(change);
-                case SANITY     -> target.changeMaxSanity(change);
-                case PERCEPTION -> target.changePerception(change);
-            }
-
-            String direction = change > 0 ? "gained" : "lost";
-            String type = change > 0 ? "divine" : "cursed";
-
-            events.add(String.format("%s %s %d %s from a %s event",
-                    target.getName(), direction, Math.abs(change), randomStat.key, type));
-        }
-
-
         if (random.nextDouble() < chance * 0.5) {
             Saint target = activeParty.get(random.nextInt(covenant.getActiveParty().size()));
             if (target.getSpecialAbility().isEmpty()) {
                 String skill = SKILLS[random.nextInt(SKILLS.length)];
+
                 switch (skill) {
-                    case "Holy Blessing" -> covenant.addFaith(300);
-                    case "Devout Survivor" -> covenant.addItem(ItemCatalog.BLOOD_VIAL.create());
+                    case "Collect the tithe (+300 faith)" -> covenant.addFaith(300);
+                    case "The Dead travel fast (+Blood Vial)" -> covenant.addItem(ItemCatalog.BLOOD_VIAL.create());
+                    case "Mary's Treasure (+Calcified Heart)" -> covenant.addItem(ItemCatalog.CALCIFIED_HEART.create());
+                    case "Grave Robber's Delight (+Skull Candle)" -> covenant.addItem(ItemCatalog.SKULL_CANDLE.create());
+                    case "Visionary Guidance (+Eye Candy)" -> covenant.addItem(ItemCatalog.EYE_CANDY.create());
+                    case "Kitchen Duty (+Flambé Stew)" -> covenant.addItem(ItemCatalog.FLAMBE_STEW.create());
+                    case "Banshee's Echo (+Shriek Juice)" -> covenant.addItem(ItemCatalog.SHRIEK_JUICE.create());
+                    case "Coronation (+Sacred Circlet)" -> covenant.addItem(ItemCatalog.CIRCLET.create());
+                    case "Forbidden Knowledge (+Necromancy Grimoire)" -> covenant.addItem(ItemCatalog.PRAYER_TOME.create());
+                    case "Ancient Research (+Ancient Tome)" -> covenant.addItem(ItemCatalog.TOME.create());
+                    case "Witchcraft Whispers (+Charged Doll)" -> covenant.addItem(ItemCatalog.VOO_DOOL.create());
                 }
-                events.add(String.format("%s has Channeled the ability, %s", target, skill));
+
+                events.add(String.format("%s has Channeled the ability, %s", target.getName(), skill));
             }
         }
-
-        if (covenant.getActiveParty().size() > 1) {
-            for (Saint saint : activeParty) {
-                double retireChance = 0.02 + (saint.getCrusadeCount() * 0.03);
-                if (random.nextDouble() < retireChance) {
-                    covenant.retireSaint(saint);
-                    events.add(String.format("%s has retired, a humble end for our hero...", saint.getName()));
-                    break;
-                }
-            }
-        }
-
         return events;
     }
-
-
 }

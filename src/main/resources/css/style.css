@@ -8,12 +8,11 @@
 
 @font-face {
     font-family: 'Angel Wish';
-url('fonts/Angel Wish/AngelWish.ttf') format('truetype');
+    src: url('../fonts/Angel-wish.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
-
 
 /**------------------------------------- ALL BACKGROUND AND ROOTS -------------------------------------*/
 .root {
